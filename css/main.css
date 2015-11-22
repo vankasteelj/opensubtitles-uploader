@@ -1,0 +1,285 @@
+/*
+ * MAIN-TITLE
+ */
+#main-title {
+    width: 700px;
+    height: 60px;
+    margin: 0 auto;
+}
+.app-title {
+    font-weight: 800;
+    color: #333;
+    text-align: center;
+}
+.app-version, .app-author {
+    font-size: 10px;
+    color: #555;
+    margin-top: -10px;
+    float: right;
+}
+.app-author a {
+    color: #728CA6;
+    text-decoration: none;
+}
+
+#main-title img {
+    width: 40px;
+    position: absolute;
+    margin-left: -45px;
+    margin-top: -6px;
+}
+
+/*
+ * MAIN-BUTTONS
+ */
+
+#main-buttons {
+    width: 900px;
+    margin: 0 auto 10px auto;
+    position: relative;
+    height: 38px;
+}
+
+
+/* Upload */
+
+#button-upload {
+    width: 90px;
+    float: left;
+}
+
+
+/* Login */
+
+#authentication {
+    margin-top: 10px;
+    float: right;
+}
+
+#login-username {
+    float: left;
+}
+
+#login-password {
+    float: left;
+}
+
+#button-login,
+#button-logout {
+    float: left;
+}
+
+#logged-as {
+    font-size: 14px;
+    float: left;
+    margin-top: 2px;
+    color: #666;
+}
+
+#authentication input,
+#authentication div {
+    margin-left: 8px;
+}
+
+#authentication input {
+    height: 18px;
+    width: 150px;
+    text-align: center;
+}
+
+
+/*
+ * SECTIONS
+ */
+
+.section-file {
+    border: 1px dashed #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    width: 900px;
+    margin: 5px auto 10px auto;
+}
+
+.input-line {
+    height: 30px;
+}
+
+.input-line .input-file {
+    position: absolute;
+}
+
+.input-input {
+    height: 29px;
+    font-size: 15px;
+    width: 45%;
+    float: left;
+    margin-right: 5px;
+    margin-left: 140px;
+    text-align: center;
+}
+
+.section-file .button {
+    width: 60px;
+    padding: 7px 10px;
+    float: left;
+    font-size: 15px;
+}
+
+.section-file span {
+    font-size: 18px;
+    float: left;
+    margin-top: 6px;
+    margin-right: 60px;
+}
+
+.metadata {
+    margin: 50px 50px 0px 50px;
+    ;
+    width: 750px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    height: 100px;
+}
+
+.metadata .title {
+    font-size: 11px;
+    font-weight: 600;
+    border: 1px solid #ddd;
+    border-bottom: 0px;
+    padding: 2px;
+    margin-top: -27px;
+}
+
+span.special-required {
+    color: red;
+    font-size: 10px;
+    width: 50px;
+    margin-left: 715px;
+}
+
+.metadata .content .metaitem {
+    margin: 2px;
+}
+
+.metadata .content .metaitem span {
+    font-size: 12px;
+    margin-top: 2px;
+    position: absolute;
+}
+
+.metadata .content .metaitem input {
+    margin-left: 100px;
+    text-align: right;
+    color: #444;
+}
+
+.metadata .content .metaitem .required {
+    margin: 5px 1px 0px 93px;
+    color: red;
+}
+
+.col-left {
+    float: left;
+}
+
+.col-right {
+    float: right;
+}
+
+.col-both {
+    clear: both;
+    padding-top: 8px
+}
+
+.col-both input {
+    width: 646px;
+}
+
+
+/*
+ * SECTION: VIDEO
+ */
+
+#main-video .special-required {
+    margin-top: 9px;
+}
+
+
+/*
+ * SECTION: SUBTITLE
+ */
+
+#main-subtitle .col-right input {
+    margin-right: 150px;
+}
+
+#main-subtitle .special-required {
+    margin-top: 19px;
+}
+
+
+/*
+ * GENERAL
+ */
+
+body {
+    font-family: sans-serif;
+}
+
+.button {
+    position: relative;
+    cursor: pointer;
+    transition: all .3s;
+    text-align: center;
+}
+
+.dominant {
+    background: #2A4D6E;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 8px 20px;
+}
+
+.dominant:hover {
+    background: #133353;
+}
+
+.light {
+    background: #4A6B8A;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 200;
+    padding: 2px 15px;
+}
+
+.light:hover {
+    background: #2A4D6E;
+}
+
+input {
+    background: #e0e0e0;
+    border: 0;
+}
+
+::-webkit-input-placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+::-moz-placeholder {
+    color: #aaa;
+    font-style: italic;
+    opacity: 1;
+}
+
+:-moz-placeholder {
+    color: #aaa;
+    font-style: italic;
+    opacity: 1;
+}
+
+:-ms-input-placeholder {
+    color: #aaa;
+    font-style: italic;
+}

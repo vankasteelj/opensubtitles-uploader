@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>OpenSubtitles Uploader</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+
+<body>
+    <section id="main-title">
+        <div class="app-title"><img src="images/os-icon.png"></img>OpenSubtitles Uploader</div>
+        <div class="app-author">- developped by <a href="https://github.com/vankasteelj">vankasteelj</a></div>
+        <div class="app-version">v0.0.1</div>
+    </section>
+
+    <section id="main-buttons">
+
+        <div id="button-upload" class="button dominant">Upload</div>
+
+        <div id="authentication">
+            <div id="logged" style="display:none">
+                <div id="logged-as">Logged in as %username%</div>
+                <div id="button-logout" class="button light">Log out</div>
+            </div>
+            <div id="not-logged" style="display:block">
+                <input id="login-username" type="text" placeholder="username"></input>
+                <input id="login-password" type="password" placeholder="password"></input>
+                <div id="button-login" class="button light">Login</div>
+            </div>
+        </div>
+
+    </section>
+
+    <section id="main-video" class="section-file">
+
+        <div class="input-line">
+            <span class="input-file">Video file</span>
+            <input id="video-file-path" class="input-input" type="text" placeholder="Drop a video file or select one"></input>
+            <div id="video-browser" class="button light">browse</div>
+        </div>
+
+        <div class="metadata" style="display:none">
+            <span class="title">Metadata</span>
+            <div class="content col-left">
+                <div class="metaitem">
+                    <span>File name</span>
+                    <span class="required">*</span>
+                    <input id="moviefilename" type="text" readonly></input>
+                </div>
+                <div class="metaitem">
+                    <span>OSDb Hash</span>
+                    <span class="required">*</span>
+                    <input id="moviehash" type="text" readonly></input>
+                </div>
+                <div class="metaitem">
+                    <span>Size (in bytes)</span>
+                    <span class="required">*</span>
+                    <input id="moviebytesize" type="text" readonly></input>
+                </div>
+                <div class="metaitem">
+                    <span>IMDB id</span>
+                    <span class="required">*</span>
+                    <input id="movieimdbid" type="text"></input>
+                </div>
+                <div class="metaitem">
+                    <span>High definition</span>
+                    <input id="highdefinition" type="checkbox"></input>
+                </div>
+            </div>
+
+            <div class="content col-right">
+                <div class="metaitem">
+                    <span>Movie AKA</span>
+                    <input id="movieaka" type="text"></input>
+                </div>
+                <div class="metaitem">
+                    <span>Release name</span>
+                    <input id="moviereleasename" type="text"></input>
+                </div>
+                <div class="metaitem">
+                    <span>FPS</span>
+                    <input id="moviefps" type="text"></input>
+                </div>
+                <div class="metaitem">
+                    <span>Total time (in ms)</span>
+                    <input id="movietimems" type="text"></input>
+                </div>
+                <div class="metaitem">
+                    <span>Number of frames</span>
+                    <input id="movieframes" type="text"></input>
+                </div>
+            </div>
+            <span class="special-required">* required</span>
+        </div>
+    </section>
+
+    <section id="main-subtitle" class="section-file">
+
+        <div class="input-line">
+            <span class="input-file">Subtitle file</span>
+            <input id="subtitle-file-path" class="input-input" type="text" placeholder="Drop a subtitle file or select one"></input>
+            <div id="subtitle-browser" class="button light">browse</div>
+        </div>
+
+        <div class="metadata" style="display:none">
+            <span class="title">Metadata</span>
+            <div class="content col-left">
+                <div class="metaitem">
+                    <span>File name</span>
+                    <span class="required">*</span>
+                    <input id="subfilename" type="text" readonly></input>
+                </div>
+                <div class="metaitem">
+                    <span>MD5 Hash</span>
+                    <span class="required">*</span>
+                    <input id="subhash" type="text" readonly></input>
+                </div>
+                <div class="metaitem">
+                    <span>Language</span>
+                    <input id="sublanguageid" type="text" readonly></input>
+                </div>
+            </div>
+
+            <div class="content col-right">
+                <div class="metaitem">
+                    <span>Hearing impaired</span>
+                    <input id="hearingimpaired" type="checkbox"></input>
+                </div>
+                <div class="metaitem">
+                    <span>Auto-translated</span>
+                    <input id="automatictranslation" type="checkbox"></input>
+                </div>
+            </div>
+
+            <div class="content col-both">
+                <div class="metaitem">
+                    <span>Comment</span>
+                    <input id="subauthorcomment" type="text"></input>
+                </div>
+            </div>
+            <span class="special-required">* required</span>
+        </div>
+    </section>
+</body>
+
+</html>
