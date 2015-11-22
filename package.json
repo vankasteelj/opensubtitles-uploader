@@ -13,10 +13,13 @@
     },
     "dependencies": {
         "opensubtitles-api": "2.x.x",
-        "bluebird": "3.x.x"
+        "bluebird": "3.x.x",
+        "jquery": ""
     },
     "devDependencies": {
         "browserify": "12.x.x",
-        "grunt": "0.x.x"
+        "grunt": "0.x.x",
+        "grunt-shell": "1.x.x",
+        "load-grunt-tasks": "3.2.0"
     }
 }

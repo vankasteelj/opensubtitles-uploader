@@ -6,7 +6,9 @@ Upload your subtitles to [OpenSubtitles.org](http://www.opensubtitles.org)
 Simply double-click on `index.hmtl`
 
 ### Development
-Browserify & Grunt knowledge required.
+
+    npm install
+    grunt
 
 Colors: http://paletton.com/#uid=13-0u0kllllaFw0g0qFqFg0w0aF
 - very light #728CA6
