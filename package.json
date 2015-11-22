@@ -1,0 +1,22 @@
+{
+	"name": "opensubtitles-uploader",
+	"description": "Upload subtitles to OpenSubtitles",
+	"license": "GPL-3.0",
+	"version": "0.0.1",
+	"author": {
+		"name": "vankasteelj",
+		"email": "vankasteelj@gmail.com"
+	},
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/vankasteelj/opensubtitles-uploader.git"
+    },
+	"dependencies": {
+		"opensubtitles-api": "2.x.x",
+		"bluebird": "3.x.x"
+	},
+	"devDependencies": {
+		"browserify": "12.x.x",
+		"grunt": "0.x.x"
+	}
+}
