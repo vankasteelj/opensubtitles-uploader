@@ -1,33 +1,22 @@
 /*
  * MAIN-TITLE
  */
-#main-title {
-    width: 700px;
-    height: 60px;
-    margin: 0 auto;
-}
-.app-title {
-    font-weight: 800;
-    color: #333;
-    text-align: center;
-}
-.app-version, .app-author {
+
+.app-author {
     font-size: 10px;
     color: #555;
     margin-top: -10px;
-    float: right;
+    bottom: 0;
+    right: 0;
+    padding: 2px 5px;
+    position: absolute;
 }
+
 .app-author a {
     color: #728CA6;
     text-decoration: none;
 }
 
-#main-title img {
-    width: 40px;
-    position: absolute;
-    margin-left: -45px;
-    margin-top: -6px;
-}
 
 /*
  * MAIN-BUTTONS
@@ -153,8 +142,10 @@
 span.special-required {
     color: red;
     font-size: 10px;
+    margin-top: -10px;
+    margin-right: 30px;
     width: 50px;
-    margin-left: 715px;
+    float: right;
 }
 
 .metadata .content .metaitem {
@@ -200,10 +191,6 @@ span.special-required {
  * SECTION: VIDEO
  */
 
-#main-video .special-required {
-    margin-top: 9px;
-}
-
 
 /*
  * SECTION: SUBTITLE
@@ -213,9 +200,7 @@ span.special-required {
     margin-right: 150px;
 }
 
-#main-subtitle .special-required {
-    margin-top: 19px;
-}
+
 
 
 /*

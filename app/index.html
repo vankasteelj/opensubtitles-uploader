@@ -6,17 +6,14 @@
     <title>OpenSubtitles Uploader</title>
     <link rel="icon" type="image/png" href="images/os-icon.png"/>
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="css/animations.css"/>
 
     <script src="js/vendor/jquery.js" type="application/javascript"></script>
+    <script src="js/os.js" type="application/javascript"></script>
+    <script src="js/misc.js" type="application/javascript"></script>
 </head>
 
 <body>
-    <section id="main-title">
-        <div class="app-title"><img src="images/os-icon.png"></img>OpenSubtitles Uploader</div>
-        <div class="app-author">- developped by <a href="https://github.com/vankasteelj">vankasteelj</a></div>
-        <div class="app-version">v0.0.1</div>
-    </section>
-
     <section id="main-buttons">
 
         <div id="button-upload" class="button dominant">Upload</div>
@@ -24,12 +21,12 @@
         <div id="authentication">
             <div id="logged" style="display:none">
                 <div id="logged-as">Logged in as %username%</div>
-                <div id="button-logout" class="button light">Log out</div>
+                <div id="button-logout" onClick="opensubtitles.logout()" class="button light">Log out</div>
             </div>
             <div id="not-logged" style="display:block">
                 <input id="login-username" type="text" placeholder="username"></input>
                 <input id="login-password" type="password" placeholder="password"></input>
-                <div id="button-login" class="button light">Login</div>
+                <div id="button-login" onClick="opensubtitles.login()" class="button light">Login</div>
             </div>
         </div>
 
@@ -43,7 +40,7 @@
             <div id="video-browser" class="button light">browse</div>
         </div>
 
-        <div class="metadata" style="display:none">
+        <div class="metadata">
             <span class="title">Metadata</span>
             <div class="content col-left">
                 <div class="metaitem">
@@ -94,7 +91,6 @@
                     <input id="movieframes" type="text"></input>
                 </div>
             </div>
-            <span class="special-required">* required</span>
         </div>
     </section>
 
@@ -106,7 +102,7 @@
             <div id="subtitle-browser" class="button light">browse</div>
         </div>
 
-        <div class="metadata" style="display:none">
+        <div class="metadata">
             <span class="title">Metadata</span>
             <div class="content col-left">
                 <div class="metaitem">
@@ -142,13 +138,32 @@
                     <input id="subauthorcomment" type="text"></input>
                 </div>
             </div>
-            <span class="special-required">* required</span>
         </div>
     </section>
+    <span class="special-required">* required</span>
 
-<script src="js/fixup.js" type="application/javascript"></script>
-<!--script src="test.js" type="application/javascript"></script-->
+    <div class="app-author">v0.0.1 - developped by <a href="https://github.com/vankasteelj" target="_blank">vankasteelj</a></div>
 
+    <script>
+        var gui = require('nw.gui');
+        document.addEventListener("keypress", function (key) {
+            if(key.ctrlKey && key.charCode === 4) {
+                gui.Window.get().showDevTools()
+            } else if (key.ctrlKey && key.charCode === 18) {
+                var argv = gui.App.fullArgv,
+                CWD = process.cwd();
+
+                argv.push(CWD);
+                require('child_process').spawn(process.execPath, argv, {
+                    cwd: CWD,
+                    detached: true,
+                    stdio: ['ignore', 'ignore', 'ignore']
+                }).unref();
+                gui.App.quit();
+            }
+        });
+        opensubtitles.verify_login();
+    </script>
 </body>
 
 </html>

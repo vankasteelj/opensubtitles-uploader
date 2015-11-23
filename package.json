@@ -7,19 +7,31 @@
         "name": "vankasteelj",
         "email": "vankasteelj@gmail.com"
     },
+    "main": "app/index.html",
+    "window": {
+        "title": "OpenSubtitles Uploader",
+        "icon": "app/images/os-icon.png",
+        "toolbar": false,
+        "frame": true,
+        "show": true,
+        "width": 1024,
+        "height": 600,
+        "resizable": false
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/vankasteelj/opensubtitles-uploader.git"
     },
     "dependencies": {
         "opensubtitles-api": "2.x.x",
-        "bluebird": "3.x.x",
-        "jquery": ""
+        "bluebird": "3.x.x"
     },
     "devDependencies": {
-        "browserify": "12.x.x",
         "grunt": "0.x.x",
         "grunt-shell": "1.x.x",
-        "load-grunt-tasks": "3.2.0"
+        "load-grunt-tasks": "3.2.0",
+        "grunt-nw-builder": "2.x.x",
+        "grunt-exec": "0.4.x",
+        "grunt-contrib-clean": "0.x.x"
     }
 }
