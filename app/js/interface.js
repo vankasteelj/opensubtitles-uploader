@@ -38,6 +38,7 @@ var interface = {
     },
     add_video: function (file) {
         interface.reset('video');
+        interface.mediainfo(file);
         $('#video-file-path').val(file);
         OS.extractInfo(file).then(function (data) {
             $('#moviefilename').val(path.basename(file));
@@ -129,5 +130,27 @@ var interface = {
         id = id > 9999999 ? id : 'tt'+id;
         $('#movieimdbid').val(id);
         interface.leavePopup({});
+    },
+    mediainfo: function (file) {
+        var cmd;
+        if (process.platform === 'win32') {
+            cmd = process.cwd() + '/mi-win32/mi.exe --Inform=Video;::%Duration%::%Width%::%Height%::%FrameRate%::%FrameCount%' + ' "' + file + '"';
+        } else {
+            return;
+        }
+
+        require('child_process').exec(cmd,  function (error, stdout, stderr) {
+            if (error !== null || stderr !== '') {
+                console.error('MediaInfo exec error:', (error || stderr));
+            } else {
+                var args = stdout.replace('::','').replace('\n','').split('::');
+                if (args && args.length === 5) {
+                    $('#movietimems').val(args[0]);
+                    $('#moviefps').val(args[3]);
+                    $('#movieframes').val(args[4]);
+                    if (args[2] >= 720) $('#highdefinition').prop('checked', true);
+                }
+            }
+        });
     }
 };

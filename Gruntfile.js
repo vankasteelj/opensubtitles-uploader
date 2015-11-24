@@ -23,11 +23,7 @@ module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
 
     grunt.registerTask('setup', [
-        'clean:releases',
         'nwjs'
-    ]);
-    grunt.registerTask('dist', [
-        'clean:dist'
     ]);
     grunt.registerTask('dev', function () {
         var start = parseBuildPlatforms();
@@ -52,15 +48,13 @@ module.exports = function(grunt) {
                 version: '0.12.3',
                 build_dir: './builds',
                 cache_dir: './builds/cache',
-                win_ico: './dist/os-icon.ico',
-                mac_icns: './dist/os-icon.icns',
-                macZip: buildPlatforms.win32, // Zip nw for mac in windows. Prevent path too long if build all is used.
+                macZip: buildPlatforms.win32,
                 osx64: buildPlatforms.osx64,
                 win32: buildPlatforms.win32,
                 linux32: buildPlatforms.linux32,
                 linux64: buildPlatforms.linux64
             },
-            src: ['./package.json', './LICENSE', './app/**/*', '!./**/*grunt*']
+            src: ['./package.json'] //that's a fake, I only want the binaries
         },
         exec: {
             win32: {
@@ -75,19 +69,6 @@ module.exports = function(grunt) {
             linux64: {
                 cmd: '"builds/cache/<%= nwjs.options.version %>/linux64/nw" .'
             }
-        },
-        shell: {
-            copydeps: {
-                command: function() {
-                    return [
-                        'cp ./node_modules/jquery/dist/jquery.min.js app/js/vendor/jquery.js'
-                    ].join(' && ');
-                }
-            }
-        },
-        clean: {
-            releases: ['builds/<%= app_name %>'],
-            dist: ['builds/<%= app_name %>/**/*pdf*', 'builds/<%= app_name %>/**/*credits*']
         }
     });
 };
