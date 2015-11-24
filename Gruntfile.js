@@ -24,7 +24,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask('setup', [
         'clean:releases',
-        'shell:copydeps',
         'nwjs'
     ]);
     grunt.registerTask('dist', [
@@ -61,7 +60,7 @@ module.exports = function(grunt) {
                 linux32: buildPlatforms.linux32,
                 linux64: buildPlatforms.linux64
             },
-            src: ['./package.json', './LICENSE', './app/**/*']
+            src: ['./package.json', './LICENSE', './app/**/*', '!./**/*grunt*']
         },
         exec: {
             win32: {

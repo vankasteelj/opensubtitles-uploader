@@ -126,3 +126,20 @@ var extractQuality = function (title) {
     }
     return false;
 };
+
+var clearName = function (name) {
+    var title = path.parse(name).name;
+    return title
+        .replace(/(400|480|720|1080)[pix]/gi, '') // quality clean
+        .replace(/[xh]26\d|hevc/gi, '') // codecs
+        .replace(/bluray|bdrip|brrip|dsr|dvdrip|dvd\Wrip|hdtv|\Wts\W|telesync|\Wcam\W/gi, '') // source
+        .replace(/[\.]/g, ' ') // has '.'
+        .replace(/^\[.*\]/, '') // starts with brackets
+        .replace(/\[^\w \]+/g, '') // remove brackets
+        .replace(/ +/g, ' ') // has multiple spaces
+        .replace(/_/g, ' ') // has '_'
+        .replace(/\-$/, '') // ends with '-'
+        .replace(/\s.$/, '') // ends with ' '
+        .replace(/^\./, '') // starts with '.'
+        .replace(/^\-/, '') // starts with '-'
+};

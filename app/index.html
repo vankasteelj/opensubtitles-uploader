@@ -65,6 +65,7 @@
                     <span>IMDB id</span>
                     <span class="required">*</span>
                     <input id="movieimdbid" type="text"></input>
+                    <span class="search-imdb" onClick="interface.searchPopup()">search</span>
                 </div>
                 <div class="metaitem">
                     <span>High definition</span>
@@ -147,6 +148,14 @@
     <span class="special-required">* required</span>
 
     <div class="app-author">v%appversion% - developped by <a href="https://github.com/vankasteelj" target="_blank">vankasteelj</a></div>
+
+    <section id="search-popup">
+        <div id="search">
+            <input id="search-text" type="text" placeholder="Enter a title"></input>
+            <div id="button-search" class="button light">search</div>
+            <div id="search-result"></div>
+        </div>
+    </section>
 
     <script>
         document.addEventListener("keypress", function (key) {

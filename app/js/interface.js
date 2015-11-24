@@ -93,5 +93,18 @@ var interface = {
                 interface.reset('video');
                 interface.reset('subtitle');
         }
+    },
+    searchPopup: function () {
+        function leavePopup(e) {
+            var container = $('#search');
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                $('#search-popup').hide();
+                $(document).unbind('mouseup', leavePopup);
+            }
+        }
+        $(document).bind('mouseup', leavePopup);
+
+        var title = clearName($('#moviefilename').val());
+        $('#search-popup').show();
     }
 };

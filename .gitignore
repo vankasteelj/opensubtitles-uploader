@@ -1,14 +1,4 @@
 node_modules
 test*
-js/vendor/*
-locales
-credits*
-d3d*
-ffmpeg*
-icud*
-libE*
-libG*
-nw*
-pdf*
 builds
 cache

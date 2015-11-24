@@ -194,6 +194,22 @@ span.special-required {
  * SECTION: VIDEO
  */
 
+#movieimdbid {
+    width: 180px;
+}
+
+.search-imdb {
+    font-size: 10px;
+    color: #bbb;
+    padding-left: 12px;
+    padding-right: 12px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.search-imdb:hover {
+    color: #728CA6;
+}
 
 /*
  * SECTION: SUBTITLE
@@ -204,6 +220,44 @@ span.special-required {
 }
 #subauthorcomment {
     width: 647px;
+}
+
+/*
+ * SECTION: SEARCH
+ */
+
+#search-popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.05);
+    display: none;
+}
+
+#search {
+    width: 600px;
+    height: 350px;
+    background: #fff;
+    position: absolute;
+    padding: 20px;
+    top: calc(50% - 175px);
+    left: calc(50% - 300px);
+    box-shadow: -1px 1px 5px rgba(0,0,0,.4);
+}
+
+#search-text {
+    width: 220px;
+    height: 18px;
+    float: left;
+    text-align: center;
+}
+
+#button-search {
+    margin-left: 8px;
+    float: left;
+    height: 16px;
 }
 
 /*
