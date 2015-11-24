@@ -6,7 +6,6 @@ Built with love & ducktape (read: _jquery & no framework_)
 
 ### TODO: 
 - language dropdown (+detection)
-- check imdbid directly
 - reset button
 - upload
 

@@ -4,7 +4,7 @@ var OS;
 var OpenSubtitles = require('opensubtitles-api');
 
 var opensubtitles = {
-    login: function() {
+    login: function () {
         var username = $('#login-username').val();
         var password = require('crypto').createHash('MD5').update($('#login-password').val()).digest('hex');
         if (!username || password === 'd41d8cd98f00b204e9800998ecf8427e') {
@@ -24,7 +24,7 @@ var opensubtitles = {
                 username: username,
                 password: password,
             });
-            OS.login().then(function(token) {
+            OS.login().then(function (token) {
                 if (token) {
                     localStorage.os_user = username;
                     localStorage.os_pw = password;
@@ -32,11 +32,11 @@ var opensubtitles = {
                 } else {
                     throw new Error('Unknown error');
                 }
-            }).catch(function(err) {
+            }).catch(function (err) {
                 console.error('opensubtitles.login()', err);
                 var original = $('#not-logged').html();
                 var display_err = err === '401 Unauthorized' ? 'Wrong username or password' : (err.message || err);
-                $('#not-logged').html('<div id="logged-as" style="color:red">' + display_err + '</div>' + '<div id="button-login" onClick="opensubtitles.login()" class="button light buzz">Login</div>').delay(1850).queue(function() {
+                $('#not-logged').html('<div id="logged-as" style="color:red">' + display_err + '</div>' + '<div id="button-login" onClick="opensubtitles.login()" class="button light buzz">Login</div>').delay(1850).queue(function () {
                     $('#not-logged').html(original);
                     $('#login-username').val(username);
                     $('#not-logged').dequeue();
@@ -44,7 +44,7 @@ var opensubtitles = {
             });
         }
     },
-    verify_login: function() {
+    verify_login: function () {
         var auth = {
             useragent: USERAGENT,
             ssl: true
@@ -58,12 +58,12 @@ var opensubtitles = {
 
         OS = new OpenSubtitles(auth);
     },
-    logged: function() {
+    logged: function () {
         $('#not-logged').hide();
         $('#logged').show();
         $('#logged-as').text($('#logged-as').text().replace('%username%', localStorage.os_user));
     },
-    logout: function() {
+    logout: function () {
         $('#login-username').val(localStorage.os_user);
         localStorage.removeItem('os_user');
         localStorage.removeItem('os_pw');
@@ -84,19 +84,55 @@ var opensubtitles = {
                 $('#search').animate({
                     height: '250px',
                     top: '140px'
-                }, 300);            
+                }, 300);
                 $('#search-result').show();
-                var res  = response.data;
+                var res = response.data;
                 for (var i = 0; i < res.length; i++) {
                     if (!res[i].id) return;
-                    //res[i].source = res[i].id > 9999999 ? 'OpenSubtitles' : 'IMDB';
                     $('#search-result').append('<li class="result-item" onClick="interface.imdb_fromsearch(' + res[i].id + ')">' + res[i].title + '</li>')
                 }
             } else {
                 throw new Error('Opensubtitles.SearchMoviesOnIMDB() error, no details')
             }
-        }).catch(function(err) {
+        }).catch(function (err) {
             console.error(err);
         });
+    },
+    upload: function () {
+        var required = ['#video-file-path', '#subtitle-file-path'];
+        var missing = 0;
+        for (var r in required) {
+            if ($(required[r]).val() === '') {
+                missing++;
+                misc.animate($(required[r]), 'red', 1750);
+            }
+        }
+        if (missing > 0) return;
+
+        var obj_data = {
+            path: $('#video-file-path').val(),
+            subpath: $('#subtitle-file-path').val()
+        }
+
+        var optionnal = ['#sublanguageid',
+            '#imdbid',
+            '#highdefinition',
+            '#hearingimpaired',
+            '#moviereleasename',
+            '#movieaka',
+            '#moviefps',
+            '#movieframes',
+            '#movietimems',
+            '#automatictranslation',
+            '#subauthorcomment'
+         ];
+        for (var o in optionnal) {
+            if ($(optionnal[o]).val() !== '' && $(optionnal[o]).val() !== 'on') {
+                obj_data[optionnal[o].replace('#', '')] = $(optionnal[o]).val();
+            } else if ($(optionnal[o]).prop('checked')) {
+                obj_data[optionnal[o].replace('#', '')] = true;
+            }
+        }
+        console.log(obj_data);
     }
 };

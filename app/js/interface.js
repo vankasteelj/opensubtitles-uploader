@@ -50,7 +50,7 @@ var interface = {
             console.error(err);
         });
         OS.identify(file).then(function (data) {
-            if (data.metadata && data.metadata.imdbid) $('#movieimdbid').val(data.metadata.imdbid);
+            if (data.metadata && data.metadata.imdbid) $('#imdbid').val(data.metadata.imdbid);
         }).catch(function(err) {
             console.error(err);
         });
@@ -70,7 +70,7 @@ var interface = {
                 $('#moviefilename').val('');
                 $('#moviehash').val('');
                 $('#moviebytesize').val('');
-                $('#movieimdbid').val('');
+                $('#imdbid').val('');
                 $('#movieaka').val('');
                 $('#moviereleasename').val('');
                 $('#moviefps').val('');
@@ -88,7 +88,7 @@ var interface = {
                 $('#hearingimpaired').prop('checked', false);
                 $('#automatictranslation').prop('checked', false);
 
-                $('#sublanguageid') //todo
+                $('#sublanguageid').val('');
                 break;
             case 'search':
                 $('#search-text').val('');
@@ -128,7 +128,7 @@ var interface = {
     },
     imdb_fromsearch: function (id) {
         id = id > 9999999 ? id : 'tt'+id;
-        $('#movieimdbid').val(id);
+        $('#imdbid').val(id);
         interface.leavePopup({});
     },
     mediainfo: function (file) {

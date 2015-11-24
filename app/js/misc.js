@@ -67,6 +67,23 @@ var misc = {
             .replace(/^\./, '') // starts with '.'
             .replace(/^\-/, '') // starts with '-'
             .replace(/ +/g, ' '); // has multiple spaces
+    },
+    detect_lang: function () {
+        var sub = $('#subtitle-file-path').val();
+        if (!sub || sub == '') {
+            misc.animate($('#subtitle-file-path'), 'red', 1750);
+            return;
+        }
+        require('detect-lang')(sub).then(function (data) {
+            if (data && data.probability > 45 && (data.iso6392 || data.bibliographic)) {
+                $('#sublanguageid').val((data.iso6392 || data.bibliographic))
+            } else {
+                console.error(data);
+                throw 'not conclusive enough';
+            }
+        }).catch(function(err) {
+            console.error('misc.detect_lang() error:', err);
+        });
     }
 };
 

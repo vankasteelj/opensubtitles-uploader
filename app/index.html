@@ -18,12 +18,12 @@
     <div id="drop-mask"></div>
     <section id="main-buttons">
 
-        <div id="button-upload" class="button dominant">Upload</div>
+        <div id="button-upload" onClick="opensubtitles.upload()" class="button dominant">Upload</div>
 
         <div id="authentication">
             <div id="logged" style="display:none">
                 <div id="logged-as">Logged in as %username%</div>
-                <div id="button-logout" onClick="opensubtitles.logout()" class="button light">Log out</div>
+                <div id="button-logout" onClick="opensubtitles.logout()" class="button light">log out</div>
             </div>
             <div id="not-logged" style="display:block">
                 <input id="login-username" type="text" placeholder="username"></input>
@@ -63,8 +63,7 @@
                 </div>
                 <div class="metaitem">
                     <span>IMDB id</span>
-                    <span class="required">*</span>
-                    <input id="movieimdbid" type="text"></input>
+                    <input id="imdbid" type="text"></input>
                     <span class="search-imdb" onClick="interface.searchPopup()">search</span>
                 </div>
                 <div class="metaitem">
@@ -122,7 +121,19 @@
                 </div>
                 <div class="metaitem">
                     <span>Language</span>
-                    <input id="sublanguageid" type="text"></input>
+                    <select id="sublanguageid" name="language" selected="">
+                        <option value="">None</option>
+                    </select>
+                    <span class="detect-lang" onClick="misc.detect_lang()">detect</span>
+                    <script>
+                        var os_langs = require('./js/os-lang.json');
+
+                        var langs = '';
+                        for(var key in os_langs) {
+                            langs += '<option value="'+os_langs[key].code+'">'+key+'</option>';
+                        }
+                        $('#sublanguageid').append(langs);
+                    </script>
                 </div>
             </div>
 

@@ -24,7 +24,8 @@
     },
     "dependencies": {
         "opensubtitles-api": "2.x.x",
-        "bluebird": "3.x.x"
+        "bluebird": "3.x.x",
+        "detect-lang": "0.x.x"
     },
     "devDependencies": {
         "grunt": "0.x.x",
