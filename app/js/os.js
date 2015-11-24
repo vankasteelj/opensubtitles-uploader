@@ -10,12 +10,12 @@ var opensubtitles = {
         if (!username || password === 'd41d8cd98f00b204e9800998ecf8427e') {
             console.debug('opensubtitles.login() -> no password/username');
             if (!username) {
-                animate($('#login-username'), 'red', 1750);
+                misc.animate($('#login-username'), 'red', 1750);
             }
             if (password === 'd41d8cd98f00b204e9800998ecf8427e') {
-                animate($('#login-password'), 'red', 1750);
+                misc.animate($('#login-password'), 'red', 1750);
             }
-            animate($('#button-login'), 'buzz', 1000);
+            misc.animate($('#button-login'), 'buzz', 1000);
             return;
         } else {
             OS = new OpenSubtitles({
@@ -69,5 +69,34 @@ var opensubtitles = {
         localStorage.removeItem('os_pw');
         $('#logged').hide();
         $('#not-logged').show();
+    },
+    search_imdb: function () {
+        if ($('#search-text').val() === '') {
+            misc.animate('#button-search', 'buzz', 1000);
+            misc.animate($('#search-text'), 'red', 1750);
+            return;
+        }
+        $('#search-result').html('');
+        OS.login().then(function (token) {
+            return OS.api.SearchMoviesOnIMDB(token, $('#search-text').val());
+        }).then(function (response) {
+            if (response && response.status.match(/200/) && response.data && response.data.length > 0) {
+                $('#search').animate({
+                    height: '250px',
+                    top: '140px'
+                }, 300);            
+                $('#search-result').show();
+                var res  = response.data;
+                for (var i = 0; i < res.length; i++) {
+                    if (!res[i].id) return;
+                    //res[i].source = res[i].id > 9999999 ? 'OpenSubtitles' : 'IMDB';
+                    $('#search-result').append('<li class="result-item" onClick="interface.imdb_fromsearch(' + res[i].id + ')">' + res[i].title + '</li>')
+                }
+            } else {
+                throw new Error('Opensubtitles.SearchMoviesOnIMDB() error, no details')
+            }
+        }).catch(function(err) {
+            console.error(err);
+        });
     }
 };

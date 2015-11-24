@@ -28,7 +28,7 @@
             <div id="not-logged" style="display:block">
                 <input id="login-username" type="text" placeholder="username"></input>
                 <input id="login-password" type="password" placeholder="password"></input>
-                <div id="button-login" onClick="opensubtitles.login()" class="button light">Login</div>
+                <div id="button-login" onClick="opensubtitles.login()" class="button light">login</div>
             </div>
         </div>
 
@@ -152,7 +152,7 @@
     <section id="search-popup">
         <div id="search">
             <input id="search-text" type="text" placeholder="Enter a title"></input>
-            <div id="button-search" class="button light">search</div>
+            <div id="button-search" onClick="opensubtitles.search_imdb()" class="button light">search</div>
             <div id="search-result"></div>
         </div>
     </section>
@@ -175,8 +175,8 @@
             }
         });
 
-        $('#video-file-path-hidden').attr('accept', supportedTypes.video.join());
-        $('#subtitle-file-path-hidden').attr('accept', supportedTypes.subtitle.join());
+        $('#video-file-path-hidden').attr('accept', misc.supportedTypes.video.join());
+        $('#subtitle-file-path-hidden').attr('accept', misc.supportedTypes.subtitle.join());
 
         interface.check_visible();
         opensubtitles.verify_login();

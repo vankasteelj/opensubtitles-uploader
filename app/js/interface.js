@@ -43,7 +43,7 @@ var interface = {
             $('#moviefilename').val(path.basename(file));
             $('#moviebytesize').val(data.moviebytesize);
             $('#moviehash').val(data.moviehash);
-            var quality = extractQuality(path.basename(file));
+            var quality = misc.extractQuality(path.basename(file));
             if (quality && quality.match(/720|1080/i)) $('#highdefinition').prop('checked', true);
         }).catch(function(err) {
             console.error(err);
@@ -89,22 +89,45 @@ var interface = {
 
                 $('#sublanguageid') //todo
                 break;
+            case 'search':
+                $('#search-text').val('');
+                $('#search-result').html('');
+                break;
             default:
                 interface.reset('video');
                 interface.reset('subtitle');
+                interface.reset('search');
         }
     },
     searchPopup: function () {
-        function leavePopup(e) {
-            var container = $('#search');
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                $('#search-popup').hide();
-                $(document).unbind('mouseup', leavePopup);
+        $(document).bind('mouseup', interface.leavePopup);
+
+        var begin_title = [], count = 0, title = misc.clearName($('#moviefilename').val()).split(' ');
+        for (var t in title) {
+            if (title[t].match(/^(the|an|19\d{2}|20\d{2}|a|of|in)$/i) === null && count < 3 ) {
+                begin_title.push(title[t]);
+                count++;
             }
         }
-        $(document).bind('mouseup', leavePopup);
-
-        var title = clearName($('#moviefilename').val());
         $('#search-popup').show();
+        $('#search-text').val(begin_title.join(' '));
+    },
+    leavePopup: function (e) {
+        var container = $('#search');
+        if (!container.is(e.target) && container.has(e.target).length === 0) {
+            $('#search-popup').hide();
+            $('#search-result').hide();
+            $('#search').css({
+                height: '20px',
+                top: 'calc(50% - 80px)'
+            });
+            interface.reset('search');
+            $(document).unbind('mouseup', interface.leavePopup);
+        }
+    },
+    imdb_fromsearch: function (id) {
+        id = id > 9999999 ? id : 'tt'+id;
+        $('#movieimdbid').val(id);
+        interface.leavePopup({});
     }
 };
