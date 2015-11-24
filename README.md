@@ -11,11 +11,10 @@ Built with love & ducktape (read: _jquery & no framework_)
 - upload
 
 ### Build
-Install dependencies, download binaries, build distribution:
+Install dependencies, download binaries:
 
     npm install
-    grunt setup --platforms=all
-    grunt dist
+    grunt setup
 
 ### Development
 Start live-development
@@ -23,6 +22,9 @@ Start live-development
     grunt dev
     
 CTRL+D to open devtools, CTRL+R to reload.
+
+### Releases
+Made by hand atm.
 
 ### Misc
 Colors: http://paletton.com/#uid=13-0u0kllllaFw0g0qFqFg0w0aF
