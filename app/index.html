@@ -19,10 +19,15 @@
     <section id="main-buttons">
 
         <div id="button-upload" onClick="opensubtitles.upload()" class="button dominant">Upload</div>
+        <div id="upload-result">
+            <span id="upload-success">Subtitle was successfully uploaded!</span>
+            <span id="upload-partial"></span>
+            <span id="upload-fail">Something went wrong :(</span>
+        </div>
 
         <div id="authentication">
             <div id="logged" style="display:none">
-                <div id="logged-as">Logged in as %username%</div>
+                <div id="logged-as"></div>
                 <div id="button-logout" onClick="opensubtitles.logout()" class="button light">log out</div>
             </div>
             <div id="not-logged" style="display:block">
@@ -35,6 +40,8 @@
     </section>
 
     <section id="main-video" class="section-file">
+
+        <div class="reset" onClick="interface.reset('video')">reset</div>
 
         <div class="input-line">
             <span class="input-file">Video file</span>
@@ -99,6 +106,8 @@
 
     <section id="main-subtitle" class="section-file">
 
+        <div class="reset" onClick="interface.reset('subtitle')">reset</div>
+
         <div class="input-line">
             <span class="input-file">Subtitle file</span>
             <input id="subtitle-file-path" class="input-input" type="text" placeholder="Drop a subtitle file or select one" readonly></input>
@@ -156,7 +165,7 @@
             </div>
         </div>
     </section>
-    <span class="special-required">* required</span>
+    <!--span class="special-required">* required</span-->
 
     <div class="app-author">v%appversion% - developped by <a href="https://github.com/vankasteelj" target="_blank">vankasteelj</a></div>
 

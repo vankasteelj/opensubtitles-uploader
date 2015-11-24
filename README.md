@@ -7,7 +7,6 @@ Built with love & ducktape (read: _jquery & no framework_)
 ### TODO: 
 - language dropdown (+detection)
 - reset button
-- upload
 
 ### Build
 Install dependencies, download binaries:

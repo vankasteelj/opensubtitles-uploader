@@ -71,7 +71,7 @@ var misc = {
     detect_lang: function () {
         var sub = $('#subtitle-file-path').val();
         if (!sub || sub == '') {
-            misc.animate($('#subtitle-file-path'), 'red', 1750);
+            misc.animate($('#subtitle-file-path'), 'warning', 1750);
             return;
         }
         require('detect-lang')(sub).then(function (data) {

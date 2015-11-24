@@ -5,7 +5,6 @@
 .app-author {
     font-size: 10px;
     color: #555;
-    margin-top: -10px;
     bottom: 0;
     right: 0;
     padding: 2px 5px;
@@ -35,6 +34,46 @@
 #button-upload {
     width: 90px;
     float: left;
+}
+
+#button-upload.success {
+    background: #008140;
+}
+
+#button-upload.partial {
+    background: #ffae1a;
+}
+
+#button-upload.fail {
+    background: #e60000;
+}
+
+#upload-result {
+    float: left;
+    font-size: 15px;
+    padding-left: 15px;
+}
+#upload-success {
+    margin-top: 10px;
+    display: none;
+    position: absolute;
+}
+#upload-partial {
+    margin-top: 3px;
+    display: none;
+    position: absolute;
+}
+#upload-partial li {
+    font-size: 12px;
+    margin-top: 3px;
+    list-style: none;
+    float: left;
+    margin-left: 20px;
+}
+#upload-fail {
+    margin-top: 10px;
+    display: none;
+    position: absolute;
 }
 
 
@@ -80,6 +119,22 @@
 /*
  * SECTIONS
  */
+
+.reset {
+    position: absolute;
+    right: 40px;
+    font-size: 12px;
+    color: #bbb;
+    padding-left: 12px;
+    margin-top: -15px;
+    padding-right: 12px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.reset:hover {
+    color: #728CA6;
+}
 
 .section-file {
     border: 1px dashed #ccc;
@@ -140,7 +195,7 @@
 }
 
 span.special-required {
-    color: red;
+    color: #e60000;
     font-size: 10px;
     margin-top: -10px;
     margin-right: 30px;
@@ -170,7 +225,7 @@ span.special-required {
 
 .metadata .content .metaitem .required {
     margin: 5px 1px 0px 93px;
-    color: red;
+    color: #e60000;
 }
 
 .col-left {
@@ -252,6 +307,7 @@ span.special-required {
 .detect-lang:hover {
     color: #728CA6;
 }
+
 
 /*
  * SECTION: SEARCH
