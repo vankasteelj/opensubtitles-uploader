@@ -5,8 +5,9 @@ Upload your subtitles to [OpenSubtitles.org](http://www.opensubtitles.org)
 Built with love & ducktape (read: _jquery & no framework_)
 
 ### TODO: 
-- language dropdown (+detection)
-- reset button
+- global reset button (at least smth after 'upload')
+- promise to display 'loaders/spinners'
+- add some lovely icons to make that a little nicer
 
 ### Build
 Install dependencies, download binaries:
