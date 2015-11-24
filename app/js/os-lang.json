@@ -1,0 +1,215 @@
+{
+    "Afrikaans": {
+        "code": "afr"
+    },
+    "Albanian": {
+        "code": "alb"
+    },
+    "Arabic": {
+        "code": "ara"
+    },
+    "Armenian": {
+        "code": "arm"
+    },
+    "Basque": {
+        "code": "baq"
+    },
+    "Belarusian": {
+        "code": "bel"
+    },
+    "Bengali": {
+        "code": "ben"
+    },
+    "Bosnian": {
+        "code": "bos"
+    },
+    "Breton": {
+        "code": "bre"
+    },
+    "Bulgarian": {
+        "code": "bul"
+    },
+    "Burmese": {
+        "code": "bur"
+    },
+    "Catalan": {
+        "code": "cat"
+    },
+    "Chinese (simplified)": {
+        "code": "chi"
+    },
+    "Czech": {
+        "code": "cze"
+    },
+    "Danish": {
+        "code": "dan"
+    },
+    "Dutch": {
+        "code": "dut"
+    },
+    "English": {
+        "code": "eng"
+    },
+    "Esperanto": {
+        "code": "epo"
+    },
+    "Estonian": {
+        "code": "est"
+    },
+    "Finnish": {
+        "code": "fin"
+    },
+    "French": {
+        "code": "fre"
+    },
+    "Georgian": {
+        "code": "geo"
+    },
+    "German": {
+        "code": "ger"
+    },
+    "Galician": {
+        "code": "glg"
+    },
+    "Greek": {
+        "code": "ell"
+    },
+    "Hebrew": {
+        "code": "heb"
+    },
+    "Hindi": {
+        "code": "hin"
+    },
+    "Croatian": {
+        "code": "hrv"
+    },
+    "Hungarian": {
+        "code": "hun"
+    },
+    "Icelandic": {
+        "code": "ice"
+    },
+    "Indonesian": {
+        "code": "ind"
+    },
+    "Italian": {
+        "code": "ita"
+    },
+    "Japanese": {
+        "code": "jpn"
+    },
+    "Kazakh": {
+        "code": "kaz"
+    },
+    "Khmer": {
+        "code": "khm"
+    },
+    "Korean": {
+        "code": "kor"
+    },
+    "Latvian": {
+        "code": "lav"
+    },
+    "Lithuanian": {
+        "code": "lit"
+    },
+    "Luxembourgish": {
+        "code": "ltz"
+    },
+    "Macedonian": {
+        "code": "mac"
+    },
+    "Malayalam": {
+        "code": "mal"
+    },
+    "Malay": {
+        "code": "may"
+    },
+    "Manipuri": {
+        "code": "mni"
+    },
+    "Mongolian": {
+        "code": "mon"
+    },
+    "Norwegian": {
+        "code": "nor"
+    },
+    "Occitan": {
+        "code": "oci"
+    },
+    "Persian": {
+        "code": "per"
+    },
+    "Polish": {
+        "code": "pol"
+    },
+    "Portuguese": {
+        "code": "por"
+    },
+    "Russian": {
+        "code": "rus"
+    },
+    "Serbian": {
+        "code": "scc"
+    },
+    "Sinhalese": {
+        "code": "sin"
+    },
+    "Slovak": {
+        "code": "slo"
+    },
+    "Slovenian": {
+        "code": "slv"
+    },
+    "Spanish": {
+        "code": "spa"
+    },
+    "Swahili": {
+        "code": "swa"
+    },
+    "Swedish": {
+        "code": "swe"
+    },
+    "Syriac": {
+        "code": "syr"
+    },
+    "Tamil": {
+        "code": "tam"
+    },
+    "Telugu": {
+        "code": "tel"
+    },
+    "Tagalog": {
+        "code": "tgl"
+    },
+    "Thai": {
+        "code": "tha"
+    },
+    "Turkish": {
+        "code": "tur"
+    },
+    "Ukrainian": {
+        "code": "ukr"
+    },
+    "Urdu": {
+        "code": "urd"
+    },
+    "Vietnamese": {
+        "code": "vie"
+    },
+    "Romanian": {
+        "code": "rum"
+    },
+    "Portuguese (BR)": {
+        "code": "pob"
+    },
+    "Montenegrin": {
+        "code": "mne"
+    },
+    "Chinese (traditional)": {
+        "code": "zht"
+    },
+    "Chinese bilingual": {
+        "code": "zhe"
+    }
+}

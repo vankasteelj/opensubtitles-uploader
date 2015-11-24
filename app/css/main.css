@@ -59,7 +59,7 @@
 }
 
 #logged-as {
-    font-size: 14px;
+    font-size: 13px;
     float: left;
     margin-top: 2px;
     color: #666;
@@ -195,7 +195,7 @@ span.special-required {
  * SECTION: VIDEO
  */
 
-#movieimdbid {
+#imdbid {
     width: 180px;
 }
 
@@ -225,6 +225,33 @@ span.special-required {
     width: 647px;
 }
 
+#sublanguageid {
+    margin-left: 100px;
+    width: 180px;
+    border: 0;
+    padding-left: 5px;
+    color: #444;
+    background: #e0e0e0;
+    text-align: right;
+}
+
+#sublanguageid option {
+    color: #444;
+    -webkit-appearance: none;
+}
+
+.detect-lang {
+    font-size: 10px;
+    color: #bbb;
+    padding-left: 14px;
+    padding-right: 12px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.detect-lang:hover {
+    color: #728CA6;
+}
 
 /*
  * SECTION: SEARCH
