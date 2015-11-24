@@ -112,6 +112,6 @@
 }
 /* Buzz Out - END */
 
-input.red::-webkit-input-placeholder {
-    color: red;
+input.warning::-webkit-input-placeholder {
+    color: #e60000;
 }

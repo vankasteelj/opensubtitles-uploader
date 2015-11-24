@@ -78,6 +78,7 @@ var interface = {
                 $('#movieframes').val('');
 
                 $('#highdefinition').prop('checked', false);
+                interface.reset('upload');
                 break;
             case 'subtitle':
                 $('#subtitle-file-path').val('');
@@ -89,15 +90,22 @@ var interface = {
                 $('#automatictranslation').prop('checked', false);
 
                 $('#sublanguageid').val('');
+                interface.reset('upload');
                 break;
             case 'search':
                 $('#search-text').val('');
                 $('#search-result').html('');
                 break;
+            case 'upload':
+                $('#button-upload').removeClass('success partial fail');
+                $('#upload-partial').html('');
+                $('#upload-success, #upload-partial, #upload-fail').hide()
+                break;
             default:
                 interface.reset('video');
                 interface.reset('subtitle');
                 interface.reset('search');
+                interface.reset('upload');
         }
     },
     searchPopup: function () {
