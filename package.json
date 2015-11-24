@@ -13,7 +13,7 @@
         "icon": "app/images/os-icon.png",
         "toolbar": false,
         "frame": true,
-        "show": true,
+        "show": false,
         "width": 1024,
         "height": 600,
         "resizable": false

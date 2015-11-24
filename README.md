@@ -2,6 +2,14 @@
 
 Upload your subtitles to [OpenSubtitles.org](http://www.opensubtitles.org)
 
+Built with love & ducktape (read: _jquery & no framework_)
+
+### TODO: 
+- language dropdown (+detection)
+- check imdbid directly
+- reset button
+- upload
+
 ### Build
 Install dependencies, download binaries, build distribution:
 
@@ -14,7 +22,7 @@ Start live-development
 
     grunt dev
     
-CTRL+D to open devtools, CTRL+R to reload
+CTRL+D to open devtools, CTRL+R to reload.
 
 ### Misc
 Colors: http://paletton.com/#uid=13-0u0kllllaFw0g0qFqFg0w0aF

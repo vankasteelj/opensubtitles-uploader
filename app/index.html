@@ -10,10 +10,12 @@
 
     <script src="js/vendor/jquery.js" type="application/javascript"></script>
     <script src="js/os.js" type="application/javascript"></script>
+    <script src="js/interface.js" type="application/javascript"></script>
     <script src="js/misc.js" type="application/javascript"></script>
 </head>
 
 <body>
+    <div id="drop-mask"></div>
     <section id="main-buttons">
 
         <div id="button-upload" class="button dominant">Upload</div>
@@ -36,8 +38,9 @@
 
         <div class="input-line">
             <span class="input-file">Video file</span>
-            <input id="video-file-path" class="input-input" type="text" placeholder="Drop a video file or select one"></input>
-            <div id="video-browser" class="button light">browse</div>
+            <input id="video-file-path" class="input-input" type="text" placeholder="Drop a video file or select one" readonly></input>
+            <input id="video-file-path-hidden" style="display:none" type="file"></input>
+            <div id="video-browser" onClick="interface.browse('video')" class="button light">browse</div>
         </div>
 
         <div class="metadata">
@@ -98,8 +101,9 @@
 
         <div class="input-line">
             <span class="input-file">Subtitle file</span>
-            <input id="subtitle-file-path" class="input-input" type="text" placeholder="Drop a subtitle file or select one"></input>
-            <div id="subtitle-browser" class="button light">browse</div>
+            <input id="subtitle-file-path" class="input-input" type="text" placeholder="Drop a subtitle file or select one" readonly></input>
+            <input id="subtitle-file-path-hidden" style="display:none" type="file"></input>
+            <div id="subtitle-browser" onClick="interface.browse('subtitle')" class="button light">browse</div>
         </div>
 
         <div class="metadata">
@@ -117,7 +121,7 @@
                 </div>
                 <div class="metaitem">
                     <span>Language</span>
-                    <input id="sublanguageid" type="text" readonly></input>
+                    <input id="sublanguageid" type="text"></input>
                 </div>
             </div>
 
@@ -142,10 +146,9 @@
     </section>
     <span class="special-required">* required</span>
 
-    <div class="app-author">v0.0.1 - developped by <a href="https://github.com/vankasteelj" target="_blank">vankasteelj</a></div>
+    <div class="app-author">v%appversion% - developped by <a href="https://github.com/vankasteelj" target="_blank">vankasteelj</a></div>
 
     <script>
-        var gui = require('nw.gui');
         document.addEventListener("keypress", function (key) {
             if(key.ctrlKey && key.charCode === 4) {
                 gui.Window.get().showDevTools()
@@ -162,7 +165,15 @@
                 gui.App.quit();
             }
         });
+
+        $('#video-file-path-hidden').attr('accept', supportedTypes.video.join());
+        $('#subtitle-file-path-hidden').attr('accept', supportedTypes.subtitle.join());
+
+        interface.check_visible();
         opensubtitles.verify_login();
+        $('.app-author').html($('.app-author').html().replace('%appversion%', require('../package.json').version));
+
+        win.show();
     </script>
 </body>
 

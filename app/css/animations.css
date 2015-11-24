@@ -1,4 +1,5 @@
 /* Buzz Out */
+/* The MIT License (MIT) - Copyright (c) 2014-2015 Ian Lunn */
 @-webkit-keyframes hvr-buzz-out {
   10% {
     -webkit-transform: translateX(3px) rotate(2deg);
@@ -109,6 +110,7 @@
     -webkit-animation-timing-function: linear;
     -webkit-animation-iteration-count: 1;
 }
+/* Buzz Out - END */
 
 input.red::-webkit-input-placeholder {
     color: red;
