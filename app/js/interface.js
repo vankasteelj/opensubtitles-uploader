@@ -143,6 +143,9 @@ var interface = {
         var cmd;
         if (process.platform === 'win32') {
             cmd = process.cwd() + '/mi-win32/mi.exe --Inform=Video;::%Duration%::%Width%::%Height%::%FrameRate%::%FrameCount%' + ' "' + file + '"';
+        } else if (process.platform === 'linux') {
+            var arch = process.arch.match(/64/) ? '64' : '32';
+            cmd = 'LD_LIBRARY_PATH='+ process.cwd() + '/mi-linux'+ arch +'/' + ' ' + process.cwd() + '/mi-linux' + arch + '/mi --Inform="Video;::%Duration%::%Width%::%Height%::%FrameRate%::%FrameCount%"' + ' "' + file + '"';
         } else {
             return;
         }
