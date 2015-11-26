@@ -1,11 +1,13 @@
 var parseBuildPlatforms = function (argumentPlatform) {
     var inputPlatforms = argumentPlatform || process.platform + ";" + process.arch;
-    inputPlatforms = inputPlatforms.replace(/;ia|;x|;arm/, "");
+    inputPlatforms = inputPlatforms
+        .replace('darwin', 'osx')
+        .replace(/;ia|;x|;arm/, "");
 
     var buildAll = /^all$/.test(inputPlatforms);
 
     var buildPlatforms = {
-        osx64: /darwin/.test(inputPlatforms) || buildAll,
+        osx64: /osx/.test(inputPlatforms) || buildAll,
         win32: /win/.test(inputPlatforms) || buildAll,
         linux32: /linux32/.test(inputPlatforms) || buildAll,
         linux64: /linux64/.test(inputPlatforms) || buildAll
@@ -61,7 +63,7 @@ module.exports = function(grunt) {
                 cmd: '"builds/cache/<%= nwjs.options.version %>/win32/nw.exe" .'
             },
             osx64: {
-                cmd: 'builds/cache/<%= nwjs.options.version %>/osx64/node-webkit.app/Contents/MacOS/nwjs .'
+                cmd: 'builds/cache/<%= nwjs.options.version %>/osx64/nwjs.app/Contents/MacOS/nwjs .'
             },
             linux32: {
                 cmd: '"builds/cache/<%= nwjs.options.version %>/linux32/nw" .'
