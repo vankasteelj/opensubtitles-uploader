@@ -108,7 +108,10 @@ var opensubtitles = {
                 misc.animate($(required[r]), 'warning', 1750);
             }
         }
-        if (missing > 0) return;
+        if (missing > 0) {
+            misc.animate('#button-upload', 'buzz', 1000);
+            return;
+        }
 
         var obj_data = {
             path: $('#video-file-path').val(),
@@ -140,8 +143,8 @@ var opensubtitles = {
             if (response && response.status.match(/200/)) {
                 if (response.alreadyindb === 1) {
                     var d = response.data;
-                    $('#upload-partial').html('Subtitle was already present in the database.<br><li>The hash %hash%</li><li>The file name %filename%</li>'.replace('%hash%', d.HashWasAlreadyInDb === 0 ? 'has been added!':'too...'));
-                    $('#upload-partial').html('Subtitle was already present in the database.<br><li>The hash %hash%</li><li>The file name %filename%</li>'.replace('%filename%', d.MoviefilenameWasAlreadyInDb === 0 ? 'has been added!':'too...'));
+                    $('#upload-partial').html('Subtitle was already present in the database.<br><li>The hash %hash%</li>'.replace('%hash%', d.HashWasAlreadyInDb === 0 ? 'has been added!':'too...'));
+                    $('#upload-partial').append('<li>The file name %filename%</li>'.replace('%filename%', d.MoviefilenameWasAlreadyInDb === 0 ? 'has been added!':'too...'));
                     $('#button-upload').addClass('partial');
                     $('#upload-partial').show();
                 } else {
