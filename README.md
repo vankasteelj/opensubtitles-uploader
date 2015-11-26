@@ -8,6 +8,13 @@ Built with love & ducktape (read: _jquery & no framework_)
 - global reset button (at least smth after 'upload')
 - promise to display 'loaders/spinners'
 - add some lovely icons to make that a little nicer
+- add tooltips
+- add initial 'help' screen (popup) & settings to remember 'already seen'
+- "translator" field? (not described in api docs)
+- display imdb title related to id, to verify quickly it's right.
+- comment should be textarea (multiline) instead of output.
+- osx mediainfo cli & binaries to ship
+- new logo for opensubtitles.eu
 
 ### Build
 Install dependencies, download binaries:
