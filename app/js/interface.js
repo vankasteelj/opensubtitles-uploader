@@ -50,6 +50,7 @@ var interface = {
             console.error(err);
         });
         OS.identify(file).then(function (data) {
+            console.log(data)
             if (data.metadata && data.metadata.imdbid) $('#imdbid').val(data.metadata.imdbid);
         }).catch(function(err) {
             console.error(err);
@@ -98,8 +99,8 @@ var interface = {
                 break;
             case 'upload':
                 $('#button-upload').removeClass('success partial fail');
-                $('#upload-partial').html('');
-                $('#upload-success, #upload-partial, #upload-fail').hide()
+                $('#upload-result .result').html('');
+                $('#upload-result').hide();
                 break;
             default:
                 interface.reset('video');

@@ -61,7 +61,7 @@ var opensubtitles = {
     logged: function () {
         $('#not-logged').hide();
         $('#logged').show();
-        $('#logged-as').text('Logged in as %username%'.replace('%username%', localStorage.os_user));
+        $('#logged-as .username').text(localStorage.os_user);
     },
     logout: function () {
         $('#login-username').val(localStorage.os_user);
@@ -143,21 +143,24 @@ var opensubtitles = {
             if (response && response.status.match(/200/)) {
                 if (response.alreadyindb === 1) {
                     var d = response.data;
-                    $('#upload-partial').html('Subtitle was already present in the database.<br><li>The hash %hash%</li>'.replace('%hash%', d.HashWasAlreadyInDb === 0 ? 'has been added!':'too...'));
-                    $('#upload-partial').append('<li>The file name %filename%</li>'.replace('%filename%', d.MoviefilenameWasAlreadyInDb === 0 ? 'has been added!':'too...'));
+                    $('#upload-result .result').html('Subtitle was already present in the database.<br><li>The hash %hash%</li><li>The file name %filename%</li>'.replace('%hash%', d.HashWasAlreadyInDb === 0 ? 'has been added!':'too...').replace('%filename%', d.MoviefilenameWasAlreadyInDb === 0 ? 'has been added!':'too...'));
                     $('#button-upload').addClass('partial');
-                    $('#upload-partial').show();
+                    $('#upload-result').css('color', '#e69500');
                 } else {
+                    $('#upload-result .result').text('Subtitle was successfully uploaded!');
                     $('#button-upload').addClass('success');
-                    $('#upload-success').show();
+                    $('#upload-result').css('color', '#006833');
                 }
+                $('#upload-result').show();
             } else {
                 throw 'Something went wrong';
             }
         }).catch(function(err) {
             console.error(err);
+            $('#upload-result .result').text('Something went wrong :(');
             $('#button-upload').addClass('fail');
-            $('#upload-fail').show();
+            $('#upload-result').css('color', '#e60000');
+            $('#upload-result').show();
         });
     }
 };
