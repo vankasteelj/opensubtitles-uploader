@@ -36,6 +36,10 @@
     float: left;
 }
 
+#button-upload i {
+    font-size: 17px;
+}
+
 #button-upload.success {
     background: #008140;
 }
@@ -49,31 +53,61 @@
 }
 
 #upload-result {
-    float: left;
-    font-size: 15px;
-    padding-left: 15px;
-}
-#upload-success {
-    margin-top: 10px;
-    display: none;
     position: absolute;
-}
-#upload-partial {
-    margin-top: 3px;
+    left: 150px;
+    top: 4px;
     display: none;
-    position: absolute;
+    font-size: 14px;
+    background: #fff;
+    border: 1px solid #AAA;
+    min-height: 16px;
+    padding: 6px 25px;
+    box-shadow: 2px 2px 2px #CCC;
 }
-#upload-partial li {
-    font-size: 12px;
+
+#upload-result:after,
+#upload-result:before {
+    right: 100%;
+    top: 14px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+#upload-result:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-right-color: #fff;
+    border-width: 7px;
+    margin-top: -7px;
+}
+
+#upload-result:before {
+    border-color: rgba(68, 68, 68, 0);
+    border-right-color: #777;
+    border-width: 8px;
+    margin-top: -8px;
+}
+
+#upload-result .result li {
+    font-size: 11px;
+    font-style: italic;
     margin-top: 3px;
     list-style: none;
     float: left;
     margin-left: 20px;
 }
-#upload-fail {
-    margin-top: 10px;
-    display: none;
+
+#upload-result .close {
+    color: #333;
     position: absolute;
+    top: -5px;
+    right: -2px;
+    padding: 5px;
+    font-size: 12px;
+    cursor: pointer;
 }
 
 
@@ -94,14 +128,30 @@
 
 #button-login,
 #button-logout {
-    float: left;
+  float: left;
+  padding: 5px 10px;
+  line-height: 16px;
+}
+
+#button-logout i {
+    font-size: 11px;
 }
 
 #logged-as {
     font-size: 13px;
     float: left;
-    margin-top: 2px;
+    margin-top: 4px;
     color: #666;
+}
+
+#logged-as i {
+    cursor: pointer;
+    font-size: 14px;
+    transition: all .3s;
+}
+
+#logged-as i:hover {
+    color: #2A4D6E;
 }
 
 #authentication input,
@@ -110,7 +160,7 @@
 }
 
 #authentication input {
-    height: 18px;
+    height: 22px;
     width: 150px;
     text-align: center;
 }
@@ -123,13 +173,13 @@
 .reset {
     position: absolute;
     right: 40px;
-    font-size: 12px;
+    font-size: 17px;
     color: #bbb;
     padding-left: 12px;
-    margin-top: -15px;
-    padding-right: 12px;
-    text-decoration: underline;
+    margin-top: -12px;
+    padding-right: 14px;
     cursor: pointer;
+    transition: all .3s;
 }
 
 .reset:hover {
@@ -167,6 +217,7 @@
     padding: 7px 10px;
     float: left;
     font-size: 15px;
+    line-height: 19px;
 }
 
 .section-file span {
@@ -177,15 +228,14 @@
 }
 
 .metadata {
-    margin: 50px 50px 0px 50px;
-    ;
+    margin: 45px 50px 0px 50px;
     width: 750px;
     border: 1px solid #ddd;
     padding: 10px;
-    height: 100px;
+    height: 114px;
 }
 
-.metadata .title {
+.metadata .box-title {
     font-size: 11px;
     font-weight: 600;
     border: 1px solid #ddd;
@@ -194,17 +244,9 @@
     margin-top: -27px;
 }
 
-span.special-required {
-    color: #e60000;
-    font-size: 10px;
-    margin-top: -10px;
-    margin-right: 30px;
-    width: 50px;
-    float: right;
-}
-
 .metadata .content .metaitem {
-    margin: 2px;
+    margin: 2px 2px 4px 2px;
+    color: #333;
 }
 
 .metadata .content .metaitem span {
@@ -238,11 +280,26 @@ span.special-required {
 
 .col-both {
     clear: both;
-    padding-top: 8px
 }
 
 .col-both input {
     width: 646px;
+}
+
+input[type=checkbox] {
+    border: 1px solid #d0d0d0;
+    -webkit-appearance: none;
+    height: 14px;
+    width: 14px;
+    margin-top: 1px;
+}
+
+input[type=checkbox]:checked:before {
+    font-family: 'FontAwesome';
+    content: "\f00c ";
+    position: absolute;
+    margin-top: 1px;
+    font-size: 10px;
 }
 
 
@@ -251,7 +308,7 @@ span.special-required {
  */
 
 #imdbid {
-    width: 180px;
+    width: 210px;
 }
 
 .search-imdb {
@@ -261,6 +318,7 @@ span.special-required {
     padding-right: 12px;
     text-decoration: underline;
     cursor: pointer;
+    transition: all .3s;
 }
 
 .search-imdb:hover {
@@ -276,17 +334,23 @@ span.special-required {
     margin-right: 220px;
 }
 
+#main-subtitle .metadata {
+    height: 110px;
+}
+
 #subauthorcomment {
-    width: 647px;
+    width: 640px;
+    float: left;
+    margin-left: 100px;
+    border: 1px solid #d0d0d0;
 }
 
 #sublanguageid {
     margin-left: 100px;
-    width: 180px;
-    border: 0;
+    width: 210px;
     padding-left: 5px;
     color: #444;
-    background: #e0e0e0;
+    border: 1px solid #d0d0d0;
     text-align: right;
 }
 
@@ -302,6 +366,7 @@ span.special-required {
     padding-right: 12px;
     text-decoration: underline;
     cursor: pointer;
+    transition: all .3s;
 }
 
 .detect-lang:hover {
@@ -319,7 +384,7 @@ span.special-required {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, .2);
+    background: rgba(25, 30, 50, .2);
     display: none;
 }
 
@@ -337,15 +402,24 @@ span.special-required {
 #search-text {
     width: 220px;
     height: 18px;
-    margin-left: 70px;
+    margin-left: 100px;
     float: left;
     text-align: center;
 }
 
 #button-search {
-    margin-left: 8px;
     float: left;
-    height: 16px;
+    font-size: 13px;
+    padding: 2px 10px;
+    line-height: 15px;
+    margin-top: 1px;
+    height: 14px;
+    color: #333;
+    margin-left: -33px;
+}
+
+#button-search:hover {
+    color: #4A6B8A;
 }
 
 #search-result {
@@ -366,12 +440,12 @@ span.special-required {
     list-style: none;
     border-left: 4px solid transparent;
     color: #222;
+    transition: all .3s;
 }
 
 .result-item:hover {
     background: rgba(114, 140, 166, .4);
     border-left: 4px solid #728CA6;
-    transition: all .3s;
 }
 
 
@@ -384,12 +458,18 @@ body {
     cursor: default;
     -webkit-user-select: none;
     -webkit-user-drag: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeSpeed;
 }
 
 img,
 a {
     -webkit-user-drag: none;
     -webkit-user-select: none;
+}
+
+a {
+    cursor: pointer;
 }
 
 .button {
@@ -402,7 +482,7 @@ a {
 .dominant {
     background: #2A4D6E;
     color: #fff;
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 400;
     padding: 8px 20px;
 }
@@ -415,8 +495,7 @@ a {
     background: #4A6B8A;
     color: #fff;
     font-size: 13px;
-    font-weight: 200;
-    padding: 2px 15px;
+    font-weight: 400;
 }
 
 .light:hover {
@@ -424,8 +503,7 @@ a {
 }
 
 input {
-    background: #e0e0e0;
-    border: 0;
+    border: 1px solid #d0d0d0;
     padding-left: 1px;
     padding-right: 1px;
 }
@@ -470,16 +548,16 @@ input {
 }
 
 ::-webkit-scrollbar-track {
-    background: #e0e0e0;
+    background: #e8e7e6;
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background: rgba(74, 107, 138, .8);
+    transition: all .3s;
 }
 
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(74, 107, 138, .9);
-    transition: all .3s;
 }

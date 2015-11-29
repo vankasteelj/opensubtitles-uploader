@@ -38,6 +38,12 @@
     "Chinese (simplified)": {
         "code": "chi"
     },
+    "Chinese (traditional)": {
+        "code": "zht"
+    },
+    "Chinese (bilingual)": {
+        "code": "zhe"
+    },
     "Czech": {
         "code": "cze"
     },
@@ -131,6 +137,9 @@
     "Mongolian": {
         "code": "mon"
     },
+    "Montenegrin": {
+        "code": "mne"
+    },
     "Norwegian": {
         "code": "nor"
     },
@@ -145,6 +154,12 @@
     },
     "Portuguese": {
         "code": "por"
+    },
+    "Portuguese (BR)": {
+        "code": "pob"
+    },
+    "Romanian": {
+        "code": "rum"
     },
     "Russian": {
         "code": "rus"
@@ -196,20 +211,5 @@
     },
     "Vietnamese": {
         "code": "vie"
-    },
-    "Romanian": {
-        "code": "rum"
-    },
-    "Portuguese (BR)": {
-        "code": "pob"
-    },
-    "Montenegrin": {
-        "code": "mne"
-    },
-    "Chinese (traditional)": {
-        "code": "zht"
-    },
-    "Chinese bilingual": {
-        "code": "zhe"
     }
 }

@@ -84,6 +84,9 @@ var misc = {
         }).catch(function(err) {
             console.error('misc.detect_lang() error:', err);
         });
+    },
+    openExternal(link) {
+        gui.Shell.openExternal(link);
     }
 };
 
@@ -120,7 +123,11 @@ window.ondragenter = function(e) {
     $('#drop-mask').on('dragenter',
         function(e) {
             console.debug('Drag initialized');
-        });
+            misc.type = misc.fileType(e.originalEvent.dataTransfer.files[0].name);
+            if (misc.type) {
+                $('#main-' + misc.type).css('border-color', '#4A6B8A');
+            }
+        }.bind(this));
     $('#drop-mask').on('dragover',
         function(e) {
             var showDrag = true;
@@ -133,9 +140,10 @@ window.ondragenter = function(e) {
             timeout = setTimeout(function() {
                 if (!showDrag) {
                     console.debug('Drag aborted');
-                    $('#drop-mask').hide();
+                    $('#main-' + misc.type).css('border-color', '');
+                    misc.type = null;
                 }
-            }, 100);
+            }, 10);
         });
 };
 window.ondrop = function(e) {
@@ -143,9 +151,9 @@ window.ondrop = function(e) {
     $('#drop-mask').hide();
 
     var file = e.dataTransfer.files[0];
-
     var type = misc.fileType(file.path);
     if (type) {
+        $('#main-' + type).css('border-color', '');
         console.debug(type, 'dropped');
         interface['add_' + type](file.path);
         $('#search-popup').hide();

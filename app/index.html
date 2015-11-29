@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>OpenSubtitles Uploader</title>
     <link rel="icon" type="image/png" href="images/os-icon.png"/>
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css"/>
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
     <link rel="stylesheet" type="text/css" href="css/animations.css"/>
 
@@ -18,22 +19,23 @@
     <div id="drop-mask"></div>
     <section id="main-buttons">
 
-        <div id="button-upload" onClick="opensubtitles.upload()" class="button dominant">Upload</div>
+        <div id="button-upload" onClick="opensubtitles.upload()" class="button dominant"><i class="fa fa-cloud-upload">&nbsp;</i>Upload</div>
         <div id="upload-result">
-            <span id="upload-success">Subtitle was successfully uploaded!</span>
-            <span id="upload-partial"></span>
-            <span id="upload-fail">Something went wrong :(</span>
+            <div class="result"></div>
+            <div class="close" onClick="interface.reset('all')">x</div>
         </div>
 
         <div id="authentication">
             <div id="logged" style="display:none">
-                <div id="logged-as"></div>
-                <div id="button-logout" onClick="opensubtitles.logout()" class="button light">log out</div>
+                <div id="logged-as">
+                    <i class="fa fa-sign-out" onClick="opensubtitles.logout()"></i>
+                    <span class="username"></span>
+                </div>
             </div>
             <div id="not-logged" style="display:block">
-                <input id="login-username" type="text" placeholder="username"></input>
-                <input id="login-password" type="password" placeholder="password"></input>
-                <div id="button-login" onClick="opensubtitles.login()" class="button light">login</div>
+                <input id="login-username" type="text" placeholder="Username"></input>
+                <input id="login-password" type="password" placeholder="Password"></input>
+                <div id="button-login" onClick="opensubtitles.login()" class="button light">Log in</div>
             </div>
         </div>
 
@@ -41,7 +43,7 @@
 
     <section id="main-video" class="section-file">
 
-        <div class="reset" onClick="interface.reset('video')">reset</div>
+        <i class="reset fa fa-trash-o" onClick="interface.reset('video')"></i>
 
         <div class="input-line">
             <span class="input-file">Video file</span>
@@ -51,7 +53,7 @@
         </div>
 
         <div class="metadata">
-            <span class="title">Metadata</span>
+            <span class="box-title">Metadata</span>
             <div class="content col-left">
                 <div class="metaitem">
                     <span>File name</span>
@@ -71,7 +73,7 @@
                 <div class="metaitem">
                     <span>IMDB id</span>
                     <input id="imdbid" type="text"></input>
-                    <span class="search-imdb" onClick="interface.searchPopup()">search</span>
+                    <span class="search-imdb" onClick="interface.searchPopup()"><i class="fa fa-search"></i></span>
                 </div>
                 <div class="metaitem">
                     <span>High definition</span>
@@ -106,7 +108,7 @@
 
     <section id="main-subtitle" class="section-file">
 
-        <div class="reset" onClick="interface.reset('subtitle')">reset</div>
+        <i class="reset fa fa-trash-o" onClick="interface.reset('subtitle')"></i>
 
         <div class="input-line">
             <span class="input-file">Subtitle file</span>
@@ -116,7 +118,7 @@
         </div>
 
         <div class="metadata">
-            <span class="title">Metadata</span>
+            <span class="box-title">Metadata</span>
             <div class="content col-left">
                 <div class="metaitem">
                     <span>File name</span>
@@ -133,7 +135,7 @@
                     <select id="sublanguageid" name="language" selected="">
                         <option value="">None</option>
                     </select>
-                    <span class="detect-lang" onClick="misc.detect_lang()">detect</span>
+                    <span class="detect-lang" onClick="misc.detect_lang()"><i class="fa fa-flip-horizontal fa-magic"></i></span>
                     <script>
                         var os_langs = require('./js/os-lang.json');
 
@@ -160,19 +162,19 @@
             <div class="content col-both">
                 <div class="metaitem">
                     <span>Comment</span>
-                    <input id="subauthorcomment" type="text"></input>
+                    <textarea id="subauthorcomment" type="text"></textarea>
                 </div>
             </div>
         </div>
     </section>
     <!--span class="special-required">* required</span-->
 
-    <div class="app-author">v%appversion% - developped by <a href="https://github.com/vankasteelj" target="_blank">vankasteelj</a></div>
+    <div class="app-author">v%appversion% - developped by <a onClick="misc.openExternal('https://github.com/vankasteelj')">vankasteelj</a></div>
 
     <section id="search-popup">
         <div id="search">
             <input id="search-text" type="text" placeholder="Enter a title"></input>
-            <div id="button-search" onClick="opensubtitles.search_imdb()" class="button light">search</div>
+            <div id="button-search" onClick="opensubtitles.search_imdb()" class="button fa fa-search"></div>
             <div id="search-result"></div>
         </div>
     </section>
