@@ -62,7 +62,7 @@
     border: 1px solid #AAA;
     min-height: 16px;
     padding: 6px 25px;
-    box-shadow: 2px 2px 2px #CCC;
+    box-shadow: 2px 2px 4px #CCC;
 }
 
 #upload-result:after,
@@ -101,12 +101,13 @@
 }
 
 #upload-result .close {
-    color: #333;
+    color: #888;
+    font-weight: 200;
     position: absolute;
     top: -5px;
     right: -2px;
     padding: 5px;
-    font-size: 12px;
+    font-size: 10px;
     cursor: pointer;
 }
 
@@ -128,9 +129,9 @@
 
 #button-login,
 #button-logout {
-  float: left;
-  padding: 5px 10px;
-  line-height: 16px;
+    float: left;
+    padding: 5px 10px;
+    line-height: 16px;
 }
 
 #button-logout i {
@@ -307,6 +308,25 @@ input[type=checkbox]:checked:before {
  * SECTION: VIDEO
  */
 
+#main-video-shadow {
+    display: none;
+    opacity: 0;
+    background: rgba(25, 30, 50, .2);
+    width: 942px;
+    height: 253px;
+    position: absolute;
+    margin-left: 33px;
+    border-radius: 5px;
+    transition: all .3s;
+}
+
+#main-video-shadow i {
+    font-size: 50px;
+    color: #fff;
+    margin-top: 100px;
+    margin-left: calc(50% - 25px);
+}
+
 #imdbid {
     width: 210px;
 }
@@ -385,6 +405,7 @@ input[type=checkbox]:checked:before {
     width: 100%;
     height: 100%;
     background: rgba(25, 30, 50, .2);
+    opacity: 0;
     display: none;
 }
 
@@ -548,7 +569,7 @@ input {
 }
 
 ::-webkit-scrollbar-track {
-    background: #e8e7e6;
+    background: #e3e3e3;
     border-radius: 10px;
 }
 
@@ -560,4 +581,24 @@ input {
 
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(74, 107, 138, .9);
+}
+
+
+/* tooltips */
+
+.ui-tooltip {
+    padding: 4px 8px;
+    font-family: sans-serif;
+    position: absolute;
+    background: rgba(30, 30, 30, .8);
+    border-radius: 5px;
+    color: #eee;
+    font-size: 12px;
+    z-index: 9999;
+    max-width: 300px;
+    -webkit-box-shadow: 0 0 5px #aaa;
+}
+
+.ui-helper-hidden-accessible {
+    display: none;
 }

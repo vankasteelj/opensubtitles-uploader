@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="css/animations.css"/>
 
     <script src="js/vendor/jquery.js" type="application/javascript"></script>
+    <script src="js/vendor/jquery-ui.js" type="application/javascript"></script>
     <script src="js/os.js" type="application/javascript"></script>
     <script src="js/interface.js" type="application/javascript"></script>
     <script src="js/misc.js" type="application/javascript"></script>
@@ -22,13 +23,13 @@
         <div id="button-upload" onClick="opensubtitles.upload()" class="button dominant"><i class="fa fa-cloud-upload">&nbsp;</i>Upload</div>
         <div id="upload-result">
             <div class="result"></div>
-            <div class="close" onClick="interface.reset('all')">x</div>
+            <div class="close fa fa-close" onClick="interface.reset('all')"></div>
         </div>
 
         <div id="authentication">
             <div id="logged" style="display:none">
                 <div id="logged-as">
-                    <i class="fa fa-sign-out" onClick="opensubtitles.logout()"></i>
+                    <i class="fa fa-sign-out tooltipped-fast" onClick="opensubtitles.logout()" title="Log out"></i>
                     <span class="username"></span>
                 </div>
             </div>
@@ -41,9 +42,12 @@
 
     </section>
 
+    <div id="main-video-shadow">
+        <i class="fa fa-cog fa-spin"></i>
+    </div>
     <section id="main-video" class="section-file">
 
-        <i class="reset fa fa-trash-o" onClick="interface.reset('video')"></i>
+        <i class="reset fa fa-trash-o tooltipped-fast" onClick="interface.reset('video')" title="Reset"></i>
 
         <div class="input-line">
             <span class="input-file">Video file</span>
@@ -73,7 +77,7 @@
                 <div class="metaitem">
                     <span>IMDB id</span>
                     <input id="imdbid" type="text"></input>
-                    <span class="search-imdb" onClick="interface.searchPopup()"><i class="fa fa-search"></i></span>
+                    <span class="search-imdb" onClick="interface.searchPopup()"><i class="fa fa-search tooltipped-fast" title="Search on IMDB directly"></i></span>
                 </div>
                 <div class="metaitem">
                     <span>High definition</span>
@@ -108,7 +112,7 @@
 
     <section id="main-subtitle" class="section-file">
 
-        <i class="reset fa fa-trash-o" onClick="interface.reset('subtitle')"></i>
+        <i class="reset fa fa-trash-o tooltipped-fast" onClick="interface.reset('subtitle')" title="Reset"></i>
 
         <div class="input-line">
             <span class="input-file">Subtitle file</span>
@@ -135,7 +139,7 @@
                     <select id="sublanguageid" name="language" selected="">
                         <option value="">None</option>
                     </select>
-                    <span class="detect-lang" onClick="misc.detect_lang()"><i class="fa fa-flip-horizontal fa-magic"></i></span>
+                    <span class="detect-lang" onClick="misc.detect_lang()"><i class="fa fa-flip-horizontal fa-magic tooltipped-fast" title="Auto-detect the language"></i></span>
                     <script>
                         var os_langs = require('./js/os-lang.json');
 
@@ -174,7 +178,7 @@
     <section id="search-popup">
         <div id="search">
             <input id="search-text" type="text" placeholder="Enter a title"></input>
-            <div id="button-search" onClick="opensubtitles.search_imdb()" class="button fa fa-search"></div>
+            <div id="button-search" onClick="opensubtitles.search_imdb()" class="button fa fa-search tooltipped-fast" title="Search"></div>
             <div id="search-result"></div>
         </div>
     </section>
@@ -195,6 +199,10 @@
                 }).unref();
                 gui.App.quit();
             }
+        });
+        $('.tooltipped-fast').tooltip({
+            'show': {duration: 500, delay: 400},
+            'hide': 500
         });
 
         $('#video-file-path-hidden').attr('accept', misc.supportedTypes.video.join());

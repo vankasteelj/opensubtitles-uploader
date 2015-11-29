@@ -74,6 +74,8 @@ var misc = {
             misc.animate($('#subtitle-file-path'), 'warning', 1750);
             return;
         }
+        $('.tooltipped-fast').tooltip('close')
+        $('.detect-lang i').addClass('fa-circle-o-notch fa-spin').removeClass('fa-magic');
         require('detect-lang')(sub).then(function (data) {
             if (data && data.probability > 45 && (data.iso6392 || data.bibliographic)) {
                 $('#sublanguageid').val((data.iso6392 || data.bibliographic))
@@ -81,7 +83,9 @@ var misc = {
                 console.error(data);
                 throw 'not conclusive enough';
             }
+            $('.detect-lang i').addClass('fa-magic').removeClass('fa-circle-o-notch fa-spin')
         }).catch(function(err) {
+            $('.detect-lang i').addClass('fa-magic').removeClass('fa-circle-o-notch fa-spin');
             console.error('misc.detect_lang() error:', err);
         });
     },
@@ -156,7 +160,7 @@ window.ondrop = function(e) {
         $('#main-' + type).css('border-color', '');
         console.debug(type, 'dropped');
         interface['add_' + type](file.path);
-        $('#search-popup').hide();
+        $('#search-popup').css('opacity', 0).hide();
         interface.reset('search');
     } else {
         console.debug('Dropped file is not supported');

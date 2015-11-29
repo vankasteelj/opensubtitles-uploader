@@ -37,22 +37,40 @@ var interface = {
         win.moveTo(x, y);
     },
     add_video: function (file) {
-        interface.reset('video');
-        interface.mediainfo(file);
-        $('#video-file-path').val(file);
+        $('#main-video-shadow').show().css('opacity', '1')
+
+        var info = {};
         OS.extractInfo(file).then(function (data) {
-            $('#moviefilename').val(path.basename(file));
-            $('#moviebytesize').val(data.moviebytesize);
-            $('#moviehash').val(data.moviehash);
-            var quality = misc.extractQuality(path.basename(file));
-            if (quality && quality.match(/720|1080/i)) $('#highdefinition').prop('checked', true);
+            info = {
+                moviefilename: path.basename(file),
+                moviebytesize: data.moviebytesize,
+                moviehash: data.moviehash,
+                quality: misc.extractQuality(path.basename(file))
+            }
+        }).then(function () {
+            return OS.identify(file);
+        }).then(function (data) {
+            console.log(data);
+            if (data.metadata && data.metadata.imdbid) info.imdbid = data.metadata.imdbid;
+            return interface.mediainfo(file);
+        }).then(function (args) {
+            interface.reset('video');
+            if (args && args.length === 5) {
+                $('#movietimems').val(args[0]);
+                $('#moviefps').val(args[3]);
+                $('#movieframes').val(args[4]);
+                if (args[2] >= 720) $('#highdefinition').prop('checked', true);
+            }
+            $('#video-file-path').val(file);
+            $('#moviefilename').val(info.moviefilename);
+            $('#moviebytesize').val(info.moviebytesize);
+            $('#moviehash').val(info.moviehash);
+            if (info.quality && info.quality.match(/720|1080/i)) $('#highdefinition').prop('checked', true);
+            if (info.imdbid) $('#imdbid').val(info.imdbid);
+            $('#main-video-shadow').css('opacity', '0').hide();
         }).catch(function(err) {
-            console.error(err);
-        });
-        OS.identify(file).then(function (data) {
-            console.log(data)
-            if (data.metadata && data.metadata.imdbid) $('#imdbid').val(data.metadata.imdbid);
-        }).catch(function(err) {
+            interface.reset('video');
+            $('#main-video-shadow').css('opacity', '0').hide();
             console.error(err);
         });
     },
@@ -100,6 +118,7 @@ var interface = {
             case 'upload':
                 $('#button-upload').removeClass('success partial fail');
                 $('#upload-result .result').html('');
+                $('#button-upload i').removeClass('fa-check fa-quote-left fa-close').addClass('fa-cloud-upload');
                 $('#upload-result').hide();
                 break;
             default:
@@ -119,13 +138,13 @@ var interface = {
                 count++;
             }
         }
-        $('#search-popup').show();
+        $('#search-popup').show().css('opacity', 1);
         $('#search-text').val(begin_title.join(' '));
     },
     leavePopup: function (e) {
         var container = $('#search');
         if (!container.is(e.target) && container.has(e.target).length === 0) {
-            $('#search-popup').hide();
+            $('#search-popup').css('opacity', 0).hide();
             $('#search-result').hide();
             $('#search').css({
                 height: '20px',
@@ -141,28 +160,26 @@ var interface = {
         interface.leavePopup({});
     },
     mediainfo: function (file) {
-        var cmd;
-        if (process.platform === 'win32') {
-            cmd = process.cwd() + '/mi-win32/mi.exe --Inform=Video;::%Duration%::%Width%::%Height%::%FrameRate%::%FrameCount%' + ' "' + file + '"';
-        } else if (process.platform === 'linux') {
-            var arch = process.arch.match(/64/) ? '64' : '32';
-            cmd = 'LD_LIBRARY_PATH='+ process.cwd() + '/mi-linux'+ arch +'/' + ' ' + process.cwd() + '/mi-linux' + arch + '/mi --Inform="Video;::%Duration%::%Width%::%Height%::%FrameRate%::%FrameCount%"' + ' "' + file + '"';
-        } else {
-            return;
-        }
-
-        require('child_process').exec(cmd,  function (error, stdout, stderr) {
-            if (error !== null || stderr !== '') {
-                console.error('MediaInfo exec error:', (error || stderr));
+        return new Promise(function (resolve, reject) {
+            var cmd;
+            if (process.platform === 'win32') {
+                cmd = process.cwd() + '/mi-win32/mi.exe --Inform=Video;::%Duration%::%Width%::%Height%::%FrameRate%::%FrameCount%' + ' "' + file + '"';
+            } else if (process.platform === 'linux') {
+                var arch = process.arch.match(/64/) ? '64' : '32';
+                cmd = 'LD_LIBRARY_PATH='+ process.cwd() + '/mi-linux'+ arch +'/' + ' ' + process.cwd() + '/mi-linux' + arch + '/mi --Inform="Video;::%Duration%::%Width%::%Height%::%FrameRate%::%FrameCount%"' + ' "' + file + '"';
             } else {
-                var args = stdout.replace('::','').replace('\n','').split('::');
-                if (args && args.length === 5) {
-                    $('#movietimems').val(args[0]);
-                    $('#moviefps').val(args[3]);
-                    $('#movieframes').val(args[4]);
-                    if (args[2] >= 720) $('#highdefinition').prop('checked', true);
-                }
+                resolve(false);
             }
+
+            require('child_process').exec(cmd,  function (error, stdout, stderr) {
+                if (error !== null || stderr !== '') {
+                    console.error('MediaInfo exec error:', (error || stderr));
+                    resolve(false);
+                } else {
+                    var args = stdout.replace('::','').replace('\n','').split('::');
+                    resolve(args);
+                }
+            });
         });
     }
 };

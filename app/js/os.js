@@ -1,4 +1,6 @@
-var USERAGENT = 'OSTestUserAgent';
+var version = require('../package.json').version;
+var USERAGENT = 'OpenSubtitles-Uploader v' + (version || 1);
+USERAGENT = 'Ark v0.0.1'; //DEV while waiting for actual ua.
 var OS;
 
 var OpenSubtitles = require('opensubtitles-api');
@@ -71,6 +73,7 @@ var opensubtitles = {
         $('#not-logged').show();
     },
     search_imdb: function () {
+        $('#button-search').addClass('fa-circle-o-notch fa-spin').removeClass('fa-search');
         if ($('#search-text').val() === '') {
             misc.animate('#button-search', 'buzz', 1000);
             misc.animate($('#search-text'), 'warning', 1750);
@@ -94,6 +97,7 @@ var opensubtitles = {
             } else {
                 throw new Error('Opensubtitles.SearchMoviesOnIMDB() error, no details')
             }
+            $('#button-search').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
         }).catch(function (err) {
             console.error(err);
         });
@@ -118,7 +122,8 @@ var opensubtitles = {
             subpath: $('#subtitle-file-path').val()
         }
 
-        var optionnal = ['#sublanguageid',
+        var optionnal = [
+            '#sublanguageid',
             '#imdbid',
             '#highdefinition',
             '#hearingimpaired',
@@ -137,19 +142,20 @@ var opensubtitles = {
                 obj_data[optionnal[o].replace('#', '')] = true;
             }
         }
-        OS.upload(obj_data).then(function (response) {
-            console.log(response);
-            
+
+        OS.upload(obj_data).then(function (response) {        
             if (response && response.status.match(/200/)) {
                 if (response.alreadyindb === 1) {
                     var d = response.data;
                     $('#upload-result .result').html('Subtitle was already present in the database.<br><li>The hash %hash%</li><li>The file name %filename%</li>'.replace('%hash%', d.HashWasAlreadyInDb === 0 ? 'has been added!':'too...').replace('%filename%', d.MoviefilenameWasAlreadyInDb === 0 ? 'has been added!':'too...'));
                     $('#button-upload').addClass('partial');
                     $('#upload-result').css('color', '#e69500');
+                    $('#button-upload i').removeClass('fa-cloud-upload').addClass('fa-quote-left');
                 } else {
                     $('#upload-result .result').text('Subtitle was successfully uploaded!');
                     $('#button-upload').addClass('success');
                     $('#upload-result').css('color', '#006833');
+                    $('#button-upload i').removeClass('fa-cloud-upload').addClass('fa-check');
                 }
                 $('#upload-result').show();
             } else {
@@ -160,6 +166,7 @@ var opensubtitles = {
             $('#upload-result .result').text('Something went wrong :(');
             $('#button-upload').addClass('fail');
             $('#upload-result').css('color', '#e60000');
+            $('#button-upload i').removeClass('fa-cloud-upload').addClass('fa-close');
             $('#upload-result').show();
         });
     }
