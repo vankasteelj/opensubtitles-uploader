@@ -8,7 +8,6 @@ Built with love & ducktape (read: _jquery & no framework_)
 - "translator" field? (not described in api docs)
 - display imdb title related to id, to verify quickly it's right.
 - osx mediainfo cli & binaries to ship
-- loading spinner on "upload"
 
 ### Build
 Install dependencies, download binaries:

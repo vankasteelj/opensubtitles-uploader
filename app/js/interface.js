@@ -99,7 +99,7 @@ var interface = {
                 $('#movieframes').val('');
 
                 $('#highdefinition').prop('checked', false);
-                if ($('#upload-result').css('display') == 'block') interface.reset('upload');
+                if ($('#upload-result').css('display') === 'block') interface.reset('upload');
                 break;
             case 'subtitle':
                 $('#subtitle-file-path').val('');
@@ -111,7 +111,7 @@ var interface = {
                 $('#automatictranslation').prop('checked', false);
 
                 $('#sublanguageid').val('');
-                if ($('#upload-result').css('display') == 'block') interface.reset('upload');
+                if ($('#upload-result').css('display') === 'block') interface.reset('upload');
                 break;
             case 'search':
                 $('#search-text').val('');
