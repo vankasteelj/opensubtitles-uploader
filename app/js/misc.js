@@ -27,6 +27,7 @@ var misc = {
         });
     },
     extractQuality: function (title) {
+        console.info('Detecting quality...');
         // 480p
         if (title.match(/480[pix]/i)) {
             return '480p';
@@ -74,6 +75,7 @@ var misc = {
             misc.animate($('#subtitle-file-path'), 'warning', 1750);
             return;
         }
+        console.info('Detecting subtitle language...');
         $('.tooltipped-fast').tooltip('close')
         $('.detect-lang i').addClass('fa-circle-o-notch fa-spin').removeClass('fa-magic');
         require('detect-lang')(sub).then(function (data) {
@@ -89,8 +91,20 @@ var misc = {
             console.error('misc.detect_lang() error:', err);
         });
     },
-    openExternal(link) {
+    openExternal: function(link) {
         gui.Shell.openExternal(link);
+    },
+    restartApp: function () {
+        var argv = gui.App.fullArgv,
+            CWD = process.cwd();
+
+        argv.push(CWD);
+        require('child_process').spawn(process.execPath, argv, {
+            cwd: CWD,
+            detached: true,
+            stdio: ['ignore', 'ignore', 'ignore']
+        }).unref();
+        gui.App.quit();
     }
 };
 
@@ -126,7 +140,6 @@ window.ondragenter = function(e) {
     var timeout = -1;
     $('#drop-mask').on('dragenter',
         function(e) {
-            console.debug('Drag initialized');
             misc.type = misc.fileType(e.originalEvent.dataTransfer.files[0].name);
             if (misc.type) {
                 $('#main-' + misc.type).css('border-color', '#4A6B8A');
@@ -143,7 +156,6 @@ window.ondragenter = function(e) {
             clearTimeout(timeout);
             timeout = setTimeout(function() {
                 if (!showDrag) {
-                    console.debug('Drag aborted');
                     $('#main-' + misc.type).css('border-color', '');
                     misc.type = null;
                 }
@@ -158,10 +170,9 @@ window.ondrop = function(e) {
     var type = misc.fileType(file.path);
     if (type) {
         $('#main-' + type).css('border-color', '');
-        console.debug(type, 'dropped');
+        console.debug('New File:', type, 'dropped');
         interface['add_' + type](file.path);
-        $('#search-popup').css('opacity', 0).hide();
-        interface.reset('search');
+        if ($('#search-popup').css('display') == 'block') interface.leavePopup({});
     } else {
         console.debug('Dropped file is not supported');
     }
