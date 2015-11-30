@@ -1,6 +1,5 @@
 var version = require('../package.json').version;
-var USERAGENT = 'OpenSubtitles-Uploader v' + (version || 1);
-USERAGENT = 'Ark v0.0.1'; //DEV while waiting for actual ua.
+var USERAGENT = 'OpenSubtitles-Uploader v' + version;
 var OS;
 
 var OpenSubtitles = require('opensubtitles-api');
