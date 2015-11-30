@@ -8,7 +8,7 @@ Built with love & ducktape (read: _jquery & no framework_)
 - "translator" field? (not described in api docs)
 - display imdb title related to id, to verify quickly it's right.
 - osx mediainfo cli & binaries to ship
-- enter to trigger click
+- loading spinner on "upload"
 
 ### Build
 Install dependencies, download binaries:
@@ -23,16 +23,4 @@ Start live-development
     
 CTRL+D to open devtools, CTRL+R to reload.
 
-### Releases
-Made by hand atm.
-
-### Misc
-Colors: http://paletton.com/#uid=13-0u0kllllaFw0g0qFqFg0w0aF
-- very light #728CA6
-- light #4A6B8A
-- dominant #2A4D6E
-- heavy #133353
-- dark #041E37
-
-
-![ui](https://raw.githubusercontent.com/vankasteelj/opensubtitles-uploader/master/mockups/ui.png)
+![ui](http://i.imgur.com/yofqDHL.png)

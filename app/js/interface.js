@@ -1,5 +1,6 @@
 var interface = {
     browse: function(type) {
+        console.info('Opening File Browser');
         var input = document.querySelector('#' + type + '-file-path-hidden');
         input.addEventListener('change', function(evt) {
             var file = $('#' + type + '-file-path-hidden')[0].files[0];
@@ -22,21 +23,20 @@ var interface = {
         var x = parseInt(localStorage.posX ? localStorage.posX : -1);
         var y = parseInt(localStorage.posY ? localStorage.posY : -1);
 
-        // reset x when the screen width is smaller than the window x-position + the window width
+        // reset x
         if (x < 0 || (x + width) > screen.width) {
-            console.info('Window out of view, recentering x-pos');
             x = Math.round((screen.availWidth - width) / 2);
         }
 
-        // reset y when the screen height is smaller than the window y-position + the window height
+        // reset y
         if (y < 0 || (y + height) > screen.height) {
-            console.info('Window out of view, recentering y-pos');
             y = Math.round((screen.availHeight - height) / 2);
         }
 
         win.moveTo(x, y);
     },
     add_video: function (file) {
+        console.info('Adding new video!');
         $('#main-video-shadow').show().css('opacity', '1')
 
         var info = {};
@@ -75,6 +75,7 @@ var interface = {
         });
     },
     add_subtitle: function (file) {
+        console.info('Adding new subtitle!');
         interface.reset('subtitle');
         $('#subtitle-file-path').val(file);
         $('#subfilename').val(path.basename(file));
@@ -83,6 +84,7 @@ var interface = {
         });
     },
     reset: function (type) {
+        if (type) console.debug('Clear form:', type);
         switch (type) {
             case 'video':
                 $('#video-file-path').val('');
@@ -97,7 +99,7 @@ var interface = {
                 $('#movieframes').val('');
 
                 $('#highdefinition').prop('checked', false);
-                interface.reset('upload');
+                if ($('#upload-result').css('display') == 'block') interface.reset('upload');
                 break;
             case 'subtitle':
                 $('#subtitle-file-path').val('');
@@ -109,7 +111,7 @@ var interface = {
                 $('#automatictranslation').prop('checked', false);
 
                 $('#sublanguageid').val('');
-                interface.reset('upload');
+                if ($('#upload-result').css('display') == 'block') interface.reset('upload');
                 break;
             case 'search':
                 $('#search-text').val('');
@@ -129,6 +131,7 @@ var interface = {
         }
     },
     searchPopup: function () {
+        console.debug('Opening IMDB search popup');
         $(document).bind('mouseup', interface.leavePopup);
 
         var begin_title = [], count = 0, title = misc.clearName($('#moviefilename').val()).split(' ');
@@ -142,6 +145,7 @@ var interface = {
         $('#search-text').val(begin_title.join(' '));
     },
     leavePopup: function (e) {
+        console.debug('Closing IMDB search popup');
         var container = $('#search');
         if (!container.is(e.target) && container.has(e.target).length === 0) {
             $('#search-popup').css('opacity', 0).hide();
@@ -155,6 +159,7 @@ var interface = {
         }
     },
     imdb_fromsearch: function (id) {
+        console.debug('Adding IMDB id to main form');
         id = id > 9999999 ? id : 'tt'+id;
         $('#imdbid').val(id);
         interface.leavePopup({});
@@ -171,6 +176,7 @@ var interface = {
                 resolve(false);
             }
 
+            console.debug('Spawning MediaInfo binary');
             require('child_process').exec(cmd,  function (error, stdout, stderr) {
                 if (error !== null || stderr !== '') {
                     console.error('MediaInfo exec error:', (error || stderr));
@@ -181,5 +187,20 @@ var interface = {
                 }
             });
         });
-    }
+    },
+    keyEnter: function (id) {
+        if (!id || id === 'subauthorcomment') {
+            return;
+        } else if (id === 'login-username' || id === 'login-password') {
+            $('#button-login').click();
+        } else if (id === 'search-text') {
+            $('#button-search').click();
+        } else {
+            var inputs = $(':input');
+            var nextInput = inputs.get(inputs.index(document.activeElement) + 1);
+            if (nextInput) {
+                nextInput.focus();
+            }
+        }
+    } 
 };
