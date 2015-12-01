@@ -154,8 +154,10 @@ var opensubtitles = {
 
         console.debug('Trying to upload subtitle...');
         opensubtitles.isUploading = true;
+        $('#button-upload i, #button-upload span').addClass('pulse');
         OS.upload(obj_data).then(function (response) {
             opensubtitles.isUploading = false;
+            $('#button-upload i, #button-upload span').removeClass('pulse');
             if (response && response.status.match(/200/)) {
                 if (response.alreadyindb === 1) {
                     console.debug('Subtitle already in opensubtitle\'s db');
@@ -177,6 +179,7 @@ var opensubtitles = {
             }
         }).catch(function(err) {
             opensubtitles.isUploading = false;
+            $('#button-upload i, #button-upload span').removeClass('pulse');
             console.error(err);
             $('#upload-result .result').text('Something went wrong :(');
             $('#button-upload').addClass('fail');

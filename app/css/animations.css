@@ -112,6 +112,31 @@
 }
 /* Buzz Out - END */
 
+/* Pulse */
+@-webkit-keyframes pulsate {
+    0% { 
+        opacity: 1.0;
+    }
+    25% {
+        opacity: 0.45;
+    }
+    50% { 
+        opacity: 1.0;
+    }
+    75% {
+        opacity: 0.45;
+    }
+    100% { 
+        opacity: 1.0;
+    }
+}
+
+.pulse {
+    -webkit-animation: pulsate 3.5s ease-out;
+    -webkit-animation-iteration-count: infinite; 
+}
+/* Pulse - END */
+
 input.warning::-webkit-input-placeholder {
     color: #e60000;
 }
