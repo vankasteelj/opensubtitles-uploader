@@ -107,7 +107,8 @@ var interface = {
             if (info.metadata) {
                 var title = '', d = info.metadata;
                 if (d.episode_title) {
-                    title += d.title + ' ' + d.season + 'x' + d.episode + ', ' + d.episode_title;
+                    function pad(n){return n<10 ? '0'+n : n}
+                    title += d.title + ' S' + pad(d.season) + 'E' + pad(d.episode) + ', ' + d.episode_title;
                 } else {
                     title += d.title + ' (' + d.year + ')';
                 }
