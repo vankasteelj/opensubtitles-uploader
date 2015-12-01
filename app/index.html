@@ -155,11 +155,17 @@
                     <span>Auto-translated</span>
                     <input id="automatictranslation" type="checkbox"></input>
                 </div>
+                <div class="metaitem">
+                    <span>Translator</span>
+                    <i id="lock-subtranslator" onClick="interface.toggleSave(this)" class="locker fa fa-unlock tooltipped" title="Save between sessions"></i>
+                    <input id="subtranslator" type="text"></input>
+                </div>
             </div>
 
             <div class="content col-both">
                 <div class="metaitem">
                     <span>Comment</span>
+                    <i id="lock-subauthorcomment" onClick="interface.toggleSave(this)" class="locker fa fa-unlock tooltipped" title="Save between sessions"></i>
                     <textarea id="subauthorcomment" type="text"></textarea>
                 </div>
             </div>

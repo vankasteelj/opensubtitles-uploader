@@ -5,6 +5,7 @@ var interface = {
         interface.setupLangDropdown();
         interface.setupRightClicks();
         misc.keyboardShortcuts();
+        interface.restoreLocks();
         $('.tooltipped').tooltip({
             'show': {duration: 500, delay: 400},
             'hide': 500
@@ -177,12 +178,14 @@ var interface = {
                 $('#subfilename').val('');
                 $('#subhash').val('');
                 $('#subauthorcomment').val('');
+                $('#subtranslator').val('');
 
                 $('#hearingimpaired').prop('checked', false);
                 $('#automatictranslation').prop('checked', false);
 
                 $('#sublanguageid').val('');
                 if ($('#upload-result').css('display') === 'block') interface.reset('upload');
+                interface.restoreLocks();
                 break;
             case 'search':
                 $('#search-text').val('');
@@ -325,5 +328,29 @@ var interface = {
         if (pasteLabel) menu.append(paste);
 
         return menu;
+    },
+    toggleSave: function (el) {
+        var id = $(el).attr('id');
+        if (localStorage[id] !== '$false' && localStorage[id] !== undefined) {
+            $(el).addClass('fa-unlock').removeClass('fa-lock');
+            localStorage[id] = '$false';
+            console.debug('%s disabled', id);
+        } else {
+            $(el).addClass('fa-lock').removeClass('fa-unlock');
+            localStorage[id] = $('#' + id.substr(5)).val();
+            console.debug('%s enabled, storing \'%s\'', id, localStorage[id]);
+        }
+    },
+    restoreLocks: function () {
+        var subauthorcomment = localStorage['lock-subauthorcomment'] || '$false';
+        var subtranslator = localStorage['lock-subtranslator'] || '$false';
+        if (subauthorcomment !== '$false') {
+            $('#subauthorcomment').val(subauthorcomment);
+            $('#lock-subauthorcomment').addClass('fa-lock').removeClass('fa-unlock');
+        }
+        if (subtranslator !== '$false') {
+            $('#subtranslator').val(subtranslator);
+            $('#lock-subtranslator').addClass('fa-lock').removeClass('fa-unlock');
+        }
     }
 };

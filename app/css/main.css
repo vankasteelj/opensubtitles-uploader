@@ -248,6 +248,7 @@
 .metadata .content .metaitem {
     margin: 2px 2px 4px 2px;
     color: #333;
+    height: 19px;
 }
 
 .metadata .content .metaitem span {
@@ -346,7 +347,6 @@ input[type=checkbox]:checked:before {
     color: #bbb;
     padding-left: 12px;
     padding-right: 12px;
-    text-decoration: underline;
     cursor: pointer;
     transition: all .3s;
 }
@@ -359,10 +359,6 @@ input[type=checkbox]:checked:before {
 /*
  * SECTION: SUBTITLE
  */
-
-#main-subtitle .col-right input {
-    margin-right: 220px;
-}
 
 #main-subtitle .metadata {
     height: 110px;
@@ -377,7 +373,7 @@ input[type=checkbox]:checked:before {
 
 #sublanguageid {
     margin-left: 100px;
-    width: 210px;
+    width: 214px;
     padding-left: 5px;
     color: #444;
     border: 1px solid #d0d0d0;
@@ -393,14 +389,33 @@ input[type=checkbox]:checked:before {
 .detect-lang {
     font-size: 10px;
     color: #bbb;
-    padding-left: 14px;
+    padding-left: 12px;
     padding-right: 12px;
-    text-decoration: underline;
     cursor: pointer;
     transition: all .3s;
 }
 
 .detect-lang:hover {
+    color: #728CA6;
+}
+
+.locker {
+    position: absolute;
+    color: #000;
+    font-size: 12px;
+    margin-top: -1px;
+    margin-left: 82px;
+    padding: 5px 5px;
+    cursor: pointer;
+    transition: all .3s;
+}
+.locker.fa-unlock {
+    color: #bbb;
+}
+.locker.fa-lock {
+    color: #728CA6;
+}
+.locker:hover {
     color: #728CA6;
 }
 
