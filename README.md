@@ -8,6 +8,7 @@ Built with love & ducktape (read: _jquery & no framework_)
 - "translator" field? (not described in api docs)
 - osx mediainfo cli & binaries to ship
 - right click copy/paste
+- "browse" doesn't overwrite file for some reason
 
 ### Build
 Install dependencies, download binaries:

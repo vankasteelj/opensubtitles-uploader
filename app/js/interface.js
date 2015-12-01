@@ -74,7 +74,7 @@ var interface = {
                 if (d.episode_title) {
                     title += d.title + ' ' + d.season + 'x' + d.episode + ', ' + d.episode_title;
                 } else {
-                    title += d.title + '(' + d.year + ')';
+                    title += d.title + ' (' + d.year + ')';
                 }
                 $('#imdb-info').attr('title', 'IMDB: ' + title).attr('imdbid', info.imdbid).show();
             }
@@ -187,7 +187,7 @@ var interface = {
                 var arch = process.arch.match(/64/) ? '64' : '32';
                 cmd = 'LD_LIBRARY_PATH='+ process.cwd() + '/mi-linux'+ arch +'/' + ' ' + process.cwd() + '/mi-linux' + arch + '/mi --Inform="Video;::%Duration%::%Width%::%Height%::%FrameRate%::%FrameCount%"' + ' "' + file + '"';
             } else {
-                resolve(false);
+                return resolve(false);
             }
 
             console.debug('Spawning MediaInfo binary');
