@@ -192,7 +192,7 @@ var interface = {
         }
         $('#search-popup').show().css('opacity', 1);
         $('#search-text').val(begin_title.join(' '));
-        $('#search-text').select();
+        $('#search-text').focus();
     },
     leavePopup: function (e) {
         var container = $('#search');
