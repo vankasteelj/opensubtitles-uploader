@@ -3,6 +3,7 @@ var interface = {
         interface.check_visible();
         interface.setupInputs();
         interface.setupLangDropdown();
+        interface.setupRightClicks();
         misc.keyboardShortcuts();
         $('.tooltipped').tooltip({
             'show': {duration: 500, delay: 400},
@@ -10,6 +11,26 @@ var interface = {
         });
         $('.app-author').html($('.app-author').html().replace('%appversion%', version));
         console.info('Application ready');
+    },
+    setupRightClicks: function () {
+        var inputs = $('input[type=text], textarea');
+        inputs.each(function (i) {
+            inputs[i].addEventListener('contextmenu', function(ev) {
+                ev.preventDefault();
+                var menu;
+                if ($(inputs[i]).attr('readonly')) {
+                    if (ev.target.value !== '') {
+                        menu = new interface.context_Menu(null, 'Copy', null, ev.target.id);
+                    } else {
+                        return;
+                    }
+                } else {
+                    menu = new interface.context_Menu('Cut', 'Copy', 'Paste', ev.target.id);
+                }
+                menu.popup(ev.x, ev.y);
+                return false;
+            }, false);
+        });
     },
     setupLangDropdown: function () {
         var os_langs = require('./js/os-lang.json');
@@ -265,5 +286,40 @@ var interface = {
                 nextInput.focus();
             }
         }
+    },
+    context_Menu: function (cutLabel, copyLabel, pasteLabel, field) {
+        var menu = new gui.Menu(),
+            clipboard = gui.Clipboard.get(),
+
+            cut = new gui.MenuItem({
+                label: cutLabel,
+                click: function () {
+                    document.execCommand('cut');
+                }
+            }),
+
+            copy = new gui.MenuItem({
+                label: copyLabel,
+                click: function () {
+                    if ($('#' + field).attr('readonly') && misc.getSelection($('#' + field)[0]) === null) {
+                        clipboard.set($('#' + field).val());
+                    } else {
+                        document.execCommand('copy');
+                    }
+                }
+            }),
+
+            paste = new gui.MenuItem({
+                label: pasteLabel,
+                click: function () {
+                    document.execCommand('paste');
+                }
+            });
+
+        if (cutLabel) menu.append(cut);
+        if (copyLabel) menu.append(copy);
+        if (pasteLabel) menu.append(paste);
+
+        return menu;
     }
 };

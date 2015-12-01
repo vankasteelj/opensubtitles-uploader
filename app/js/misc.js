@@ -26,7 +26,7 @@ var misc = {
             $(el).removeClass(cl).dequeue();
         });
     },
-    extractQuality: function (title) {
+    extractQuality: function(title) {
         console.info('Detecting quality...');
         if (title.match(/720[pix]/i) && !title.match(/dvdrip|dvd\Wrip/i)) {
             return '720p';
@@ -36,7 +36,7 @@ var misc = {
         }
         return false;
     },
-    clearName: function (name) {
+    clearName: function(name) {
         var title = path.parse(name).name;
         return title
             .replace(/(400|480|720|1080)[pix]/gi, '') // quality clean
@@ -55,7 +55,7 @@ var misc = {
             .replace(/^\-/, '') // starts with '-'
             .replace(/ +/g, ' '); // has multiple spaces
     },
-    detect_lang: function () {
+    detect_lang: function() {
         var sub = $('#subtitle-file-path').val();
         if (!sub || sub == '') {
             misc.animate($('#subtitle-file-path'), 'warning', 1750);
@@ -64,7 +64,7 @@ var misc = {
         console.info('Detecting subtitle language...');
         $('.tooltipped').tooltip('close');
         $('.detect-lang i').addClass('fa-circle-o-notch fa-spin').removeClass('fa-magic');
-        require('detect-lang')(sub).then(function (data) {
+        require('detect-lang')(sub).then(function(data) {
             if (data && data.probability > 45 && (data.iso6392 || data.bibliographic)) {
                 $('#sublanguageid').val((data.iso6392 || data.bibliographic))
             } else {
@@ -80,11 +80,11 @@ var misc = {
     openExternal: function(link) {
         gui.Shell.openExternal(link);
     },
-    openImdb: function () {
+    openImdb: function() {
         var id = $('#imdb-info').attr('imdbid');
         if (id) misc.openExternal('http://www.imdb.com/title/' + id);
     },
-    restartApp: function () {
+    restartApp: function() {
         var argv = gui.App.fullArgv,
             CWD = process.cwd();
 
@@ -96,8 +96,8 @@ var misc = {
         }).unref();
         gui.App.quit();
     },
-    keyboardShortcuts: function () {
-        document.addEventListener("keypress", function (key) {
+    keyboardShortcuts: function() {
+        document.addEventListener("keypress", function(key) {
             if (key.charCode === 13) {
                 interface.keyEnter(key.target.id);
             } else if (key.ctrlKey && key.charCode === 4) {
@@ -106,12 +106,28 @@ var misc = {
                 misc.restartApp();
             }
         });
-        document.addEventListener("keyup", function (key) {
+        document.addEventListener("keyup", function(key) {
             if (key.keyCode === 27) {
                 $('#search-popup').css('opacity', 0).hide();
                 interface.reset('search');
             }
         });
+    },
+    getSelection: function(textbox) {
+        var selectedText = null;
+        var activeElement = document.activeElement;
+
+        if (activeElement && (activeElement.tagName.toLowerCase() == "textarea" || (activeElement.tagName.toLowerCase() == "input" && activeElement.type.toLowerCase() == "text")) && activeElement === textbox) {
+            var startIndex = textbox.selectionStart;
+            var endIndex = textbox.selectionEnd;
+
+            if (endIndex - startIndex > 0) {
+                var text = textbox.value;
+                selectedText = text.substring(textbox.selectionStart, textbox.selectionEnd);
+            }
+        }
+
+        return selectedText;
     }
 };
 
