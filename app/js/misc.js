@@ -174,6 +174,7 @@ window.ondrop = function(e) {
     var type = misc.fileType(file.path);
     if (type) {
         $('#main-' + type).css('border-color', '');
+        win.focus();
         console.debug('New File:', type, 'dropped');
         interface['add_' + type](file.path);
         if ($('#search-popup').css('display') == 'block') interface.leavePopup({});
