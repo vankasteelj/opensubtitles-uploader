@@ -109,6 +109,23 @@ var misc = {
             stdio: ['ignore', 'ignore', 'ignore']
         }).unref();
         gui.App.quit();
+    },
+    keyboardShortcuts: function () {
+        document.addEventListener("keypress", function (key) {
+            if (key.charCode === 13) {
+                interface.keyEnter(key.target.id);
+            } else if (key.ctrlKey && key.charCode === 4) {
+                gui.Window.get().showDevTools();
+            } else if (key.ctrlKey && key.charCode === 18) {
+                misc.restartApp();
+            }
+        });
+        document.addEventListener("keyup", function (key) {
+            if (key.keyCode === 27) {
+                $('#search-popup').css('opacity', 0).hide();
+                interface.reset('search');
+            }
+        });
     }
 };
 
