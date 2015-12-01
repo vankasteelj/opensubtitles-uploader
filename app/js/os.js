@@ -106,7 +106,12 @@ var opensubtitles = {
             console.error(err);
         });
     },
+    isUploading: false,
     upload: function () {
+        if (opensubtitles.isUploading) {
+            return;
+        }
+
         interface.reset('upload');
         var required = ['#video-file-path', '#subtitle-file-path'];
         var missing = 0;
@@ -148,7 +153,9 @@ var opensubtitles = {
         }
 
         console.debug('Trying to upload subtitle...');
-        OS.upload(obj_data).then(function (response) {        
+        opensubtitles.isUploading = true;
+        OS.upload(obj_data).then(function (response) {
+            opensubtitles.isUploading = false;
             if (response && response.status.match(/200/)) {
                 if (response.alreadyindb === 1) {
                     console.debug('Subtitle already in opensubtitle\'s db');
@@ -169,6 +176,7 @@ var opensubtitles = {
                 throw 'Something went wrong';
             }
         }).catch(function(err) {
+            opensubtitles.isUploading = false;
             console.error(err);
             $('#upload-result .result').text('Something went wrong :(');
             $('#button-upload').addClass('fail');
