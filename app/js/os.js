@@ -142,7 +142,8 @@ var opensubtitles = {
             '#movieframes',
             '#movietimems',
             '#automatictranslation',
-            '#subauthorcomment'
+            '#subauthorcomment',
+            '#subtranslator'
          ];
         for (var o in optionnal) {
             if ($(optionnal[o]).val() !== '' && $(optionnal[o]).val() !== 'on') {
