@@ -155,11 +155,12 @@ var interface = {
         }
         $('#search-popup').show().css('opacity', 1);
         $('#search-text').val(begin_title.join(' '));
+        $('#search-text').select();
     },
     leavePopup: function (e) {
-        console.debug('Closing IMDB search popup');
         var container = $('#search');
         if (!container.is(e.target) && container.has(e.target).length === 0) {
+            console.debug('Closing IMDB search popup');
             $('#search-popup').css('opacity', 0).hide();
             $('#search-result').hide();
             $('#search').css({
