@@ -7,8 +7,6 @@ Built with love & ducktape (read: _jquery & no framework_)
 ### TODO: 
 - "translator" field
 - osx mediainfo cli & binaries to ship
-- right click copy/paste
-- def make something to indicate it's uploading... 
 
 ### Build
 Install dependencies, download binaries:
