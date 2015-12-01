@@ -28,25 +28,11 @@ var misc = {
     },
     extractQuality: function (title) {
         console.info('Detecting quality...');
-        // 480p
-        if (title.match(/480[pix]/i)) {
-            return '480p';
-        }
-        // 720p
         if (title.match(/720[pix]/i) && !title.match(/dvdrip|dvd\Wrip/i)) {
             return '720p';
         }
-        // 1080p
         if (title.match(/1080[pix]/i)) {
             return '1080p';
-        }
-
-        // not found, trying harder
-        if (title.match(/DSR|DVDRIP|DVD\WRIP/i)) {
-            return '480p';
-        }
-        if (title.match(/hdtv/i) && !title.match(/720[pix]/i)) {
-            return '480p';
         }
         return false;
     },
@@ -54,7 +40,7 @@ var misc = {
         var title = path.parse(name).name;
         return title
             .replace(/(400|480|720|1080)[pix]/gi, '') // quality clean
-            .replace(/[xh]26\d|hevc/gi, '') // codecs
+            .replace(/[xh]26\d|hevc|xvid|divx/gi, '') // codecs
             .replace(/bluray|bdrip|brrip|dsr|dvdrip|dvd\Wrip|hdtv|\Wts\W|telesync|\Wcam\W/gi, '') // source
             .replace(/\Wextended\W|\Wproper/ig, '') // specials
             .replace(/[\.]/g, ' ') // has '.'
