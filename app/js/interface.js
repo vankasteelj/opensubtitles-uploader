@@ -1,9 +1,28 @@
 var interface = {
-    browse: function(type) {
-        console.info('Opening File Browser');
-        var input = document.querySelector('#' + type + '-file-path-hidden');
-        input.addEventListener('change', function(evt) {
-            var file = $('#' + type + '-file-path-hidden')[0].files[0];
+    setup: function () {
+        interface.check_visible();
+        interface.setupInputs();
+        interface.setupLangDropdown();
+        misc.keyboardShortcuts();
+        $('.tooltipped').tooltip({
+            'show': {duration: 500, delay: 400},
+            'hide': 500
+        });
+        $('.app-author').html($('.app-author').html().replace('%appversion%', version));
+        console.info('Application ready');
+    },
+    setupLangDropdown: function () {
+        var os_langs = require('./js/os-lang.json');
+
+        var langs = '';
+        for(var key in os_langs) {
+            langs += '<option value="'+os_langs[key].code+'">'+key+'</option>';
+        }
+        $('#sublanguageid').append(langs);
+    },
+    setupInputs: function () {
+        document.querySelector('#video-file-path-hidden').addEventListener('change', function(evt) {
+            var file = $('#video-file-path-hidden')[0].files[0];
             window.ondrop({
                 dataTransfer: {
                     files: [file]
@@ -11,6 +30,22 @@ var interface = {
                 preventDefault: function() {}
             });
         }, false);
+        document.querySelector('#subtitle-file-path-hidden').addEventListener('change', function(evt) {
+            var file = $('#subtitle-file-path-hidden')[0].files[0];
+            window.ondrop({
+                dataTransfer: {
+                    files: [file]
+                },
+                preventDefault: function() {}
+            });
+        }, false);
+
+        $('#video-file-path-hidden').attr('accept', misc.supportedTypes.video.join());
+        $('#subtitle-file-path-hidden').attr('accept', misc.supportedTypes.subtitle.join());
+    },
+    browse: function(type) {
+        console.info('Opening File Browser');
+        var input = document.querySelector('#' + type + '-file-path-hidden');
         input.click();
     },
     check_visible: function(options) {
@@ -218,5 +253,5 @@ var interface = {
                 nextInput.focus();
             }
         }
-    } 
+    }
 };

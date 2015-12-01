@@ -140,16 +140,9 @@
                     <select id="sublanguageid" name="language" selected="">
                         <option value="">None</option>
                     </select>
-                    <span class="detect-lang" onClick="misc.detect_lang()"><i class="fa fa-flip-horizontal fa-magic tooltipped" title="Auto-detect the language"></i></span>
-                    <script>
-                        var os_langs = require('./js/os-lang.json');
-
-                        var langs = '';
-                        for(var key in os_langs) {
-                            langs += '<option value="'+os_langs[key].code+'">'+key+'</option>';
-                        }
-                        $('#sublanguageid').append(langs);
-                    </script>
+                    <span class="detect-lang" onClick="misc.detect_lang()">
+                        <i class="fa fa-flip-horizontal fa-magic tooltipped" title="Auto-detect the language"></i>
+                    </span>
                 </div>
             </div>
 
@@ -172,7 +165,6 @@
             </div>
         </div>
     </section>
-    <!--span class="special-required">* required</span-->
 
     <div class="app-author">v%appversion% - developped by <a onClick="misc.openExternal('https://github.com/vankasteelj')">vankasteelj</a></div>
 
@@ -185,34 +177,8 @@
     </section>
 
     <script>
-        document.addEventListener("keypress", function (key) {
-            if (key.charCode === 13) {
-                interface.keyEnter(key.target.id);
-            } else if (key.ctrlKey && key.charCode === 4) {
-                gui.Window.get().showDevTools();
-            } else if (key.ctrlKey && key.charCode === 18) {
-                misc.restartApp();
-            }
-        });
-        document.addEventListener("keyup", function (key) {
-            if (key.keyCode === 27) {
-                $('#search-popup').css('opacity', 0).hide();
-                interface.reset('search');
-            }
-        });
-        $('.tooltipped').tooltip({
-            'show': {duration: 500, delay: 400},
-            'hide': 500
-        });
-
-        $('#video-file-path-hidden').attr('accept', misc.supportedTypes.video.join());
-        $('#subtitle-file-path-hidden').attr('accept', misc.supportedTypes.subtitle.join());
-
-        interface.check_visible();
         opensubtitles.verify_login();
-        $('.app-author').html($('.app-author').html().replace('%appversion%', version));
-
-        console.info('Application ready');
+        interface.setup();
         win.show();
     </script>
 </body>
