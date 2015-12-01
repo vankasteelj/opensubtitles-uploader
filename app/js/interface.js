@@ -92,17 +92,17 @@ var interface = {
             return interface.mediainfo(file);
         }).then(function (args) {
             interface.reset('video');
+            $('#video-file-path').val(file);
+            $('#moviefilename').val(info.moviefilename);
+            $('#moviebytesize').val(info.moviebytesize);
+            $('#moviehash').val(info.moviehash);
+            if (info.quality && info.quality.match(/720|1080/i)) $('#highdefinition').prop('checked', true);
             if (args && args.length === 5) {
                 $('#movietimems').val(args[0]);
                 $('#moviefps').val(args[3]);
                 $('#movieframes').val(args[4]);
                 if (args[2] >= 720) $('#highdefinition').prop('checked', true);
             }
-            $('#video-file-path').val(file);
-            $('#moviefilename').val(info.moviefilename);
-            $('#moviebytesize').val(info.moviebytesize);
-            $('#moviehash').val(info.moviehash);
-            if (info.quality && info.quality.match(/720|1080/i)) $('#highdefinition').prop('checked', true);
             if (info.imdbid) $('#imdbid').val(info.imdbid);
             if (info.metadata) {
                 var title = '', d = info.metadata;
@@ -183,10 +183,21 @@ var interface = {
         console.debug('Opening IMDB search popup');
         $(document).bind('mouseup', interface.leavePopup);
 
-        var begin_title = [], count = 0, title = misc.clearName($('#moviefilename').val()).split(' ');
+        var begin_title = [],
+            clean_title = [],
+            count = 0,
+            toPush = 0,
+            title = misc.clearName($('#moviefilename').val()).split(' ');
+
         for (var t in title) {
-            if (title[t].match(/^(the|an|19\d{2}|20\d{2}|a|of|in)$/i) === null && count < 3 ) {
-                begin_title.push(title[t]);
+            if (!title[t].match(/^(the|an|19\d{2}|20\d{2}|a|of|in)$/i)) {
+                clean_title.push(title[t]);
+                toPush++;
+            }
+        }
+        for (var u in clean_title) {
+            if (count < (toPush > 5 ? 4 : toPush - 1) ) {
+                begin_title.push(clean_title[u]);
                 count++;
             }
         }
