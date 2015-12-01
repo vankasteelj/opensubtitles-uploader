@@ -29,7 +29,7 @@
         <div id="authentication">
             <div id="logged" style="display:none">
                 <div id="logged-as">
-                    <i class="fa fa-sign-out tooltipped-fast" onClick="opensubtitles.logout()" title="Log out"></i>
+                    <i class="fa fa-sign-out tooltipped" onClick="opensubtitles.logout()" title="Log out"></i>
                     <span class="username"></span>
                 </div>
             </div>
@@ -47,7 +47,7 @@
     </div>
     <section id="main-video" class="section-file">
 
-        <i class="reset fa fa-trash-o tooltipped-fast" onClick="interface.reset('video')" title="Reset"></i>
+        <i class="reset fa fa-trash-o tooltipped" onClick="interface.reset('video')" title="Reset"></i>
 
         <div class="input-line">
             <span class="input-file">Video file</span>
@@ -76,8 +76,9 @@
                 </div>
                 <div class="metaitem">
                     <span>IMDB id</span>
+                    <i id="imdb-info" class="fa fa-info-circle tooltipped" onClick="misc.openImdb()" imdbid="" title=""></i>
                     <input id="imdbid" type="text"></input>
-                    <span class="search-imdb" onClick="interface.searchPopup()"><i class="fa fa-search tooltipped-fast" title="Search on IMDB directly"></i></span>
+                    <span class="search-imdb" onClick="interface.searchPopup()"><i class="fa fa-search tooltipped" title="Search on IMDB directly"></i></span>
                 </div>
                 <div class="metaitem">
                     <span>High definition</span>
@@ -112,7 +113,7 @@
 
     <section id="main-subtitle" class="section-file">
 
-        <i class="reset fa fa-trash-o tooltipped-fast" onClick="interface.reset('subtitle')" title="Reset"></i>
+        <i class="reset fa fa-trash-o tooltipped" onClick="interface.reset('subtitle')" title="Reset"></i>
 
         <div class="input-line">
             <span class="input-file">Subtitle file</span>
@@ -139,7 +140,7 @@
                     <select id="sublanguageid" name="language" selected="">
                         <option value="">None</option>
                     </select>
-                    <span class="detect-lang" onClick="misc.detect_lang()"><i class="fa fa-flip-horizontal fa-magic tooltipped-fast" title="Auto-detect the language"></i></span>
+                    <span class="detect-lang" onClick="misc.detect_lang()"><i class="fa fa-flip-horizontal fa-magic tooltipped" title="Auto-detect the language"></i></span>
                     <script>
                         var os_langs = require('./js/os-lang.json');
 
@@ -178,7 +179,7 @@
     <section id="search-popup">
         <div id="search">
             <input id="search-text" type="text" placeholder="Enter a title"></input>
-            <div id="button-search" onClick="opensubtitles.search_imdb()" class="button fa fa-search tooltipped-fast" title="Search"></div>
+            <div id="button-search" onClick="opensubtitles.search_imdb()" class="button fa fa-search tooltipped" title="Search"></div>
             <div id="search-result"></div>
         </div>
     </section>
@@ -199,7 +200,7 @@
                 interface.reset('search');
             }
         });
-        $('.tooltipped-fast').tooltip({
+        $('.tooltipped').tooltip({
             'show': {duration: 500, delay: 400},
             'hide': 500
         });

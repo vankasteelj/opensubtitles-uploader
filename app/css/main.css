@@ -331,6 +331,16 @@ input[type=checkbox]:checked:before {
     width: 210px;
 }
 
+#imdb-info {
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    margin-left: 104px;
+    font-size: 14px;
+    color: #bbb;
+    line-height: 20px;
+}
+
 .search-imdb {
     font-size: 10px;
     color: #bbb;

@@ -96,7 +96,7 @@ var opensubtitles = {
                 var res = response.data;
                 for (var i = 0; i < res.length; i++) {
                     if (!res[i].id) return;
-                    $('#search-result').append('<li class="result-item" onClick="interface.imdb_fromsearch(' + res[i].id + ')">' + res[i].title + '</li>')
+                    $('#search-result').append('<li class="result-item" onClick="interface.imdb_fromsearch(' + res[i].id + ', $(this).text())">' + res[i].title.replace(/\-$/, '') + '</li>');
                 }
             } else {
                 throw new Error('Opensubtitles.SearchMoviesOnIMDB() error, no details')

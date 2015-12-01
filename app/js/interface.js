@@ -50,8 +50,10 @@ var interface = {
         }).then(function () {
             return OS.identify(file);
         }).then(function (data) {
-            console.log(data);
-            if (data.metadata && data.metadata.imdbid) info.imdbid = data.metadata.imdbid;
+            if (data.metadata && data.metadata.imdbid) {
+                info.metadata = data.metadata;
+                info.imdbid = data.metadata.imdbid;
+            }
             return interface.mediainfo(file);
         }).then(function (args) {
             interface.reset('video');
@@ -67,6 +69,15 @@ var interface = {
             $('#moviehash').val(info.moviehash);
             if (info.quality && info.quality.match(/720|1080/i)) $('#highdefinition').prop('checked', true);
             if (info.imdbid) $('#imdbid').val(info.imdbid);
+            if (info.metadata) {
+                var title = '', d = info.metadata;
+                if (d.episode_title) {
+                    title += d.title + ' ' + d.season + 'x' + d.episode + ', ' + d.episode_title;
+                } else {
+                    title += d.title + '(' + d.year + ')';
+                }
+                $('#imdb-info').attr('title', 'IMDB: ' + title).attr('imdbid', info.imdbid).show();
+            }
             $('#main-video-shadow').css('opacity', '0').hide();
         }).catch(function(err) {
             interface.reset('video');
@@ -99,6 +110,7 @@ var interface = {
                 $('#movieframes').val('');
 
                 $('#highdefinition').prop('checked', false);
+                $('#imdb-info').attr('title', '').hide();
                 if ($('#upload-result').css('display') === 'block') interface.reset('upload');
                 break;
             case 'subtitle':
@@ -158,10 +170,11 @@ var interface = {
             $(document).unbind('mouseup', interface.leavePopup);
         }
     },
-    imdb_fromsearch: function (id) {
+    imdb_fromsearch: function (id, title) {
         console.debug('Adding IMDB id to main form');
         id = id > 9999999 ? id : 'tt'+id;
         $('#imdbid').val(id);
+        $('#imdb-info').attr('title', 'IMDB: ' + title).attr('imdbid', id).show();
         interface.leavePopup({});
     },
     mediainfo: function (file) {
