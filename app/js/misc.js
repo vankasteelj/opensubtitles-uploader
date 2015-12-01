@@ -76,7 +76,7 @@ var misc = {
             return;
         }
         console.info('Detecting subtitle language...');
-        $('.tooltipped-fast').tooltip('close')
+        $('.tooltipped').tooltip('close');
         $('.detect-lang i').addClass('fa-circle-o-notch fa-spin').removeClass('fa-magic');
         require('detect-lang')(sub).then(function (data) {
             if (data && data.probability > 45 && (data.iso6392 || data.bibliographic)) {
@@ -93,6 +93,10 @@ var misc = {
     },
     openExternal: function(link) {
         gui.Shell.openExternal(link);
+    },
+    openImdb: function () {
+        var id = $('#imdb-info').attr('imdbid');
+        if (id) misc.openExternal('http://www.imdb.com/title/' + id);
     },
     restartApp: function () {
         var argv = gui.App.fullArgv,
