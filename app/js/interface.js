@@ -250,12 +250,16 @@ var interface = {
     },
     mediainfo: function (file) {
         return new Promise(function (resolve, reject) {
-            var cmd;
+            var cmd, inform = '--Inform="Video;::%Duration%::%Width%::%Height%::%FrameRate%::%FrameCount%"';
             if (process.platform === 'win32') {
-                cmd = '"' + process.cwd() + '/mi-win32/mi.exe" --Inform=Video;::%Duration%::%Width%::%Height%::%FrameRate%::%FrameCount%' + ' "' + file + '"';
+                cmd = '"' + process.cwd() + '/mi-win32/mi.exe" ' + inform + ' "' + file + '"';
             } else if (process.platform === 'linux') {
                 var arch = process.arch.match(/64/) ? '64' : '32';
-                cmd = 'LD_LIBRARY_PATH='+ process.cwd() + '/mi-linux'+ arch +'/' + ' ' + process.cwd() + '/mi-linux' + arch + '/mi --Inform="Video;::%Duration%::%Width%::%Height%::%FrameRate%::%FrameCount%"' + ' "' + file + '"';
+                cmd = 'chmod +x "' + process.cwd() + '/mi-linux' + arch + '/mi" ; ';
+                cmd += 'LD_LIBRARY_PATH="'+ process.cwd() + '/mi-linux'+ arch +'/"' + ' "' + process.cwd() + '/mi-linux' + arch + '/mi" ' + inform + ' "' + file + '"';
+            } else if (process.platform === 'darwin') {
+                cmd = 'chmod +x "' + process.cwd() + '/mi-osx64/mi" ; ';
+                cmd += '"' + process.cwd() + '/mi-osx64/mi" ' + inform + ' "' + file + '"';
             } else {
                 return resolve(false);
             }
