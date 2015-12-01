@@ -6,7 +6,6 @@ Built with love & ducktape (read: _jquery & no framework_)
 
 ### TODO: 
 - "translator" field? (not described in api docs)
-- display imdb title related to id, to verify quickly it's right.
 - osx mediainfo cli & binaries to ship
 
 ### Build
