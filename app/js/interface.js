@@ -99,6 +99,7 @@ var interface = {
         switch (type) {
             case 'video':
                 $('#video-file-path').val('');
+                $('#video-file-path-hidden').val('');
                 $('#moviefilename').val('');
                 $('#moviehash').val('');
                 $('#moviebytesize').val('');
@@ -115,6 +116,7 @@ var interface = {
                 break;
             case 'subtitle':
                 $('#subtitle-file-path').val('');
+                $('#subtitle-file-path-hidden').val('');
                 $('#subfilename').val('');
                 $('#subhash').val('');
                 $('#subauthorcomment').val('');
