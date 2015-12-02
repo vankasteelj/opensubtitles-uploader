@@ -26,7 +26,3 @@ _Built with love and ducktape in HTML5 and Javascript._
         grunt dev
     
 - CTRL+D to open devtools, CTRL+R to reload.
-
-## Todo
-- update available notification
-- build installers .exe / .deb / .app|.dmg

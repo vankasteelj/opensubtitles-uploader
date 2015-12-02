@@ -41,6 +41,12 @@ module.exports = function(grunt) {
             grunt.log.writeln('OS not supported.');
         }
     });
+    grunt.registerTask('dist', [
+        'shell:packageLinux32',
+        'shell:packageLinux64',
+        'shell:packageDEBLinux32',
+        'shell:packageDEBLinux64'
+    ]);
 
     grunt.initConfig({
         app_name: pkgJson.name,
@@ -70,6 +76,63 @@ module.exports = function(grunt) {
             },
             linux64: {
                 cmd: '"builds/cache/<%= nwjs.options.version %>/linux64/nw" .'
+            }
+        },
+        shell: {
+            packageLinux32: {
+                command: function () {
+                    if (host.linux || host.mac) {
+                            'sh dist/linux-maker.sh <%= nwjs.options.version %> linux32',
+                            'echo "Linux32 TGZ Sucessfully packaged" || echo "Linux32 TGZ failed to package"'
+                        ].join(' && ');
+                    } else {
+                        return [
+                            'echo "Building linux TGZ package is not supported on Windows"'
+                        ].join(' && ');
+                    }
+                }
+            },
+            packageLinux64: {
+                command: function () {
+                    if (host.linux || host.mac) {
+                        return [
+                            'sh dist/linux-maker.sh <%= nwjs.options.version %> linux64',
+                            'echo "Linux64 TGZ Sucessfully packaged" || echo "Linux64 TGZ failed to package"'
+                        ].join(' && ');
+                    } else {
+                        return [
+                            'echo "Building linux TGZ package is not supported on Windows"'
+                        ].join(' && ');
+                    }
+                }
+            },
+            packageDEBLinux32: {
+                command: function () {
+                    if (host.linux) {
+                        return [
+                            'sh dist/deb-maker.sh <%= nwjs.options.version %> linux32',
+                            'echo "Linux32 DEB Sucessfully packaged" || echo "Linux32 DEB failed to package"'
+                        ].join(' && ');
+                    } else {
+                        return [
+                            'echo "Building debian package is not supported on Windows or Mac"'
+                        ].join(' && ');
+                    }
+                }
+            },
+            packageDEBLinux64: {
+                command: function () {
+                    if (host.linux) {
+                        return [
+                            'sh dist/deb-maker.sh <%= nwjs.options.version %> linux64',
+                            'echo "Linux64 DEB Sucessfully packaged" || echo "Linux64 DEB failed to package"'
+                        ].join(' && ');
+                    } else {
+                        return [
+                            'echo "Building debian package is not supported on Windows or Mac"'
+                        ].join(' && ');
+                    }
+                }
             }
         }
     });
