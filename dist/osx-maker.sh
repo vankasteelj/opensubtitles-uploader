@@ -40,7 +40,7 @@ rm -f $cwd/nwjs.app/Contents/Resources/nw.icns
 cp dist/os-icon.icns $cwd/nwjs.app/Contents/Resources/nw.icns
 
 #plist
-rm -f $cwd/nwjs.app/Info.plist
+rm -f $cwd/nwjs.app/Contents/Info.plist
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
 <plist version=\"1.0\">
@@ -50,7 +50,7 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>opensubtitles-uploader</string>
+	<string>nwjs</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -143,7 +143,7 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 		</dict>
 	</array>
 </dict>
-</plist>" > $cwd/nwjs.app/Content/Info.plist
+</plist>" > $cwd/nwjs.app/Contents/Info.plist
 
 ### clean
 mv $cwd/nwjs.app releases/$name.app
