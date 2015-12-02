@@ -1,19 +1,21 @@
 #!/bin/bash
-# launch 'linux-maker.sh 0.12.3 linux64' for example
+# launch 'linux-maker.sh 0.12.3 linux64 1.0.0' for example
 # requires: tar
 
 nw=$1
 arch=$2
 if [[ $arch == *"32"* ]]; then
   real_arch="i386"
+  fake_arch="x86"
 else
   real_arch="amd64"
+  fake_arch="x86_64"
 fi
 cwd="releases/linux-package/$arch"
 name="opensubtitles-uploader"
 projectName="OpenSubtitles-Uploader"
-version=$(sed -n 's|\s*\"version\"\:\ \"\(.*\)\"\,|\1|p' package.json)
-package_name=${name}_${version}_${real_arch}
+version=$3
+package_name=${name}_${version}_${fake_arch}
 
 ### RESET
 rm -rf releases/linux-package
