@@ -59,25 +59,30 @@ module.exports = function(grunt) {
     grunt.registerTask('dist', function () {
         var start = parseBuildPlatforms();
         if (start.win32) {
-            grunt.task.run('dist-win');
+            grunt.task.run('dist-win32');
         } else if (start.osx64) {
-            grunt.task.run('dist-osx');
+            grunt.task.run('dist-osx64');
         } else if (start.linux32) {
-            grunt.task.run('dist-linux');
+            grunt.task.run('dist-linux32');
         } else if (start.linux64) {
-            grunt.task.run('dist-linux');
+            grunt.task.run('dist-linux64');
         } else {
             grunt.log.writeln('OS not supported.');
         }
     });
-    grunt.registerTask('dist-linux', [
+    grunt.registerTask('dist-linux32', [
         'shell:packageLinux32',
+        'shell:packageDEBLinux32'
+    ]);
+    grunt.registerTask('dist-linux64', [
         'shell:packageLinux64',
-        'shell:packageDEBLinux32',
         'shell:packageDEBLinux64'
     ]);
-    grunt.registerTask('dist-win', [
+    grunt.registerTask('dist-win32', [
         'shell:packageWin32'
+    ]);
+    grunt.registerTask('dist-osx64', [
+        'shell:packageOSX64'
     ]);
 
     grunt.initConfig({
