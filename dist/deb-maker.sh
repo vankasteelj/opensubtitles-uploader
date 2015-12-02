@@ -1,5 +1,5 @@
 #!/bin/bash
-# launch 'deb-make.sh 0.12.3 linux64' for example
+# launch 'deb-maker.sh 0.12.3 linux64' for example
 # requires: fakeroot, dpkg-deb
 
 nw=$1
@@ -41,6 +41,9 @@ cp builds/cache/$nw/$arch/nw.pak $cwd/$package_name/opt/$projectName/
 cp -r app $cwd/$package_name/opt/$projectName/
 cp package.json $cwd/$package_name/opt/$projectName/
 cp LICENSE $cwd/$package_name/opt/$projectName/
+
+#mediainfo
+cp -r mi-$arch $cwd/$package_name/opt/$projectName/
 
 #node_modules
 cp -r node_modules/bluebird $cwd/$package_name/opt/$projectName/node_modules/bluebird
