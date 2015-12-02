@@ -18,12 +18,15 @@ package_name=${name}_${version}_${real_arch}
 ### RESET
 rm -rf releases/linux-package
 
+### SOURCE TREE
+#create package dir
+mkdir -p $cwd/$projectName/node_modules
+
 ### COPY FILES
 #base
 cp -r builds/cache/$nw/$arch/locales $cwd/$projectName/
 cp builds/cache/$nw/$arch/icudtl.dat $cwd/$projectName/
-cp builds/cache/$nw/$arch/libffmpegsumo.so $cwd/$projectName/
-cp builds/cache/$nw/$arch/nw $cwd/$package_name/$projectName
+cp builds/cache/$nw/$arch/nw $cwd/$projectName/$projectName
 cp builds/cache/$nw/$arch/nw.pak $cwd/$projectName/
 
 #src
@@ -35,9 +38,9 @@ cp LICENSE $cwd/$projectName/
 cp -r mi-$arch $cwd/$projectName/
 
 #node_modules
-cp -r node_modules/bluebird $cwd/$projectName/node_modules/bluebird
-cp -r node_modules/detect-lang $cwd/$projectName/node_modules/detect-lang
-cp -r node_modules/opensubtitles-api $cwd/$projectName/node_modules/opensubtitles-api
+cp -r node_modules/bluebird $cwd/$projectName/node_modules
+cp -r node_modules/detect-lang $cwd/$projectName/node_modules
+cp -r node_modules/opensubtitles-api $cwd/$projectName/node_modules
 
 ### CLEAN
 shopt -s globstar
@@ -54,8 +57,9 @@ cd ../../../../
 
 ### COMPRESS
 cd $cwd
-tar --exclude-vcs -c . | $(command -v pxz || command -v xz) -T8 -7 > $package_name.tar.xz
+tar --xz -cf $package_name.tar.xz $projectName/
 
 ### CLEAN
 cd ../../../
 mv $cwd/$name*.tar.xz releases
+rm -rf releases/linux-package
