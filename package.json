@@ -3,6 +3,7 @@
     "description": "Upload subtitles to OpenSubtitles",
     "license": "GPL-3.0",
     "version": "0.0.1",
+    "releases": "https://github.com/vankasteelj/opensubtitles-uploader/releases",
     "author": {
         "name": "vankasteelj",
         "email": "vankasteelj@gmail.com"
