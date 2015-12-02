@@ -99,7 +99,7 @@ module.exports = function(grunt) {
                     if (host.linux || host.mac) {
                         return [
                             'chmod +x dist/linux-maker.sh',
-                            './dist/linux-maker.sh <%= nwjs.options.version %> linux32',
+                            './dist/linux-maker.sh <%= nwjs.options.version %> linux32 <%= app_version %>',
                             'echo "Linux32 TGZ Sucessfully packaged" || echo "Linux32 TGZ failed to package"'
                         ].join(' && ');
                     } else {
@@ -114,7 +114,7 @@ module.exports = function(grunt) {
                     if (host.linux || host.mac) {
                         return [
                             'chmod +x dist/linux-maker.sh',
-                            './dist/linux-maker.sh <%= nwjs.options.version %> linux64',
+                            './dist/linux-maker.sh <%= nwjs.options.version %> linux64 <%= app_version %>',
                             'echo "Linux64 TGZ Sucessfully packaged" || echo "Linux64 TGZ failed to package"'
                         ].join(' && ');
                     } else {
@@ -129,7 +129,7 @@ module.exports = function(grunt) {
                     if (host.linux) {
                         return [
                             'chmod +x dist/deb-maker.sh',
-                            './dist/deb-maker.sh <%= nwjs.options.version %> linux32',
+                            './dist/deb-maker.sh <%= nwjs.options.version %> linux32 <%= app_version %>',
                             'echo "Linux32 DEB Sucessfully packaged" || echo "Linux32 DEB failed to package"'
                         ].join(' && ');
                     } else {
@@ -144,7 +144,7 @@ module.exports = function(grunt) {
                     if (host.linux) {
                         return [
                             'chmod +x dist/deb-maker.sh',
-                            './dist/deb-maker.sh <%= nwjs.options.version %> linux64',
+                            './dist/deb-maker.sh <%= nwjs.options.version %> linux64 <%= app_version %>',
                             'echo "Linux64 DEB Sucessfully packaged" || echo "Linux64 DEB failed to package"'
                         ].join(' && ');
                     } else {

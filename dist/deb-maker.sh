@@ -1,5 +1,5 @@
 #!/bin/bash
-# launch 'deb-maker.sh 0.12.3 linux64' for example
+# launch 'deb-maker.sh 0.12.3 linux64 0.0.1' for example
 # requires: fakeroot, dpkg-deb
 
 nw=$1
@@ -12,7 +12,7 @@ fi
 cwd="releases/deb-package/$arch"
 name="opensubtitles-uploader"
 projectName="OpenSubtitles-Uploader"
-version=$(sed -n 's|\s*\"version\"\:\ \"\(.*\)\"\,|\1|p' package.json)
+version=$3
 package_name=${name}_${version}_${real_arch}
 
 ### RESET
@@ -213,9 +213,9 @@ mv $cwd/$name*.deb releases
 }
 
 
-if [ -e /usr/bin/fakeroot ] && [ "$3" != "--fakeroot" ]; then
+if [ -e /usr/bin/fakeroot ] && [ "$4" != "--fakeroot" ]; then
 	echo "'fakeroot' was found on the machine"
-	fakeroot bash $0 $1 $2 --fakeroot
+	fakeroot bash $0 $1 $2 $3 --fakeroot
 else
 	build_pt
 fi
