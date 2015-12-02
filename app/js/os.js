@@ -87,7 +87,8 @@ var opensubtitles = {
         OS.login().then(function (token) {
             return OS.api.SearchMoviesOnIMDB(token, $('#search-text').val());
         }).then(function (response) {
-            if (response && response.status.match(/200/) && response.data && response.data.length > 0) {
+            console.warn('RESPONSE', response)
+            if (response && response.status.match(/200/) && response.data && response.data.length > 1) {
                 $('#search').animate({
                     height: '250px',
                     top: '140px'
@@ -99,11 +100,18 @@ var opensubtitles = {
                     $('#search-result').append('<li class="result-item" onClick="interface.imdb_fromsearch(' + res[i].id + ', $(this).text())">' + res[i].title.replace(/\-$/, '') + '</li>');
                 }
             } else {
-                throw new Error('Opensubtitles.SearchMoviesOnIMDB() error, no details')
+                throw 'Opensubtitles.SearchMoviesOnIMDB() error, no details';
             }
             $('#button-search').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
         }).catch(function (err) {
             console.error(err);
+            $('#search').animate({
+                height: '80px',
+                top: '200px'
+            }, 300);
+            $('#search-result').append('<li style="text-align:center;padding-right:20px;list-style:none;">' + 'Not found' + '</li>');
+            $('#search-result').show();
+            $('#button-search').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
         });
     },
     isUploading: false,
