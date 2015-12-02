@@ -56,11 +56,28 @@ module.exports = function(grunt) {
             grunt.log.writeln('OS not supported.');
         }
     });
-    grunt.registerTask('dist', [
+    grunt.registerTask('dist', function () {
+        var start = parseBuildPlatforms();
+        if (start.win32) {
+            grunt.task.run('dist-win');
+        } else if (start.osx64) {
+            grunt.task.run('dist-osx');
+        } else if (start.linux32) {
+            grunt.task.run('dist-linux');
+        } else if (start.linux64) {
+            grunt.task.run('dist-linux');
+        } else {
+            grunt.log.writeln('OS not supported.');
+        }
+    });
+    grunt.registerTask('dist-linux', [
         'shell:packageLinux32',
         'shell:packageLinux64',
         'shell:packageDEBLinux32',
         'shell:packageDEBLinux64'
+    ]);
+    grunt.registerTask('dist-win', [
+        'shell:packageWin32'
     ]);
 
     grunt.initConfig({
@@ -150,6 +167,20 @@ module.exports = function(grunt) {
                     } else {
                         return [
                             'echo "Building debian package is not supported on Windows or Mac"'
+                        ].join(' && ');
+                    }
+                }
+            },
+            packageWin32: {
+                command: function () {
+                    if (host.windows) {
+                        return [
+                            'mkdir releases | echo .',
+                            'makensis dist/win-installer.nsi',
+                        ].join(' && ');
+                    } else {
+                        return [
+                            'echo "Building windows installer is not supported on Linux or Mac"'
                         ].join(' && ');
                     }
                 }
