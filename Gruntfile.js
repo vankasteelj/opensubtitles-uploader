@@ -1,3 +1,17 @@
+var getHost = function () {
+    return {
+        get linux() {
+            return process.platform === 'linux';
+        },
+        get windows() {
+            return process.platform === 'win32';
+        },
+        get mac() {
+            return process.platform === 'darwin';
+        },
+    };
+};
+
 var parseBuildPlatforms = function (argumentPlatform) {
     var inputPlatforms = argumentPlatform || process.platform + ";" + process.arch;
     inputPlatforms = inputPlatforms
@@ -21,6 +35,7 @@ module.exports = function(grunt) {
 
     var buildPlatforms = parseBuildPlatforms(grunt.option('platforms'));
     var pkgJson = grunt.file.readJSON('package.json');
+    var host = getHost();
 
     require('load-grunt-tasks')(grunt);
 
@@ -82,7 +97,9 @@ module.exports = function(grunt) {
             packageLinux32: {
                 command: function () {
                     if (host.linux || host.mac) {
-                            'sh dist/linux-maker.sh <%= nwjs.options.version %> linux32',
+                        return [
+                            'chmod +x dist/linux-maker.sh',
+                            './dist/linux-maker.sh <%= nwjs.options.version %> linux32',
                             'echo "Linux32 TGZ Sucessfully packaged" || echo "Linux32 TGZ failed to package"'
                         ].join(' && ');
                     } else {
@@ -96,7 +113,8 @@ module.exports = function(grunt) {
                 command: function () {
                     if (host.linux || host.mac) {
                         return [
-                            'sh dist/linux-maker.sh <%= nwjs.options.version %> linux64',
+                            'chmod +x dist/linux-maker.sh',
+                            './dist/linux-maker.sh <%= nwjs.options.version %> linux64',
                             'echo "Linux64 TGZ Sucessfully packaged" || echo "Linux64 TGZ failed to package"'
                         ].join(' && ');
                     } else {
@@ -110,7 +128,8 @@ module.exports = function(grunt) {
                 command: function () {
                     if (host.linux) {
                         return [
-                            'sh dist/deb-maker.sh <%= nwjs.options.version %> linux32',
+                            'chmod +x dist/deb-maker.sh',
+                            './dist/deb-maker.sh <%= nwjs.options.version %> linux32',
                             'echo "Linux32 DEB Sucessfully packaged" || echo "Linux32 DEB failed to package"'
                         ].join(' && ');
                     } else {
@@ -124,7 +143,8 @@ module.exports = function(grunt) {
                 command: function () {
                     if (host.linux) {
                         return [
-                            'sh dist/deb-maker.sh <%= nwjs.options.version %> linux64',
+                            'chmod +x dist/deb-maker.sh',
+                            './dist/deb-maker.sh <%= nwjs.options.version %> linux64',
                             'echo "Linux64 DEB Sucessfully packaged" || echo "Linux64 DEB failed to package"'
                         ].join(' && ');
                     } else {

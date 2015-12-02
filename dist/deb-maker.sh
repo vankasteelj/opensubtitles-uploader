@@ -27,13 +27,13 @@ mkdir -p $cwd/$package_name
 #create dir tree
 mkdir -p $cwd/$package_name/usr/share/applications #desktop
 mkdir -p $cwd/$package_name/opt/$projectName #app files
+mkdir -p $cwd/$package_name/opt/$projectName/node_modules #n_m
 mkdir -p $cwd/$package_name/usr/share/icons #icon
 
 ### COPY FILES
 #base
 cp -r builds/cache/$nw/$arch/locales $cwd/$package_name/opt/$projectName/
 cp builds/cache/$nw/$arch/icudtl.dat $cwd/$package_name/opt/$projectName/
-cp builds/cache/$nw/$arch/libffmpegsumo.so $cwd/$package_name/opt/$projectName/
 cp builds/cache/$nw/$arch/nw $cwd/$package_name/opt/$projectName/$projectName
 cp builds/cache/$nw/$arch/nw.pak $cwd/$package_name/opt/$projectName/
 
@@ -46,9 +46,9 @@ cp LICENSE $cwd/$package_name/opt/$projectName/
 cp -r mi-$arch $cwd/$package_name/opt/$projectName/
 
 #node_modules
-cp -r node_modules/bluebird $cwd/$package_name/opt/$projectName/node_modules/bluebird
-cp -r node_modules/detect-lang $cwd/$package_name/opt/$projectName/node_modules/detect-lang
-cp -r node_modules/opensubtitles-api $cwd/$package_name/opt/$projectName/node_modules/opensubtitles-api
+cp -r node_modules/bluebird $cwd/$package_name/opt/$projectName/node_modules
+cp -r node_modules/detect-lang $cwd/$package_name/opt/$projectName/node_modules
+cp -r node_modules/opensubtitles-api $cwd/$package_name/opt/$projectName/node_modules
 
 #icon
 cp app/images/os-icon.png $cwd/$package_name/usr/share/icons/opensubtitles-uploader.png
@@ -160,12 +160,12 @@ set -e
 if [ -x /usr/bin/desktop-file-install ]; then
 	desktop-file-install /usr/share/applications/$name.desktop
 else
-	chmod 0644 /usr/share/applications/$name.desktop
+	chmod +x /usr/share/applications/$name.desktop
 fi
 
-# set permissions for updates
+# set permissions
 if [ -e /opt/$projectName/$projectName ]; then
-	chmod 0644 /opt/$projectName/$projectName
+	chmod +x /opt/$projectName/$projectName
 fi
 
 if [ ! -e /lib/$(arch)-linux-gnu/libudev.so.1 ]; then
@@ -199,7 +199,7 @@ fi
 " > $cwd/$package_name/DEBIAN/postrm
 
 ### PERMISSIONS
-chmod 0644 $cwd/$package_name/usr/share/applications/$name.desktop
+chmod +x $cwd/$package_name/usr/share/applications/$name.desktop
 chmod -R 0755 $cwd/$package_name/DEBIAN
 chown -R root:root $cwd/$package_name 2> /dev/null || echo "'chown -R root:root' failed, continuing..."
 
