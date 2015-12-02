@@ -50,7 +50,7 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>nwjs</string>
+	<string>OpenSubtitles-Uploader</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
