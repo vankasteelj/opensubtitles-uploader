@@ -130,22 +130,40 @@ var misc = {
         return selectedText;
     },
     checkUpdates: function () {
-        //if (parseInt(localStorage.lastUpdateCheck) + 604800000 > Date.now()) return;
+        // set update text if not updated
+        if (localStorage.availableUpdate && localStorage.availableUpdate !== '' && localStorage.availableUpdate > version) {
+            $('#notification').html('New version available, download <a onClick="misc.openExternal(\'' + localStorage.availableUpdateUrl + '\')">v' + localStorage.availableUpdate + '</a> now!');
+        }
+
+        // only check every 7 days
+        if (parseInt(localStorage.lastUpdateCheck) + 604800000 > Date.now()) {
+            return;
+        }
 
         localStorage.lastUpdateCheck = Date.now();
 
+        // fetch remote package.json
         var url = 'https://raw.githubusercontent.com/vankasteelj/opensubtitles-uploader/master/package.json';
         require('https').get(url, function (res) {
             var body = '';
+
             res.on('data', function (chunk) {
                 body += chunk.toString();
             });
+
             res.on('end', function () {
                 var avail_version = JSON.parse(body).version;
+                var releasesUrl = JSON.parse(body).releases;
+
                 if (avail_version > version) {
-                    console.info('update available:', avail_version);
+                    localStorage.availableUpdate = avail_version;
+                    localStorage.availableUpdateUrl = releaseUrl;
+                    console.info('Update %s available:', avail_version, releasesUrl);
+                    $('#notification').html('New version available, download <a onClick="misc.openExternal(' + localStorage.availableUpdateUrl + ')">v' + localStorage.availableUpdate + '</a> now!');
                 } else {
-                    console.log('no update available');
+                    localStorage.availableUpdate = '';
+                    localStorage.availableUpdateUrl = '';
+                    console.debug('No update available');
                 }
             });
         }).on('error', function (e) {

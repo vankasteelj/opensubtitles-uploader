@@ -11,6 +11,7 @@ var interface = {
             'hide': 500
         });
         $('.version').text('v' + version + ' - ');
+        misc.checkUpdates();
         console.info('Application ready');
     },
     setupRightClicks: function () {
