@@ -91,7 +91,7 @@ Function .onInit ; check for previous version
 done:
 FunctionEnd
 
-Section ; NWjs Files
+Section ; Main Files
 
     ;Delete existing install
     RMDir /r "$INSTDIR"
@@ -106,6 +106,7 @@ Section ; NWjs Files
     File /r "..\builds\cache\${APP_NW}\win32\locales"
     File "..\builds\cache\${APP_NW}\win32\icudtl.dat"
     File "..\dist\os-icon.ico"
+    File /r "..\mi-win32"
 
 SectionEnd
 
