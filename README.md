@@ -25,4 +25,9 @@ _Built with love and ducktape in HTML5 and Javascript._
 
         grunt dev
     
-- CTRL+D to open devtools, CTRL+R to reload.
+- CTRL+D to open devtools (debugger), CTRL+R to reload.
+
+## Distribute
+- Build packages and installers:
+
+        grunt dist
