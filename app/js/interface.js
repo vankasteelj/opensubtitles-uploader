@@ -10,7 +10,7 @@ var interface = {
             'show': {duration: 500, delay: 400},
             'hide': 500
         });
-        $('.app-author').html($('.app-author').html().replace('%appversion%', version));
+        $('.version').text('v' + version + ' - ');
         console.info('Application ready');
     },
     setupRightClicks: function () {
