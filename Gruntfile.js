@@ -115,6 +115,7 @@ module.exports = function(grunt) {
                 command: function () {
                     if (host.linux || host.mac) {
                         return [
+                            'mkdir releases | echo .',
                             'chmod +x dist/linux-maker.sh',
                             './dist/linux-maker.sh <%= nwjs.options.version %> linux32 <%= app_version %>',
                             'echo "Linux32 TGZ Sucessfully packaged" || echo "Linux32 TGZ failed to package"'
@@ -130,6 +131,7 @@ module.exports = function(grunt) {
                 command: function () {
                     if (host.linux || host.mac) {
                         return [
+                            'mkdir releases | echo .',
                             'chmod +x dist/linux-maker.sh',
                             './dist/linux-maker.sh <%= nwjs.options.version %> linux64 <%= app_version %>',
                             'echo "Linux64 TGZ Sucessfully packaged" || echo "Linux64 TGZ failed to package"'
@@ -145,6 +147,7 @@ module.exports = function(grunt) {
                 command: function () {
                     if (host.linux) {
                         return [
+                            'mkdir releases | echo .',
                             'chmod +x dist/deb-maker.sh',
                             './dist/deb-maker.sh <%= nwjs.options.version %> linux32 <%= app_version %>',
                             'echo "Linux32 DEB Sucessfully packaged" || echo "Linux32 DEB failed to package"'
@@ -160,6 +163,7 @@ module.exports = function(grunt) {
                 command: function () {
                     if (host.linux) {
                         return [
+                            'mkdir releases | echo .',
                             'chmod +x dist/deb-maker.sh',
                             './dist/deb-maker.sh <%= nwjs.options.version %> linux64 <%= app_version %>',
                             'echo "Linux64 DEB Sucessfully packaged" || echo "Linux64 DEB failed to package"'
@@ -181,6 +185,22 @@ module.exports = function(grunt) {
                     } else {
                         return [
                             'echo "Building windows installer is not supported on Linux or Mac"'
+                        ].join(' && ');
+                    }
+                }
+            },
+            packageOSX64: {
+                command: function () {
+                    if (host.linux || host.mac) {
+                        return [
+                            'mkdir releases | echo .',
+                            'chmod +x dist/osx-maker.sh',
+                            './dist/osx-maker.sh <%= nwjs.options.version %> <%= app_version %>',
+                            'echo "OSX Sucessfully packaged" || echo "OSX failed to package"'
+                        ].join(' && ');
+                    } else {
+                        return [
+                            'echo "Building OSX package is not supported on Windows"'
                         ].join(' && ');
                     }
                 }
