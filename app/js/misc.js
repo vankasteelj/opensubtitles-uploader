@@ -26,6 +26,14 @@ var misc = {
             $(el).removeClass(cl).dequeue();
         });
     },
+    notify: function (message, duration, anim, animduration) {
+        $('#notification').html(message).delay(0).queue(function () {
+            if (anim && animduration) misc.animate('#notification', anim, animduration);
+            $('#notification').dequeue();
+        }).delay(duration).queue(function () {
+           $('#notification').html('').dequeue();
+        });
+    },
     extractQuality: function (title) {
         console.info('Detecting quality...');
         if (title.match(/720[pix]/i) && !title.match(/dvdrip|dvd\Wrip/i)) {
@@ -240,6 +248,7 @@ window.ondrop = function (e) {
         if ($('#search-popup').css('display') == 'block') interface.leavePopup({});
     } else {
         console.debug('Dropped file is not supported');
+        misc.notify('<span class="warning">Dropped file is not supported</span>', 2500, 'buzz', 1000);
     }
 
     return false;

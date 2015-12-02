@@ -523,6 +523,7 @@ body {
     -webkit-user-drag: none;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeSpeed;
+    overflow: hidden;
 }
 
 img,
@@ -563,6 +564,10 @@ a {
 
 .light:hover {
     background: #2A4D6E;
+}
+
+.warning {
+    color: #e60000;
 }
 
 input {
