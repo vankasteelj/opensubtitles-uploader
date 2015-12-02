@@ -1,11 +1,10 @@
-#<img src="https://raw.githubusercontent.com/vankasteelj/opensubtitles-uploader/master/app/images/os-icon.png" alt="Logo" style="width: 70px;"/> OpenSubtitles Uploader 
+# OpenSubtitles Uploader 
 
 #### Upload your subtitles to [OpenSubtitles.org](http://www.opensubtitles.org)
 
 **Download the [latest version](https://github.com/vankasteelj/opensubtitles-uploader/releases), for Windows/OSX/Linux !**
 
 _Built with love and ducktape in HTML5 and Javascript._
-
 
 ![ui](http://i.imgur.com/yofqDHL.png)
 
@@ -17,7 +16,6 @@ _Built with love and ducktape in HTML5 and Javascript._
 - Tell your friends
 
 ## Develop
-
 - Install dependencies, download binaries:
 
         npm install
@@ -28,3 +26,7 @@ _Built with love and ducktape in HTML5 and Javascript._
         grunt dev
     
 - CTRL+D to open devtools, CTRL+R to reload.
+
+## Todo
+- update available notification
+- build installers .exe / .deb / .app|.dmg
