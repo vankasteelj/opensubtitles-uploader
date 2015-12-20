@@ -199,8 +199,10 @@ var interface = {
                 $('#upload-result').hide();
                 break;
             default:
-                interface.reset('video');
-                interface.reset('subtitle');
+                if (!$('#button-upload').hasClass('fail')) {
+                    interface.reset('video');
+                    interface.reset('subtitle');
+                }
                 interface.reset('search');
                 interface.reset('upload');
         }

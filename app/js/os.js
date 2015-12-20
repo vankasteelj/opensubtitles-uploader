@@ -190,7 +190,13 @@ var opensubtitles = {
             opensubtitles.isUploading = false;
             $('#button-upload i, #button-upload span').removeClass('pulse');
             console.error(err);
-            $('#upload-result .result').text('Something went wrong :(');
+            if (err.body && err.body.match(/503/i)) {
+                $('#upload-result .result').text('OpenSubtitles is temporarily unavailable, please retry in a little while');
+            } else if (err.body && err.body.match(/506/i)) {
+                $('#upload-result .result').text('OpenSubtitles is under maintenance, please retry in a few hours');
+            } else {
+                $('#upload-result .result').text('Something went wrong :(');
+            }
             $('#button-upload').addClass('fail');
             $('#upload-result').css('color', '#e60000');
             $('#button-upload i').removeClass('fa-cloud-upload').addClass('fa-close');
