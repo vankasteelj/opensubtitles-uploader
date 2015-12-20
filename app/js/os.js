@@ -104,7 +104,7 @@ var opensubtitles = {
             }
             $('#button-search').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
         }).catch(function (err) {
-            console.error(err);
+            console.error('SearchMoviesOnIMDB', err);
             $('#search').animate({
                 height: '80px',
                 top: '200px'
