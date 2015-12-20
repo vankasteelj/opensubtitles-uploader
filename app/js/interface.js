@@ -141,6 +141,9 @@ var interface = {
         }).catch(function(err) {
             interface.reset('video');
             $('#main-video-shadow').css('opacity', '0').hide();
+            if (err.body && err.body.match(/50(3|6)/)) {
+                misc.notifySnack('Video cannot be imported because OpenSubtitles could not be reached. Is it online?', 4500);
+            }
             console.error(err);
         });
     },

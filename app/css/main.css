@@ -111,6 +111,7 @@
     cursor: pointer;
 }
 
+
 /* Login */
 
 #authentication {
@@ -408,12 +409,15 @@ input[type=checkbox]:checked:before {
     cursor: pointer;
     transition: all .3s;
 }
+
 .locker.fa-unlock {
     color: #bbb;
 }
+
 .locker.fa-lock {
     color: #728CA6;
 }
+
 .locker:hover {
     color: #728CA6;
 }
@@ -494,6 +498,7 @@ input[type=checkbox]:checked:before {
     border-left: 4px solid #728CA6;
 }
 
+
 /*
  * Notifications
  */
@@ -510,6 +515,29 @@ input[type=checkbox]:checked:before {
 #notification a {
     color: #728CA6;
     text-decoration: none;
+}
+
+#notification-snack {
+    position: absolute;
+    display: none;
+    top: 20px;
+    right: 25px;
+    z-index: 3;
+    padding: 10px 20px;
+    text-align: center;
+    line-height: 16px;
+    font-size: 14px;
+    background: rgba(30, 30, 30, .68);
+    color: #fff;
+    min-width: 200px;
+    max-width: 280px;
+    overflow: auto;
+    transition: background .4s;
+    cursor: pointer;
+}
+
+#notification-snack:hover {
+    background: rgba(30, 30, 30, .75);
 }
 
 /*
