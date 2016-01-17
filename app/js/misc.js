@@ -205,7 +205,7 @@ var misc = {
             $('#main-' + type).css('border-color', '');
             win.focus();
             console.debug('New File:', type, 'dropped');
-            interface['add_' + type](files[type].path);
+            interface['add_' + type](files[type].path, Object.keys(files).length === 2);
             if ($('#search-popup').css('display') == 'block') interface.leavePopup({});
         }
     }
