@@ -185,6 +185,29 @@ var misc = {
         }).on('error', function(e) {
             console.error('Unable to look for updates', e);
         });
+    },
+    analyzeDrop: function (files) {
+        var f = {};
+        for (var i = 0; i < files.length; i++) {
+            if (!f.video && misc.fileType(files[i].path) === 'video') f.video = files[i];
+            if (!f.subtitle && misc.fileType(files[i].path) === 'subtitle') f.subtitle = files[i];
+            if (f.subtitle && f.video) break;
+        }
+        return f;
+    },
+    handleDrop: function (files) {
+        if (Object.keys(files).length === 0) {
+            console.debug('Dropped file is not supported');
+            misc.notify('<span class="warning">Dropped file is not supported</span>', 2500, 'buzz', 1000);
+        }
+
+        for (type in files) {
+            $('#main-' + type).css('border-color', '');
+            win.focus();
+            console.debug('New File:', type, 'dropped');
+            interface['add_' + type](files[type].path);
+            if ($('#search-popup').css('display') == 'block') interface.leavePopup({});
+        }
     }
 };
 
@@ -245,20 +268,8 @@ window.ondragenter = function(e) {
 window.ondrop = function(e) {
     e.preventDefault();
     $('#drop-mask').hide();
-    var files = e.dataTransfer.files,
-        file = files.length === 2 && misc.fileType(files[1].path) === 'video' ? files[1] : files[0];
 
-    var type = misc.fileType(file.path);
-    if (type) {
-        $('#main-' + type).css('border-color', '');
-        win.focus();
-        console.debug('New File:', type, 'dropped');
-        interface['add_' + type](file.path);
-        if ($('#search-popup').css('display') == 'block') interface.leavePopup({});
-    } else {
-        console.debug('Dropped file is not supported');
-        misc.notify('<span class="warning">Dropped file is not supported</span>', 2500, 'buzz', 1000);
-    }
+    misc.handleDrop(misc.analyzeDrop(e.dataTransfer.files));
 
     return false;
 };
