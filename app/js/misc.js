@@ -4,7 +4,8 @@
 var gui = require('nw.gui'),
     win = gui.Window.get(),
     data_path = gui.App.dataPath,
-    path = require('path');
+    path = require('path'),
+    fs = require('fs');
 
 var misc = {
     supportedTypes: {
@@ -79,7 +80,8 @@ var misc = {
         $('.detect-lang i').addClass('fa-circle-o-notch fa-spin').removeClass('fa-magic');
         require('detect-lang')(sub).then(function(data) {
             if (data && data.probability > 45 && (data.iso6392 || data.bibliographic)) {
-                $('#sublanguageid').val((data.iso6392 || data.bibliographic))
+                $('#sublanguageid').val((data.iso6392 || data.bibliographic));
+                console.info('Detected:', data.iso6392 || data.bibliographic);
             } else {
                 console.error(data);
                 throw 'not conclusive enough';
@@ -243,8 +245,9 @@ window.ondragenter = function(e) {
 window.ondrop = function(e) {
     e.preventDefault();
     $('#drop-mask').hide();
+    var files = e.dataTransfer.files,
+        file = files.length === 2 && misc.fileType(files[1].path) === 'video' ? files[1] : files[0];
 
-    var file = e.dataTransfer.files[0];
     var type = misc.fileType(file.path);
     if (type) {
         $('#main-' + type).css('border-color', '');
