@@ -173,7 +173,7 @@ var misc = {
 
                 if (avail_version > version) {
                     localStorage.availableUpdate = avail_version;
-                    localStorage.availableUpdateUrl = releaseUrl;
+                    localStorage.availableUpdateUrl = releasesUrl;
                     console.info('Update %s available:', avail_version, releasesUrl);
                     $('#notification').html('New version available, download <a onClick="misc.openExternal(' + localStorage.availableUpdateUrl + ')">v' + localStorage.availableUpdate + '</a> now!');
                 } else {
