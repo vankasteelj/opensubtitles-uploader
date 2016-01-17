@@ -93,7 +93,7 @@ var interface = {
 
         win.moveTo(x, y);
     },
-    add_video: function (file) {
+    add_video: function (file, multidrop) {
         console.info('Adding new video!');
         $('#main-video-shadow').show().css('opacity', '1')
 
@@ -138,17 +138,19 @@ var interface = {
                 $('#imdb-info').attr('title', 'IMDB: ' + title).attr('imdbid', info.imdbid).show();
             }
 
-            // auto-detec matching subtitle
-            fs.readdir(path.dirname(file), function (err, f) {
-                if (err) return;
-                for (var i = 0; i < f.length; i++) {
-                    if (f[i].slice(0, f[i].length - path.extname(f[i]).length) === path.basename(file).slice(0, path.basename(file).length - path.extname(file).length) && misc.fileType(f[i]) === 'subtitle') {
-                        console.info('Matching subtitle detected');
-                        interface['add_subtitle'](path.join(path.dirname(file), f[i]));
-                        break;
+            // auto-detect matching subtitle
+            if (!multidrop) {
+                fs.readdir(path.dirname(file), function (err, f) {
+                    if (err) return;
+                    for (var i = 0; i < f.length; i++) {
+                        if (f[i].slice(0, f[i].length - path.extname(f[i]).length) === path.basename(file).slice(0, path.basename(file).length - path.extname(file).length) && misc.fileType(f[i]) === 'subtitle') {
+                            console.info('Matching subtitle detected');
+                            interface['add_subtitle'](path.join(path.dirname(file), f[i]));
+                            break;
+                        }
                     }
-                }
-            });
+                });
+            }
 
             $('#main-video-shadow').css('opacity', '0').hide();
         }).catch(function(err) {
@@ -160,7 +162,7 @@ var interface = {
             console.error(err);
         });
     },
-    add_subtitle: function (file) {
+    add_subtitle: function (file, multidrop) {
         console.info('Adding new subtitle!');
         interface.reset('subtitle');
         $('#subtitle-file-path').val(file);
