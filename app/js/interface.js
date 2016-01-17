@@ -137,6 +137,19 @@ var interface = {
                 }
                 $('#imdb-info').attr('title', 'IMDB: ' + title).attr('imdbid', info.imdbid).show();
             }
+
+            // auto-detec matching subtitle
+            fs.readdir(path.dirname(file), function (err, f) {
+                if (err) return;
+                for (var i = 0; i < f.length; i++) {
+                    if (f[i].slice(0, f[i].length - path.extname(f[i]).length) === path.basename(file).slice(0, path.basename(file).length - path.extname(file).length) && misc.fileType(f[i]) === 'subtitle') {
+                        console.info('Matching subtitle detected');
+                        interface['add_subtitle'](path.join(path.dirname(file), f[i]));
+                        break;
+                    }
+                }
+            });
+
             $('#main-video-shadow').css('opacity', '0').hide();
         }).catch(function(err) {
             interface.reset('video');
@@ -174,6 +187,7 @@ var interface = {
 
                 $('#highdefinition').prop('checked', false);
                 $('#imdb-info').attr('title', '').hide();
+                $('#main-video').css('border-color', '');
                 if ($('#upload-result').css('display') === 'block') interface.reset('upload');
                 break;
             case 'subtitle':
@@ -188,6 +202,7 @@ var interface = {
                 $('#automatictranslation').prop('checked', false);
 
                 $('#sublanguageid').val('');
+                $('#main-subtitle').css('border-color', '');
                 if ($('#upload-result').css('display') === 'block') interface.reset('upload');
                 interface.restoreLocks();
                 break;
