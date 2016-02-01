@@ -309,6 +309,7 @@ input[type=checkbox]:checked:before {
     float: left;
     margin-left: 100px;
     border: 1px solid #d0d0d0;
+    resize: none;
 }
 
 #sublanguageid {
