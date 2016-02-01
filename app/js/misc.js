@@ -79,7 +79,7 @@ var misc = {
         $('.tooltipped').tooltip('close');
         $('.detect-lang i').addClass('fa-circle-o-notch fa-spin').removeClass('fa-magic');
         require('detect-lang')(sub).then(function(data) {
-            if (data && data.probability > 45 && (data.iso6392 || data.bibliographic)) {
+            if (data && data.probability > 37 && (data.iso6392 || data.bibliographic)) {
                 $('#sublanguageid').val((data.iso6392 || data.bibliographic));
                 console.info('Detected:', data.iso6392 || data.bibliographic);
             } else {
