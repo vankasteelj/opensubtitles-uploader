@@ -221,20 +221,11 @@ var interface = {
                 $('#modal-buttons .modal-open').attr('data-url', '');
                 $('#button-upload i').removeClass('fa-check fa-quote-left fa-close').addClass('fa-cloud-upload');
                 break;
-            /*case 'upload':
-                $('#button-upload').removeClass('success partial fail');
-                $('#upload-result .result').html('');
-                $('#button-upload i').removeClass('fa-check fa-quote-left fa-close').addClass('fa-cloud-upload');
-                $('#upload-result').hide();
-                break;*/
             default:
-                if (!$('#button-upload').hasClass('fail')) {
-                    interface.reset('video');
-                    interface.reset('subtitle');
-                }
+                interface.reset('video');
+                interface.reset('subtitle');
                 interface.reset('modal');
                 interface.reset('search');
-                //interface.reset('upload');
         }
     },
     modal: function (text, btright, btleft) {

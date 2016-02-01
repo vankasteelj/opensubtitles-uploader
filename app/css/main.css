@@ -52,66 +52,6 @@
     background: #e60000;
 }
 
-/*#upload-result {
-    position: absolute;
-    left: 150px;
-    top: 4px;
-    display: none;
-    font-size: 14px;
-    background: #fff;
-    border: 1px solid #AAA;
-    min-height: 16px;
-    padding: 6px 25px;
-    box-shadow: 2px 2px 4px #CCC;
-}
-
-#upload-result:after,
-#upload-result:before {
-    right: 100%;
-    top: 14px;
-    border: solid transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-}
-
-#upload-result:after {
-    border-color: rgba(255, 255, 255, 0);
-    border-right-color: #fff;
-    border-width: 7px;
-    margin-top: -7px;
-}
-
-#upload-result:before {
-    border-color: rgba(68, 68, 68, 0);
-    border-right-color: #777;
-    border-width: 8px;
-    margin-top: -8px;
-}
-
-#upload-result .result li {
-    font-size: 11px;
-    font-style: italic;
-    margin-top: 3px;
-    list-style: none;
-    float: left;
-    margin-left: 20px;
-}
-
-.close {
-    color: #888;
-    font-weight: 200;
-    position: absolute;
-    top: -5px;
-    right: -2px;
-    padding: 5px;
-    font-size: 10px;
-    cursor: pointer;
-}*/
-
-
 /* Login */
 
 #authentication {

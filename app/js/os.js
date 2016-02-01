@@ -186,8 +186,6 @@ var opensubtitles = {
                     console.debug('Subtitle already in opensubtitle\'s db');
                     var d = response.data;
                     interface.modal('Subtitle was already present in the database.<br><li>The hash %hash%</li><li>The file name %filename%</li>'.replace('%hash%', d.HashWasAlreadyInDb === 0 ? 'has been added!':'too...').replace('%filename%', d.MoviefilenameWasAlreadyInDb === 0 ? 'has been added!':'too...'), 'ok');
-                    //$('#upload-result .result').html('Subtitle was already present in the database.<br><li>The hash %hash%</li><li>The file name %filename%</li>'.replace('%hash%', d.HashWasAlreadyInDb === 0 ? 'has been added!':'too...').replace('%filename%', d.MoviefilenameWasAlreadyInDb === 0 ? 'has been added!':'too...'));
-                    //$('#button-upload').addClass('partial');
                     $('#modal-line').css('background', '#e69500');
                     $('#button-upload i').removeClass('fa-cloud-upload').addClass('fa-quote-left');
                 } else {
@@ -198,12 +196,9 @@ var opensubtitles = {
                     } else {
                         interface.modal('Subtitle was successfully uploaded!', 'ok');
                     }
-                    //$('#upload-result .result').text('Subtitle was successfully uploaded!');
-                    //$('#button-upload').addClass('success');
                     $('#modal-line').css('background', '#008c32');
                     $('#button-upload i').removeClass('fa-cloud-upload').addClass('fa-check');
                 }
-                //$('#upload-result').show();
             } else {
                 throw 'Something went wrong';
             }
@@ -220,10 +215,8 @@ var opensubtitles = {
                 error = 'Something went wrong :(';
             }
             interface.modal(error, 'ok', 'retry');
-            //$('#button-upload').addClass('fail');
             $('#modal-line').css('background', '#e60000');
             $('#button-upload i').removeClass('fa-cloud-upload').addClass('fa-close');
-            //$('#upload-result').show();
         });
     }
 };
