@@ -394,6 +394,7 @@ input[type=checkbox]:checked:before {
     width: 220px;
     height: 18px;
     margin-left: 100px;
+    padding-right: 25px;
     float: left;
     text-align: center;
 }
@@ -406,7 +407,8 @@ input[type=checkbox]:checked:before {
     margin-top: 1px;
     height: 14px;
     color: #333;
-    margin-left: -33px;
+    background: rgba(255,255,255,0.4);
+    margin-left: -30px;
 }
 
 #button-search:hover {
