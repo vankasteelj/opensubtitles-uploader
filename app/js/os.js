@@ -135,7 +135,7 @@ var opensubtitles = {
         }
 
         if ($('#imdbid').val() === '') {
-            interface.modal('You haven\'t specified an IMDB id for the video file. It is highly recommended to do so, for correctly categorizing the subtitle and make it easy to download.', 'edit', 'upload');
+            interface.modal('You haven\'t specified an IMDB id for the video file. It is highly recommended to do so, for correctly categorize the subtitle and make it easy to download.', 'edit', 'upload');
         } else {
             opensubtitles.upload();
         }
