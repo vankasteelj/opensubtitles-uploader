@@ -158,6 +158,8 @@ var interface = {
             $('#main-video-shadow').css('opacity', '0').hide();
             if (err.body && err.body.match(/50(3|6)/)) {
                 misc.notifySnack('Video cannot be imported because OpenSubtitles could not be reached. Is it online?', 4500);
+            } else {
+                misc.notifySnack('Unknown OpenSubtitles related error, please retry later or report the issue', 4500);
             }
             console.error(err);
         });
@@ -190,7 +192,7 @@ var interface = {
                 $('#highdefinition').prop('checked', false);
                 $('#imdb-info').attr('title', '').hide();
                 $('#main-video').css('border-color', '');
-                if ($('#upload-result').css('display') === 'block') interface.reset('upload');
+                if ($('#upload-popup').css('display') === 'block') interface.reset('modal');
                 break;
             case 'subtitle':
                 $('#subtitle-file-path').val('');
@@ -205,27 +207,41 @@ var interface = {
 
                 $('#sublanguageid').val('');
                 $('#main-subtitle').css('border-color', '');
-                if ($('#upload-result').css('display') === 'block') interface.reset('upload');
+                if ($('#upload-popup').css('display') === 'block') interface.reset('modal');
                 interface.restoreLocks();
                 break;
             case 'search':
                 $('#search-text').val('');
                 $('#search-result').html('');
                 break;
-            case 'upload':
+            case 'modal':
+                $('#modal-content').html('');
+                $('#modal-buttons > div').removeClass('left right').hide();
+                $('#upload-popup').css('opacity', 0).hide();
+                $('#modal-buttons .modal-open').attr('data-url', '');
+                $('#button-upload i').removeClass('fa-check fa-quote-left fa-close').addClass('fa-cloud-upload');
+                break;
+            /*case 'upload':
                 $('#button-upload').removeClass('success partial fail');
                 $('#upload-result .result').html('');
                 $('#button-upload i').removeClass('fa-check fa-quote-left fa-close').addClass('fa-cloud-upload');
                 $('#upload-result').hide();
-                break;
+                break;*/
             default:
                 if (!$('#button-upload').hasClass('fail')) {
                     interface.reset('video');
                     interface.reset('subtitle');
                 }
+                interface.reset('modal');
                 interface.reset('search');
-                interface.reset('upload');
+                //interface.reset('upload');
         }
+    },
+    modal: function (text, btright, btleft) {
+        $('#modal-content').html(text);
+        $('#modal-buttons .modal-'+btleft).addClass('left').show();
+        $('#modal-buttons .modal-'+btright).addClass('right').show();
+        $('#upload-popup').show().css('opacity', 1);
     },
     searchPopup: function () {
         console.debug('Opening IMDB search popup');
