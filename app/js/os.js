@@ -191,7 +191,7 @@ var opensubtitles = {
                 } else {
                     console.debug('Subtitle successfully uploaded!');
                     if (response.data && response.data !== '') {
-                        $('').attr('data-url', response.data);
+                        $('#modal-buttons .modal-open').attr('data-url', response.data);
                         interface.modal('Subtitle was successfully uploaded!', 'ok', 'open');
                     } else {
                         interface.modal('Subtitle was successfully uploaded!', 'ok');
