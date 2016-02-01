@@ -618,6 +618,11 @@ input {
     padding-right: 1px;
 }
 
+.metadata .content .metaitem input:read-only {
+    color: #4f4f4f;
+    font-style: italic;
+}
+
 ::-webkit-input-placeholder {
     color: #aaa;
     font-style: italic;
