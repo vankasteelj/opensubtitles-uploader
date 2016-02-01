@@ -172,6 +172,7 @@ var interface = {
         OS.computeMD5(file).then(function (data) {
             $('#subhash').val(data);
         });
+        misc.detect_lang();
     },
     reset: function (type) {
         if (type) console.debug('Clear form:', type);
