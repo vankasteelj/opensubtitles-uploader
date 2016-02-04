@@ -305,6 +305,7 @@ var interface = {
                     resolve(false);
                 } else {
                     var args = stdout.replace('::','').replace('\n','').split('::');
+                    console.debug('MediaInfo detection:', args);
                     resolve(args);
                 }
             });
