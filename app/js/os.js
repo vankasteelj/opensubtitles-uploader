@@ -87,7 +87,7 @@ var opensubtitles = {
         OS.login().then(function (token) {
             return OS.api.SearchMoviesOnIMDB(token, $('#search-text').val());
         }).then(function (response) {
-            console.warn('RESPONSE', response)
+            console.debug('Search Movies on IMDB response:', response);
             if (response && response.status.match(/200/) && response.data && response.data.length > 1) {
                 $('#search').animate({
                     height: '250px',
@@ -97,7 +97,7 @@ var opensubtitles = {
                 var res = response.data;
                 for (var i = 0; i < res.length; i++) {
                     if (!res[i].id) return;
-                    $('#search-result').append('<li class="result-item" onClick="interface.imdb_fromsearch(' + res[i].id + ', $(this).text())">' + res[i].title.replace(/\-$/, '') + '</li>');
+                    $('#search-result').append('<li class="result-item" onClick="opensubtitles.imdb_metadata(' + res[i].id + ')">' + res[i].title.replace(/\-$/, '') + '</li>');
                 }
             } else {
                 throw 'Opensubtitles.SearchMoviesOnIMDB() error, no details';
@@ -112,6 +112,36 @@ var opensubtitles = {
             $('#search-result').append('<li style="text-align:center;padding-right:20px;list-style:none;">' + 'Not found' + '</li>');
             $('#search-result').show();
             $('#button-search').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
+        });
+    },
+    imdb_metadata: function (id) {
+        OS.login().then(function (token) {
+            var imdbid = parseInt(id.toString().replace('tt',''));
+            if (isNaN(imdbid)) {
+                throw 'Wrong IMDB id';
+            } else {
+                return OS.api.GetIMDBMovieDetails(token, imdbid);
+            }
+        }).then(function (response) {
+            if (response && response.status.match(/200/) && typeof response.data === 'object') {
+                console.debug('Imdb Metadata:', response.data);
+                var text = '';
+                if (response.data.kind === 'episode') {
+                    function pad(n){return n<10 ? '0'+n : n}
+                    text += response.data.title.split('"')[1];
+                    text += ' S' + pad(response.data.season) + 'E' + pad(response.data.episode);
+                    text += ' - ' + response.data.title.split('"')[2];
+                    text += ' (' + response.data.year + ')';
+                } else {
+                    text += response.data.title;
+                    text += ' (' + response.data.year + ')';
+                }
+                interface.imdb_fromsearch(response.data.id, text)
+            } else {
+                throw 'OpenSubtitles.GetIMDBMovieDetails() error, no details';
+            }
+        }).catch(function (e) {
+            console.error(e);
         });
     },
     isUploading: false,
