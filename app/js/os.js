@@ -142,6 +142,9 @@ var opensubtitles = {
             }
         }).catch(function (e) {
             console.error(e);
+            $('#imdbid').val('');
+            $('#imdb-info').hide();
+            misc.notifySnack(e.message || e, 3500);
         });
     },
     isUploading: false,

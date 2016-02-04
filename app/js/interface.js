@@ -6,6 +6,7 @@ var interface = {
         interface.setupRightClicks();
         misc.keyboardShortcuts();
         interface.restoreLocks();
+        interface.setupImdbFocus();
         $('.tooltipped').tooltip({
             'show': {duration: 500, delay: 400},
             'hide': 500
@@ -65,6 +66,17 @@ var interface = {
 
         $('#video-file-path-hidden').attr('accept', misc.supportedTypes.video.join());
         $('#subtitle-file-path-hidden').attr('accept', misc.supportedTypes.subtitle.join());
+    },
+    setupImdbFocus: function () {
+        var imdbFocusVal = false;
+        $('#imdbid').focus(function (e) {
+            imdbFocusVal = e.target.value;
+        }).focusout(function (e) {
+            if (e.target.value !== imdbFocusVal) {
+                imdbFocusVal = false;
+                opensubtitles.imdb_metadata(e.target.value);
+            }
+        });
     },
     browse: function(type) {
         console.info('Opening File Browser');
@@ -372,17 +384,6 @@ var interface = {
             localStorage[id] = $('#' + id.substr(5)).val();
             console.debug('%s enabled, storing \'%s\'', id, localStorage[id]);
         }
-    },
-    setupImdbFocus: function () {
-        var imdbFocusVal = false;
-        $('#imdbid').focus(function (e) {
-            imdbFocusVal = e.target.value;
-        }).focusout(function (e) {
-            if (e.target.value !== imdbFocusVal) {
-                imdbFocusVal = false;
-                opensubtitles.imdb_metadata(e.target.value);
-            }
-        });
     },
     restoreLocks: function () {
         var subauthorcomment = localStorage['lock-subauthorcomment'] || '$false';
