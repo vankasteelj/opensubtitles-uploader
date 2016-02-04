@@ -214,7 +214,7 @@ var opensubtitles = {
             opensubtitles.isUploading = false;
             $('#button-upload i, #button-upload span').removeClass('pulse');
             if (response && response.status.match(/200/)) {
-                console.warn(response)
+                //console.warn(response)
                 if (response.alreadyindb === 1) {
                     console.debug('Subtitle already in opensubtitle\'s db');
                     var d = response.data;
