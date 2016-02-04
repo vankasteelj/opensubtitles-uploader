@@ -131,7 +131,7 @@ var interface = {
                 var title = '', d = info.metadata;
                 if (d.episode_title) {
                     function pad(n){return n<10 ? '0'+n : n}
-                    title += d.title + ' S' + pad(d.season) + 'E' + pad(d.episode) + ', ' + d.episode_title;
+                    title += d.title + ' S' + pad(d.season) + 'E' + pad(d.episode) + ', ' + d.episode_title + ' (' + d.year + ')';
                 } else {
                     title += d.title + ' (' + d.year + ')';
                 }
@@ -143,7 +143,7 @@ var interface = {
                 fs.readdir(path.dirname(file), function (err, f) {
                     if (err) return;
                     for (var i = 0; i < f.length; i++) {
-                        if (f[i].slice(0, f[i].length - path.extname(f[i]).length) === path.basename(file).slice(0, path.basename(file).length - path.extname(file).length) && misc.fileType(f[i]) === 'subtitle') {
+                        if (f[i].slice(0, f[i].length - path.extname(f[i]).length).match(path.basename(file).slice(0, path.basename(file).length - path.extname(file).length)) && misc.fileType(f[i]) === 'subtitle') {
                             console.info('Matching subtitle detected');
                             interface['add_subtitle'](path.join(path.dirname(file), f[i]));
                             break;
@@ -372,6 +372,17 @@ var interface = {
             localStorage[id] = $('#' + id.substr(5)).val();
             console.debug('%s enabled, storing \'%s\'', id, localStorage[id]);
         }
+    },
+    setupImdbFocus: function () {
+        var imdbFocusVal = false;
+        $('#imdbid').focus(function (e) {
+            imdbFocusVal = e.target.value;
+        }).focusout(function (e) {
+            if (e.target.value !== imdbFocusVal) {
+                imdbFocusVal = false;
+                opensubtitles.imdb_metadata(e.target.value);
+            }
+        });
     },
     restoreLocks: function () {
         var subauthorcomment = localStorage['lock-subauthorcomment'] || '$false';
