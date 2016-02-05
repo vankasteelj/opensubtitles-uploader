@@ -138,8 +138,8 @@ var interface = {
                 $('#movieframes').val(args[4]);
                 if (args[2] >= 720) $('#highdefinition').prop('checked', true);
             }
-            if (info.imdbid) $('#imdbid').val(info.imdbid);
-            if (info.metadata) {
+
+            if (info.metadata && info.imdbid) {
                 var title = '', d = info.metadata;
                 if (d.episode_title) {
                     function pad(n){return n<10 ? '0'+n : n}
@@ -147,7 +147,9 @@ var interface = {
                 } else {
                     title += d.title + ' (' + d.year + ')';
                 }
-                $('#imdb-info').attr('title', 'IMDB: ' + title).attr('imdbid', info.imdbid).show();
+                interface.imdb_fromsearch(info.imdbid, title)
+            } else {
+                if (info.imdbid) opensubtitles.imdb_metadata(info.imdbid);
             }
 
             // auto-detect matching subtitle
@@ -289,7 +291,7 @@ var interface = {
     },
     imdb_fromsearch: function (id, title) {
         console.debug('Adding IMDB id to main form');
-        id = id > 9999999 ? id : 'tt'+id;
+        id = id > 9999999 ? id : 'tt'+id.toString().replace('tt','');
         $('#imdbid').val(id);
         $('#imdb-info').attr('title', 'IMDB: ' + title).attr('imdbid', id).show();
         interface.leavePopup({});
