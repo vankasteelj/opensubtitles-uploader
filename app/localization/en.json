@@ -42,7 +42,7 @@
     "Language testing unconclusive, automatic detection failed": "Language testing unconclusive, automatic detection failed",
     "Video cannot be imported because OpenSubtitles could not be reached. Is it online?": "Video cannot be imported because OpenSubtitles could not be reached. Is it online?",
     "Unknown OpenSubtitles related error, please retry later or report the issue": "Unknown OpenSubtitles related error, please retry later or report the issue",
-    "You haven\'t specified an IMDB id for the video file. It is highly recommended to do so, for correctly categorize the subtitle and make it easy to download.": "You haven't specified an IMDB id for the video file. It is highly recommended to do so, for correctly categorize the subtitle and make it easy to download.",
+    "You haven't specified an IMDB id for the video file. It is highly recommended to do so, for correctly categorize the subtitle and make it easy to download.": "You haven't specified an IMDB id for the video file. It is highly recommended to do so, for correctly categorize the subtitle and make it easy to download.",
     "Wrong username or password": "Wrong username or password",
     "Not found": "Not found",
     "Wrong IMDB id": "Wrong IMDB id",
