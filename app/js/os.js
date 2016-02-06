@@ -2,6 +2,7 @@ console.info('Opening app...');
 var version = require('../package.json').version;
 var USERAGENT = 'OpenSubtitles-Uploader v' + version;
 var OS;
+var i18n = require('i18n');
 
 var OpenSubtitles = require('opensubtitles-api');
 
@@ -38,8 +39,8 @@ var opensubtitles = {
             }).catch(function (err) {
                 console.error('opensubtitles.login()', err);
                 var original = $('#not-logged').html();
-                var display_err = err === '401 Unauthorized' ? 'Wrong username or password' : (err.message || err);
-                $('#not-logged').html('<div id="logged-as" style="color: #e60000">' + display_err + '</div>' + '<div id="button-login" onClick="opensubtitles.login()" class="button light buzz">Login</div>').delay(1850).queue(function () {
+                var display_err = err === '401 Unauthorized' ? i18n.__('Wrong username or password') : (err.message || err);
+                $('#not-logged').html('<div id="logged-as" style="color: #e60000">' + display_err + '</div>' + '<div id="button-login" onClick="opensubtitles.login()" class="button light buzz">'+ i18n.__('Log in') + '</div>').delay(1850).queue(function () {
                     $('#not-logged').html(original);
                     $('#login-username').val(username);
                     $('#not-logged').dequeue();
@@ -109,7 +110,7 @@ var opensubtitles = {
                 height: '80px',
                 top: '200px'
             }, 300);
-            $('#search-result').append('<li style="text-align:center;padding-right:20px;list-style:none;">' + 'Not found' + '</li>');
+            $('#search-result').append('<li style="text-align:center;padding-right:20px;list-style:none;">' + i18n.__('Not found') + '</li>');
             $('#search-result').show();
             $('#button-search').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
         });
@@ -144,7 +145,8 @@ var opensubtitles = {
             console.error(e);
             $('#imdbid').val('');
             $('#imdb-info').hide();
-            misc.notifySnack(e.message || e, 3500);
+            var error = e.message || e;
+            misc.notifySnack(i18n.__(error), 3500);
         });
     },
     isUploading: false,
@@ -168,7 +170,7 @@ var opensubtitles = {
         }
 
         if ($('#imdbid').val() === '') {
-            interface.modal('You haven\'t specified an IMDB id for the video file. It is highly recommended to do so, for correctly categorize the subtitle and make it easy to download.', 'edit', 'upload');
+            interface.modal(i18n.__('You haven\'t specified an IMDB id for the video file. It is highly recommended to do so, for correctly categorize the subtitle and make it easy to download.'), 'edit', 'upload');
         } else {
             opensubtitles.upload();
         }

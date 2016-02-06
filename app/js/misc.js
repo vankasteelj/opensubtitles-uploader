@@ -5,7 +5,8 @@ var gui = require('nw.gui'),
     win = gui.Window.get(),
     data_path = gui.App.dataPath,
     path = require('path'),
-    fs = require('fs');
+    fs = require('fs'),
+    Promise = require('bluebird');
 
 var misc = {
     supportedTypes: {
@@ -91,7 +92,7 @@ var misc = {
             $('.detect-lang i').addClass('fa-magic').removeClass('fa-circle-o-notch fa-spin')
         }).catch(function(err) {
             $('.detect-lang i').addClass('fa-magic').removeClass('fa-circle-o-notch fa-spin');
-            misc.notifySnack('Language testing unconclusive, automatic detection failed', 3800);
+            misc.notifySnack(i18n.__('Language testing unconclusive, automatic detection failed'), 3800);
             console.error('misc.detect_lang() error:', err);
         });
     },
@@ -150,7 +151,7 @@ var misc = {
     checkUpdates: function() {
         // set update text if not updated
         if (localStorage.availableUpdate && localStorage.availableUpdate !== '' && localStorage.availableUpdate > version) {
-            $('#notification').html('New version available, download <a onClick="misc.openExternal(\'' + localStorage.availableUpdateUrl + '\')">v' + localStorage.availableUpdate + '</a> now!');
+            $('#notification').html(i18n.__('New version available, download %s now!', '<a onClick="misc.openExternal(\'' + localStorage.availableUpdateUrl + '\')">v' + localStorage.availableUpdate + '</a>'));
         }
 
         // only check every 7 days
@@ -177,7 +178,7 @@ var misc = {
                     localStorage.availableUpdate = avail_version;
                     localStorage.availableUpdateUrl = releasesUrl;
                     console.info('Update %s available:', avail_version, releasesUrl);
-                    $('#notification').html('New version available, download <a onClick="misc.openExternal(' + localStorage.availableUpdateUrl + ')">v' + localStorage.availableUpdate + '</a> now!');
+                    $('#notification').html(i18n.__('New version available, download %s now!', '<a onClick="misc.openExternal(\'' + localStorage.availableUpdateUrl + '\')">v' + localStorage.availableUpdate + '</a>'));
                 } else {
                     localStorage.availableUpdate = '';
                     localStorage.availableUpdateUrl = '';
@@ -200,7 +201,7 @@ var misc = {
     handleDrop: function (files) {
         if (Object.keys(files).length === 0) {
             console.debug('Dropped file is not supported');
-            misc.notify('<span class="warning">Dropped file is not supported</span>', 2500, 'buzz', 1000);
+            misc.notify('<span class="warning">' + i18n.__('Dropped file is not supported') + '</span>', 2500, 'buzz', 1000);
         }
 
         for (type in files) {
@@ -210,6 +211,47 @@ var misc = {
             interface['add_' + type](files[type].path, Object.keys(files).length === 2);
             if ($('#search-popup').css('display') == 'block') interface.leavePopup({});
         }
+    },
+    setupLocalization: function () {
+        misc.availableLocales = ['en', 'fr'];
+        i18n.configure({
+            defaultLocale: misc.detectLocale(),
+            locales: misc.availableLocales,
+            directory: './app/localization'
+        });
+        misc.setLocale(localStorage.locale);
+    },
+    detectLocale: function () {
+        // The full OS language (with localization, like 'en-uk')
+        var pureLanguage = navigator.language.toLowerCase();
+        // The global language name (without localization, like 'en')
+        var baseLanguage = navigator.language.toLowerCase().slice(0, 2);
+
+        if ($.inArray(pureLanguage, misc.availableLocales) !== -1) {
+            return pureLanguage;
+        } else if ($.inArray(baseLanguage, misc.availableLocales) !== -1) {
+            return baseLanguage;
+        } else {
+            return 'en';
+        }
+    },
+    setLocale: function (locale) {
+        if (locale) {
+            i18n.setLocale(locale);
+        } else {
+            i18n.setLocale(misc.detectLocale());
+        }
+    },
+    localizeApp: function () {
+        var orig = document.getElementsByTagName('body')[0].innerHTML;
+        var t = orig.match(/\{\{.+\}\}/g) || [];
+        return Promise.each(t, function (ti) {
+            var w = ti.replace('{{', '').replace('}}', '');
+            var regx = new RegExp('\\{\\{' + w + '\\}\\}', 'g');
+            orig = orig.replace(regx, i18n.__(w));
+        }).then(function () {
+            document.getElementsByTagName('body')[0].innerHTML = orig;
+        });
     }
 };
 
