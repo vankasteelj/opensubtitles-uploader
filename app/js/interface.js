@@ -154,10 +154,13 @@ var interface = {
 
             // auto-detect matching subtitle
             if (!multidrop) {
+                RegExp.escape = function(s){ // required for special chars
+                    return String(s).replace(/[\\^$*+?.()|[\]{}]/g, '\\$&');
+                };
                 fs.readdir(path.dirname(file), function (err, f) {
                     if (err) return;
                     for (var i = 0; i < f.length; i++) {
-                        if (f[i].slice(0, f[i].length - path.extname(f[i]).length).match(path.basename(file).slice(0, path.basename(file).length - path.extname(file).length)) && misc.fileType(f[i]) === 'subtitle') {
+                        if (f[i].slice(0, f[i].length - path.extname(f[i]).length).match(RegExp.escape(path.basename(file).slice(0, path.basename(file).length - path.extname(file).length))) && misc.fileType(f[i]) === 'subtitle') {
                             console.info('Matching subtitle detected');
                             interface['add_subtitle'](path.join(path.dirname(file), f[i]));
                             break;
