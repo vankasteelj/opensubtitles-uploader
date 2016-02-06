@@ -23,12 +23,12 @@ var interface = {
                 var menu;
                 if ($(inputs[i]).attr('readonly')) {
                     if (ev.target.value !== '') {
-                        menu = new interface.context_Menu(null, 'Copy', null, ev.target.id);
+                        menu = new interface.context_Menu(null, i18n.__('Copy'), null, ev.target.id);
                     } else {
                         return;
                     }
                 } else {
-                    menu = new interface.context_Menu('Cut', 'Copy', 'Paste', ev.target.id);
+                    menu = new interface.context_Menu(i18n.__('Cut'), i18n.__('Copy'), i18n.__('Paste'), ev.target.id);
                 }
                 menu.popup(ev.x, ev.y);
                 return false;
@@ -171,9 +171,9 @@ var interface = {
             interface.reset('video');
             $('#main-video-shadow').css('opacity', '0').hide();
             if (err.body && err.body.match(/50(3|6)/)) {
-                misc.notifySnack('Video cannot be imported because OpenSubtitles could not be reached. Is it online?', 4500);
+                misc.notifySnack(i18n.__('Video cannot be imported because OpenSubtitles could not be reached. Is it online?'), 4500);
             } else {
-                misc.notifySnack('Unknown OpenSubtitles related error, please retry later or report the issue', 4500);
+                misc.notifySnack(i18n.__('Unknown OpenSubtitles related error, please retry later or report the issue'), 4500);
             }
             console.error(err);
         });

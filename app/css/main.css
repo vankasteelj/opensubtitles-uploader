@@ -32,7 +32,7 @@
 /* Upload */
 
 #button-upload {
-    width: 90px;
+    min-width: 90px;
     float: left;
 }
 
@@ -154,7 +154,7 @@
 }
 
 .section-file .button {
-    width: 60px;
+    min-width: 60px;
     padding: 7px 10px;
     float: left;
     font-size: 15px;
