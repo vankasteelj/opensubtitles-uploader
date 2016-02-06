@@ -2,9 +2,18 @@ console.info('Opening app...');
 var version = require('../package.json').version;
 var USERAGENT = 'OpenSubtitles-Uploader v' + version;
 var OS;
-var i18n = require('i18n');
 
-var OpenSubtitles = require('opensubtitles-api');
+/*
+ * important variables used in the app
+ */
+var gui = require('nw.gui'),
+    win = gui.Window.get(),
+    data_path = gui.App.dataPath,
+    path = require('path'),
+    fs = require('fs'),
+    Promise = require('bluebird'),
+    i18n = require('i18n'),
+    OpenSubtitles = require('opensubtitles-api');
 
 var opensubtitles = {
     login: function () {
