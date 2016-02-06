@@ -7,6 +7,7 @@ var interface = {
         misc.keyboardShortcuts();
         interface.restoreLocks();
         interface.setupImdbFocus();
+        interface.setupLocaleFlags();
         $('.tooltipped').tooltip({
             'show': {duration: 500, delay: 400},
             'hide': 500
@@ -76,6 +77,36 @@ var interface = {
                 imdbFocusVal = false;
                 opensubtitles.imdb_metadata(e.target.value);
             }
+        });
+    },
+    setupLocaleFlags: function () {
+        $('.dropdown dt a span').html('<img class="flag" src="images/flags/'+ i18n.getLocale() +'.png"/>');
+
+        for (var lang in misc.availableLocales) {
+            var el = '<li><a><img class="flag" src="images/flags/'+ misc.availableLocales[lang] +'.png"/><span class="value">'+ misc.availableLocales[lang] +'</span></a></li>';
+            $('#app-locale ul').append(el);
+        }
+
+        $('.dropdown dt a').click(function() {
+            $('.dropdown dd ul').toggle();
+        });
+
+        $('.dropdown dd ul li a').click(function() {
+            var text = $(this).html();
+            $('.dropdown dt a span').html(text);
+            $('.dropdown dd ul').hide();
+            localStorage.locale = getSelectedValue('app-locale');
+            win.reload();
+        });
+
+        function getSelectedValue(id) {
+            return $('#' + id).find('dt a span.value').html();
+        }
+
+        $(document).bind('click', function(e) {
+            var $clicked = $(e.target);
+            if (! $clicked.parents().hasClass('dropdown'))
+                $('.dropdown dd ul').hide();
         });
     },
     browse: function(type) {
