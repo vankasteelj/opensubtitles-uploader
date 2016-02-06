@@ -18,7 +18,6 @@
     "OSDb Hash": "OSDb Hash",
     "MD5 Hash": "MD5 Hash",
     "Size": "Size",
-    "bytes": "bytes",
     "High definition": "High definition",
     "Movie AKA": "Movie AKA",
     "Release name": "Release name",
@@ -59,5 +58,6 @@
     "Subtitle was successfully uploaded!": "Subtitle was successfully uploaded!",
     "OpenSubtitles is temporarily unavailable, please retry in a little while": "OpenSubtitles is temporarily unavailable, please retry in a little while",
     "OpenSubtitles is under maintenance, please retry in a few hours": "OpenSubtitles is under maintenance, please retry in a few hours",
-    "Something went wrong :(": "Something went wrong :("
+    "Something went wrong :(": "Something went wrong :(",
+    "IMDB id": "IMDB id"
 }
