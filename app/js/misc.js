@@ -205,10 +205,10 @@ var misc = {
     setupLocalization: function () {
         misc.availableLocales = ['en', 'fr'];
         i18n.configure({
-            updateFiles: false,
             defaultLocale: misc.detectLocale(),
             locales: misc.availableLocales,
-            directory: './app/localization'
+            directory: './app/localization',
+            updateFiles: false,
         });
         misc.setLocale(localStorage.locale);
     },
