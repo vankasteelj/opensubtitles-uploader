@@ -40,7 +40,7 @@
     "Language testing unconclusive, automatic detection failed": "Language testing unconclusive, automatic detection failed",
     "Video cannot be imported because %s could not be reached. Is it online?": "Video cannot be imported because %s could not be reached. Is it online?",
     "Unknown %s related error, please retry later or report the issue": "Unknown %s related error, please retry later or report the issue",
-    "You haven\'t specified an IMDB id for the video file. It is highly recommended to do so, for correctly categorize the subtitle and make it easy to download.": "You haven\'t specified an IMDB id for the video file. It is highly recommended to do so, for correctly categorize the subtitle and make it easy to download.",
+    "You haven't specified an %s for the video file. It is highly recommended to do so, for correctly categorize the subtitle and make it easy to download.": "You haven't specified an %s for the video file. It is highly recommended to do so, for correctly categorize the subtitle and make it easy to download.",
     "Wrong username or password": "Wrong username or password",
     "Not found": "Not found",
     "Wrong %s": "Wrong %s",
@@ -55,7 +55,7 @@
     "The file name has been added": "The file name has been added",
     "The file name too...": "The file name too...",
     "Subtitle was successfully uploaded!": "Subtitle was successfully uploaded!",
-    "OpenSubtitles is temporarily unavailable, please retry in a little while": "OpenSubtitles is temporarily unavailable, please retry in a little while",
-    "OpenSubtitles is under maintenance, please retry in a few hours": "OpenSubtitles is under maintenance, please retry in a few hours",
+    "%s is temporarily unavailable, please retry in a little while": "%s is temporarily unavailable, please retry in a little while",
+    "%s is under maintenance, please retry in a few hours": "%s is under maintenance, please retry in a few hours",
     "Something went wrong :(": "Something went wrong :("
 }
