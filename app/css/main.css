@@ -585,15 +585,10 @@ input[type=checkbox]:checked:before {
     outline: none;
 }
 
-.dropdown dt a:hover {
-    /*border: 1px solid #4A6B8A;*/
-}
-
 .dropdown dt a {
-    background: #fff url(../images/flags/arrow.png) no-repeat scroll right center;
+    background: transparent url(../images/flags/arrow.png) no-repeat scroll right center;
     display: block;
     padding-right: 20px;
-    /*border: 1px solid #ccc;*/
     width: 25px;
 }
 
