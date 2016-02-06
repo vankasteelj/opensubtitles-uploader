@@ -220,16 +220,16 @@ var opensubtitles = {
                 if (response.alreadyindb === 1) {
                     console.debug('Subtitle already in opensubtitle\'s db');
                     var d = response.data;
-                    interface.modal('Subtitle was already present in the database.<br><li>The hash %hash%</li><li>The file name %filename%</li>'.replace('%hash%', d.HashWasAlreadyInDb === 0 ? 'has been added!':'too...').replace('%filename%', d.MoviefilenameWasAlreadyInDb === 0 ? 'has been added!':'too...'), 'ok');
+                    interface.modal(i18n.__('Subtitle was already present in the database') + '.<br><li>' + (d.HashWasAlreadyInDb === 0 ? i18n.__('The hash has been added!') : i18n.__('The hash too...')) + '</li><li>' + (d.MoviefilenameWasAlreadyInDb === 0 ? i18n.__('The file name has been added!') : i18n.__('The file name too...') + '</li>'), 'ok');
                     $('#modal-line').css('background', '#e69500');
                     $('#button-upload i').removeClass('fa-cloud-upload').addClass('fa-quote-left');
                 } else {
                     console.debug('Subtitle successfully uploaded!');
                     if (response.data && response.data !== '') {
                         $('#modal-buttons .modal-open').attr('data-url', response.data);
-                        interface.modal('Subtitle was successfully uploaded!', 'ok', 'open');
+                        interface.modal(i18n.__('Subtitle was successfully uploaded!'), 'ok', 'open');
                     } else {
-                        interface.modal('Subtitle was successfully uploaded!', 'ok');
+                        interface.modal(i18n.__('Subtitle was successfully uploaded!'), 'ok');
                     }
                     $('#modal-line').css('background', '#008c32');
                     $('#button-upload i').removeClass('fa-cloud-upload').addClass('fa-check');
@@ -249,7 +249,7 @@ var opensubtitles = {
             } else {
                 error = 'Something went wrong :(';
             }
-            interface.modal(error, 'ok', 'retry');
+            interface.modal(i18n.__(error), 'ok', 'retry');
             $('#modal-line').css('background', '#e60000');
             $('#button-upload i').removeClass('fa-cloud-upload').addClass('fa-close');
         });
