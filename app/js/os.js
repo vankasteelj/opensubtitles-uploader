@@ -220,7 +220,7 @@ var opensubtitles = {
                 if (response.alreadyindb === 1) {
                     console.debug('Subtitle already in opensubtitle\'s db');
                     var d = response.data;
-                    interface.modal(i18n.__('Subtitle was already present in the database') + '.<br><li>' + (d.HashWasAlreadyInDb === 0 ? i18n.__('The hash has been added!') : i18n.__('The hash too...')) + '</li><li>' + (d.MoviefilenameWasAlreadyInDb === 0 ? i18n.__('The file name has been added!') : i18n.__('The file name too...')) + '</li>'), 'ok');
+                    interface.modal(i18n.__('Subtitle was already present in the database') + '.<br><li>' + (d.HashWasAlreadyInDb === 0 ? i18n.__('The hash has been added!') : i18n.__('The hash too...')) + '</li><li>' + (d.MoviefilenameWasAlreadyInDb === 0 ? i18n.__('The file name has been added!') : i18n.__('The file name too...')) + '</li>', 'ok');
                     $('#modal-line').css('background', '#e69500');
                     $('#button-upload i').removeClass('fa-cloud-upload').addClass('fa-quote-left');
                 } else {
