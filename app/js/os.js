@@ -138,7 +138,7 @@ var opensubtitles = {
                 }
                 interface.imdb_fromsearch(response.data.id, text)
             } else {
-                throw 'OpenSubtitles.GetIMDBMovieDetails() error, no details';
+                throw 'Unknown OpenSubtitles related error, please retry later or report the issue';
             }
         }).catch(function (e) {
             console.error(e);
