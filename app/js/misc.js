@@ -207,8 +207,7 @@ var misc = {
         i18n.configure({
             defaultLocale: misc.detectLocale(),
             locales: misc.availableLocales,
-            directory: './app/localization',
-            //updateFiles: false,
+            directory: './app/localization'
         });
         misc.setLocale(localStorage.locale);
         misc.localizeApp();

@@ -48,7 +48,7 @@ _Built with love and ducktape in HTML5 and Javascript._
     - nw.exe
     - nw.pak
  5. package .exe and .nw together in console: `copy /b nw.exe+package.nw OpenSubtitles-Uploader.exe`
- 6. delete merged package.nw
+ 6. delete now useless package.nw and nw.exe
  7. Use Enigma Virtual Box to make 1 executable "OpenSubtitles-Uploader_portable.exe" out of the remaining files:
    - OpenSubtitles-Uploader.exe
     - locales\
