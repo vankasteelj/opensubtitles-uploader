@@ -37,6 +37,7 @@ var interface = {
         });
     },
     setupLangDropdown: function () {
+        $('#sublanguageid').append('<option value="">'+ i18n.__ ('None') + '</option>');
         var os_langs = require('./js/os-lang.json');
 
         var langs = '';
