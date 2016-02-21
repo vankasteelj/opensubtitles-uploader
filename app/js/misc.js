@@ -211,6 +211,7 @@ var misc = {
             updateFiles: false,
         });
         misc.setLocale(localStorage.locale);
+        misc.localizeApp();
     },
     detectLocale: function () {
         // The full OS language (with localization, like 'en-uk')
@@ -234,15 +235,15 @@ var misc = {
         }
     },
     localizeApp: function () {
-        var orig = document.getElementsByTagName('body')[0].innerHTML;
-        var t = orig.match(/\{\{.+\}\}/g) || [];
-        return Promise.each(t, function (ti) {
-            var w = ti.replace('{{', '').replace('}}', '');
-            var regx = new RegExp('\\{\\{' + w + '\\}\\}', 'g');
-            orig = orig.replace(regx, i18n.__(w));
-        }).then(function () {
-            document.getElementsByTagName('body')[0].innerHTML = orig;
-        });
+        var t = document.getElementsByTagName('i18n');
+        var c = document.getElementsByClassName('i18n');
+        for (var i = 0; i < t.length; i++) {
+          t[i].innerText = i18n.__(t[i].innerText);
+        }
+        for (var j = 0; j < c.length; j++) {
+          c[j].title = i18n.__(c[j].title);
+          c[j].placeholder = i18n.__(c[j].placeholder);
+        }
     }
 };
 
