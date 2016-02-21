@@ -20,19 +20,19 @@
     <div id="drop-mask"></div>
     <section id="main-buttons">
 
-        <div id="button-upload" onClick="opensubtitles.verify()" class="button dominant"><i class="fa fa-cloud-upload">&nbsp;</i><span>{{Upload}}</span></div>
+        <div id="button-upload" onClick="opensubtitles.verify()" class="button dominant"><i class="fa fa-cloud-upload">&nbsp;</i><i18n>Upload</i18n></div>
 
         <div id="authentication">
             <div id="logged" style="display:none">
                 <div id="logged-as">
-                    <i class="fa fa-sign-out tooltipped" onClick="opensubtitles.logout()" title="{{Log out}}"></i>
+                    <i class="fa fa-sign-out tooltipped i18n" onClick="opensubtitles.logout()" title="Log out"></i>
                     <span class="username"></span>
                 </div>
             </div>
             <div id="not-logged" style="display:block">
-                <input id="login-username" type="text" placeholder="{{Username}}"></input>
-                <input id="login-password" type="password" placeholder="{{Password}}"></input>
-                <div id="button-login" onClick="opensubtitles.login()" class="button light">{{Log in}}</div>
+                <input id="login-username" class="i18n" type="text" placeholder="Username"></input>
+                <input id="login-password" class="i18n" type="password" placeholder="Password"></input>
+                <div id="button-login" onClick="opensubtitles.login()" class="button light"><i18n>Log in</i18n></div>
             </div>
         </div>
 
@@ -43,64 +43,64 @@
     </div>
     <section id="main-video" class="section-file">
 
-        <i class="reset fa fa-trash-o tooltipped" onClick="interface.reset('video')" title="{{Reset}}"></i>
+        <i class="reset fa fa-trash-o tooltipped i18n" onClick="interface.reset('video')" title="Reset"></i>
 
         <div class="input-line">
-            <span class="input-file">{{Video file}}</span>
-            <input id="video-file-path" class="input-input" type="text" placeholder="{{Drop a video file or select one}}" readonly></input>
+            <span class="input-file"><i18n>Video file</i18n></span>
+            <input id="video-file-path" class="input-input i18n" type="text" placeholder="Drop a video file or select one" readonly></input>
             <input id="video-file-path-hidden" style="display:none" type="file"></input>
-            <div id="video-browser" onClick="interface.browse('video')" class="button light">{{browse}}</div>
+            <div id="video-browser" onClick="interface.browse('video')" class="button light"><i18n>browse</i18n></div>
         </div>
 
         <div class="metadata">
-            <span class="box-title">{{Metadata}}</span>
+            <span class="box-title"><i18n>Metadata</i18n></span>
             <div class="content col-left">
                 <div class="metaitem">
-                    <span>{{File name}}</span>
+                    <span><i18n>File name</i18n></span>
                     <span class="required">*</span>
                     <input id="moviefilename" type="text" readonly></input>
                 </div>
                 <div class="metaitem">
-                    <span>{{OSDb Hash}}</span>
+                    <span><i18n>OSDb Hash</i18n></span>
                     <span class="required">*</span>
                     <input id="moviehash" type="text" readonly></input>
                 </div>
                 <div class="metaitem">
-                    <span>{{Size}} (bytes)</span>
+                    <span><i18n>Size</i18n> (bytes)</span>
                     <span class="required">*</span>
                     <input id="moviebytesize" type="text" readonly></input>
                 </div>
                 <div class="metaitem">
-                    <span>{{IMDB id}}</span>
+                    <span><i18n>IMDB id</i18n></span>
                     <i id="imdb-info" class="fa fa-info-circle tooltipped" onClick="misc.openImdb()" imdbid="" title=""></i>
                     <input id="imdbid" type="text"></input>
-                    <span class="search-imdb" onClick="interface.searchPopup()"><i class="fa fa-search tooltipped" title="{{Search on IMDB directly}}"></i></span>
+                    <span class="search-imdb" onClick="interface.searchPopup()"><i class="fa fa-search tooltipped i18n" title="Search on IMDB directly"></i></span>
                 </div>
                 <div class="metaitem">
-                    <span>{{High definition}}</span>
+                    <span><i18n>High definition</i18n></span>
                     <input id="highdefinition" type="checkbox"></input>
                 </div>
             </div>
 
             <div class="content col-right">
                 <div class="metaitem">
-                    <span>{{Movie AKA}}</span>
+                    <span><i18n>Movie AKA</i18n></span>
                     <input id="movieaka" type="text"></input>
                 </div>
                 <div class="metaitem">
-                    <span>{{Release name}}</span>
+                    <span><i18n>Release name</i18n></span>
                     <input id="moviereleasename" type="text"></input>
                 </div>
                 <div class="metaitem">
-                    <span>{{FPS}}</span>
+                    <span><i18n>FPS</i18n></span>
                     <input id="moviefps" type="text" readonly></input>
                 </div>
                 <div class="metaitem">
-                    <span>{{Total time}} (ms)</span>
+                    <span><i18n>Total time</i18n> (ms)</span>
                     <input id="movietimems" type="text" readonly></input>
                 </div>
                 <div class="metaitem">
-                    <span>{{Number of frames}}</span>
+                    <span><i18n>Number of frames</i18n></span>
                     <input id="movieframes" type="text" readonly></input>
                 </div>
             </div>
@@ -109,59 +109,59 @@
 
     <section id="main-subtitle" class="section-file">
 
-        <i class="reset fa fa-trash-o tooltipped" onClick="interface.reset('subtitle')" title="{{Reset}}"></i>
+        <i class="reset fa fa-trash-o tooltipped i18n" onClick="interface.reset('subtitle')" title="Reset"></i>
 
         <div class="input-line">
-            <span class="input-file">{{Subtitle file}}</span>
-            <input id="subtitle-file-path" class="input-input" type="text" placeholder="{{Drop a subtitle file or select one}}" readonly></input>
+            <span class="input-file"><i18n>Subtitle file</i18n></span>
+            <input id="subtitle-file-path" class="input-input i18n" type="text" placeholder="Drop a subtitle file or select one" readonly></input>
             <input id="subtitle-file-path-hidden" style="display:none" type="file"></input>
-            <div id="subtitle-browser" onClick="interface.browse('subtitle')" class="button light">{{browse}}</div>
+<div id="subtitle-browser" onClick="interface.browse('subtitle')" class="button light"><i18n>browse</i18n></div>
         </div>
 
         <div class="metadata">
-            <span class="box-title">{{Metadata}}</span>
+            <span class="box-title"><i18n>Metadata</i18n></span>
             <div class="content col-left">
                 <div class="metaitem">
-                    <span>{{File name}}</span>
+                    <span><i18n>File name</i18n></span>
                     <span class="required">*</span>
                     <input id="subfilename" type="text" readonly></input>
                 </div>
                 <div class="metaitem">
-                    <span>{{MD5 Hash}}</span>
+                    <span><i18n>MD5 Hash</i18n></span>
                     <span class="required">*</span>
                     <input id="subhash" type="text" readonly></input>
                 </div>
                 <div class="metaitem">
-                    <span>{{Language}}</span>
+                    <span><i18n>Language</i18n></span>
                     <select id="sublanguageid" name="language" selected="">
-                        <option value="">{{None}}</option>
+                        <option value=""><i18n>None</i18n></option>
                     </select>
                     <span class="detect-lang" onClick="misc.detect_lang()">
-                        <i class="fa fa-flip-horizontal fa-magic tooltipped" title="{{Auto-detect the language}}"></i>
+                        <i class="fa fa-flip-horizontal fa-magic tooltipped i18n" title="Auto-detect the language"></i>
                     </span>
                 </div>
             </div>
 
             <div class="content col-right">
                 <div class="metaitem">
-                    <span>{{Hearing impaired}}</span>
+                    <span><i18n>Hearing impaired</i18n></span>
                     <input id="hearingimpaired" type="checkbox"></input>
                 </div>
                 <div class="metaitem">
-                    <span>{{Auto-translated}}</span>
+                    <span><i18n>Auto-translated</i18n></span>
                     <input id="automatictranslation" type="checkbox"></input>
                 </div>
                 <div class="metaitem">
-                    <span>{{Translator}}</span>
-                    <i id="lock-subtranslator" onClick="interface.toggleSave(this)" class="locker fa fa-unlock tooltipped" title="{{Save between sessions}}"></i>
+                    <span><i18n>Translator</i18n></span>
+                    <i id="lock-subtranslator" onClick="interface.toggleSave(this)" class="locker fa fa-unlock tooltipped i18n" title="Save between sessions"></i>
                     <input id="subtranslator" type="text"></input>
                 </div>
             </div>
 
             <div class="content col-both">
                 <div class="metaitem">
-                    <span>{{Comment}}</span>
-                    <i id="lock-subauthorcomment" onClick="interface.toggleSave(this)" class="locker fa fa-unlock tooltipped" title="{{Save between sessions}}"></i>
+                    <span><i18n>Comment</i18n></span>
+                    <i id="lock-subauthorcomment" onClick="interface.toggleSave(this)" class="locker fa fa-unlock tooltipped i18n" title="Save between sessions"></i>
                     <textarea id="subauthorcomment" type="text"></textarea>
                 </div>
             </div>
@@ -169,7 +169,7 @@
     </section>
 
     <div class="app-author">
-        <span class="version"></span>{{developped by}} <a onClick="misc.openExternal('https://github.com/vankasteelj')">vankasteelj</a></span>
+        <span class="version"></span><i18n>developped by</i18n> <a onClick="misc.openExternal('https://github.com/vankasteelj')">vankasteelj</a></span>
     </div>
 
     <div id="notification"></div>
@@ -177,8 +177,8 @@
 
     <section id="search-popup">
         <div id="search">
-            <input id="search-text" type="text" placeholder="{{Enter a title}}"></input>
-            <div id="button-search" onClick="opensubtitles.search_imdb()" class="button fa fa-search tooltipped" title="{{Search}}"></div>
+            <input id="search-text" class="i18n" type="text" placeholder="Enter a title"></input>
+            <div id="button-search" onClick="opensubtitles.search_imdb()" class="button fa fa-search tooltipped i18n" title="Search"></div>
             <div id="search-result"></div>
         </div>
     </section>
@@ -188,11 +188,11 @@
             <div id="modal-line"></div>
             <div id="modal-content"></div>
             <div id="modal-buttons">
-                <div class="button light modal-ok" onClick="interface.reset()">{{OK}}</div>
-                <div class="button light modal-edit" onClick="interface.reset('modal')">{{EDIT}}</div>
-                <div class="button light modal-upload" onClick="opensubtitles.upload()">{{UPLOAD}}</div>
-                <div class="button light modal-retry" onClick="opensubtitles.upload()">{{RETRY}}</div>
-                <div class="button light modal-open" onClick="misc.openExternal($(this).attr('data-url'))" data-url="">{{OPEN IN BROWSER}}</div>
+                <div class="button light modal-ok" onClick="interface.reset()"><i18n>OK</i18n></div>
+                <div class="button light modal-edit" onClick="interface.reset('modal')"><i18n>EDIT</i18n></div>
+                <div class="button light modal-upload" onClick="opensubtitles.upload()"><i18n>UPLOAD</i18n></div>
+                <div class="button light modal-retry" onClick="opensubtitles.upload()"><i18n>RETRY</i18n></div>
+                <div class="button light modal-open" onClick="misc.openExternal($(this).attr('data-url'))" data-url=""><i18n>OPEN IN BROWSER</i18n></div>
             </div>
         </div>
     </section>
@@ -204,12 +204,10 @@
 
     <script>
         misc.setupLocalization();
-        misc.localizeApp().then(function () {
-            opensubtitles.verify_login();
-            interface.setup();
-            win.show();
-            win.focus();
-        });
+        opensubtitles.verify_login();
+        interface.setup();
+        win.show();
+        win.focus();
     </script>
 </body>
 
