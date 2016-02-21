@@ -208,7 +208,7 @@ var misc = {
             defaultLocale: misc.detectLocale(),
             locales: misc.availableLocales,
             directory: './app/localization',
-            updateFiles: false,
+            //updateFiles: false,
         });
         misc.setLocale(localStorage.locale);
         misc.localizeApp();
@@ -238,11 +238,11 @@ var misc = {
         var t = document.getElementsByTagName('i18n');
         var c = document.getElementsByClassName('i18n');
         for (var i = 0; i < t.length; i++) {
-          t[i].innerText = i18n.__(t[i].innerText) || t[i].innerText;
+          t[i].innerText = i18n.__(t[i].innerText);
         }
         for (var j = 0; j < c.length; j++) {
-          c[j].title = i18n.__(c[j].title) || c[j].title;
-          c[j].placeholder = i18n.__(c[j].placeholder) || c[j].placeholder;
+          c[j].title = i18n.__(c[j].title);
+          c[j].placeholder = i18n.__(c[j].placeholder);
         }
     }
 };
