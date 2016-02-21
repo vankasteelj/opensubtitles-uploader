@@ -49,6 +49,7 @@ cp -r mi-$arch $cwd/$package_name/opt/$projectName/
 cp -r node_modules/bluebird $cwd/$package_name/opt/$projectName/node_modules
 cp -r node_modules/detect-lang $cwd/$package_name/opt/$projectName/node_modules
 cp -r node_modules/opensubtitles-api $cwd/$package_name/opt/$projectName/node_modules
+cp -r node_modules/i18n $cwd/$package_name/opt/$projectName/node_modules
 
 #icon
 cp app/images/os-icon.png $cwd/$package_name/usr/share/icons/opensubtitles-uploader.png

@@ -43,6 +43,7 @@ cp -r mi-$arch $cwd/$projectName/
 cp -r node_modules/bluebird $cwd/$projectName/node_modules
 cp -r node_modules/detect-lang $cwd/$projectName/node_modules
 cp -r node_modules/opensubtitles-api $cwd/$projectName/node_modules
+cp -r node_modules/i18n $cwd/$projectName/node_modules
 
 ### CLEAN
 shopt -s globstar
