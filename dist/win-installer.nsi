@@ -119,6 +119,7 @@ Section ; App Files
     File /r "..\app\css"
     File /r "..\app\images"
     File /r "..\app\js"
+    File /r "..\app\localization"
     File "..\app\index.html"
 
     SetOutPath "$INSTDIR"

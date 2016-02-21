@@ -34,6 +34,7 @@ mkdir -p $cwd/nwjs.app/Contents/Resources/app.nw/node_modules
 cp -r node_modules/bluebird $cwd/nwjs.app/Contents/Resources/app.nw/node_modules
 cp -r node_modules/detect-lang $cwd/nwjs.app/Contents/Resources/app.nw/node_modules
 cp -r node_modules/opensubtitles-api $cwd/nwjs.app/Contents/Resources/app.nw/node_modules
+cp -r node_modules/i18n $cwd/nwjs.app/Contents/Resources/app.nw/node_modules
 
 #icon
 rm -f $cwd/nwjs.app/Contents/Resources/nw.icns
