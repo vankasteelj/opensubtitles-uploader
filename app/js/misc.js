@@ -243,6 +243,9 @@ var misc = {
           c[j].title = i18n.__(c[j].title);
           c[j].placeholder = i18n.__(c[j].placeholder);
         }
+    },
+    pad: function (n) {
+        return n < 10 ? '0' + n : n;
     }
 };
 

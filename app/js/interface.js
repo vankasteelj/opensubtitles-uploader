@@ -148,8 +148,7 @@ var interface = {
                 moviebytesize: data.moviebytesize,
                 moviehash: data.moviehash,
                 quality: misc.extractQuality(path.basename(file))
-            }
-        }).then(function () {
+            };
             return OS.identify(file);
         }).then(function (data) {
             if (data.metadata && data.metadata.imdbid) {
@@ -171,17 +170,30 @@ var interface = {
                 if (args[2] >= 720) $('#highdefinition').prop('checked', true);
             }
 
+            $('.search-imdb i').addClass('fa-circle-o-notch fa-spin').removeClass('fa-search');
             if (info.metadata && info.imdbid) {
                 var title = '', d = info.metadata;
                 if (d.episode_title) {
-                    function pad(n){return n<10 ? '0'+n : n}
-                    title += d.title + ' S' + pad(d.season) + 'E' + pad(d.episode) + ', ' + d.episode_title + ' (' + d.year + ')';
+                    title += d.title + ' S' + misc.pad(d.season) + 'E' + misc.pad(d.episode) + ', ' + d.episode_title + ' (' + d.year + ')';
                 } else {
                     title += d.title + ' (' + d.year + ')';
                 }
-                interface.imdb_fromsearch(info.imdbid, title)
+                interface.imdb_fromsearch(info.imdbid, title);
             } else {
-                if (info.imdbid) opensubtitles.imdb_metadata(info.imdbid);
+                if (info.imdbid) {
+                    opensubtitles.imdb_metadata(info.imdbid);
+                } else {
+                    OS.login().then(function (token) {
+                        return OS.api.GuessMovieFromString(token, [info.moviefilename]);
+                    }).then(function (res) {
+                        if (res.data && res.data[info.moviefilename] && res.data[info.moviefilename]['BestGuess']) {
+                            var d = res.data[info.moviefilename]['BestGuess'], id = d['IMDBEpisode'] || d['IDMovieIMDB'];
+                            opensubtitles.imdb_metadata(id);
+                        } else {
+                            $('.search-imdb i').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
+                        }
+                    });
+                }
             }
 
             // auto-detect matching subtitle
@@ -329,6 +341,7 @@ var interface = {
         id = id > 9999999 ? id : 'tt'+id.toString().replace('tt','');
         $('#imdbid').val(id);
         $('#imdb-info').attr('title', 'IMDB: ' + title).attr('imdbid', id).show();
+        $('.search-imdb i').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
         interface.leavePopup({});
     },
     mediainfo: function (file) {
