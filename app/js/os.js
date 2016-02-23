@@ -137,21 +137,21 @@ var opensubtitles = {
                 console.debug('Imdb Metadata:', response.data);
                 var text = '';
                 if (response.data.kind === 'episode') {
-                    function pad(n){return n<10 ? '0'+n : n}
                     text += response.data.title.split('"')[1];
-                    text += ' S' + pad(response.data.season) + 'E' + pad(response.data.episode);
+                    text += ' S' + misc.pad(response.data.season) + 'E' + misc.pad(response.data.episode);
                     text += ' - ' + response.data.title.split('"')[2];
                     text += ' (' + response.data.year + ')';
                 } else {
                     text += response.data.title;
                     text += ' (' + response.data.year + ')';
                 }
-                interface.imdb_fromsearch(response.data.id, text)
+                interface.imdb_fromsearch(response.data.id, text);
             } else {
                 throw 'Unknown OpenSubtitles related error, please retry later or report the issue';
             }
         }).catch(function (e) {
             console.error(e);
+            $('.search-imdb i').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
             $('#imdbid').val('');
             $('#imdb-info').hide();
             var error = e.message || e;
