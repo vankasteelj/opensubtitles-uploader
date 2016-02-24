@@ -74,7 +74,7 @@ echo "[Desktop Entry]
 Comment=Upload your subtitles to OpenSubtitles.org
 Name=$projectName
 Exec=/opt/$projectName/$projectName
-Icon=opensubtitles-uploader.png
+Icon=opensubtitles-uploader
 StartupNotify=false
 Categories=AudioVideo;Video;Network;
 Type=Application
