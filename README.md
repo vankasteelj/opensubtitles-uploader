@@ -4,6 +4,8 @@
 
 **Download the [latest version](https://github.com/vankasteelj/opensubtitles-uploader/releases), for Windows/OSX/Linux !**
 
+**Watch the [tutorial video](http://www.youtube.com/watch?v=jrIgL8kwBdI) on Youtube !**
+
 _Built with love and ducktape in HTML5 and Javascript._
 
 ![ui](http://i.imgur.com/Wl5XSYZ.png)
