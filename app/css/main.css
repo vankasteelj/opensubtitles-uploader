@@ -208,6 +208,10 @@
     text-align: right;
 }
 
+.metadata .content .metaitem input[type="checkbox"] {
+    cursor: pointer;
+}
+
 .metadata .content .metaitem .required {
     margin: 5px 1px 0px 93px;
     color: #e60000;
