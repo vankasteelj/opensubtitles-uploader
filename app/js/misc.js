@@ -254,8 +254,10 @@ var misc = {
  * remember positionning
  */
 win.on('move', function(x, y) {
-    localStorage.posX = Math.round(x);
-    localStorage.posY = Math.round(y);
+    if (localStorage && x && y) {
+        localStorage.posX = Math.round(x);
+        localStorage.posY = Math.round(y);
+    }
 });
 
 
