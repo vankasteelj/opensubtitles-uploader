@@ -94,6 +94,7 @@
 
 #logged-as i:hover {
     color: #2A4D6E;
+    margin-right: -1px;
 }
 
 #authentication input,
