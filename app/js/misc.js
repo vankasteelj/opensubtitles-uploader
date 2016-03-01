@@ -203,7 +203,7 @@ var misc = {
         }
     },
     setupLocalization: function () {
-        misc.availableLocales = ['en', 'fr'];
+        misc.availableLocales = ['en', 'fr', 'ro'];
         i18n.configure({
             defaultLocale: misc.detectLocale(),
             locales: misc.availableLocales,
