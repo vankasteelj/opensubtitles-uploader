@@ -213,6 +213,11 @@
     color: #e60000;
 }
 
+.metadata .content .metaitem img {
+    position: relative;
+    top: -1px;
+}
+
 .col-left {
     float: left;
 }
