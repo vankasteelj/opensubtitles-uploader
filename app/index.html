@@ -17,10 +17,18 @@
 </head>
 
 <body>
+    <!-- invisible div for drag&drop -->
     <div id="drop-mask"></div>
-    <section id="main-buttons">
+
+    <!-- top space: Upload button, login, lang selector -->
+    <section id="main-topbar">
 
         <div id="button-upload" onClick="opensubtitles.verify()" class="button dominant"><i class="fa fa-cloud-upload">&nbsp;</i><i18n>Upload</i18n></div>
+
+        <dl id="app-locale" class="dropdown">
+            <dt><a><span></span></a></dt>
+            <dd><ul></ul></dd>
+        </dl>
 
         <div id="authentication">
             <div id="logged" style="display:none">
@@ -30,14 +38,15 @@
                 </div>
             </div>
             <div id="not-logged" style="display:block">
-                <input id="login-username" class="i18n" type="text" placeholder="Username"></input>
-                <input id="login-password" class="i18n" type="password" placeholder="Password"></input>
+                <input id="login-username" class="i18n" type="text" placeholder="Username">
+                <input id="login-password" class="i18n" type="password" placeholder="Password">
                 <div id="button-login" onClick="opensubtitles.login()" class="button light"><i18n>Log in</i18n></div>
             </div>
         </div>
 
     </section>
 
+    <!-- video part -->
     <div id="main-video-shadow">
         <i class="fa fa-cog fa-spin"></i>
     </div>
@@ -47,8 +56,8 @@
 
         <div class="input-line">
             <span class="input-file"><i18n>Video file</i18n></span>
-            <input id="video-file-path" class="input-input i18n" type="text" placeholder="Drop a video file or select one" readonly></input>
-            <input id="video-file-path-hidden" style="display:none" type="file"></input>
+            <input id="video-file-path" class="input-input i18n" type="text" placeholder="Drop a video file or select one" readonly>
+            <input id="video-file-path-hidden" style="display:none" type="file">
             <div id="video-browser" onClick="interface.browse('video')" class="button light"><i18n>browse</i18n></div>
         </div>
 
@@ -58,27 +67,27 @@
                 <div class="metaitem">
                     <span><i18n>File name</i18n></span>
                     <span class="required">*</span>
-                    <input id="moviefilename" type="text" readonly></input>
+                    <input id="moviefilename" type="text" readonly>
                 </div>
                 <div class="metaitem">
                     <span><i18n>OSDb Hash</i18n></span>
                     <span class="required">*</span>
-                    <input id="moviehash" type="text" readonly></input>
+                    <input id="moviehash" type="text" readonly>
                 </div>
                 <div class="metaitem">
                     <span><i18n>Size</i18n> (<i18n>bytes</i18n>)</span>
                     <span class="required">*</span>
-                    <input id="moviebytesize" type="text" readonly></input>
+                    <input id="moviebytesize" type="text" readonly>
                 </div>
                 <div class="metaitem">
                     <span><i18n>IMDB id</i18n></span>
                     <i id="imdb-info" class="fa fa-info-circle tooltipped" onClick="misc.openImdb()" imdbid="" title=""></i>
-                    <input id="imdbid" type="text"></input>
+                    <input id="imdbid" type="text">
                     <span class="search-imdb" onClick="interface.searchPopup()"><i class="fa fa-search tooltipped i18n" title="Search on IMDB directly"></i></span>
                 </div>
                 <div class="metaitem">
                     <span><i18n>High definition</i18n></span>
-                    <input id="highdefinition" type="checkbox"></input>
+                    <input id="highdefinition" type="checkbox">
                     <img src="./images/hd.gif">
                 </div>
             </div>
@@ -86,36 +95,37 @@
             <div class="content col-right">
                 <div class="metaitem">
                     <span><i18n>Movie AKA</i18n></span>
-                    <input id="movieaka" type="text"></input>
+                    <input id="movieaka" type="text">
                 </div>
                 <div class="metaitem">
                     <span><i18n>Release name</i18n></span>
-                    <input id="moviereleasename" type="text"></input>
+                    <input id="moviereleasename" type="text">
                 </div>
                 <div class="metaitem">
                     <span><i18n>FPS</i18n></span>
-                    <input id="moviefps" type="text" readonly></input>
+                    <input id="moviefps" type="text" readonly>
                 </div>
                 <div class="metaitem">
                     <span><i18n>Total time</i18n> (ms)</span>
-                    <input id="movietimems" type="text" readonly></input>
+                    <input id="movietimems" type="text" readonly>
                 </div>
                 <div class="metaitem">
                     <span><i18n>Number of frames</i18n></span>
-                    <input id="movieframes" type="text" readonly></input>
+                    <input id="movieframes" type="text" readonly>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- subtitle part -->
     <section id="main-subtitle" class="section-file">
 
         <i class="reset fa fa-trash-o tooltipped i18n" onClick="interface.reset('subtitle')" title="Reset"></i>
 
         <div class="input-line">
             <span class="input-file"><i18n>Subtitle file</i18n></span>
-            <input id="subtitle-file-path" class="input-input i18n" type="text" placeholder="Drop a subtitle file or select one" readonly></input>
-            <input id="subtitle-file-path-hidden" style="display:none" type="file"></input>
+            <input id="subtitle-file-path" class="input-input i18n" type="text" placeholder="Drop a subtitle file or select one" readonly>
+            <input id="subtitle-file-path-hidden" style="display:none" type="file">
 <div id="subtitle-browser" onClick="interface.browse('subtitle')" class="button light"><i18n>browse</i18n></div>
         </div>
 
@@ -125,12 +135,12 @@
                 <div class="metaitem">
                     <span><i18n>File name</i18n></span>
                     <span class="required">*</span>
-                    <input id="subfilename" type="text" readonly></input>
+                    <input id="subfilename" type="text" readonly>
                 </div>
                 <div class="metaitem">
                     <span><i18n>MD5 Hash</i18n></span>
                     <span class="required">*</span>
-                    <input id="subhash" type="text" readonly></input>
+                    <input id="subhash" type="text" readonly>
                 </div>
                 <div class="metaitem">
                     <span><i18n>Language</i18n></span>
@@ -144,18 +154,18 @@
             <div class="content col-right">
                 <div class="metaitem">
                     <span><i18n>Hearing impaired</i18n></span>
-                    <input id="hearingimpaired" type="checkbox"></input>
+                    <input id="hearingimpaired" type="checkbox">
                     <img src="./images/hearing_impaired.gif">
                 </div>
                 <div class="metaitem">
                     <span><i18n>Auto-translated</i18n></span>
-                    <input id="automatictranslation" type="checkbox"></input>
+                    <input id="automatictranslation" type="checkbox">
                     <img src="./images/autotranslation.gif">
                 </div>
                 <div class="metaitem">
                     <span><i18n>Translator</i18n></span>
                     <i id="lock-subtranslator" onClick="interface.toggleSave(this)" class="locker fa fa-unlock tooltipped i18n" title="Save between sessions"></i>
-                    <input id="subtranslator" type="text"></input>
+                    <input id="subtranslator" type="text">
                 </div>
             </div>
 
@@ -169,21 +179,25 @@
         </div>
     </section>
 
+    <!-- bottom right credits -->
     <div class="app-author">
-        <span class="version"></span><i18n>developped by</i18n> <a onClick="misc.openExternal('https://github.com/vankasteelj')">vankasteelj</a></span>
+        <span class="version"></span><i18n>developped by</i18n> <a onClick="misc.openExternal('https://github.com/vankasteelj')">vankasteelj</a>
     </div>
 
+    <!-- notification divs (bottom left and slidein) -->
     <div id="notification"></div>
     <div id="notification-snack" onClick="$(this).hide()"></div>
 
+    <!-- search on imdb popup -->
     <section id="search-popup">
         <div id="search">
-            <input id="search-text" class="i18n" type="text" placeholder="Enter a title"></input>
+            <input id="search-text" class="i18n" type="text" placeholder="Enter a title">
             <div id="button-search" onClick="opensubtitles.search_imdb()" class="button fa fa-search tooltipped i18n" title="Search"></div>
             <div id="search-result"></div>
         </div>
     </section>
 
+    <!-- popup div for upload warnings and results -->
     <section id="upload-popup">
         <div id="upload-modal">
             <div id="modal-line"></div>
@@ -198,16 +212,12 @@
         </div>
     </section>
 
-    <dl id="app-locale" class="dropdown">
-        <dt><a><span></span></a></dt>
-        <dd><ul></ul></dd>
-    </dl>
-
+    <!-- code initialization -->
     <script>
         misc.setupLocalization();
         opensubtitles.verify_login();
         interface.setup();
-        win.show();
+        win.show(true);
         win.focus();
     </script>
 </body>
