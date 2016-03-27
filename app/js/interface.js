@@ -1,20 +1,50 @@
 var interface = {
     setup: function () {
-        interface.check_visible();
-        interface.setupInputs();
-        interface.setupLangDropdown();
-        interface.setupRightClicks();
-        misc.keyboardShortcuts();
-        interface.restoreLocks();
-        interface.setupImdbFocus();
-        interface.setupLocaleFlags();
-        $('.tooltipped').tooltip({
-            'show': {duration: 500, delay: 400},
-            'hide': 500
+        return new Promise(function (resolve, reject) {
+            try {
+                misc.setupLocalization();
+                interface.setupTheme();
+                opensubtitles.verify_login();
+                interface.check_visible();
+                interface.setupInputs();
+                interface.setupLangDropdown();
+                interface.setupRightClicks();
+                misc.keyboardShortcuts();
+                interface.restoreLocks();
+                interface.setupImdbFocus();
+                interface.setupLocaleFlags();
+                $('.tooltipped').tooltip({
+                    'show': {duration: 500, delay: 400},
+                    'hide': 500
+                });
+                $('.version').text('v' + version + ' - ');
+                misc.checkUpdates();
+                
+                console.info('Application ready');
+                setTimeout(resolve, 200);
+            } catch(e) {
+                console.error(e);
+                win.showDevTools();
+                reject();
+            }
         });
-        $('.version').text('v' + version + ' - ');
-        misc.checkUpdates();
-        console.info('Application ready');
+    },
+    switchTheme: function () {
+        if (!localStorage || (localStorage && localStorage.theme === 'dark')) {
+             localStorage.theme = 'light';
+        } else {
+             localStorage.theme = 'dark';
+        }
+        win.reload();
+    },
+    selectTheme: function (theme) {
+        document.getElementById('theme').href = 'css/themes/'+ theme.toLowerCase() + '.css';
+        localStorage.theme = theme;
+        $('#switch-theme').css('color', theme === 'light' ? '#323a45' : '#f5f7fa');
+    },
+    setupTheme: function () {
+        var theme = localStorage && localStorage.theme ? localStorage.theme : 'light';
+        interface.selectTheme(theme);
     },
     setupRightClicks: function () {
         var inputs = $('input[type=text], textarea');
