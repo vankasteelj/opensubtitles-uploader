@@ -20,7 +20,7 @@ var opensubtitles = {
         var username = $('#login-username').val();
         var password = require('crypto').createHash('MD5').update($('#login-password').val()).digest('hex');
         if (!username || password === 'd41d8cd98f00b204e9800998ecf8427e') {
-            console.warning('opensubtitles.login() -> no password/username');
+            console.warn('opensubtitles.login() -> no password/username');
             if (!username) {
                 misc.animate($('#login-username'), 'warning', 1750);
             }
