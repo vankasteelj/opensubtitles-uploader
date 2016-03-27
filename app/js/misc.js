@@ -285,7 +285,7 @@ window.ondragenter = function(e) {
         function(e) {
             misc.type = misc.fileType(e.originalEvent.dataTransfer.files[0].name);
             if (misc.type) {
-                $('#main-' + misc.type).css('border-color', '#4A6B8A');
+                $('#main-' + misc.type).css('border-color', ($('.light').css('background-color') || 'rgb(222, 83, 98)'));
             }
         }.bind(this));
     $('#drop-mask').on('dragover',

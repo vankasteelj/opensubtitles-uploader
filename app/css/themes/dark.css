@@ -1,0 +1,284 @@
+/* Theme file: dark */
+
+/*
+    Green = #323a45
+    LightGreen = #656d78
+    DarkGreen = #242a31
+    LightGrey = #a5a9b0
+    DarkGrey = #555b65
+    White = #f5f7fa
+    Rose = #de5362
+*/
+
+body {
+    background: #242a31;
+}
+
+.app-author {
+    color: #a5a9b0;
+}
+
+.app-author a {
+    color: #dcdde0;
+}
+
+#button-upload.success {
+    background: #008140;
+}
+
+#button-upload.partial {
+    background: #ffae1a;
+}
+
+#button-upload.fail {
+    background: #e60000;
+}
+
+#logged-as {
+    color: #dcdde0;
+}
+
+#logged-as i:hover {
+    color: #de5362;
+}
+
+.reset {
+    color: #656d78;
+}
+
+.reset:hover {
+    color: #de5362;
+}
+
+.section-file {
+    border-color: #656d78;
+}
+
+.section-file span.input-file {
+    color: #f0f2f5;
+}
+
+.metadata {
+    border-color: rgba(255,255,255,0.1);
+}
+
+.metadata .box-title {
+    border-color: rgba(255,255,255,0.1);
+    font-weight: 400;
+}
+
+.metadata span.box-title {
+    color: #b3b6bc;
+}
+
+.metadata .content .metaitem {
+    color: #e4e9f2;
+}
+
+.metadata .content .metaitem input {
+    color: #f5f7fa;
+    background: #343c48;
+}
+input#video-file-path,
+input#subtitle-file-path,
+input#login-username,
+input#login-password,
+textarea#subauthorcomment,
+select#sublanguageid,
+input#search-text {
+    color: #f5f7fa;
+    background: #343c48;
+    border-color: transparent;
+}
+
+.metadata .content .metaitem .required {
+    color: #de5362;
+}
+
+input[type=checkbox] {
+    border-color: transparent;
+}
+
+#main-video-shadow {
+    background: rgba(200, 210, 220, .1);
+}
+
+#main-video-shadow i {
+    color: #fff;
+}
+
+#imdb-info {
+    color: #bbb;
+}
+
+.search-imdb,
+.detect-lang {
+    color: #656d78;
+}
+
+.search-imdb:hover {
+    color: #de5362;
+}
+
+#subauthorcomment {
+    border-color: #d0d0d0;
+}
+
+#detect-lang {
+    color: #bbb;
+}
+
+.detect-lang:hover {
+    color: #de5362;
+}
+
+.locker {
+    color: #656d78;
+}
+
+.locker.fa-unlock {
+    color: #656d78;
+}
+
+.locker.fa-lock {
+    color: #de5362;
+}
+
+.locker:hover {
+    color: #de5362;
+}
+
+#search-popup {
+    background: rgba(25, 30, 50, .2);
+}
+
+#search {
+    background: #242a31;
+    box-shadow: -1px 1px 5px rgba(0, 0, 0, .4);
+}
+
+#button-search {
+    color: #bbb;
+    background: rgba(255,255,255,0);
+}
+
+#button-search:hover {
+    color: #de5362;
+}
+
+.result-item {
+    border-left: 4px solid transparent;
+    color: #f5f7fa;
+}
+
+.result-item:hover {
+    background: rgba(114, 140, 166, .4);
+    border-left: 4px solid #de5362;
+}
+
+#upload-popup {
+    background: rgba(25, 30, 50, .2);
+}
+
+#upload-modal {
+    background: #242a31;
+    box-shadow: -1px 1px 5px rgba(0, 0, 0, .4);
+    color: #f5f7fa;
+}
+
+#notification {
+    color: #f5f7fa;
+}
+
+#notification a {
+    color: #de5362;
+}
+
+#notification-snack {
+    background: rgba(48, 48, 48, .7);
+    color: #f5f7fa;
+    border: 1px solid #666;
+}
+
+#notification-snack:hover {
+    background: rgba(60, 60, 60, .8);
+}
+
+.dropdown a,
+.dropdown a:visited {
+    color: #de5362;
+}
+
+.dropdown dd ul {
+    background: #242a31 none repeat scroll 0 0;
+    border: 1px solid #656d78;
+    border-top: 1px solid #656d78;
+}
+
+.dropdown dd ul li a:hover {
+    background-color: #de5362;
+}
+
+.dominant {
+    background: #db4252;
+    color: #f5f7fa;
+}
+
+.dominant:hover {
+    background: #da3e4e;
+}
+
+.light {
+    background: #de5362;
+    color: #f5f7fa;
+}
+
+.light:hover {
+    background: #db4252;
+}
+
+.warning {
+    color: #da3e4e;
+}
+
+input {
+    border-color: transparent;
+}
+
+.metadata .content .metaitem input:read-only {
+    color: rgba(245, 247, 250, .85);
+}
+
+::-webkit-input-placeholder {
+    color: #a5a9b0;
+}
+::-moz-placeholder {
+    color: #a5a9b0;
+}
+:-moz-placeholder {
+    color: #a5a9b0;
+}
+:-ms-input-placeholder {
+    color: #a5a9b0;
+}
+
+::-webkit-scrollbar-track {
+    background: #e3e3e3;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(222, 84, 98, .8);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(222, 84, 98, .9);
+}
+
+.ui-tooltip {
+    background: rgba(50, 50, 50, .8);
+    color: #eee;
+}
+
+.content img {
+    -webkit-filter: invert(100%);
+}

@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="images/os-icon.png"/>
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css"/>
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="css/themes/light.css" id="theme"/>
     <link rel="stylesheet" type="text/css" href="css/animations.css"/>
 
     <script src="js/vendor/jquery.js" type="application/javascript"></script>
@@ -182,6 +183,7 @@
     <!-- bottom right credits -->
     <div class="app-author">
         <span class="version"></span><i18n>developped by</i18n> <a onClick="misc.openExternal('https://github.com/vankasteelj')">vankasteelj</a>
+        <span class="fa fa-circle i18n tooltipped" id="switch-theme" onClick="interface.switchTheme()" title="Switch theme"></span>
     </div>
 
     <!-- notification divs (bottom left and slidein) -->
@@ -214,11 +216,10 @@
 
     <!-- code initialization -->
     <script>
-        misc.setupLocalization();
-        opensubtitles.verify_login();
-        interface.setup();
-        win.show(true);
-        win.focus();
+        interface.setup().then(function () {
+            win.show(true);
+            win.focus();
+        });
     </script>
 </body>
 

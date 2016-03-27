@@ -1,0 +1,253 @@
+/* Theme file: light */
+
+.app-author {
+    color: #555;
+}
+
+.app-author a {
+    color: #728CA6;
+}
+
+#button-upload.success {
+    background: #008140;
+}
+
+#button-upload.partial {
+    background: #ffae1a;
+}
+
+#button-upload.fail {
+    background: #e60000;
+}
+
+#logged-as {
+    color: #666;
+}
+
+#logged-as i:hover {
+    color: #2A4D6E;
+}
+
+.reset {
+    color: #bbb;
+}
+
+.reset:hover {
+    color: #728CA6;
+}
+
+.section-file {
+    border-color: #ccc;
+}
+
+.metadata {
+    border-color: #ddd;
+}
+
+.metadata .box-title {
+    border-color: #ddd;
+}
+
+.metadata .content .metaitem {
+    color: #333;
+}
+
+.metadata .content .metaitem input {
+    color: #444;
+}
+
+.metadata .content .metaitem .required {
+    color: #e60000;
+}
+
+input[type=checkbox] {
+    border-color: #d0d0d0;
+}
+
+#main-video-shadow {
+    background: rgba(25, 30, 50, .2);
+}
+
+#main-video-shadow i {
+    color: #fff;
+}
+
+#imdb-info {
+    color: #bbb;
+}
+
+.search-imdb {
+    color: #bbb;
+}
+
+.search-imdb:hover {
+    color: #728CA6;
+}
+
+#subauthorcomment {
+    border-color: #d0d0d0;
+}
+
+#sublanguageid {
+    color: #444;
+    border-color: #d0d0d0;
+    background: #fff;
+}
+
+#sublanguageid option {
+    color: #444;
+}
+
+.detect-lang {
+    color: #bbb;
+}
+
+.detect-lang:hover {
+    color: #728CA6;
+}
+
+.locker {
+    color: #000;
+}
+
+.locker.fa-unlock {
+    color: #bbb;
+}
+
+.locker.fa-lock {
+    color: #728CA6;
+}
+
+.locker:hover {
+    color: #728CA6;
+}
+
+#search-popup {
+    background: rgba(25, 30, 50, .2);
+}
+
+#search {
+    background: #fff;
+    box-shadow: -1px 1px 5px rgba(0, 0, 0, .4);
+}
+
+#button-search {
+    color: #555;
+    background: rgba(255,255,255,0);
+}
+
+#button-search:hover {
+    color: #4A6B8A;
+}
+
+.result-item {
+    border-left: 4px solid transparent;
+    color: #222;
+}
+
+.result-item:hover {
+    background: rgba(114, 140, 166, .4);
+    border-left: 4px solid #728CA6;
+}
+
+#upload-popup {
+    background: rgba(25, 30, 50, .2);
+}
+
+#upload-modal {
+    background: #fff;
+    box-shadow: -1px 1px 5px rgba(0, 0, 0, .4);
+}
+
+#notification {
+    color: #555;
+}
+
+#notification a {
+    color: #728CA6;
+}
+
+#notification-snack {
+    background: rgba(30, 30, 30, .68);
+    color: #fff;
+}
+
+#notification-snack:hover {
+    background: rgba(30, 30, 30, .75);
+}
+
+.dropdown a,
+.dropdown a:visited {
+    color: #4A6B8A;
+}
+
+.dropdown dd ul {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #ccc;
+    border-top: 1px solid #e0e0e0;
+}
+
+.dropdown dd ul li a:hover {
+    background-color: #728CA6;
+}
+
+.dominant {
+    background: #2A4D6E;
+    color: #fff;
+}
+
+.dominant:hover {
+    background: #133353;
+}
+
+.light {
+    background: #4A6B8A;
+    color: #fff;
+}
+
+.light:hover {
+    background: #2A4D6E;
+}
+
+.warning {
+    color: #e60000;
+}
+
+input {
+    border-color: #d0d0d0;
+}
+
+.metadata .content .metaitem input:read-only {
+    color: #4f4f4f;
+}
+
+::-webkit-input-placeholder {
+    color: #aaa;
+}
+::-moz-placeholder {
+    color: #aaa;
+}
+:-moz-placeholder {
+    color: #aaa;
+}
+:-ms-input-placeholder {
+    color: #aaa;
+}
+
+::-webkit-scrollbar-track {
+    background: #e3e3e3;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(74, 107, 138, .8);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(74, 107, 138, .9);
+}
+
+.ui-tooltip {
+    background: rgba(30, 30, 30, .8);
+    color: #eee;
+    -webkit-box-shadow: 0 0 5px #aaa;
+}
