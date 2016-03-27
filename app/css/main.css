@@ -21,7 +21,7 @@
  * MAIN-BUTTONS
  */
 
-#main-buttons {
+#main-topbar {
     width: 900px;
     margin: 0 auto 10px auto;
     position: relative;
@@ -55,8 +55,9 @@
 /* Login */
 
 #authentication {
+    position: relative;
     margin-top: 10px;
-    margin-right: 35px;
+    margin-right: 10px;
     float: right;
 }
 
@@ -412,13 +413,13 @@ input[type=checkbox]:checked:before {
 
 #button-search {
     float: left;
-    font-size: 13px;
+    font-size: 12px;
     padding: 2px 10px;
     line-height: 15px;
-    margin-top: 1px;
+    margin-top: 2px;
     height: 14px;
-    color: #333;
-    background: rgba(255,255,255,0.4);
+    color: #555;
+    background: rgba(255,255,255,0);
     margin-left: -30px;
 }
 
@@ -572,9 +573,10 @@ input[type=checkbox]:checked:before {
  * LOCALIZATION
  */
 #app-locale {
-    position: absolute;
-    right: 41px;
-    top: 2px;
+    position: relative;
+    margin: 0;
+    top: 10px;
+    float: right;
 }
 
 .dropdown dd,
@@ -586,6 +588,7 @@ input[type=checkbox]:checked:before {
 
 .dropdown dd {
     position: relative;
+    z-index: 1;
 }
 
 .dropdown a,
