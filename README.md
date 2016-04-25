@@ -21,25 +21,25 @@ _Built with love and ducktape in HTML5 and Javascript._
 - Install dependencies, download binaries:
 
         npm install
-        grunt setup
+        gulp build
 
 - Start live-development:
 
-        grunt dev
+        gulp run
     
 - CTRL+D to open devtools (debugger), CTRL+R to reload.
 
 ## Distribute
 - Build packages and installers:
 
-        grunt dist
+        gulp dist --platforms=all
 
 - Build a Windows portable app:
  1. Create a new, empty folder somewhere.
  2. Copy all required files & folders:
    - app\
     - mi-win32\
-    - node_modules\ (without `*grunt*` named folders, nor .bin\)
+    - node_modules\ (without `*gulp*` named folders, nor .bin\)
     - package.json
     - README.md
     - LICENSE

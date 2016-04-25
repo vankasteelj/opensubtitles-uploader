@@ -6,19 +6,35 @@ Unicode True
 !include "FileFunc.nsh"
 
 ; ------------------- ;
-;  Parse Gruntfile.js ;
-; ------------------- ;
-!searchparse /file "..\Gruntfile.js" "version: '" APP_NW "',"
-
-; ------------------- ;
 ;  Parse package.json ;
 ; ------------------- ;
+!searchparse /file "..\package.json" '"name": "' APP_REAL_NAME '",'
 !searchparse /file "..\package.json" '"releaseName": "' APP_NAME '",'
 !searchreplace APP_NAME "${APP_NAME}" "-" " "
 !searchparse /file "..\package.json" '"version": "' OSU_VERSION '",'
 !searchreplace OSU_VERSION_CLEAN "${OSU_VERSION}" "-" ".0"
 !searchparse /file "..\package.json" '"homepage": "' APP_URL '",'
 !searchparse /file "..\package.json" '"name": "' DATA_FOLDER '",'
+
+; ------------------- ;
+;    Architecture     ;
+; ------------------- ;
+;Default to detected platform build if not defined by -DARCH= argument
+!ifndef ARCH
+    !if /fileexists "..\build\${APP_REAL_NAME}\win64\*.*"
+        !define ARCH "win64"
+    !else
+        !define ARCH "win32"
+    !endif
+!endif
+
+; ------------------- ;
+;  OUTDIR (installer) ;
+; ------------------- ;
+;Default to ../build if not defined by -DOUTDIR= argument
+!ifndef OUTDIR
+    !define OUTDIR "../build"
+!endif
 
 ; ------------------- ;
 ;      Settings       ;
@@ -36,7 +52,7 @@ VIAddVersionKey "CompanyName" "${COMPANY_NAME}"
 VIAddVersionKey "LegalCopyright" "${APP_URL}"
 VIProductVersion "${OSU_VERSION_CLEAN}.0"
 
-OutFile "..\releases\${APP_NAME} ${OSU_VERSION} - Setup.exe"
+OutFile "..\build\${APP_REAL_NAME}-${OSU_VERSION}-${ARCH}-setup.exe"
 CRCCheck on
 SetCompressor /SOLID lzma
 
@@ -101,33 +117,8 @@ Section ; Main Files
     SetOutPath "$INSTDIR"
 
     ;Add the files
-    File /oname=OpenSubtitles-Uploader.exe "..\builds\cache\${APP_NW}\win32\nw.exe"
-    File "..\builds\cache\${APP_NW}\win32\nw.pak"
-    File /r "..\builds\cache\${APP_NW}\win32\locales"
-    File "..\builds\cache\${APP_NW}\win32\icudtl.dat"
-    File "..\dist\os-icon.ico"
+    File /r "..\build\${APP_REAL_NAME}\${ARCH}\*"
     File /r "..\mi-win32"
-
-SectionEnd
-
-Section ; App Files
-
-    ;Set output path to InstallDir
-    SetOutPath "$INSTDIR\app"
-
-    ;Add the files
-    File /r "..\app\css"
-    File /r "..\app\images"
-    File /r "..\app\js"
-    File /r "..\app\localization"
-    File "..\app\index.html"
-
-    SetOutPath "$INSTDIR"
-    File "..\package.json"
-    File /oname=License.txt "..\LICENSE"
-
-    SetOutPath "$INSTDIR\node_modules"
-    File /r /x "*grunt*" /x "nw-gyp" /x "bower" /x ".bin" /x "bin" /x "test"  /x "test*" /x "example*" /x ".*" /x "*.md" /x "*.gz" /x "benchmark*" /x "*.markdown" "..\node_modules\*.*"
 
     ;Create uninstaller
     WriteUninstaller "$INSTDIR\Uninstall.exe"
