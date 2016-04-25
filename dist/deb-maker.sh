@@ -1,22 +1,24 @@
 #!/bin/bash
-# launch 'deb-maker.sh 0.12.3 linux64 0.0.1' for example
-# requires: fakeroot, dpkg-deb
+# launch 'deb-maker.sh <nw version> <platform> <app-name> <destination>'
+# 'deb-maker.sh 0.12.1 linux32 MyApplication 0.0.1 build' for example
 
 nw=$1
 arch=$2
+projectName=$3
+name=${projectName,,} #tolowercase
+version=$4
+builddir=$5
 if [[ $arch == *"32"* ]]; then
   real_arch="i386"
 else
   real_arch="amd64"
 fi
-cwd="releases/deb-package/$arch"
-name="opensubtitles-uploader"
-projectName="OpenSubtitles-Uploader"
-version=$3
-package_name=${name}_${version}_${real_arch}
+cwd="$builddir/tmp-deb-$arch"
+read -n 9 revision <<< ` git log -1 --pretty=oneline`
+package_name=${name}_${version}-${revision}_${real_arch}
 
 ### RESET
-rm -rf releases/deb-package
+rm -rf $cwd
 
 build_pt () {
 
@@ -27,45 +29,14 @@ mkdir -p $cwd/$package_name
 #create dir tree
 mkdir -p $cwd/$package_name/usr/share/applications #desktop
 mkdir -p $cwd/$package_name/opt/$projectName #app files
-mkdir -p $cwd/$package_name/opt/$projectName/node_modules #n_m
 mkdir -p $cwd/$package_name/usr/share/icons #icon
 
 ### COPY FILES
 #base
-cp -r builds/cache/$nw/$arch/locales $cwd/$package_name/opt/$projectName/
-cp builds/cache/$nw/$arch/icudtl.dat $cwd/$package_name/opt/$projectName/
-cp builds/cache/$nw/$arch/nw $cwd/$package_name/opt/$projectName/$projectName
-cp builds/cache/$nw/$arch/nw.pak $cwd/$package_name/opt/$projectName/
-
-#src
-cp -r app $cwd/$package_name/opt/$projectName/
-cp package.json $cwd/$package_name/opt/$projectName/
-cp LICENSE $cwd/$package_name/opt/$projectName/
-
-#mediainfo
-cp -r mi-$arch $cwd/$package_name/opt/$projectName/
-
-#node_modules
-cp -r node_modules/bluebird $cwd/$package_name/opt/$projectName/node_modules
-cp -r node_modules/detect-lang $cwd/$package_name/opt/$projectName/node_modules
-cp -r node_modules/opensubtitles-api $cwd/$package_name/opt/$projectName/node_modules
-cp -r node_modules/i18n $cwd/$package_name/opt/$projectName/node_modules
+cp -r $builddir/$projectName/$arch/* $cwd/$package_name/opt/$projectName/
 
 #icon
 cp app/images/os-icon.png $cwd/$package_name/usr/share/icons/opensubtitles-uploader.png
-
-### CLEAN
-shopt -s globstar
-cd $cwd/$package_name/opt/$projectName
-rm -rf node_modules/*grunt*/** 
-rm -rf ./**/test*/** 
-rm -rf ./**/doc*/** 
-rm -rf ./**/example*/** 
-rm -rf ./**/demo*/** 
-rm -rf ./**/bin/** 
-rm -rf ./**/build/**
-rm -rf **/*.*~
-cd ../../../../../../
 
 ### CREATE FILES
 
@@ -122,7 +93,6 @@ License: GPL-3
  .
  On Debian systems, the complete text of the GNU General
  Public License version 3 can be found in \`/usr/share/common-licenses/GPL-3'.
-
 Files: mi-*
 Copyright: (c) 2002-2014 MediaArea.net SARL. All rights reserved. 
 License: MediaInfo(Lib)
@@ -164,9 +134,9 @@ else
 	chmod +x /usr/share/applications/$name.desktop
 fi
 
-# set permissions
+# set permissions for updates
 if [ -e /opt/$projectName/$projectName ]; then
-	chmod +x /opt/$projectName/$projectName
+	chmod -R 777 /opt/$projectName
 fi
 
 if [ ! -e /lib/$(arch)-linux-gnu/libudev.so.1 ]; then
@@ -183,7 +153,7 @@ set -e
 rm -rf /opt/$projectName
 
 #remove icon
-rm -rf /usr/share/icons/opensubtitles-uploader.png
+rm -rf /usr/share/icons/butter.png
 
 #remove desktop
 rm -rf /usr/share/applications/$name.desktop
@@ -200,7 +170,7 @@ fi
 " > $cwd/$package_name/DEBIAN/postrm
 
 ### PERMISSIONS
-chmod +x $cwd/$package_name/usr/share/applications/$name.desktop
+chmod 0644 $cwd/$package_name/usr/share/applications/$name.desktop
 chmod -R 0755 $cwd/$package_name/DEBIAN
 chown -R root:root $cwd/$package_name 2> /dev/null || echo "'chown -R root:root' failed, continuing..."
 
@@ -209,15 +179,15 @@ cd $cwd
 dpkg-deb --build $package_name
 
 ### CLEAN
-cd ../../../
-mv $cwd/$name*.deb releases
+cd ../..
+mv $cwd/$name*.deb $builddir
+rm -rf $cwd
 }
 
 
-if [ -e /usr/bin/fakeroot ] && [ "$4" != "--fakeroot" ]; then
+if [ -e /usr/bin/fakeroot ] && [ "$6" != "--fakeroot" ]; then
 	echo "'fakeroot' was found on the machine"
-	fakeroot bash $0 $1 $2 $3 --fakeroot
+	fakeroot bash $0 $1 $2 $3 $4 $5 --fakeroot
 else
 	build_pt
 fi
-rm -rf releases/deb-package
