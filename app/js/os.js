@@ -15,6 +15,11 @@ var gui = require('nw.gui'),
     i18n = require('i18n'),
     OpenSubtitles = require('opensubtitles-api');
 
+if (gui.App.argv.indexOf('--development') !== -1) {
+    console.debug('running in development');
+    win.showDevTools();
+}
+
 var opensubtitles = {
     login: function () {
         var username = $('#login-username').val();

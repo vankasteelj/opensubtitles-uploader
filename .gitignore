@@ -1,4 +1,4 @@
 node_modules
 test*
-builds
-releases
+build
+cache
