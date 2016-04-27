@@ -62,5 +62,6 @@
 	"Something went wrong :(": "Quelque chose a mal fonctionné :(",
 	"IMDB id": "IMDB",
 	"Switch theme": "Changer de thème",
+	"The subtitle has invalid format, review it before uploading to OpenSubtitles": "Le fichier de sous-titres présente un problème de format. Veuillez le vérifier avant de l'envoyer à OpenSubtitles.",
 	"": ""
 }
