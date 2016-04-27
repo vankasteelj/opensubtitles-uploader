@@ -20,6 +20,7 @@ _Built with love and ducktape in HTML5 and Javascript._
 ## Develop
 - Install dependencies, download binaries:
 
+        npm install -g gulp-cli
         npm install
         gulp build
 
