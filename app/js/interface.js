@@ -2,6 +2,7 @@ var interface = {
     setup: function () {
         return new Promise(function (resolve, reject) {
             try {
+                misc.checkPortable();
                 misc.setupLocalization();
                 interface.setupTheme();
                 opensubtitles.verify_login();

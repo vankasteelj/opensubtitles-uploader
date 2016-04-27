@@ -246,6 +246,27 @@ var misc = {
     },
     pad: function (n) {
         return n < 10 ? '0' + n : n;
+    },
+    checkPortable: function () {
+        // check if app is portable
+        if (!fs.existsSync('./osu.json')) return;
+
+        // load settings
+        var settings = require('../osu.json');
+        console.info('Portable application, loading settings from `osu.json`', settings);
+
+        // import settings
+        for (var s in settings) {
+            localStorage.setItem(s, settings[s]);
+        }
+
+        // on close, write settings back to file
+        win.on('close', function () {
+            try { // failsafe
+                fs.writeFileSync('./osu.json', JSON.stringify(localStorage));
+            } catch (e) {}
+            win.close('true');
+        });
     }
 };
 

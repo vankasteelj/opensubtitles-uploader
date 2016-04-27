@@ -57,4 +57,5 @@ _Built with love and ducktape in HTML5 and Javascript._
     - locales\
     - icudtl.dat
     - nw.pak
- 8. You can use/distribute "OpenSubtitles-Uploader_portable.exe" alone, no other files required.
+ 8. Get "dist/osu.json" and place it next to the portable .exe, it'll serve as configuration file (on an USB key, for example)
+ 9. You can use/distribute "OpenSubtitles-Uploader_portable.exe" with or without osu.json (recommended to use it)
