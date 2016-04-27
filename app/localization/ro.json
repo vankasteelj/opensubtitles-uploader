@@ -62,6 +62,6 @@
 	"Something went wrong :(": "A avut loc o eroare :(",
 	"IMDB id": "ID IMDB",
 	"Switch theme": "Schimbă tema",
-	"The subtitle has invalid format, review it before uploading to OpenSubtitles": "Subtitrarea are un format invalid, vă rugăm să verificaţi fişierul înainte de a-l încărca la OpenSubtitles",
+	"The subtitle has invalid format, review it before uploading to OpenSubtitles (try removing URL that might be considered as advertising for a third party website)": "Subtitrarea are un format invalid, vă rugăm să verificaţi fişierul înainte de a-l încărca la OpenSubtitles (Incearcă să ştergi link-urile ce pot fi considerate reclame pentru un terţ)",
 	"": ""
 }

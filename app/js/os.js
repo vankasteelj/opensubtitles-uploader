@@ -255,8 +255,8 @@ var opensubtitles = {
                 error = 'OpenSubtitles is temporarily unavailable, please retry in a little while';
             } else if (err.body && err.body.match(/506/i)) {
                 error = 'OpenSubtitles is under maintenance, please retry in a few hours';
-            } else if (error.body && error.body.match(/402/i)) {
-                error = 'The subtitle has invalid format, review it before uploading to OpenSubtitles';
+            } else if (err.message && err.message.match(/402/i)) {
+                error = 'The subtitle has invalid format, review it before uploading to OpenSubtitles (try removing URL that might be considered as advertising for a third party website)';
             } else {
                 error = 'Something went wrong :(';
             }
