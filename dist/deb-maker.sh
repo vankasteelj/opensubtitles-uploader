@@ -47,7 +47,7 @@ Name=$projectName
 Exec=/opt/$projectName/$projectName
 Icon=opensubtitles-uploader
 StartupNotify=false
-Categories=AudioVideo;Video;Network;
+Categories=AudioVideo;Video;Network
 Type=Application
 " > $cwd/$package_name/usr/share/applications/$name.desktop
 
