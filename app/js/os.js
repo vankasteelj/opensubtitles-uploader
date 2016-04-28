@@ -226,8 +226,10 @@ var opensubtitles = {
         console.debug('Trying to upload subtitle...');
         opensubtitles.isUploading = true;
         $('#button-upload i, #button-upload span').addClass('pulse');
+        interface.spinner(true);
         OS.upload(obj_data).then(function (response) {
             opensubtitles.isUploading = false;
+            interface.spinner(false);
             $('#button-upload i, #button-upload span').removeClass('pulse');
             if (response && response.status.match(/200/)) {
                 //console.warn(response)
@@ -253,6 +255,7 @@ var opensubtitles = {
             }
         }).catch(function(err) {
             opensubtitles.isUploading = false;
+            interface.spinner(false);
             $('#button-upload i, #button-upload span').removeClass('pulse');
             console.error(err);
             var error;

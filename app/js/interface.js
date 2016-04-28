@@ -326,6 +326,17 @@ var interface = {
         $('#modal-buttons .modal-'+btright).addClass('right').show();
         $('#upload-popup').show().css('opacity', 1);
     },
+    spinner: function (show) {
+        if (show) {
+            $('#upload-modal').hide();
+            $('#upload-popup').show().css('opacity', 1);
+            $('#upload-spin').show();
+        } else {
+            $('#upload-spin').hide();
+            $('#upload-popup').css('opacity', 0).hide();
+            $('#upload-modal').show();            
+        }
+    },
     searchPopup: function () {
         console.debug('Opening IMDB search popup');
         $(document).bind('mouseup', interface.leavePopup);
