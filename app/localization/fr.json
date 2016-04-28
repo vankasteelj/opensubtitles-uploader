@@ -54,7 +54,7 @@
 	"Subtitle was already present in the database": "Le sous-titre se trouve déjà dans la base de donnée",
 	"The hash has been added!": "L'empreinte a été ajoutée",
 	"The hash too...": "L'empreinte aussi...",
-	"The file name has been added": "Le nom du fichier a été ajoutée",
+	"The file name has been added!": "Le nom du fichier a été ajoutée",
 	"The file name too...": "Le nom du fichier aussi",
 	"Subtitle was successfully uploaded!": "Sous-titre envoyé avec succès !",
 	"OpenSubtitles is temporarily unavailable, please retry in a little while": "OpenSubtitles est temporairement indisponible, veuillez réessayer plus tard",

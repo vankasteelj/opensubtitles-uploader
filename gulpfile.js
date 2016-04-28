@@ -150,7 +150,7 @@ gulp.task('run', () => {
 
 // build app from sources
 gulp.task('build', (callback) => {
-    runSequence('nwjs', 'mediainfo', 'clean', callback);
+    runSequence('nwjs', 'mediainfo', 'clean:mediainfo', 'clean:nwjs', callback);
 });
 
 // include mediainfo
@@ -166,20 +166,22 @@ gulp.task('mediainfo', () => {
 });
 
 // remove unused libraries
-gulp.task('clean', () => {
+gulp.task('clean:nwjs', () => {
     return Promise.all(parsePlatforms().map((platform) => {
         let dirname = path.join(releasesDir, pkJson.name, platform);
         return del([
             dirname + '/*ffmpeg*',
             dirname + '/pdf*',
-            dirname + '/d3d*'
+            dirname + '/d3d*',
+            dirname + '/libEGL*',
+            dirname + '/libGLE*'
         ]);
     }));
 });
 
 // create redistribuable packages
 gulp.task('dist', (callback) => {
-    runSequence('build', 'compress', 'deb', 'nsis', callback);
+    runSequence('build', 'compress', 'deb', 'nsis', 'portable', callback);
 });
 
 // default is help, because we can!
@@ -340,9 +342,10 @@ gulp.task('compress', () => {
                     .pipe(gulp.dest(releasesDir))
                     .on('end', () => {
                         console.log('%s tar packaged in %s', platform, path.join(process.cwd(), releasesDir));
+                        resolve();
                     });
 
-                // compress with tar on unix*
+            // compress with tar on unix*
             } else {
 
                 // using the right directory
@@ -368,4 +371,45 @@ gulp.task('compress', () => {
             }
         });
     })).catch(log);
+});
+
+// create portable app
+gulp.task('portable', () => {
+    return Promise.all(nw.options.platforms.map((platform) => {
+
+        // portable is for win only (linux is tgz)
+        if (platform.match(/osx|linux/) !== null) {
+            console.log('No `portable` task for', platform);
+            return null;
+        }
+
+        return new Promise((resolve, reject) => {
+            console.log('Packaging portable for: %s', platform);
+
+            const sources = path.join('build', pkJson.name, platform);
+
+            // compress with gulp on windows
+            if (currentPlatform().indexOf('win') !== -1) {
+                gulp.src(sources + '/**')
+                    .pipe(gulp.dest('build/win32-portable'))
+                    .on('end', () => {
+                        resolve();
+                    });
+            // compress with zip on unix*
+            } else {
+                
+            }
+        });
+    }));
+});
+
+// clean mediainfo-wrapper
+gulp.task('clean:mediainfo', () => {
+    return Promise.all(nw.options.platforms.map((platform) => {
+        const sources = path.join('build', pkJson.name, platform);
+        return del([
+            path.join(sources, 'node_modules/mediainfo-wrapper/lib/*'),
+            '!'+path.join(sources, 'node_modules/mediainfo-wrapper/lib/'+platform)
+        ]);
+    }));
 });

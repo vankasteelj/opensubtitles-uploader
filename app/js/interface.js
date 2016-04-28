@@ -187,18 +187,20 @@ var interface = {
                 info.imdbid = data.metadata.imdbid;
             }
             return interface.mediainfo(file);
-        }).then(function (args) {
+        }).then(function (metadata) {
             interface.reset('video');
             $('#video-file-path').val(file);
             $('#moviefilename').val(info.moviefilename);
             $('#moviebytesize').val(info.moviebytesize);
             $('#moviehash').val(info.moviehash);
             if (info.quality && info.quality.match(/720|1080/i)) $('#highdefinition').prop('checked', true);
-            if (args && args.length === 5) {
-                $('#movietimems').val(args[0]);
-                $('#moviefps').val(args[3]);
-                $('#movieframes').val(args[4]);
-                if (args[2] >= 720) $('#highdefinition').prop('checked', true);
+
+            if (metadata[0]) {
+                console.info('MediaInfo data:', metadata[0]);
+                $('#movietimems').val(metadata[0].tracks[0].duration[0]);
+                $('#moviefps').val(metadata[0].tracks[0].frame_rate[0]);
+                $('#movieframes').val(metadata[0].tracks[0].frame_count);
+                $('#highdefinition').prop('checked', (metadata[0].tracks[0].height[0] >= 720));
             }
 
             $('.search-imdb i').addClass('fa-circle-o-notch fa-spin').removeClass('fa-search');
@@ -387,32 +389,8 @@ var interface = {
         interface.leavePopup({});
     },
     mediainfo: function (file) {
-        return new Promise(function (resolve, reject) {
-            var cmd, inform = '--Inform="Video;::%Duration%::%Width%::%Height%::%FrameRate%::%FrameCount%"';
-            if (process.platform === 'win32') {
-                cmd = '"' + process.cwd() + '/mi-win32/mi.exe" ' + inform + ' "' + file + '"';
-            } else if (process.platform === 'linux') {
-                var arch = process.arch.match(/64/) ? '64' : '32';
-                cmd = 'LD_LIBRARY_PATH="'+ process.cwd() + '/mi-linux'+ arch +'/"' + ' "' + process.cwd() + '/mi-linux' + arch + '/mi" ' + inform + ' "' + file + '"';
-            } else if (process.platform === 'darwin') {
-                cmd = 'chmod +x "' + process.cwd() + '/mi-osx64/mi" ; ';
-                cmd += '"' + process.cwd() + '/mi-osx64/mi" ' + inform + ' "' + file + '"';
-            } else {
-                return resolve(false);
-            }
-
-            console.debug('Spawning MediaInfo binary');
-            require('child_process').exec(cmd,  function (error, stdout, stderr) {
-                if (error !== null || stderr !== '') {
-                    console.error('MediaInfo exec error:', (error || stderr));
-                    resolve(false);
-                } else {
-                    var args = stdout.replace('::','').replace('\n','').split('::');
-                    console.debug('MediaInfo detection:', args);
-                    resolve(args);
-                }
-            });
-        });
+        var mi = require('mediainfo-wrapper');
+        return mi(file);
     },
     keyEnter: function (id) {
         if (!id || id === 'subauthorcomment') {
