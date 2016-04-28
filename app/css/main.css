@@ -416,6 +416,13 @@ input[type=checkbox]:checked:before {
     left: calc(50% - 240px);
 }
 
+#upload-spin {
+    color: #ffffff;
+    font-size: 60px;
+    margin: 200px 490px;
+    position: fixed;
+}
+
 #modal-line {
     position: absolute;
     width: 480px;
