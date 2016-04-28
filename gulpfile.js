@@ -319,7 +319,7 @@ gulp.task('compress', () => {
         return new Promise((resolve, reject) => {
             console.log('Packaging tar for: %s', platform);
 
-            const sources = path.join('build', pkJson.name, platform);
+            const sources = path.join(releasesDir, pkJson.name, platform);
 
             // compress with gulp on windows
             if (currentPlatform().indexOf('win') !== -1) {
@@ -374,19 +374,13 @@ gulp.task('portable', () => {
         return new Promise((resolve, reject) => {
             console.log('Packaging portable for: %s', platform);
 
-            const sources = path.join('build', pkJson.name, platform);
-
-            // compress with gulp on windows
-            if (currentPlatform().indexOf('win') !== -1) {
-                gulp.src(sources + '/**')
-                    .pipe(gulp.dest('build/win32-portable'))
-                    .on('end', () => {
-                        resolve();
-                    });
-            // compress with zip on unix*
-            } else {
-                
-            }
+            // copy & zip files (include osu.json for portable settings)
+            gulp.src([path.join(releasesDir, pkJson.name, platform) + '/**', 'dist/osu.json'])
+                .pipe(glp.zip(pkJson.name+'-'+pkJson.version+'-win32-portable.zip'))
+                .pipe(gulp.dest(releasesDir))
+                .on('end', () => {
+                    resolve();
+                });
         });
     }));
 });
@@ -395,7 +389,7 @@ gulp.task('portable', () => {
 gulp.task('clean:mediainfo', () => {
     return Promise.all(nw.options.platforms.map((platform) => {
         console.log('clean:mediainfo', platform)
-        const sources = path.join('build', pkJson.name, platform);
+        const sources = path.join(releasesDir, pkJson.name, platform);
         return del([
             path.join(sources, 'node_modules/mediainfo-wrapper/lib/*'),
             path.join(sources, pkJson.name + '.app/Contents/Resources/app.nw/node_modules/mediainfo-wrapper/lib/*'),

@@ -37,6 +37,7 @@
         "gulp": "3.x.x",
         "gulp-tar": "1.x.x",
         "gulp-gzip": "1.x.x",
+        "gulp-zip": "3.x.x",
         "gulp-load-plugins": "1.x.x",
         "nw-builder": "2.x.x",
         "run-sequence": "1.x.x",

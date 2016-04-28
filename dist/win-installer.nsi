@@ -118,6 +118,7 @@ Section ; Main Files
 
     ;Add the files
     File /r "..\build\${APP_REAL_NAME}\${ARCH}\*"
+    File "..\dist\os-icon.ico"
 
     ;Create uninstaller
     WriteUninstaller "$INSTDIR\Uninstall.exe"
