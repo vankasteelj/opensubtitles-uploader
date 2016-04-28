@@ -150,19 +150,7 @@ gulp.task('run', () => {
 
 // build app from sources
 gulp.task('build', (callback) => {
-    runSequence('nwjs', 'mediainfo', 'clean:mediainfo', 'clean:nwjs', callback);
-});
-
-// include mediainfo
-gulp.task('mediainfo', () => {
-    return Promise.all(parsePlatforms().map((platform) => {
-        let dirname = 'mi-'+platform;
-        let outdir = platform.indexOf('osx') !== -1 ? 
-            path.join(releasesDir, pkJson.name, platform, pkJson.name + '.app', 'Contents', 'Resources', 'app.nw', dirname) :
-            path.join(releasesDir, pkJson.name, platform, dirname);
-        return gulp.src(dirname+'/**')
-            .pipe(gulp.dest(outdir));
-    }));
+    runSequence('nwjs', 'clean:mediainfo', 'clean:nwjs', callback);
 });
 
 // remove unused libraries
@@ -406,10 +394,13 @@ gulp.task('portable', () => {
 // clean mediainfo-wrapper
 gulp.task('clean:mediainfo', () => {
     return Promise.all(nw.options.platforms.map((platform) => {
+        console.log('clean:mediainfo', platform)
         const sources = path.join('build', pkJson.name, platform);
         return del([
             path.join(sources, 'node_modules/mediainfo-wrapper/lib/*'),
-            '!'+path.join(sources, 'node_modules/mediainfo-wrapper/lib/'+platform)
+            path.join(sources, pkJson.name + '.app/Contents/Resources/app.nw/node_modules/mediainfo-wrapper/lib/*'),
+            '!'+path.join(sources, 'node_modules/mediainfo-wrapper/lib/'+platform),
+            '!'+path.join(sources, pkJson.name + '.app/Contents/Resources/app.nw/node_modules/mediainfo-wrapper/lib/'+platform)
         ]);
     }));
 });

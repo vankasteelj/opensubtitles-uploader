@@ -1,4 +1,4 @@
-;OSU
+﻿;OSU
 ;Installer Source for NSIS 3.0 or higher
 
 Unicode True
@@ -118,7 +118,6 @@ Section ; Main Files
 
     ;Add the files
     File /r "..\build\${APP_REAL_NAME}\${ARCH}\*"
-    File /r "..\mi-win32"
 
     ;Create uninstaller
     WriteUninstaller "$INSTDIR\Uninstall.exe"
