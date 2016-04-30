@@ -195,7 +195,7 @@ var interface = {
             $('#moviehash').val(info.moviehash);
             if (info.quality && info.quality.match(/720|1080/i)) $('#highdefinition').prop('checked', true);
 
-            $('#movietimems').val(metadata.duration);
+            $('#movietimems').val(metadata.duration ? metadata.duration.toString().split('.')[0] : undefined);
             $('#moviefps').val(metadata.frame_rate);
             $('#movieframes').val(metadata.frame_count);
             $('#highdefinition').prop('checked', (metadata.height >= 720 || (metadata.width >= 1280 && metadata.height >= 536))); // cut cinebar can be down to 536px
