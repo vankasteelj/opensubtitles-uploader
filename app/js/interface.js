@@ -195,13 +195,10 @@ var interface = {
             $('#moviehash').val(info.moviehash);
             if (info.quality && info.quality.match(/720|1080/i)) $('#highdefinition').prop('checked', true);
 
-            if (metadata[0]) {
-                console.info('MediaInfo data:', metadata[0]);
-                $('#movietimems').val(metadata[0].tracks[0].duration[0]);
-                $('#moviefps').val(metadata[0].tracks[0].frame_rate[0]);
-                $('#movieframes').val(metadata[0].tracks[0].frame_count);
-                $('#highdefinition').prop('checked', (metadata[0].tracks[0].height[0] >= 720));
-            }
+            $('#movietimems').val(metadata.duration);
+            $('#moviefps').val(metadata.frame_rate);
+            $('#movieframes').val(metadata.frame_count);
+            $('#highdefinition').prop('checked', (metadata.height >= 720 || (metadata.width >= 1280 && metadata.height >= 536))); // cut cinebar can be down to 536px
 
             $('.search-imdb i').addClass('fa-circle-o-notch fa-spin').removeClass('fa-search');
             if (info.metadata && info.imdbid) {
@@ -389,8 +386,69 @@ var interface = {
         interface.leavePopup({});
     },
     mediainfo: function (file) {
-        var mi = require('mediainfo-wrapper');
-        return mi(file);
+        return new Promise(function (resolve, reject) {
+            var info = {};
+            require('mediainfo-wrapper')(file).then(function (md) {
+                if (md && md[0]) {
+                    console.info('MediaInfo data:', md[0]);
+                    // do we have tracks?
+                    if (md[0].tracks && md[0].tracks[0]) {
+                        var video = md[0].tracks[0], x;
+                        
+                        // duration
+                        info.duration = md[0].details.duration ? (
+                            Array.isArray(md[0].details.duration) ? (
+                                md[0].details.duration[0]
+                            ) : (
+                                x = md[0].details.duration.split(':'), 
+                                x[0]*(1000*60*60) + x[1]*(1000*60) + x[2]*(1000)
+                            )
+                        ) : ( 
+                            video.duration ? (
+                                Array.isArray(video.duration) ? (
+                                    video.duration[0]
+                                ) : (
+                                    x = video.duration.split(':'), 
+                                    x[0]*(1000*60*60) + x[1]*(1000*60) + x[2]*(1000)
+                                )
+                            ) : (
+                                undefined
+                            )
+                        );
+
+                        // others
+                        info.frame_count = video.frame_count | video.number_of_frames;
+                        info.height = video.height[0];
+                        info.width = video.width[0];
+
+                        // framerate
+                        info.frame_rate = Array.isArray(video.frame_rate) ? (
+                            video.frame_rate[0] 
+                        ) : (
+                            (info.frame_count && info.duration) ? (
+                                x = (info.frame_count / (info.duration/1000)).toFixed(3),
+                                x.match(/23\.9|24\.0|25\.0|29\.9|30\.0/) ? (
+                                    x.match(/23\.97/) ? (
+                                        '23.976' // round
+                                    ) : (
+                                        x
+                                    )
+                                ) : (
+                                    undefined
+                                )
+                            ) : (
+                                undefined
+                            )
+                        );
+                    }
+                }
+                resolve(info);
+            }).catch(function (err) {
+                // bypass error on mediainfo, it happens
+                console.error('MediaInfo detection failed, continuing...', err);
+                resolve(info);
+            });
+        });
     },
     keyEnter: function (id) {
         if (!id || id === 'subauthorcomment') {
