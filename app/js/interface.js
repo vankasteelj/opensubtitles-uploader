@@ -391,25 +391,25 @@ var interface = {
             require('mediainfo-wrapper')(file).then(function (md) {
                 if (md && md[0]) {
                     console.info('MediaInfo data:', md[0]);
-                    // do we have tracks?
-                    if (md[0].tracks && md[0].tracks[0]) {
-                        var video = md[0].tracks[0], x;
+                    // do we have video track?
+                    if (md[0].video) {
+                        var video = md[0].video[0], x;
                         
                         // duration
-                        info.duration = md[0].details.duration ? (
-                            Array.isArray(md[0].details.duration) ? (
-                                md[0].details.duration[0]
-                            ) : (
-                                x = md[0].details.duration.split(':'), 
+                        info.duration = md[0].general.duration ? (
+                            md[0].general.duration[0].split(':').length > 1 ? (
+                                x = md[0].general.duration[0].split(':'), 
                                 x[0]*(1000*60*60) + x[1]*(1000*60) + x[2]*(1000)
+                            ) : (
+                                md[0].general.duration[0]
                             )
                         ) : ( 
                             video.duration ? (
-                                Array.isArray(video.duration) ? (
-                                    video.duration[0]
-                                ) : (
-                                    x = video.duration.split(':'), 
+                                video.duration[0].split(':').length > 1 ? (
+                                    x = video.duration[0].split(':'), 
                                     x[0]*(1000*60*60) + x[1]*(1000*60) + x[2]*(1000)
+                                ) : (
+                                    video.duration[0]
                                 )
                             ) : (
                                 undefined
@@ -417,16 +417,24 @@ var interface = {
                         );
 
                         // others
-                        info.frame_count = video.frame_count | video.number_of_frames;
-                        info.height = video.height[0];
-                        info.width = video.width[0];
+                        info.frame_count = video.frame_count ? (
+                            video.frame_count[0]
+                        ) : (
+                            video.number_of_frames ? (
+                                video.number_of_frames[0]
+                            ) : (
+                                undefined
+                            )
+                        );
+                        info.height = video.height ? video.height[0] : undefined;
+                        info.width = video.width ? video.width[0] : undefined;
 
                         // framerate
-                        info.frame_rate = Array.isArray(video.frame_rate) ? (
+                        info.frame_rate = video.frame_rate ? (
                             video.frame_rate[0]
                         ) : (
                             (info.frame_count && info.duration) ? (
-                                x = (info.frame_count / (info.duration/1000)).toFixed(3),
+                                x = (info.frame_count[0] / (info.duration[0]/1000)).toFixed(3),
                                 x.match(/23\.9|24\.0|25\.0|29\.9|30\.0/) ? (
                                     x.match(/23\.97/) ? (
                                         '23.976' // round
@@ -437,7 +445,7 @@ var interface = {
                                     undefined
                                 )
                             ) : (
-                                Array.isArray(video.original_frame_rate) ? (
+                                video.original_frame_rate ? (
                                     video.original_frame_rate[0]
                                 ) : (
                                     undefined
