@@ -423,7 +423,7 @@ var interface = {
 
                         // framerate
                         info.frame_rate = Array.isArray(video.frame_rate) ? (
-                            video.frame_rate[0] 
+                            video.frame_rate[0]
                         ) : (
                             (info.frame_count && info.duration) ? (
                                 x = (info.frame_count / (info.duration/1000)).toFixed(3),
@@ -437,7 +437,11 @@ var interface = {
                                     undefined
                                 )
                             ) : (
-                                undefined
+                                Array.isArray(video.original_frame_rate) ? (
+                                    video.original_frame_rate[0]
+                                ) : (
+                                    undefined
+                                )
                             )
                         );
                     }
