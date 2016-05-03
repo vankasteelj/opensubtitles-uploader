@@ -3,18 +3,30 @@
 
 <head>
     <meta charset="UTF-8">
+
     <title>OpenSubtitles Uploader</title>
-    <link rel="icon" type="image/png" href="images/os-icon.png"/>
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.css"/>
-    <link rel="stylesheet" type="text/css" href="css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="css/themes/light.css" id="theme"/>
-    <link rel="stylesheet" type="text/css" href="css/animations.css"/>
+
+    <link rel="icon" type="image/png" href="images/os-icon.png" />
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" href="css/themes/light.css" id="theme" />
+    <link rel="stylesheet" type="text/css" href="css/animations.css" />
 
     <script src="js/vendor/jquery.js" type="application/javascript"></script>
     <script src="js/vendor/jquery-ui.js" type="application/javascript"></script>
-    <script src="js/os.js" type="application/javascript"></script>
-    <script src="js/interface.js" type="application/javascript"></script>
-    <script src="js/misc.js" type="application/javascript"></script>
+
+    <script src="js/utils/boot.js" type="application/javascript"></script>
+    <script src="js/utils/keyboard.js" type="application/javascript"></script>
+    <script src="js/utils/localization.js" type="application/javascript"></script>
+    <script src="js/utils/misc.js" type="application/javascript"></script>
+    <script src="js/utils/notify.js" type="application/javascript"></script>
+
+    <script src="js/main/dragdrop.js" type="application/javascript"></script>
+    <script src="js/main/files.js" type="application/javascript"></script>
+    <script src="js/main/interface.js" type="application/javascript"></script>
+    <script src="js/main/opensubtitles.js" type="application/javascript"></script>
+
+    <script src="js/app.js" type="application/javascript"></script>
 </head>
 
 <body>
@@ -24,24 +36,30 @@
     <!-- top space: Upload button, login, lang selector -->
     <section id="main-topbar">
 
-        <div id="button-upload" onClick="opensubtitles.verify()" class="button dominant"><i class="fa fa-cloud-upload">&nbsp;</i><i18n>Upload</i18n></div>
+        <div id="button-upload" onClick="opensubtitles.verify()" class="button dominant"><i class="fa fa-cloud-upload">&nbsp;</i>
+            <i18n>Upload</i18n>
+        </div>
 
         <dl id="app-locale" class="dropdown">
             <dt><a><span></span></a></dt>
-            <dd><ul></ul></dd>
+            <dd>
+                <ul></ul>
+            </dd>
         </dl>
 
         <div id="authentication">
             <div id="logged" style="display:none">
                 <div id="logged-as">
-                    <i class="fa fa-sign-out tooltipped i18n" onClick="opensubtitles.logout()" title="Log out"></i>
+                    <i class="fa fa-sign-out tooltipped i18n" onClick="interface.logout()" title="Log out"></i>
                     <span class="username"></span>
                 </div>
             </div>
             <div id="not-logged" style="display:block">
                 <input id="login-username" class="i18n" type="text" placeholder="Username">
                 <input id="login-password" class="i18n" type="password" placeholder="Password">
-                <div id="button-login" onClick="opensubtitles.login()" class="button light"><i18n>Log in</i18n></div>
+                <div id="button-login" onClick="opensubtitles.login()" class="button light">
+                    <i18n>Log in</i18n>
+                </div>
             </div>
         </div>
 
@@ -59,7 +77,9 @@
             <span class="input-file"><i18n>Video file</i18n></span>
             <input id="video-file-path" class="input-input i18n" type="text" placeholder="Drop a video file or select one" readonly>
             <input id="video-file-path-hidden" style="display:none" type="file">
-            <div id="video-browser" onClick="interface.browse('video')" class="button light"><i18n>browse</i18n></div>
+            <div id="video-browser" onClick="interface.browse('video')" class="button light">
+                <i18n>browse</i18n>
+            </div>
         </div>
 
         <div class="metadata">
@@ -127,7 +147,9 @@
             <span class="input-file"><i18n>Subtitle file</i18n></span>
             <input id="subtitle-file-path" class="input-input i18n" type="text" placeholder="Drop a subtitle file or select one" readonly>
             <input id="subtitle-file-path-hidden" style="display:none" type="file">
-<div id="subtitle-browser" onClick="interface.browse('subtitle')" class="button light"><i18n>browse</i18n></div>
+            <div id="subtitle-browser" onClick="interface.browse('subtitle')" class="button light">
+                <i18n>browse</i18n>
+            </div>
         </div>
 
         <div class="metadata">
@@ -146,7 +168,7 @@
                 <div class="metaitem">
                     <span><i18n>Language</i18n></span>
                     <select id="sublanguageid" name="language" selected=""></select>
-                    <span class="detect-lang" onClick="misc.detect_lang()">
+                    <span class="detect-lang" onClick="files.detectSubLang()">
                         <i class="fa fa-flip-horizontal fa-magic tooltipped i18n" title="Auto-detect the language"></i>
                     </span>
                 </div>
@@ -182,7 +204,8 @@
 
     <!-- bottom right credits -->
     <div class="app-author">
-        <span class="version"></span><i18n>developped by</i18n> <a onClick="misc.openExternal('https://github.com/vankasteelj')">vankasteelj</a>
+        <span class="version"></span>
+        <i18n>developped by</i18n> <a onClick="misc.openExternal('https://github.com/vankasteelj')">vankasteelj</a>
         <span class="fa fa-circle i18n tooltipped" id="switch-theme" onClick="interface.switchTheme()" title="Switch theme"></span>
     </div>
 
@@ -194,7 +217,7 @@
     <section id="search-popup">
         <div id="search">
             <input id="search-text" class="i18n" type="text" placeholder="Enter a title">
-            <div id="button-search" onClick="opensubtitles.search_imdb()" class="button fa fa-search tooltipped i18n" title="Search"></div>
+            <div id="button-search" onClick="opensubtitles.searchImdb()" class="button fa fa-search tooltipped i18n" title="Search"></div>
             <div id="search-result"></div>
         </div>
     </section>
@@ -207,18 +230,28 @@
             <div id="modal-line"></div>
             <div id="modal-content"></div>
             <div id="modal-buttons">
-                <div class="button light modal-ok" onClick="interface.reset()"><i18n>OK</i18n></div>
-                <div class="button light modal-edit" onClick="interface.reset('modal')"><i18n>EDIT</i18n></div>
-                <div class="button light modal-upload" onClick="opensubtitles.upload()"><i18n>UPLOAD</i18n></div>
-                <div class="button light modal-retry" onClick="opensubtitles.upload()"><i18n>RETRY</i18n></div>
-                <div class="button light modal-open" onClick="misc.openExternal($(this).attr('data-url'))" data-url=""><i18n>OPEN IN BROWSER</i18n></div>
+                <div class="button light modal-ok" onClick="interface.reset()">
+                    <i18n>OK</i18n>
+                </div>
+                <div class="button light modal-edit" onClick="interface.reset('modal')">
+                    <i18n>EDIT</i18n>
+                </div>
+                <div class="button light modal-upload" onClick="opensubtitles.upload()">
+                    <i18n>UPLOAD</i18n>
+                </div>
+                <div class="button light modal-retry" onClick="opensubtitles.upload()">
+                    <i18n>RETRY</i18n>
+                </div>
+                <div class="button light modal-open" onClick="misc.openExternal($(this).attr('data-url'))" data-url="">
+                    <i18n>OPEN IN BROWSER</i18n>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- code initialization -->
     <script>
-        interface.setup().then(function () {
+        gui.start().then(function () {
             win.show(true);
             win.focus();
         });

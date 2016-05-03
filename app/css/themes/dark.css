@@ -1,15 +1,5 @@
 /* Theme file: dark */
 
-/*
-    Green = #323a45
-    LightGreen = #656d78
-    DarkGreen = #242a31
-    LightGrey = #a5a9b0
-    DarkGrey = #555b65
-    White = #f5f7fa
-    Rose = #de5362
-*/
-
 body {
     background: #242a31;
 }
@@ -75,7 +65,8 @@ body {
     color: #e4e9f2;
 }
 
-.metadata .content .metaitem input {
+.metadata .content .metaitem input,
+.metadata .content .metaitem textarea {
     color: #f5f7fa;
     background: #343c48;
 }
@@ -245,8 +236,9 @@ input {
     border-color: transparent;
 }
 
-.metadata .content .metaitem input:read-only {
-    color: rgba(245, 247, 250, .85);
+.metadata .content .metaitem input:read-only,
+.metadata .content .metaitem textarea:read-only {
+    color: rgba(245, 247, 250, .85) !important;
 }
 
 ::-webkit-input-placeholder {
