@@ -43,6 +43,7 @@
     font-size: 17px;
 }
 
+
 /* Login */
 
 #authentication {
@@ -333,6 +334,7 @@ input[type=checkbox]:checked:before {
     transition: all .3s;
 }
 
+
 /*
  * SECTION: SEARCH
  */
@@ -394,9 +396,11 @@ input[type=checkbox]:checked:before {
     transition: all .3s;
 }
 
+
 /*
  * SECTION MODAL
  */
+
 #upload-popup {
     position: absolute;
     top: 0;
@@ -506,9 +510,11 @@ input[type=checkbox]:checked:before {
     cursor: pointer;
 }
 
+
 /*
  * LOCALIZATION
  */
+
 #app-locale {
     position: relative;
     margin: 0;
@@ -573,6 +579,7 @@ input[type=checkbox]:checked:before {
     width: 16px;
 }
 
+
 /*
  * GENERAL
  */
@@ -622,7 +629,12 @@ input {
     padding-right: 1px;
 }
 
-.metadata .content .metaitem input:read-only {
+textarea {
+    font-family: sans-serif;
+}
+
+.metadata .content .metaitem input:read-only,
+.metadata .content .metaitem textarea:read-only {
     font-style: italic;
 }
 
@@ -668,6 +680,7 @@ input {
     border-radius: 10px;
     transition: all .3s;
 }
+
 
 /* tooltips */
 
