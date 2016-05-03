@@ -115,7 +115,7 @@ var interface = {
         $('.dropdown dt a span').html('<img class="flag" src="images/flags/'+ i18n.getLocale() +'.png"/>');
 
         for (var lang in misc.availableLocales) {
-            var el = '<li><a><img class="flag" src="images/flags/'+ misc.availableLocales[lang] +'.png"/><span class="value">'+ misc.availableLocales[lang] +'</span></a></li>';
+            var el = '<li><a><img class="flag tooltipped i18n" src="images/flags/'+ misc.availableLocales[lang] +'.png" title="'+ require('./localization/'+misc.availableLocales[lang]+'.json').currentLang +'"/><span class="value">'+ misc.availableLocales[lang] +'</span></a></li>';
             $('#app-locale ul').append(el);
         }
 
