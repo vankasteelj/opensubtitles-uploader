@@ -541,7 +541,7 @@ input[type=checkbox]:checked:before {
 }
 
 .dropdown dt a {
-    background: transparent url(../images/flags/arrow.png) no-repeat scroll right center;
+    background: transparent url(../images/arrow.png) no-repeat scroll right center;
     display: block;
     padding-right: 20px;
     width: 25px;
