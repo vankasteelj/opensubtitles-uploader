@@ -146,6 +146,7 @@ var interface = {
     logout: function () {
         console.info('Logged out!');
         $('#login-username').val(localStorage.os_user);
+        $('#login-password').val('');
         localStorage.removeItem('os_user');
         localStorage.removeItem('os_pw');
         $('#logged').hide();
