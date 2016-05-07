@@ -1,7 +1,7 @@
 var localization = {
 
     // cache
-    availableLocales: ['en', 'fr', 'nl', 'ro', 'sk'],
+    availableLocales: ['en', 'fr', 'nl', 'pl', 'ro', 'sk'],
     detectedLocale: false,
 
     // STARTUP: load i18n and set locales, then localize app
