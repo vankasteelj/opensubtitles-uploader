@@ -541,10 +541,22 @@ input[type=checkbox]:checked:before {
 }
 
 .dropdown dt a {
-    background: transparent url(../images/arrow.png) no-repeat scroll right center;
     display: block;
     padding-right: 20px;
     width: 25px;
+}
+
+.dropdown dt a::before {
+    background: url(../images/arrow.png) 0 0 repeat;
+    position: absolute;
+    content: "";
+    top: 5px;
+    height: 16px;
+    width: 16px;
+    right: 0px;
+}
+.dropdown dt a.rotatecarret::before {
+    transform: rotate(180deg);
 }
 
 .dropdown dt a span {
