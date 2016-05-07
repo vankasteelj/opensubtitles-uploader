@@ -70,9 +70,12 @@ var localization = {
             $('#app-locale ul').append(el);
         }
 
-        // open dropdown on click
+        // open/close dropdown on click
         $('.dropdown dt a').click(function () {
+            // show/hide dropdown
             $('.dropdown dd ul').toggle();
+            // change arrow's position
+            $(this).toggleClass('rotatecarret');
         });
 
         // on dropdown's flag click, change lang
@@ -86,7 +89,10 @@ var localization = {
         // hide dropdown if click elsewhere
         $(document).bind('click', function (e) {
             if (!$(e.target).parents().hasClass('dropdown')) {
+                // hide dropdown
                 $('.dropdown dd ul').hide();
+                // set arrow downside (default)
+                $('.dropdown dt a').removeClass('rotatecarret');
             }
         });
     },
