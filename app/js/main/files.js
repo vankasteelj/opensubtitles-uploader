@@ -96,68 +96,66 @@ var files = {
                     console.info('MediaInfo data:', md[0]);
                     // do we have video track?
                     if (md[0].video) {
-                        var video = md[0].video[0],
-                            x;
+                        var video = md[0].video[0];
 
                         // duration
-                        info.duration = md[0].general.duration ? (
-                            md[0].general.duration[0].split(':').length > 1 ? (
-                                x = md[0].general.duration[0].split(':'),
-                                x[0] * (1000 * 60 * 60) + x[1] * (1000 * 60) + x[2] * (1000)
-                            ) : (
-                                md[0].general.duration[0]
-                            )
-                        ) : (
-                            video.duration ? (
-                                video.duration[0].split(':').length > 1 ? (
-                                    x = video.duration[0].split(':'),
-                                    x[0] * (1000 * 60 * 60) + x[1] * (1000 * 60) + x[2] * (1000)
-                                ) : (
-                                    video.duration[0]
-                                )
-                            ) : (
-                                undefined
-                            )
-                        );
+                        if (md[0].general.duration) {
+                            var x = md[0].general.duration[0].split(':');
+                            if (x.length > 1) {
+                                info.duration = x[0] * (1000 * 60 * 60) + x[1] * (1000 * 60) + x[2] * (1000);
+                            } else {
+                                info.duration = md[0].general.duration[0];
+                            }
+                        } else {
+                            if (video.duration) {
+                                var x = video.duration[0].split(':');
+                                if (x.length > 1) {
+                                    info.duration = x[0] * (1000 * 60 * 60) + x[1] * (1000 * 60) + x[2] * (1000);
+                                } else {
+                                    info.duration = video.duration[0];
+                                }
+                            }
+                        }
 
-                        // others
-                        info.frame_count = video.frame_count ? (
-                            video.frame_count[0]
-                        ) : (
-                            video.number_of_frames ? (
-                                video.number_of_frames[0]
-                            ) : (
-                                undefined
-                            )
-                        );
-                        info.height = video.height ? video.height[0] : undefined;
-                        info.width = video.width ? video.width[0] : undefined;
+                        // total nb of frames
+                        if (video.frame_count) {
+                            info.frame_count = video.frame_count[0];
+                        } else {
+                            if (video.number_of_frames) {
+                                info.frame_count = video.number_of_frames[0];
+                            }
+                        }
+
+                        // height/width
+                        if (video.height) {
+                            info.height = video.height[0];
+                        }
+                        if (video.width) {
+                            info.width = video.width[0];
+                        }
 
                         // framerate
-                        info.frame_rate = video.frame_rate ? (
-                            video.frame_rate[0]
-                        ) : (
-                            (info.frame_count && info.duration) ? (
-                                x = (info.frame_count[0] / (info.duration[0] / 1000)).toFixed(3),
-                                x.match(/23\.9|24\.0|25\.0|29\.9|30\.0/) ? (
-                                    x.match(/23\.97/) ? (
-                                        '23.976' // round
-                                    ) : (
-                                        x
-                                    )
-                                ) : (
-                                    undefined
-                                )
-                            ) : (
-                                video.original_frame_rate ? (
-                                    video.original_frame_rate[0]
-                                ) : (
-                                    undefined
-                                )
-                            )
-                        );
+                        if (video.frame_rate) {
+                            info.frame_rate = video.frame_rate[0];
+                        } else {
+                            if (video.original_frame_rate) {
+                                info.frame_rate = video.original_frame_rate[0];
+                            } else {
+                                if (info.frame_count && info.duration) {
+                                    var x = (info.frame_count[0] / (info.duration[0] / 1000)).toFixed(3);
+                                    if (x.match(/23\.9|24\.0|25\.0|29\.9|30\.0/)) {
+                                        if (x.match(/23\.97/)) {
+                                            info.frame_rate = '23.976';
+                                        } else {
+                                            info.frame_rate = x;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
+
                 resolve(info);
             }).catch(function (err) {
                 // bypass error on mediainfo, it happens and isnt mandatory
