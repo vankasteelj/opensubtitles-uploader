@@ -145,7 +145,7 @@ var opensubtitles = {
         }).then(function (response) {
             // again, sometimes the response comes without data
             if (response && response.status.match(/200/) && typeof response.data === 'object') {
-                console.debug('Imdb Metadata:', response.data);
+                console.info('Imdb Metadata:', response.data);
                 var text = '';
                 if (response.data.kind === 'episode') {
                     text += response.data.title.split('"')[1];
@@ -265,7 +265,7 @@ var opensubtitles = {
             if (response && response.status.match(/200/)) {
                 // req success, but sub was already in DB
                 if (response.alreadyindb === 1) {
-                    console.debug('Subtitle already in opensubtitle\'s db');
+                    console.info('Subtitle already in opensubtitle\'s db');
                     var d = response.data;
 
                     // build modal according to response details. somewhat fragile code.
@@ -279,7 +279,7 @@ var opensubtitles = {
 
                 // sub was uploaded! yeay
                 } else {
-                    console.debug('Subtitle successfully uploaded!');
+                    console.info('Subtitle successfully uploaded!');
 
                     // if an url was passed, give user possibility of opening browser
                     if (response.data && response.data !== '') {
