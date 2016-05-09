@@ -1,23 +1,23 @@
-var boot = {
+var Boot = {
 
     // STARTUP: load app: ui,settings,features
     load: function () {
-            boot.checkPortable();               // is it a portable version?
-            localization.setupLocalization();   // localize
-            boot.setupTheme();                  // theme
-            opensubtitles.verifyLogin();        // check OS login
-            boot.checkVisible();                // nwjs window position
-            boot.setupInputs();                 // browse button
-            boot.setupRightClicks();            // right click menus
-            keyboard.setupShortcuts();          // keyboard shortcuts
-            interface.setupImdbFocus();         // imdb field event
-            localization.setupLocaleFlags();    // language dropdown
-            misc.checkUpdates();                // update
-            boot.setupLangDropdown();           // sub language dropdown
-            interface.restoreLocks();           // locked fields
-            boot.setupTooltips();               // tooltips
-            boot.setupVersion();                // version number
-            dragdrop.setup();                   // setup drag&drop
+        Boot.checkPortable();               // is it a portable version?
+        Localization.setupLocalization();   // localize
+        Boot.setupTheme();                  // theme
+        OsActions.verifyLogin();            // check OS login
+        Boot.checkVisible();                // nwjs window position
+        Boot.setupInputs();                 // browse button
+        Boot.setupRightClicks();            // right click menus
+        Keyboard.setupShortcuts();          // keyboard shortcuts
+        Interface.setupImdbFocus();         // imdb field event
+        Localization.setupLocaleFlags();    // language dropdown
+        Misc.checkUpdates();                // update
+        Boot.setupLangDropdown();           // sub language dropdown
+        Interface.restoreLocks();           // locked fields
+        Boot.setupTooltips();               // tooltips
+        Boot.setupVersion();                // version number
+        DragDrop.setup();                   // setup drag&drop
     },
 
     // STARTUP: checks which theme user prefers, defaults to light, then injects css theme file and changes button color accordingly
@@ -41,16 +41,17 @@ var boot = {
                 // force stop default rightclick event
                 ev.preventDefault();
                 var menu;
-                // copy only on readonly fields
+
                 if ($(inputs[i]).attr('readonly')) {
+                    // copy only on readonly fields
                     if (ev.target.value !== '') {
-                        menu = new misc.contextMenu(null, i18n.__('Copy'), null, ev.target.id);
+                        menu = new Misc.contextMenu(null, i18n.__('Copy'), null, ev.target.id);
                     } else {
                         return;
                     }
-                // cut-copy-paste on other
                 } else {
-                    menu = new misc.contextMenu(i18n.__('Cut'), i18n.__('Copy'), i18n.__('Paste'), ev.target.id);
+                    // cut-copy-paste on other
+                    menu = new Misc.contextMenu(i18n.__('Cut'), i18n.__('Copy'), i18n.__('Paste'), ev.target.id);
                 }
                 // show our custom menu
                 menu.popup(ev.x, ev.y);
@@ -66,9 +67,10 @@ var boot = {
 
         // build html
         var langs = '';
-        for (var key in osLangs) {
-            langs += '<option value="' + osLangs[key].code + '">' + key + '</option>';
+        for (var key in OSLANGS) {
+            langs += '<option value="' + OSLANGS[key].code + '">' + key + '</option>';
         }
+
         // inject html (new fields) into dropdown
         $('#sublanguageid').append(langs);
     },
@@ -85,6 +87,7 @@ var boot = {
                 preventDefault: function () {}
             });
         }, false);
+
         // subtitle hidden input
         document.querySelector('#subtitle-file-path-hidden').addEventListener('change', function (evt) {
             var file = $('#subtitle-file-path-hidden')[0].files[0];
@@ -97,15 +100,15 @@ var boot = {
         }, false);
 
         // supported file types for "browse" window
-        $('#video-file-path-hidden').attr('accept', files.supported.video.join());
-        $('#subtitle-file-path-hidden').attr('accept', files.supported.subtitle.join());
+        $('#video-file-path-hidden').attr('accept', Files.supported.video.join());
+        $('#subtitle-file-path-hidden').attr('accept', Files.supported.subtitle.join());
     },
 
     // STARTUP: nwjs sometimes can be out of the screen
     checkVisible: function (options) {
         var screen = window.screen;
-        var defaultWidth = pkJson.window.width;
-        var defaultHeight = pkJson.window.height;
+        var defaultWidth = PKJSON.window.width;
+        var defaultHeight = PKJSON.window.height;
 
         // check stored settings or use package.json values
         var width = parseInt(localStorage.width ? localStorage.width : defaultWidth);
@@ -138,7 +141,9 @@ var boot = {
     // STARTUP: if app is portable, load settings from osu.json and write back on exit
     checkPortable: function () {
         // check if app is portable
-        if (!fs.existsSync('./osu.json')) return;
+        if (!fs.existsSync('./osu.json')) {
+            return;
+        }
 
         // load settings
         var settings = require('../osu.json');
@@ -171,6 +176,6 @@ var boot = {
 
     // STARTUP: set up version number in bottom-right corner
     setupVersion: function () {
-        $('.version').text('v' + version + ' - ');
+        $('.version').text('v' + PKJSON.version + ' - ');
     }
 };

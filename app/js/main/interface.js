@@ -1,4 +1,6 @@
-var interface = {
+'use strict';
+
+var Interface = {
 
     // USERINTERACTION: switch between light/dark themes
     switchTheme: function () {
@@ -11,8 +13,7 @@ var interface = {
     // USERINTERACTION: on "browse" button click, invoke hidden input action
     browse: function (type) {
         console.info('Opening File Browser');
-        var input = document.querySelector('#' + type + '-file-path-hidden');
-        input.click();
+        document.querySelector('#' + type + '-file-path-hidden').click();
     },
 
     // USERINTERACTION: adds video file to main interface after analyzis
@@ -29,7 +30,7 @@ var interface = {
                 moviefilename: path.basename(file),
                 moviebytesize: data.moviebytesize,
                 moviehash: data.moviehash,
-                quality: files.extractQuality(path.basename(file))
+                quality: Files.extractQuality(path.basename(file))
             };
             // try to find imdb match in OS api
             return OS.identify(file);
@@ -40,10 +41,10 @@ var interface = {
                 info.imdbid = data.metadata.imdbid;
             }
             // get mediainfo data on the file
-            return files.mediainfo(file);
+            return Files.mediainfo(file);
         }).then(function (metadata) {
-            // fill visible interface with cached data
-            interface.reset('video');
+            // fill visible Interface with cached data
+            Interface.reset('video');
 
             // 1st column with OS data
             $('#video-file-path').val(file);
@@ -67,28 +68,30 @@ var interface = {
             $('.search-imdb i').addClass('fa-circle-o-notch fa-spin').removeClass('fa-search'); // display spinner for little imdb button
             if (info.metadata && info.imdbid) {
                 // OS.identify gave title & imdb id
-                var title = '',
-                    d = info.metadata;
+                var title = '';
+                var d = info.metadata;
+
                 if (d.episode_title) {
-                    title += d.title + ' S' + misc.pad(d.season) + 'E' + misc.pad(d.episode) + ', ' + d.episode_title + ' (' + d.year + ')';
+                    title += d.title + ' S' + Misc.pad(d.season) + 'E' + Misc.pad(d.episode) + ', ' + d.episode_title + ' (' + d.year + ')';
                 } else {
                     title += d.title + ' (' + d.year + ')';
                 }
-                interface.imdbFromSearch(info.imdbid, title);
+
+                Interface.imdbFromSearch(info.imdbid, title);
             } else {
                 // OS.identify gave imdb only, grab title from API
                 if (info.imdbid) {
-                    opensubtitles.imdbMetadata(info.imdbid);
+                    OsActions.imdbMetadata(info.imdbid);
                 } else {
                     // not found with OS.identify, trying harder
                     OS.login().then(function (token) {
                         return OS.api.GuessMovieFromString(token, [info.moviefilename]);
                     }).then(function (res) {
-                        if (res.data && res.data[info.moviefilename] && res.data[info.moviefilename]['BestGuess']) {
+                        if (res.data && res.data[info.moviefilename] && res.data[info.moviefilename].BestGuess) {
                             // OS.api.GuessMovieFromString got info!
-                            var d = res.data[info.moviefilename]['BestGuess'],
-                                id = d['IMDBEpisode'] || d['IDMovieIMDB'];
-                            opensubtitles.imdbMetadata(id);
+                            var d = res.data[info.moviefilename].BestGuess;
+                            var id = d.IMDBEpisode || d.IDMovieIMDB;
+                            OsActions.imdbMetadata(id);
                         } else {
                             // nothing was found, remove spin and leave field empty
                             $('.search-imdb i').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
@@ -101,16 +104,19 @@ var interface = {
             if (!multidrop) {
                 // Hack RegExp, required for special chars
                 RegExp.escape = function (s) {
-                    return String(s).replace(/[\\^$*+?.()|[\]{}]/g, '\\$&');
+                    return String(s).replace(/[\\\^$*+?.()|\[\]{}]/g, '\\$&');
                 };
                 // read directory video is from, looking for sub
                 fs.readdir(path.dirname(file), function (err, f) {
-                    if (err) return;
+                    if (err) {
+                        return;
+                    }
+
                     for (var i = 0; i < f.length; i++) {
-                        if (f[i].slice(0, f[i].length - path.extname(f[i]).length).match(RegExp.escape(path.basename(file).slice(0, path.basename(file).length - path.extname(file).length))) && files.detectFileType(f[i]) === 'subtitle') {
+                        if (f[i].slice(0, f[i].length - path.extname(f[i]).length).match(RegExp.escape(path.basename(file).slice(0, path.basename(file).length - path.extname(file).length))) && Files.detectFileType(f[i]) === 'subtitle') {
                             // if match found, load it :) 
                             console.info('Matching subtitle detected');
-                            interface['add_subtitle'](path.join(path.dirname(file), f[i]));
+                            Interface.add_subtitle(path.join(path.dirname(file), f[i]));
                             break;
                         }
                     }
@@ -121,14 +127,14 @@ var interface = {
             $('#main-video-shadow').css('opacity', '0').hide();
         }).catch(function (err) {
             // something terrible happened during the info extraction process
-            interface.reset('video');
+            Interface.reset('video');
             // hide spinner
             $('#main-video-shadow').css('opacity', '0').hide();
             // notify the error to user
             if (err.body && err.body.match(/50(3|6)/)) {
-                notify.snack(i18n.__('Video cannot be imported because OpenSubtitles could not be reached. Is it online?'), 4500);
+                Notify.snack(i18n.__('Video cannot be imported because OpenSubtitles could not be reached. Is it online?'), 4500);
             } else {
-                notify.snack(i18n.__('Unknown OpenSubtitles related error, please retry later or report the issue'), 4500);
+                Notify.snack(i18n.__('Unknown OpenSubtitles related error, please retry later or report the issue'), 4500);
             }
             console.error(err);
         });
@@ -162,7 +168,7 @@ var interface = {
     // USERINTERACTION: adds subtitle file to main interface after analyzis
     add_subtitle: function (file, multidrop) {
         console.info('Adding new subtitle!');
-        interface.reset('subtitle');
+        Interface.reset('subtitle');
         $('#subtitle-file-path').val(file);
         $('#subfilename').val(path.basename(file));
         // grab md5 hash
@@ -170,64 +176,71 @@ var interface = {
             $('#subhash').val(data);
         });
         // try to detect lang of the subtitle
-        files.detectSubLang();
+        Files.detectSubLang();
     },
 
     // AUTO or USERINTERACTION: resets the interface, erasing values
     reset: function (type) {
-        if (type) console.debug('Clear form:', type);
+        if (type) {
+            console.debug('Clear form:', type);
+        }
+
         switch (type) {
-            case 'video':
-                $('#video-file-path').val('');
-                $('#video-file-path-hidden').val('');
-                $('#moviefilename').val('');
-                $('#moviehash').val('');
-                $('#moviebytesize').val('');
-                $('#imdbid').val('');
-                $('#movieaka').val('');
-                $('#moviereleasename').val('');
-                $('#moviefps').val('');
-                $('#movietimems').val('');
-                $('#movieframes').val('');
+        case 'video':
+            $('#video-file-path').val('');
+            $('#video-file-path-hidden').val('');
+            $('#moviefilename').val('');
+            $('#moviehash').val('');
+            $('#moviebytesize').val('');
+            $('#imdbid').val('');
+            $('#movieaka').val('');
+            $('#moviereleasename').val('');
+            $('#moviefps').val('');
+            $('#movietimems').val('');
+            $('#movieframes').val('');
 
-                $('#highdefinition').prop('checked', false);
-                $('#imdb-info').attr('title', '').hide();
-                $('#main-video').css('border-color', '');
-                if ($('#upload-popup').css('display') === 'block') interface.reset('modal');
-                break;
-            case 'subtitle':
-                $('#subtitle-file-path').val('');
-                $('#subtitle-file-path-hidden').val('');
-                $('#subfilename').val('');
-                $('#subhash').val('');
-                $('#subauthorcomment').val('');
-                $('#subtranslator').val('');
+            $('#highdefinition').prop('checked', false);
+            $('#imdb-info').attr('title', '').hide();
+            $('#main-video').css('border-color', '');
+            if ($('#upload-popup').css('display') === 'block') {
+                Interface.reset('modal');
+            }
+            break;
+        case 'subtitle':
+            $('#subtitle-file-path').val('');
+            $('#subtitle-file-path-hidden').val('');
+            $('#subfilename').val('');
+            $('#subhash').val('');
+            $('#subauthorcomment').val('');
+            $('#subtranslator').val('');
 
-                $('#hearingimpaired').prop('checked', false);
-                $('#automatictranslation').prop('checked', false);
+            $('#hearingimpaired').prop('checked', false);
+            $('#automatictranslation').prop('checked', false);
 
-                $('#sublanguageid').val('');
-                $('#main-subtitle').css('border-color', '');
-                if ($('#upload-popup').css('display') === 'block') interface.reset('modal');
-                interface.restoreLocks();
-                break;
-            case 'search':
-                $('#search-text').val('');
-                $('#search-result').html('');
-                break;
-            case 'modal':
-                $('#modal-content').html('');
-                $('#modal-buttons > div').removeClass('left right').hide();
-                $('#upload-popup').css('opacity', 0).hide();
-                $('#modal-buttons .modal-open').attr('data-url', '');
-                $('#button-upload i').removeClass('fa-check fa-quote-left fa-close').addClass('fa-cloud-upload');
-                break;
-            default:
-                // blank sheet, remove everything
-                interface.reset('video');
-                interface.reset('subtitle');
-                interface.reset('modal');
-                interface.reset('search');
+            $('#sublanguageid').val('');
+            $('#main-subtitle').css('border-color', '');
+            if ($('#upload-popup').css('display') === 'block') {
+                Interface.reset('modal');
+            }
+            Interface.restoreLocks();
+            break;
+        case 'search':
+            $('#search-text').val('');
+            $('#search-result').html('');
+            break;
+        case 'modal':
+            $('#modal-content').html('');
+            $('#modal-buttons > div').removeClass('left right').hide();
+            $('#upload-popup').css('opacity', 0).hide();
+            $('#modal-buttons .modal-open').attr('data-url', '');
+            $('#button-upload i').removeClass('fa-check fa-quote-left fa-close').addClass('fa-cloud-upload');
+            break;
+        default:
+            // blank sheet, remove everything
+            Interface.reset('video');
+            Interface.reset('subtitle');
+            Interface.reset('modal');
+            Interface.reset('search');
         }
     },
 
@@ -235,6 +248,7 @@ var interface = {
     restoreLocks: function () {
         var subauthorcomment = localStorage['lock-subauthorcomment'];
         var subtranslator = localStorage['lock-subtranslator'];
+
         if (subauthorcomment) {
             $('#subauthorcomment').val(subauthorcomment).prop('readonly', true);
             $('#lock-subauthorcomment').addClass('fa-lock').removeClass('fa-unlock');
@@ -273,13 +287,13 @@ var interface = {
     searchPopup: function () {
         console.debug('Opening IMDB search popup');
         // close popup on click elsewhere
-        $(document).bind('mouseup', interface.leavePopup);
+        $(document).bind('mouseup', Interface.leavePopup);
 
-        var begin_title = [],
-            clean_title = [],
-            count = 0,
-            toPush = 0,
-            title = files.clearName($('#moviefilename').val()).split(' ');
+        var begin_title = [];
+        var clean_title = [];
+        var count = 0;
+        var toPush = 0;
+        var title = Files.clearName($('#moviefilename').val()).split(' ');
 
         for (var t in title) {
             if (!title[t].match(/^(the|an|19\d{2}|20\d{2}|a|of|in)$/i)) {
@@ -297,7 +311,7 @@ var interface = {
         $('#search-text').val(begin_title.join(' '));
         $('#search-text').focus();
     },
-    
+
     // USERINTERACTION or AUTO: close imdb search popup
     leavePopup: function (e) {
         if (!$('#search').is(e.target) && $('#search').has(e.target).length === 0) {
@@ -310,16 +324,16 @@ var interface = {
                 height: '20px',
                 top: 'calc(50% - 80px)'
             });
-            interface.reset('search');
+            Interface.reset('search');
             // remove the onclick event defined in searchPopup()
-            $(document).unbind('mouseup', interface.leavePopup);
+            $(document).unbind('mouseup', Interface.leavePopup);
         }
     },
 
     // USERINTERACTION or AUTO: on click a result from imdb search popup, inject imdb id, tooltip text and close popup
     imdbFromSearch: function (id, title) {
         console.debug('Adding IMDB id to main form');
-        
+
         // add leading 'tt'
         id = id > 9999999 ? id : 'tt' + id.toString().replace('tt', ''); // id over 9999999 is not imdb, but custom OS id
 
@@ -331,7 +345,7 @@ var interface = {
         $('.search-imdb i').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
 
         // close popup
-        interface.leavePopup({});
+        Interface.leavePopup({});
     },
 
     // STARTUP: checks imdbid field for manual changes, then verify if new ID is valid
@@ -346,23 +360,24 @@ var interface = {
                 // invalidate cache
                 imdbFocusVal = false;
                 // check new value
-                opensubtitles.imdbMetadata(e.target.value);
+                OsActions.imdbMetadata(e.target.value);
             }
         });
     },
 
     // USERINTERACTION: on 'lock icon' click, stores or cleans field value
     toggleSave: function (el) {
-        var lockId = $(el).attr('id'),
-            fieldId = lockId.substr(5);
-        // if a value was stored
+        var lockId = $(el).attr('id');
+        var fieldId = lockId.substr(5);
+
         if (localStorage[lockId] !== undefined) {
+            // if a value was stored
             $(el).addClass('fa-unlock').removeClass('fa-lock');
             document.getElementById(fieldId).removeAttribute('readonly');
             localStorage.removeItem(lockId);
             console.debug('%s disabled', lockId);
-        // nothing was stored yet
         } else {
+            // nothing was stored yet
             var val = $('#' + fieldId).val();
             if (val) { // sometimes val can be '' empty string
                 $(el).addClass('fa-lock').removeClass('fa-unlock');

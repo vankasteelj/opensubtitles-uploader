@@ -49,11 +49,11 @@ body {
 }
 
 .metadata {
-    border-color: rgba(255,255,255,0.1);
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 .metadata .box-title {
-    border-color: rgba(255,255,255,0.1);
+    border-color: rgba(255, 255, 255, 0.1);
     font-weight: 400;
 }
 
@@ -70,6 +70,7 @@ body {
     color: #f5f7fa;
     background: #343c48;
 }
+
 input#video-file-path,
 input#subtitle-file-path,
 input#login-username,
@@ -150,7 +151,7 @@ input[type=checkbox] {
 
 #button-search {
     color: #bbb;
-    background: rgba(255,255,255,0);
+    background: rgba(255, 255, 255, 0);
 }
 
 #button-search:hover {
@@ -244,12 +245,15 @@ input {
 ::-webkit-input-placeholder {
     color: #a5a9b0;
 }
+
 ::-moz-placeholder {
     color: #a5a9b0;
 }
+
 :-moz-placeholder {
     color: #a5a9b0;
 }
+
 :-ms-input-placeholder {
     color: #a5a9b0;
 }

@@ -35,10 +35,13 @@
     "devDependencies": {
         "del": "2.x.x",
         "gulp": "3.x.x",
+        "gulp-jshint": "2.x.x",
         "gulp-tar": "1.x.x",
         "gulp-gzip": "1.x.x",
         "gulp-zip": "3.x.x",
         "gulp-load-plugins": "1.x.x",
+        "jshint": "2.x.x",
+        "jshint-stylish": "2.x.x",
         "nw-builder": "2.x.x",
         "run-sequence": "1.x.x",
         "yargs": "4.x.x"

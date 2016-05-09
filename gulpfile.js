@@ -106,21 +106,21 @@ const nw = new nwBuilder({
 gulp.task('run', () => {
     return new Promise((resolve, reject) => {
         let platform = parsePlatforms()[0],
-            bin = path.join('cache', nwVersion, platform);        
+            bin = path.join('cache', nwVersion, platform);
 
         // path to nw binary
-        switch(platform.slice(0,3)) {
-            case 'osx':
-                bin += '/nwjs.app/Contents/MacOS/nwjs';
-                break;
-            case 'lin':
-                bin += '/nw';
-                break;
-            case 'win':
-                bin += '/nw.exe';
-                break;
-            default: 
-                reject(new Error('Unsupported %s platform', platform));
+        switch (platform.slice(0, 3)) {
+        case 'osx':
+            bin += '/nwjs.app/Contents/MacOS/nwjs';
+            break;
+        case 'lin':
+            bin += '/nw';
+            break;
+        case 'win':
+            bin += '/nw.exe';
+            break;
+        default:
+            reject(new Error('Unsupported %s platform', platform));
         }
 
         console.log('Running %s from cache', platform);
@@ -139,8 +139,8 @@ gulp.task('run', () => {
         });
 
         child.on('error', (error) => {
-            // nw binary most probably missing
             if (error.code === 'ENOENT') {
+                // nw binary most probably missing
                 console.log('%s is not available in cache. Try running `gulp build` beforehand', platform);
             }
             reject(error);
@@ -376,7 +376,7 @@ gulp.task('portable', () => {
 
             // copy & zip files (include osu.json for portable settings)
             gulp.src([path.join(releasesDir, pkJson.name, platform) + '/**', 'dist/osu.json'])
-                .pipe(glp.zip(pkJson.name+'-'+pkJson.version+'-win32-portable.zip'))
+                .pipe(glp.zip(pkJson.name + '-' + pkJson.version + '-win32-portable.zip'))
                 .pipe(gulp.dest(releasesDir))
                 .on('end', () => {
                     resolve();
@@ -388,13 +388,21 @@ gulp.task('portable', () => {
 // clean mediainfo-wrapper
 gulp.task('clean:mediainfo', () => {
     return Promise.all(nw.options.platforms.map((platform) => {
-        console.log('clean:mediainfo', platform)
+        console.log('clean:mediainfo', platform);
         const sources = path.join(releasesDir, pkJson.name, platform);
         return del([
             path.join(sources, 'node_modules/mediainfo-wrapper/lib/*'),
             path.join(sources, pkJson.name + '.app/Contents/Resources/app.nw/node_modules/mediainfo-wrapper/lib/*'),
-            '!'+path.join(sources, 'node_modules/mediainfo-wrapper/lib/'+platform),
-            '!'+path.join(sources, pkJson.name + '.app/Contents/Resources/app.nw/node_modules/mediainfo-wrapper/lib/'+platform)
+            '!' + path.join(sources, 'node_modules/mediainfo-wrapper/lib/' + platform),
+            '!' + path.join(sources, pkJson.name + '.app/Contents/Resources/app.nw/node_modules/mediainfo-wrapper/lib/' + platform)
         ]);
     }));
+});
+
+// check entire sources for potential coding issues (tweak in .jshintrc)
+gulp.task('jshint', () => {
+    return gulp.src(['gulpfile.js', 'app/js/**/*.js', 'app/js/**/*.js', '!app/js/vendor/*.js'])
+        .pipe(glp.jshint('.jshintrc'))
+        .pipe(glp.jshint.reporter('jshint-stylish'))
+        .pipe(glp.jshint.reporter('fail'));
 });

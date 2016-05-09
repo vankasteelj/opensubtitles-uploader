@@ -555,6 +555,7 @@ input[type=checkbox]:checked:before {
     width: 16px;
     right: 0px;
 }
+
 .dropdown dt a.rotatecarret::before {
     transform: rotate(180deg);
 }

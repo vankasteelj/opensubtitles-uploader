@@ -1,5 +1,8 @@
 /* Buzz Out */
+
+
 /* The MIT License (MIT) - Copyright (c) 2014-2015 Ian Lunn */
+
 @-webkit-keyframes hvr-buzz-out {
     10% {
         -webkit-transform: translateX(3px) rotate(2deg);
@@ -42,6 +45,7 @@
         transform: translateX(-1px) rotate(0);
     }
 }
+
 @keyframes hvr-buzz-out {
     10% {
         -webkit-transform: translateX(3px) rotate(2deg);
@@ -84,16 +88,20 @@
         transform: translateX(-1px) rotate(0);
     }
 }
+
 .buzz {
     -webkit-animation-name: hvr-buzz-out;
     -webkit-animation-duration: 0.75s;
     -webkit-animation-timing-function: linear;
     -webkit-animation-iteration-count: 1;
 }
+
+
 /* Buzz Out - END */
 
 
 /* Pulse */
+
 @-webkit-keyframes pulsate {
     0% {
         opacity: 1.0;
@@ -111,14 +119,18 @@
         opacity: 1.0;
     }
 }
+
 .pulse {
     -webkit-animation: pulsate 3.5s ease-out;
     -webkit-animation-iteration-count: infinite;
 }
+
+
 /* Pulse - END */
 
 
 /* Slide */
+
 @-webkit-keyframes slideNotification {
     0% {
         right: -220px;
@@ -127,12 +139,15 @@
         right: 25px
     }
 }
+
 .slideNotification {
     -webkit-animation-name: slideNotification;
     -webkit-animation-duration: 0.45s;
     -webkit-animation-timing-function: ease-in;
     -webkit-animation-iteration-count: 1;
 }
+
+
 /* Slide - END */
 
 input.warning::-webkit-input-placeholder {

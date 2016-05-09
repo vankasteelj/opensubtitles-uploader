@@ -134,7 +134,7 @@ input[type=checkbox] {
 
 #button-search {
     color: #555;
-    background: rgba(255,255,255,0);
+    background: rgba(255, 255, 255, 0);
 }
 
 #button-search:hover {
@@ -226,12 +226,15 @@ input {
 ::-webkit-input-placeholder {
     color: #aaa;
 }
+
 ::-moz-placeholder {
     color: #aaa;
 }
+
 :-moz-placeholder {
     color: #aaa;
 }
+
 :-ms-input-placeholder {
     color: #aaa;
 }

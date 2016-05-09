@@ -24,7 +24,7 @@
     <script src="js/main/dragdrop.js" type="application/javascript"></script>
     <script src="js/main/files.js" type="application/javascript"></script>
     <script src="js/main/interface.js" type="application/javascript"></script>
-    <script src="js/main/opensubtitles.js" type="application/javascript"></script>
+    <script src="js/main/osactions.js" type="application/javascript"></script>
 
     <script src="js/app.js" type="application/javascript"></script>
 </head>
@@ -36,7 +36,7 @@
     <!-- top space: Upload button, login, lang selector -->
     <section id="main-topbar">
 
-        <div id="button-upload" onClick="opensubtitles.verify()" class="button dominant"><i class="fa fa-cloud-upload">&nbsp;</i>
+        <div id="button-upload" onClick="OsActions.verify()" class="button dominant"><i class="fa fa-cloud-upload">&nbsp;</i>
             <i18n>Upload</i18n>
         </div>
 
@@ -50,14 +50,14 @@
         <div id="authentication">
             <div id="logged" style="display:none">
                 <div id="logged-as">
-                    <i class="fa fa-sign-out tooltipped i18n" onClick="interface.logout()" title="Log out"></i>
+                    <i class="fa fa-sign-out tooltipped i18n" onClick="Interface.logout()" title="Log out"></i>
                     <span class="username"></span>
                 </div>
             </div>
             <div id="not-logged" style="display:block">
                 <input id="login-username" class="i18n" type="text" placeholder="Username">
                 <input id="login-password" class="i18n" type="password" placeholder="Password">
-                <div id="button-login" onClick="opensubtitles.login()" class="button light">
+                <div id="button-login" onClick="OsActions.login()" class="button light">
                     <i18n>Log in</i18n>
                 </div>
             </div>
@@ -71,13 +71,13 @@
     </div>
     <section id="main-video" class="section-file">
 
-        <i class="reset fa fa-trash-o tooltipped i18n" onClick="interface.reset('video')" title="Reset"></i>
+        <i class="reset fa fa-trash-o tooltipped i18n" onClick="Interface.reset('video')" title="Reset"></i>
 
         <div class="input-line">
             <span class="input-file"><i18n>Video file</i18n></span>
             <input id="video-file-path" class="input-input i18n" type="text" placeholder="Drop a video file or select one" readonly>
             <input id="video-file-path-hidden" style="display:none" type="file">
-            <div id="video-browser" onClick="interface.browse('video')" class="button light">
+            <div id="video-browser" onClick="Interface.browse('video')" class="button light">
                 <i18n>browse</i18n>
             </div>
         </div>
@@ -102,9 +102,9 @@
                 </div>
                 <div class="metaitem">
                     <span><i18n>IMDB id</i18n></span>
-                    <i id="imdb-info" class="fa fa-info-circle tooltipped" onClick="misc.openImdb()" imdbid="" title=""></i>
+                    <i id="imdb-info" class="fa fa-info-circle tooltipped" onClick="Misc.openImdb()" imdbid="" title=""></i>
                     <input id="imdbid" type="text">
-                    <span class="search-imdb" onClick="interface.searchPopup()"><i class="fa fa-search tooltipped i18n" title="Search on IMDB directly"></i></span>
+                    <span class="search-imdb" onClick="Interface.searchPopup()"><i class="fa fa-search tooltipped i18n" title="Search on IMDB directly"></i></span>
                 </div>
                 <div class="metaitem">
                     <span><i18n>High definition</i18n></span>
@@ -141,13 +141,13 @@
     <!-- subtitle part -->
     <section id="main-subtitle" class="section-file">
 
-        <i class="reset fa fa-trash-o tooltipped i18n" onClick="interface.reset('subtitle')" title="Reset"></i>
+        <i class="reset fa fa-trash-o tooltipped i18n" onClick="Interface.reset('subtitle')" title="Reset"></i>
 
         <div class="input-line">
             <span class="input-file"><i18n>Subtitle file</i18n></span>
             <input id="subtitle-file-path" class="input-input i18n" type="text" placeholder="Drop a subtitle file or select one" readonly>
             <input id="subtitle-file-path-hidden" style="display:none" type="file">
-            <div id="subtitle-browser" onClick="interface.browse('subtitle')" class="button light">
+            <div id="subtitle-browser" onClick="Interface.browse('subtitle')" class="button light">
                 <i18n>browse</i18n>
             </div>
         </div>
@@ -168,7 +168,7 @@
                 <div class="metaitem">
                     <span><i18n>Language</i18n></span>
                     <select id="sublanguageid" name="language" selected=""></select>
-                    <span class="detect-lang" onClick="files.detectSubLang()">
+                    <span class="detect-lang" onClick="Files.detectSubLang()">
                         <i class="fa fa-flip-horizontal fa-magic tooltipped i18n" title="Auto-detect the language"></i>
                     </span>
                 </div>
@@ -187,7 +187,7 @@
                 </div>
                 <div class="metaitem">
                     <span><i18n>Translator</i18n></span>
-                    <i id="lock-subtranslator" onClick="interface.toggleSave(this)" class="locker fa fa-unlock tooltipped i18n" title="Save between sessions"></i>
+                    <i id="lock-subtranslator" onClick="Interface.toggleSave(this)" class="locker fa fa-unlock tooltipped i18n" title="Save between sessions"></i>
                     <input id="subtranslator" type="text">
                 </div>
             </div>
@@ -195,7 +195,7 @@
             <div class="content col-both">
                 <div class="metaitem">
                     <span><i18n>Comment</i18n></span>
-                    <i id="lock-subauthorcomment" onClick="interface.toggleSave(this)" class="locker fa fa-unlock tooltipped i18n" title="Save between sessions"></i>
+                    <i id="lock-subauthorcomment" onClick="Interface.toggleSave(this)" class="locker fa fa-unlock tooltipped i18n" title="Save between sessions"></i>
                     <textarea id="subauthorcomment" type="text"></textarea>
                 </div>
             </div>
@@ -205,8 +205,8 @@
     <!-- bottom right credits -->
     <div class="app-author">
         <span class="version"></span>
-        <i18n>developped by</i18n> <a onClick="misc.openExternal('https://github.com/vankasteelj')">vankasteelj</a>
-        <span class="fa fa-circle i18n tooltipped" id="switch-theme" onClick="interface.switchTheme()" title="Switch theme"></span>
+        <i18n>developped by</i18n> <a onClick="Misc.openExternal('https://github.com/vankasteelj')">vankasteelj</a>
+        <span class="fa fa-circle i18n tooltipped" id="switch-theme" onClick="Interface.switchTheme()" title="Switch theme"></span>
     </div>
 
     <!-- notification divs (bottom left and slidein) -->
@@ -217,7 +217,7 @@
     <section id="search-popup">
         <div id="search">
             <input id="search-text" class="i18n" type="text" placeholder="Enter a title">
-            <div id="button-search" onClick="opensubtitles.searchImdb()" class="button fa fa-search tooltipped i18n" title="Search"></div>
+            <div id="button-search" onClick="OsActions.searchImdb()" class="button fa fa-search tooltipped i18n" title="Search"></div>
             <div id="search-result"></div>
         </div>
     </section>
@@ -230,19 +230,19 @@
             <div id="modal-line"></div>
             <div id="modal-content"></div>
             <div id="modal-buttons">
-                <div class="button light modal-ok" onClick="interface.reset()">
+                <div class="button light modal-ok" onClick="Interface.reset()">
                     <i18n>OK</i18n>
                 </div>
-                <div class="button light modal-edit" onClick="interface.reset('modal')">
+                <div class="button light modal-edit" onClick="Interface.reset('modal')">
                     <i18n>EDIT</i18n>
                 </div>
-                <div class="button light modal-upload" onClick="opensubtitles.upload()">
+                <div class="button light modal-upload" onClick="OsActions.upload()">
                     <i18n>UPLOAD</i18n>
                 </div>
-                <div class="button light modal-retry" onClick="opensubtitles.upload()">
+                <div class="button light modal-retry" onClick="OsActions.upload()">
                     <i18n>RETRY</i18n>
                 </div>
-                <div class="button light modal-open" onClick="misc.openExternal($(this).attr('data-url'))" data-url="">
+                <div class="button light modal-open" onClick="Misc.openExternal($(this).attr('data-url'))" data-url="">
                     <i18n>OPEN IN BROWSER</i18n>
                 </div>
             </div>
