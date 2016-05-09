@@ -1,32 +1,40 @@
-var dragdrop = {
+'use strict';
+
+var DragDrop = {
 
     // AUTO: turns array of files into an object with only 1 video and 1 sub file
-    analyzeDrop: function (_files) {
+    analyzeDrop: function (files) {
         var f = {};
-        for (var i = 0; i < _files.length; i++) {
+        for (var i = 0; i < files.length; i++) {
             // find first video
-            if (!f.video && files.detectFileType(_files[i].path) === 'video') f.video = _files[i];
+            if (!f.video && Files.detectFileType(files[i].path) === 'video') {
+                f.video = files[i];
+            }
 
             // find first subtitle
-            if (!f.subtitle && files.detectFileType(_files[i].path) === 'subtitle') f.subtitle = _files[i];
+            if (!f.subtitle && Files.detectFileType(files[i].path) === 'subtitle') {
+                f.subtitle = files[i];
+            }
 
             // exit the loop once we have both
-            if (f.subtitle && f.video) break;
+            if (f.subtitle && f.video) {
+                break;
+            }
         }
         return f;
     },
 
     // AUTO: on drop, notify of incompatible file or redirect file(s) to correct functions
-    handleDrop: function (_files) {
+    handleDrop: function (files) {
         // analyzeDrop sent back empty object
-        if (Object.keys(_files).length === 0) {
+        if (Object.keys(files).length === 0) {
             console.debug('Dropped file is not supported');
-            notify.snack(i18n.__('Dropped file is not supported'));
+            Notify.snack(i18n.__('Dropped file is not supported'));
         }
 
-        // pass video and/or sub to main function interface.add_video|add_subtitle
-        for (type in _files) {
-            // hide drag highlight defined in dragdrop.setup
+        // pass video and/or sub to main function Interface.add_video|add_subtitle
+        for (var type in files) {
+            // hide drag highlight defined in DragDrop.setup
             $('.section-file').css('border-color', '');
 
             // bring window on top
@@ -34,11 +42,15 @@ var dragdrop = {
 
             // add to main function
             console.debug('New File:', type, 'dropped');
-            interface['add_' + type](_files[type].path, Object.keys(_files).length === 2);
+            Interface['add_' + type](files[type].path, Object.keys(files).length === 2);
 
             // close popups if needed
-            if ($('#search-popup').css('display') == 'block') interface.leavePopup({});
-            if ($('#upload-popup').css('display') == 'block') interface.reset('modal');
+            if ($('#search-popup').css('display') === 'block') {
+                Interface.leavePopup({});
+            }
+            if ($('#upload-popup').css('display') === 'block') {
+                Interface.reset('modal');
+            }
         }
     },
 
@@ -65,14 +77,14 @@ var dragdrop = {
             var timeout = -1;
 
             $('#drop-mask').on('dragenter', function (e) {
-                // cache files for a second
-                dragdrop.files = [];
+                // cache Files for a second
+                DragDrop.files = [];
 
                 // highlight video or sub interface part based on file extension
                 for (var f in e.originalEvent.dataTransfer.files) {
-                    dragdrop.files[f] = files.detectFileType(e.originalEvent.dataTransfer.files[f].name);
-                    if (dragdrop.files[f]) {
-                        $('#main-' + dragdrop.files[f]).css('border-color', ($('.light').css('background-color') || 'rgb(222, 83, 98)'));
+                    DragDrop.files[f] = Files.detectFileType(e.originalEvent.dataTransfer.files[f].name);
+                    if (DragDrop.files[f]) {
+                        $('#main-' + DragDrop.files[f]).css('border-color', ($('.light').css('background-color') || 'rgb(222, 83, 98)'));
                     }
                 }
             }.bind(this));
@@ -99,7 +111,7 @@ var dragdrop = {
             $('#drop-mask').hide();
 
             // analyze then load file(s)
-            dragdrop.handleDrop(dragdrop.analyzeDrop(e.dataTransfer.files));
+            DragDrop.handleDrop(DragDrop.analyzeDrop(e.dataTransfer.files));
 
             return false;
         };

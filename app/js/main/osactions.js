@@ -1,4 +1,6 @@
-var opensubtitles = {
+'use strict';
+
+var OsActions = {
 
     // USERINTERACTION: log to OS and store creds
     login: function () {
@@ -8,20 +10,20 @@ var opensubtitles = {
 
         // d41d8.. is '' empty string
         if (!username || password === 'd41d8cd98f00b204e9800998ecf8427e') {
-            console.warn('opensubtitles.login() -> no password/username');
+            console.warn('OsActions.login() -> no password/username');
             if (!username) {
-                interface.animate($('#login-username'), 'warning', 1750);
+                Interface.animate($('#login-username'), 'warning', 1750);
             }
             if (password === 'd41d8cd98f00b204e9800998ecf8427e') {
-                interface.animate($('#login-password'), 'warning', 1750);
+                Interface.animate($('#login-password'), 'warning', 1750);
             }
-            interface.animate($('#button-login'), 'buzz', 1000);
+            Interface.animate($('#button-login'), 'buzz', 1000);
             return;
         } else {
             console.debug('Logging in opensubtitles.org API');
 
             // spawn OS object
-            OS = new OpenSubtitles({
+            OS = new openSubtitles({
                 useragent: USERAGENT,
                 ssl: true,
                 username: username,
@@ -33,12 +35,12 @@ var opensubtitles = {
                 if (token) {
                     localStorage.os_user = username;
                     localStorage.os_pw = password;
-                    interface.logged();
+                    Interface.logged();
                 } else {
                     throw 'Unknown error';
                 }
             }).catch(function (err) {
-                console.error('opensubtitles.login()', err);
+                console.error('OsActions.login()', err);
 
                 // cache current html
                 var original = $('#not-logged').html();
@@ -46,7 +48,7 @@ var opensubtitles = {
                 var display_err = err === '401 Unauthorized' ? i18n.__('Wrong username or password') : (err.message || err);
 
                 // overly complicated jquery uglyness to display error, then restore cached html
-                $('#not-logged').html('<div id="logged-as" style="color: #e60000">' + display_err + '</div>' + '<div id="button-login" onClick="opensubtitles.login()" class="button light buzz">' + i18n.__('Log in') + '</div>').delay(1850).queue(function () {
+                $('#not-logged').html('<div id="logged-as" style="color: #e60000">' + display_err + '</div>' + '<div id="button-login" onClick="OsActions.login()" class="button light buzz">' + i18n.__('Log in') + '</div>').delay(1850).queue(function () {
                     $('#not-logged').html(original);
                     $('#login-username').val(username);
                     $('#not-logged').dequeue();
@@ -65,18 +67,18 @@ var opensubtitles = {
         if (localStorage.os_user && localStorage.os_pw) {
             auth.username = localStorage.os_user;
             auth.password = localStorage.os_pw;
-            interface.logged();
+            Interface.logged();
         }
 
-        OS = new OpenSubtitles(auth);
+        OS = new openSubtitles(auth);
     },
 
     // USERINTERACTION: search imdb id through OS api, display results (search imdb popup)
     searchImdb: function () {
         // don't search without query
         if ($('#search-text').val() === '') {
-            interface.animate('#button-search', 'buzz', 1000);
-            interface.animate($('#search-text'), 'warning', 1750);
+            Interface.animate('#button-search', 'buzz', 1000);
+            Interface.animate($('#search-text'), 'warning', 1750);
             return;
         }
 
@@ -102,8 +104,12 @@ var opensubtitles = {
                 // add each possible movie/show/episode to answers
                 var res = response.data;
                 for (var i = 0; i < res.length; i++) {
-                    if (!res[i].id) return;
-                    $('#search-result').append('<li class="result-item" onClick="opensubtitles.imdbMetadata(' + res[i].id + ')">' + res[i].title.replace(/\-$/, '') + '</li>');
+                    if (!res[i].id) {
+                        return;
+                    }
+
+                    // add element to list
+                    $('#search-result').append('<li class="result-item" onClick="OsActions.imdbMetadata(\'' + res[i].id + '\')">' + res[i].title.replace(/\-$/, '') + '</li>');
                 }
 
             } else {
@@ -130,9 +136,21 @@ var opensubtitles = {
 
     // AUTO: grab metadata from OS based on imdb id
     imdbMetadata: function (id) {
+        // close popup if open
+        Interface.leavePopup({});
+
+        // sometimes, ID is not an imdb id
+        if (id > 9999999) {
+            console.debug('OsActions.imdbMetadata(): %s is not a valid imdb id', id);
+            // add os id
+            $('#imdbid').val(id);
+            $('#imdb-info').hide();
+            return;
+        }
+
         OS.login().then(function (token) {
             var imdbid = parseInt(id.toString().replace('tt', ''));
-            
+
             // sometimes imdb could not be a number (and the user could write anything in there, we don't wanna spam the api with useless reqs)
             if (isNaN(imdbid)) {
                 throw 'Wrong IMDB id';
@@ -149,14 +167,14 @@ var opensubtitles = {
                 var text = '';
                 if (response.data.kind === 'episode') {
                     text += response.data.title.split('"')[1];
-                    text += ' S' + misc.pad(response.data.season) + 'E' + misc.pad(response.data.episode);
+                    text += ' S' + Misc.pad(response.data.season) + 'E' + Misc.pad(response.data.episode);
                     text += ' - ' + response.data.title.split('"')[2];
                     text += ' (' + response.data.year + ')';
                 } else {
                     text += response.data.title;
                     text += ' (' + response.data.year + ')';
                 }
-                interface.imdbFromSearch(response.data.id, text);
+                Interface.imdbFromSearch(response.data.id, text);
             } else {
                 throw 'Unknown OpenSubtitles related error, please retry later or report the issue';
             }
@@ -171,7 +189,13 @@ var opensubtitles = {
             $('#imdb-info').hide();
 
             // notify
-            notify.snack(i18n.__(e.message || e), 3500);
+            var error = e.message || e;
+            if (error.match('Unknown XML-RPC tag')) {
+                error = 'OpenSubtitles is temporarily unavailable, please retry in a little while';
+            } else {
+                error = 'Something went wrong :(';
+            }
+            Notify.snack(i18n.__(error), 3500);
         });
     },
 
@@ -181,11 +205,11 @@ var opensubtitles = {
     // USERINTERACTION: checks prerequisites before uploading
     verify: function () {
         // that's right, you can't upload the same sub twice by clicking twice, learnt that the hard way
-        if (opensubtitles.isUploading) {
+        if (OsActions.isUploading) {
             return;
         }
 
-        interface.reset('modal');
+        Interface.reset('modal');
 
         // checks prerequisites
         var required = ['#video-file-path', '#subtitle-file-path'];
@@ -193,36 +217,36 @@ var opensubtitles = {
         for (var r in required) {
             if ($(required[r]).val() === '') {
                 missing++;
-                interface.animate($(required[r]), 'warning', 1750);
+                Interface.animate($(required[r]), 'warning', 1750);
             }
         }
         // alert user if prerequisites aren't met
         if (missing > 0) {
-            interface.animate('#button-upload', 'buzz', 1000);
+            Interface.animate('#button-upload', 'buzz', 1000);
             return;
         }
 
         // OSS suggestion, to better the database quality
         if ($('#imdbid').val() === '') {
-            interface.modal(i18n.__('You haven\'t specified an IMDB id for the video file. It is highly recommended to do so, for correctly categorize the subtitle and make it easy to download.'), 'edit', 'upload');
+            Interface.modal(i18n.__('You haven\'t specified an IMDB id for the video file. It is highly recommended to do so, for correctly categorize the subtitle and make it easy to download.'), 'edit', 'upload');
         } else {
-            opensubtitles.upload();
+            OsActions.upload();
         }
     },
 
     // AUTO or USERINTERACTION: upload subs
     upload: function () {
         // that's right, you can't upload the same sub twice by clicking twice, learnt that the hard way
-        if (opensubtitles.isUploading) {
+        if (OsActions.isUploading) {
             return;
         }
 
-        interface.reset('modal');
+        Interface.reset('modal');
 
         var obj_data = {
             path: $('#video-file-path').val(),
             subpath: $('#subtitle-file-path').val()
-        }
+        };
 
         // load optionnal options in the request
         var optionnal = [
@@ -248,28 +272,29 @@ var opensubtitles = {
         }
 
         console.debug('Trying to upload subtitle...');
-        opensubtitles.isUploading = true;
+        OsActions.isUploading = true;
 
         // button pulsing & spinner showing
         $('#button-upload i, #button-upload span').addClass('pulse');
-        interface.spinner(true);
+        Interface.spinner(true);
 
         // upload flow
         OS.upload(obj_data).then(function (response) {
             // upload done, remove spinner & pulse icon
-            opensubtitles.isUploading = false;
-            interface.spinner(false);
+            OsActions.isUploading = false;
+            Interface.spinner(false);
             $('#button-upload i, #button-upload span').removeClass('pulse');
 
             // check if post request was successfull
             if (response && response.status.match(/200/)) {
-                // req success, but sub was already in DB
                 if (response.alreadyindb === 1) {
+                    // req success, but sub was already in DB
                     console.info('Subtitle already in opensubtitle\'s db');
+
                     var d = response.data;
 
                     // build modal according to response details. somewhat fragile code.
-                    interface.modal(i18n.__('Subtitle was already present in the database') + '.<br><li>' + (d.HashWasAlreadyInDb === 0 ? i18n.__('The hash has been added!') : i18n.__('The hash too...')) + '</li><li>' + (d.MoviefilenameWasAlreadyInDb === 0 ? i18n.__('The file name has been added!') : i18n.__('The file name too...')) + '</li>', 'ok');
+                    Interface.modal(i18n.__('Subtitle was already present in the database') + '.<br><li>' + (d.HashWasAlreadyInDb === 0 ? i18n.__('The hash has been added!') : i18n.__('The hash too...')) + '</li><li>' + (d.MoviefilenameWasAlreadyInDb === 0 ? i18n.__('The file name has been added!') : i18n.__('The file name too...')) + '</li>', 'ok');
 
                     // orange for success but not uploaded
                     $('#modal-line').css('background', '#e69500');
@@ -277,16 +302,16 @@ var opensubtitles = {
                     // icon button update
                     $('#button-upload i').removeClass('fa-cloud-upload').addClass('fa-quote-left');
 
-                // sub was uploaded! yeay
                 } else {
+                    // sub was uploaded! yeay
                     console.info('Subtitle successfully uploaded!');
 
                     // if an url was passed, give user possibility of opening browser
                     if (response.data && response.data !== '') {
                         $('#modal-buttons .modal-open').attr('data-url', response.data);
-                        interface.modal(i18n.__('Subtitle was successfully uploaded!'), 'ok', 'open');
+                        Interface.modal(i18n.__('Subtitle was successfully uploaded!'), 'ok', 'open');
                     } else {
-                        interface.modal(i18n.__('Subtitle was successfully uploaded!'), 'ok');
+                        Interface.modal(i18n.__('Subtitle was successfully uploaded!'), 'ok');
                     }
 
                     // green for success
@@ -301,8 +326,8 @@ var opensubtitles = {
 
         }).catch(function (err) {
             // def not uploading anymore...
-            opensubtitles.isUploading = false;
-            interface.spinner(false);
+            OsActions.isUploading = false;
+            Interface.spinner(false);
             $('#button-upload i, #button-upload span').removeClass('pulse');
 
             console.error(err);
@@ -320,7 +345,7 @@ var opensubtitles = {
             }
 
             // build error modal
-            interface.modal(i18n.__(error), 'ok', 'retry');
+            Interface.modal(i18n.__(error), 'ok', 'retry');
 
             // red for failure. and blood. mostly blood.
             $('#modal-line').css('background', '#e60000');

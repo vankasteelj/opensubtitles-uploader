@@ -1,4 +1,6 @@
-var localization = {
+'use strict';
+
+var Localization = {
 
     // cache
     availableLocales: ['en', 'fr', 'nl', 'pl', 'ro', 'sk'],
@@ -7,20 +9,20 @@ var localization = {
     // STARTUP: load i18n and set locales, then localize app
     setupLocalization: function () {
         // find if one of the available locales is the same as user environment
-        localization.detectLocale();
+        Localization.detectLocale();
 
         // init i18n engine
         i18n.configure({
-            defaultLocale: localization.detectedLocale,
-            locales: localization.availableLocales,
+            defaultLocale: Localization.detectedLocale,
+            locales: Localization.availableLocales,
             directory: './app/localization'
         });
 
         // set lang to stored or detected one
-        i18n.setLocale(localStorage.locale || localization.detectedLocale);
+        i18n.setLocale(localStorage.locale || Localization.detectedLocale);
 
         // localize HTML
-        localization.localizeApp();
+        Localization.localizeApp();
     },
 
     // AUTO: autodetect lang based on OS information
@@ -30,16 +32,13 @@ var localization = {
         // The global language name (without localization, like 'en')
         var baseLanguage = navigator.language.toLowerCase().slice(0, 2);
 
-        var detected;
-        if ($.inArray(pureLanguage, localization.availableLocales) !== -1) {
-            detected = pureLanguage;
-        } else if ($.inArray(baseLanguage, localization.availableLocales) !== -1) {
-            detected = baseLanguage;
+        if ($.inArray(pureLanguage, Localization.availableLocales) !== -1) {
+            Localization.detectedLocale = pureLanguage;
+        } else if ($.inArray(baseLanguage, Localization.availableLocales) !== -1) {
+            Localization.detectedLocale = baseLanguage;
         } else {
-            detected = 'en';
+            Localization.detectedLocale = 'en';
         }
-        // cache it
-        localization.detectedLocale = detected;
     },
 
     // AUTO: translate the HTML based on <i18n> tags and .i18n classes
@@ -63,11 +62,9 @@ var localization = {
         $('.dropdown dt a span').html('<img class="flag" src="images/flags/' + i18n.getLocale() + '.png"/>');
 
         // build dropdown
-        for (var lang in localization.availableLocales) {
-            // build html element
-            var el = '<li><a><img class="flag tooltipped i18n" src="images/flags/' + localization.availableLocales[lang] + '.png" title="' + require('./localization/' + localization.availableLocales[lang] + '.json').currentLang + '"/><span class="value">' + localization.availableLocales[lang] + '</span></a></li>';
+        for (var lang in Localization.availableLocales) {
             // insert element in dropdown
-            $('#app-locale ul').append(el);
+            $('#app-locale ul').append('<li><a><img class="flag tooltipped i18n" src="images/flags/' + Localization.availableLocales[lang] + '.png" title="' + require('./localization/' + Localization.availableLocales[lang] + '.json').currentLang + '"/><span class="value">' + Localization.availableLocales[lang] + '</span></a></li>');
         }
 
         // open/close dropdown on click

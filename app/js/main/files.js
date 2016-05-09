@@ -1,4 +1,6 @@
-var files = {
+'use strict';
+
+var Files = {
 
     // cache: supported extension for each type of file
     supported: {
@@ -9,9 +11,9 @@ var files = {
     // AUTO: detect file type based on its extension
     detectFileType: function (file) {
         var ext = path.extname(file).toLowerCase();
-        if (files.supported.video.indexOf(ext) > -1) {
+        if (Files.supported.video.indexOf(ext) > -1) {
             return 'video';
-        } else if (files.supported.subtitle.indexOf(ext) > -1) {
+        } else if (Files.supported.subtitle.indexOf(ext) > -1) {
             return 'subtitle';
         } else {
             return null;
@@ -56,8 +58,8 @@ var files = {
         var sub = $('#subtitle-file-path').val();
 
         // don't run without subs, even on click
-        if (!sub || sub == '') {
-            interface.animate($('#subtitle-file-path'), 'warning', 1750);
+        if (!sub || sub === '') {
+            Interface.animate($('#subtitle-file-path'), 'warning', 1750);
             return;
         }
         console.info('Detecting subtitle language...');
@@ -82,8 +84,8 @@ var files = {
             $('.detect-lang i').addClass('fa-magic').removeClass('fa-circle-o-notch fa-spin');
 
             // notify
-            notify.snack(i18n.__('Language testing unconclusive, automatic detection failed'), 3800);
-            console.error('files.detectSubLang() error:', err);
+            Notify.snack(i18n.__('Language testing unconclusive, automatic detection failed'), 3800);
+            console.error('Files.detectSubLang() error:', err);
         });
     },
 
@@ -94,23 +96,25 @@ var files = {
             mi(file).then(function (md) {
                 if (md && md[0]) {
                     console.info('MediaInfo data:', md[0]);
+
                     // do we have video track?
                     if (md[0].video) {
                         var video = md[0].video[0];
+                        var tmp;
 
                         // duration
                         if (md[0].general.duration) {
-                            var x = md[0].general.duration[0].split(':');
-                            if (x.length > 1) {
-                                info.duration = x[0] * (1000 * 60 * 60) + x[1] * (1000 * 60) + x[2] * (1000);
+                            tmp = md[0].general.duration[0].split(':');
+                            if (tmp.length > 1) {
+                                info.duration = tmp[0] * (1000 * 60 * 60) + tmp[1] * (1000 * 60) + tmp[2] * (1000);
                             } else {
                                 info.duration = md[0].general.duration[0];
                             }
                         } else {
                             if (video.duration) {
-                                var x = video.duration[0].split(':');
-                                if (x.length > 1) {
-                                    info.duration = x[0] * (1000 * 60 * 60) + x[1] * (1000 * 60) + x[2] * (1000);
+                                tmp = video.duration[0].split(':');
+                                if (tmp.length > 1) {
+                                    info.duration = tmp[0] * (1000 * 60 * 60) + tmp[1] * (1000 * 60) + tmp[2] * (1000);
                                 } else {
                                     info.duration = video.duration[0];
                                 }
@@ -142,12 +146,12 @@ var files = {
                                 info.frame_rate = video.original_frame_rate[0];
                             } else {
                                 if (info.frame_count && info.duration) {
-                                    var x = (info.frame_count[0] / (info.duration[0] / 1000)).toFixed(3);
-                                    if (x.match(/23\.9|24\.0|25\.0|29\.9|30\.0/)) {
-                                        if (x.match(/23\.97/)) {
+                                    tmp = (info.frame_count[0] / (info.duration[0] / 1000)).toFixed(3);
+                                    if (tmp.match(/23\.9|24\.0|25\.0|29\.9|30\.0/)) {
+                                        if (tmp.match(/23\.97/)) {
                                             info.frame_rate = '23.976';
                                         } else {
-                                            info.frame_rate = x;
+                                            info.frame_rate = tmp;
                                         }
                                     }
                                 }
