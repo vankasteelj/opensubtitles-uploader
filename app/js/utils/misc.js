@@ -137,5 +137,48 @@ var Misc = {
     // AUTO: function to always return 2 digits, adding leading 0 if needed
     pad: function (n) {
         return n < 10 ? '0' + n : n;
-    }
+    },
+
+    // AUTO: search trakt for an image
+    traktLookup: function (id) {
+        Misc.isSearchingTrakt = true;
+        console.info('Looking on trakt.tv for a fanart...');
+        return new Promise(function(resolve, reject) {
+            var timeout = 8000;
+            var finished = false;
+
+            setTimeout(function () {
+                if (finished) {
+                    return;
+                }
+                finished = true;
+                resolve(null);
+            }, timeout);
+
+            trakt.search({
+                id_type: 'imdb',
+                id: id
+            }).then(function (res) {
+                if (finished) {
+                    return;
+                } else {
+                    finished = true;
+                }
+                console.debug('Trakt response:', res);
+                if (res[0] && res[0].movie) {
+                    resolve(res[0].movie.images.fanart.medium);
+                } else if (res[0] && res[0].show) {
+                    resolve(res[0].show.images.fanart.medium);
+                } else {
+                    resolve(null);
+                }
+            }).catch(function (error) {
+                console.warn('Unable to get trakt image', error);
+                resolve(null);
+            });
+        });
+    },
+
+    // AUTO: 
+    isSearchingTrakt: false
 };
