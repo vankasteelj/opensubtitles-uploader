@@ -1,7 +1,7 @@
 {
     "name": "opensubtitles-uploader",
     "releaseName": "OpenSubtitles Uploader",
-    "description": "Upload subtitles to OpenSubtitles",
+    "description": "Easily upload your subtitles to OpenSubtitles.org, as simple as drag&drop",
     "license": "GPL-3.0",
     "version": "1.5.0",
     "homepage": "https://github.com/vankasteelj/opensubtitles-uploader",
