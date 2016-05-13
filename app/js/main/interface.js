@@ -63,7 +63,6 @@ var Interface = {
             // extra: HD is hard to autodetect, check again with MediaInfo data
             $('#highdefinition').prop('checked', (metadata.height >= 720 || (metadata.width >= 1280 && metadata.height >= 536))); // cut cinebar can be down to 536px
 
-
             // check IMBB data
             $('.search-imdb i').addClass('fa-circle-o-notch fa-spin').removeClass('fa-search'); // display spinner for little imdb button
             if (info.metadata && info.imdbid) {
@@ -73,6 +72,11 @@ var Interface = {
 
                 if (d.episode_title) {
                     title += d.title + ' S' + Misc.pad(d.season) + 'E' + Misc.pad(d.episode) + ', ' + d.episode_title + ' (' + d.year + ')';
+                    Misc.TmpMetadata = {
+                        episode: d.episode,
+                        season: d.season,
+                        title: d.title
+                    };
                 } else {
                     title += d.title + ' (' + d.year + ')';
                 }
@@ -93,10 +97,14 @@ var Interface = {
                             var d = res.data[info.moviefilename].BestGuess;
                             var id = d.IMDBEpisode || d.IDMovieIMDB;
                             OsActions.imdbMetadata(id);
-                        } else {
+                        } else {                            
                             // nothing was found, remove spin and leave field empty
-                            $('.search-imdb i').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
+                            throw 'nothing was found by GuessMovieFromString';
                         }
+                    }).catch(function (error) {
+                        console.error(error);
+                        $('.search-imdb i').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
+                        $('#main-video-shadow').css('opacity', '0').hide();
                     });
                 }
             }
@@ -124,8 +132,8 @@ var Interface = {
                 });
             }
 
-            // we're done here, spinner can go rest
             if (!Misc.isSearchingTrakt) {
+                // we're done here, spinner can go rest
                 $('#main-video-shadow').css('opacity', '0').hide();
             }
         }).catch(function (err) {
@@ -211,7 +219,7 @@ var Interface = {
                 Interface.reset('modal');
             }
             $('#main-video-img').css('background-image', 'none').hide().css('opacity', '0');
-            $('.input-file, #main-video .reset').removeClass('white-ph');
+            $('#main-video .input-file, #main-video .reset').removeClass('white-ph');
             $('#main-video-placeholder').css('background', 'transparent');
             break;
         case 'subtitle':
@@ -362,6 +370,7 @@ var Interface = {
     // AUTO: displays the image grabbed from trakt
     displayPlaceholder: function (uri) {
         Misc.isSearchingTrakt = false;
+        Misc.TmpMetadata = false;
 
         if (!uri) {
             $('#main-video-shadow').css('opacity', '0').hide();
@@ -377,7 +386,7 @@ var Interface = {
             // inject
             $('#main-video-placeholder').css('background', '#333');
             $('#main-video-img').css('background-image', 'url('+uri+')').show().css('opacity', '0.7');
-            $('.input-file, #main-video .reset').addClass('white-ph');
+            $('#main-video .input-file, #main-video .reset').addClass('white-ph');
             // reset cache
             img = null;
             // hide spin

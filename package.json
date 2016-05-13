@@ -27,7 +27,6 @@
     },
     "dependencies": {
         "opensubtitles-api": "2.x.x",
-        "bluebird": "3.x.x",
         "detect-lang": "0.x.x",
         "i18n": "0.6.x",
         "mediainfo-wrapper": "1.x.x",
