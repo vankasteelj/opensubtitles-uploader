@@ -7,7 +7,8 @@
     <title>OpenSubtitles Uploader</title>
 
     <link rel="icon" type="image/png" href="images/os-icon.png" />
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="css/fonts/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="css/fonts/fira.css" />
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <link rel="stylesheet" type="text/css" href="css/themes/light.css" id="theme" />
     <link rel="stylesheet" type="text/css" href="css/animations.css" />
@@ -49,17 +50,13 @@
 
         <div id="authentication">
             <div id="logged" style="display:none">
-                <div id="logged-as">
-                    <i class="fa fa-sign-out tooltipped i18n" onClick="Interface.logout()" title="Log out"></i>
-                    <span class="username"></span>
-                </div>
+                <i class="icon icon-user"></i><span class="username"></span>
+                <i class="icon icon-logout tooltipped i18n" onClick="Interface.logout()" title="Log out"></i>
             </div>
             <div id="not-logged" style="display:block">
                 <input id="login-username" class="i18n" type="text" placeholder="Username">
                 <input id="login-password" class="i18n" type="password" placeholder="Password">
-                <div id="button-login" onClick="OsActions.login()" class="button light">
-                    <i18n>Log in</i18n>
-                </div>
+                <i class="icon icon-login i18n tooltipped" id="button-login" onClick="OsActions.login()" title="Log in"></i>
             </div>
         </div>
 
@@ -109,7 +106,7 @@
                 <div class="metaitem">
                     <span><i18n>High definition</i18n></span>
                     <input id="highdefinition" type="checkbox">
-                    <img src="./images/hd.gif">
+                    <i class="icon icon-hd"></i>
                 </div>
             </div>
 
@@ -178,12 +175,12 @@
                 <div class="metaitem">
                     <span><i18n>Hearing impaired</i18n></span>
                     <input id="hearingimpaired" type="checkbox">
-                    <img src="./images/hearing_impaired.gif">
+                    <i class="icon icon-impaired"></i>
                 </div>
                 <div class="metaitem">
                     <span><i18n>Auto-translated</i18n></span>
                     <input id="automatictranslation" type="checkbox">
-                    <img src="./images/autotranslation.gif">
+                    <i class="icon icon-machine"></i>
                 </div>
                 <div class="metaitem">
                     <span><i18n>Translator</i18n></span>

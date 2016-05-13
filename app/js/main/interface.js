@@ -147,7 +147,7 @@ var Interface = {
         console.info('Logged in!');
         $('#not-logged').hide();
         $('#logged').show();
-        $('#logged-as .username').text(localStorage.os_user);
+        $('#logged .username').text(localStorage.os_user);
     },
 
     // USERINTERACTION: log out

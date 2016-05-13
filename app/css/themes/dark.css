@@ -24,12 +24,13 @@ body {
     background: #e60000;
 }
 
-#logged-as {
+#logged .username {
     color: #dcdde0;
 }
 
-#logged-as i:hover {
-    color: #de5362;
+.icon-login:hover,
+.icon-logout:hover {
+    opacity: .9;
 }
 
 .reset {
@@ -275,6 +276,6 @@ input {
     color: #eee;
 }
 
-.content img {
+.icon {
     -webkit-filter: invert(100%);
 }
