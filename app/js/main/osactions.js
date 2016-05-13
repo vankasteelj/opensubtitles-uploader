@@ -48,7 +48,7 @@ var OsActions = {
                 var display_err = err === '401 Unauthorized' ? i18n.__('Wrong username or password') : (err.message || err);
 
                 // overly complicated jquery uglyness to display error, then restore cached html
-                $('#not-logged').html('<div id="logged-as" style="color: #e60000">' + display_err + '</div>' + '<div id="button-login" onClick="OsActions.login()" class="button light buzz">' + i18n.__('Log in') + '</div>').delay(1850).queue(function () {
+                $('#not-logged').html('<div id="logged"><span class="username warning">' + display_err + '</span><i class="icon icon-login i18n tooltipped buzz" id="button-login" onClick="OsActions.login()" title="Log in"></i>').delay(1850).queue(function () {
                     $('#not-logged').html(original);
                     $('#login-username').val(username);
                     $('#not-logged').dequeue();
