@@ -334,7 +334,7 @@ var OsActions = {
 
             // try to give user a friendly explaination of what went wrong
             var error;
-            if (err.body && err.body.match(/503/i)) {
+            if ((err.body && err.body.match(/503/i)) || (err.code === 'ETIMEDOUT')) {
                 error = 'OpenSubtitles is temporarily unavailable, please retry in a little while';
             } else if (err.body && err.body.match(/506/i)) {
                 error = 'OpenSubtitles is under maintenance, please retry in a few hours';
