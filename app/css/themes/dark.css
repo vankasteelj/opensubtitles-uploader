@@ -4,6 +4,10 @@ body {
     background: #242a31;
 }
 
+.metadata {
+    background: rgba(36, 42, 49, .8); /* == #242a31 */
+}
+
 .app-author {
     color: #a5a9b0;
 }
@@ -51,15 +55,6 @@ body {
 
 .metadata {
     border-color: rgba(255, 255, 255, 0.1);
-}
-
-.metadata .box-title {
-    border-color: rgba(255, 255, 255, 0.1);
-    font-weight: 400;
-}
-
-.metadata span.box-title {
-    color: #b3b6bc;
 }
 
 .metadata .content .metaitem {

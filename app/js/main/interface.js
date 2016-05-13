@@ -84,6 +84,7 @@ var Interface = {
                     OsActions.imdbMetadata(info.imdbid);
                 } else {
                     // not found with OS.identify, trying harder
+                    Misc.isSearchingTrakt = true;
                     OS.login().then(function (token) {
                         return OS.api.GuessMovieFromString(token, [info.moviefilename]);
                     }).then(function (res) {
@@ -124,7 +125,9 @@ var Interface = {
             }
 
             // we're done here, spinner can go rest
-            $('#main-video-shadow').css('opacity', '0').hide();
+            if (!Misc.isSearchingTrakt) {
+                $('#main-video-shadow').css('opacity', '0').hide();
+            }
         }).catch(function (err) {
             // something terrible happened during the info extraction process
             Interface.reset('video');
@@ -207,6 +210,9 @@ var Interface = {
             if ($('#upload-popup').css('display') === 'block') {
                 Interface.reset('modal');
             }
+            $('#main-video-img').css('background-image', 'none').hide().css('opacity', '0');
+            $('.input-file, #main-video .reset').removeClass('white-ph');
+            $('#main-video-placeholder').css('background', 'transparent');
             break;
         case 'subtitle':
             $('#subtitle-file-path').val('');
@@ -346,8 +352,37 @@ var Interface = {
         // hide spinner for little imdb button, shown in add_video() and imdb udpate
         $('.search-imdb i').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
 
+        // display placeholder
+        Misc.traktLookup(id).then(Interface.displayPlaceholder);
+
         // close popup
         Interface.leavePopup({});
+    },
+
+    // AUTO: displays the image grabbed from trakt
+    displayPlaceholder: function (uri) {
+        Misc.isSearchingTrakt = false;
+
+        if (!uri) {
+            $('#main-video-shadow').css('opacity', '0').hide();
+            return;
+        }
+
+        console.info('Loading image from trakt.tv', uri);
+
+        // preload
+        var img = new Image();
+        img.src = uri;
+        img.onload = function () {
+            // inject
+            $('#main-video-placeholder').css('background', '#333');
+            $('#main-video-img').css('background-image', 'url('+uri+')').show().css('opacity', '0.7');
+            $('.input-file, #main-video .reset').addClass('white-ph');
+            // reset cache
+            img = null;
+            // hide spin
+            $('#main-video-shadow').css('opacity', '0').hide();
+        };
     },
 
     // STARTUP: checks imdbid field for manual changes, then verify if new ID is valid

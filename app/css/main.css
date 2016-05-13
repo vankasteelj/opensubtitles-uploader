@@ -34,13 +34,13 @@
 .icon-impaired {
     position: absolute;
     background-position: -140px 0;
-    margin-top: -2px;
+    margin-top: -3px;
 }
 
 .icon-machine {
     position: absolute;
     background-position: -120px 0;
-    margin-top: -2px;
+    margin-top: -3px;
 }
 
 .icon-hd {
@@ -106,6 +106,7 @@
 .icon-logout {
     float: left;
     margin-left: 8px;
+    margin-right: 8px;
     margin-top: 2px;
     background-position: -60px -60px;
     cursor: pointer;
@@ -116,16 +117,77 @@
 }
 
 .icon-logout:hover {
-    margin-right: -1px;
+    margin-right: 7px;
     margin-left: 9px;
+    transition: all .3s;
 }
 
 .icon-user {
-    background-position: 80px -100px;
     float: left;
     margin-top: 2px;
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 18px;
+    background-position: -120px -100px;
+}
+
+.icon-super-admin {
+    background-position: 0 -80px;
+}
+
+.icon-admin {
+    background-position: -20px -80px;
+}
+
+.icon-admin-warning {
+    background-position: -40px -80px;
+}
+
+.icon-trusted-user {
+    background-position: -80px -80px;
+}
+
+.icon-bronze {
+    background-position: -100px -80px;
+}
+
+.icon-silver {
+    background-position: -120px -80px;
+}
+
+.icon-gold {
+    background-position: -140px -80px;
+}
+
+.icon-platinum {
+    background-position: -160px -80px;
+}
+
+.icon-anonymous {
+    background-position: -180px -80px;
+}
+
+.icon-vip {
+    background-position: 0 -100px;
+}
+
+.icon-vip-plus {
+    background-position: -20px -100px;
+}
+
+.icon-developer {
+    background-position: -40px -100px;
+}
+
+.icon-web-translator {
+    background-position: -60px -100px;
+}
+
+.icon-translator {
+    background-position: -80px -100px;
+}
+
+.icon-downloader {
+    background-position: -100px -100px;
 }
 
 .username {
@@ -147,8 +209,8 @@
     padding-left: 12px;
     /*right: 40px;
     margin-top: -12px;*/
-    right: 105px;
-    margin-top: 75px;
+    right: 50px;
+    margin-top: 0px;
     padding-right: 14px;
     cursor: pointer;
     transition: all .3s;
@@ -187,6 +249,7 @@
     float: left;
     font-size: 13px;
     line-height: 19px;
+    margin-left: -1px;
     border-radius: 0px 3px 3px 0px !important;
 }
 
@@ -198,27 +261,17 @@
 }
 
 .metadata {
-    margin: 45px 50px 0px 50px;
-    width: 750px;
+    margin: 40px 50px 5px 50px;
+    width: 780px;
     border-width: 1px;
     border-style: solid;
     padding: 10px;
-    height: 114px;
-}
-
-.metadata .box-title {
-    font-size: 11px;
-    font-weight: 600;
-    border-width: 1px;
-    border-style: solid;
-    border-bottom: 0px;
-    padding: 2px;
-    margin-top: -27px;
+    height: 118px;
 }
 
 .metadata .content .metaitem {
     margin: 2px 2px 4px 2px;
-    height: 19px;
+    height: 20px;
 }
 
 .metadata .content .metaitem span {
@@ -228,7 +281,7 @@
 }
 
 .metadata .content .metaitem input {
-    margin-left: 100px;
+    margin-left: 110px;
 }
 
 .metadata .content .metaitem input[type="text"] {
@@ -241,7 +294,7 @@
 }
 
 .metadata .content .metaitem .required {
-    margin: 5px 1px 0px 93px;
+    margin: 5px 1px 0px 103px;
 }
 
 .metadata .content .metaitem img {
@@ -291,7 +344,7 @@ input[type=checkbox]:checked:before {
     display: none;
     opacity: 0;
     width: 942px;
-    height: 253px;
+    height: 256px;
     position: absolute;
     margin-left: 33px;
     border-radius: 5px;
@@ -304,6 +357,37 @@ input[type=checkbox]:checked:before {
     margin-left: calc(50% - 25px);
 }
 
+#main-video-img,
+#main-video-placeholder {
+    width: 942px;
+    height: 256px;
+    z-index: -1;
+    position: absolute;
+    margin-left: 33px;
+    border-radius: 5px;
+    transition: all .3s;
+    background-position-y: 10%;
+    background-size: cover;
+}
+
+#main-video-img {
+    display: none;
+    opacity: 0;
+}
+
+.white-ph {
+    color: #fafafa !important;
+    /*used on top of the img*/
+}
+
+#main-video {
+    transition: all .1s;
+}
+
+#main-video .metadata span {
+    margin-top: 3px;
+}
+
 #imdbid {
     width: 210px;
 }
@@ -312,7 +396,7 @@ input[type=checkbox]:checked:before {
     display: none;
     cursor: pointer;
     position: absolute;
-    margin-left: 104px;
+    margin-left: 114px;
     font-size: 14px;
     line-height: 20px;
     margin-top: 1px;
@@ -336,20 +420,22 @@ input[type=checkbox]:checked:before {
 }
 
 #subauthorcomment {
-    width: 640px;
+    width: 660px;
     float: left;
-    margin-left: 100px;
+    margin-left: 110px;
     border-width: 1px;
     border-style: solid;
+    border-radius: 3px;
     resize: none;
 }
 
 #sublanguageid {
-    margin-left: 100px;
+    margin-left: 110px;
     width: 214px;
     padding-left: 5px;
     border-width: 1px;
     border-style: solid;
+    border-radius: 3px;
     text-align: right;
     font-family: 'Fira Sans', sans-serif;
     font-size: 13px;
@@ -360,7 +446,7 @@ input[type=checkbox]:checked:before {
 }
 
 .detect-lang {
-      font-size: 13px !important;
+    font-size: 13px !important;
     padding-left: 12px;
     padding-right: 12px;
     cursor: pointer;
@@ -371,7 +457,7 @@ input[type=checkbox]:checked:before {
     position: absolute;
     font-size: 12px !important;
     margin-top: -1px;
-    margin-left: 82px;
+    margin-left: 92px;
     padding: 5px 5px;
     cursor: pointer;
     transition: all .3s;

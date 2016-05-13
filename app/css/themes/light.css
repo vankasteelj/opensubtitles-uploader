@@ -4,6 +4,10 @@ body {
     background: #fafafa;
 }
 
+.metadata {
+    background: rgba(250, 250, 250, .8); /* == #fafafa */
+}
+
 .app-author {
     color: #555;
 }
@@ -41,10 +45,6 @@ body {
     border-color: #ddd;
 }
 
-.metadata .box-title {
-    border-color: #ddd;
-}
-
 .metadata .content .metaitem {
     color: #333;
 }
@@ -52,6 +52,18 @@ body {
 .metadata .content .metaitem input,
 .metadata .content .metaitem textarea {
     color: #444;
+    background: #fafafa;
+}
+
+input#video-file-path,
+input#subtitle-file-path,
+input#login-username,
+input#login-password,
+textarea#subauthorcomment,
+select#sublanguageid,
+input#search-text {
+    color: #444;
+    background: #fafafa;
 }
 
 .metadata .content .metaitem .required {

@@ -139,6 +139,11 @@ var OsActions = {
         // close popup if open
         Interface.leavePopup({});
 
+        // reset img
+        $('#main-video-img').css('background-image', 'none').hide().css('opacity', '0');
+        $('.input-file, #main-video .reset').removeClass('white-ph');
+        $('#main-video-placeholder').css('background', 'transparent');
+
         // sometimes, ID is not an imdb id
         if (id > 9999999) {
             console.debug('OsActions.imdbMetadata(): %s is not a valid imdb id', id);
