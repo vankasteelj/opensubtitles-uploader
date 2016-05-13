@@ -740,13 +740,11 @@ a {
 
 .dominant {
     font-size: 19px;
-    font-weight: 400;
     padding: 8px 20px;
 }
 
 .light {
     font-size: 13px;
-    font-weight: 400;
 }
 
 input {
