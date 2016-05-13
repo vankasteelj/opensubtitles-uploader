@@ -11,7 +11,6 @@ var spawn = require('child_process').spawn;
 var https = require('https');
 var crypt = require('crypto');
 
-var Promise = require('bluebird');
 var i18n = require('i18n');
 var openSubtitles = require('opensubtitles-api');
 var mi = require('mediainfo-wrapper');

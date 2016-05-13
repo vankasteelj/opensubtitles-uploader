@@ -141,40 +141,52 @@ var Misc = {
 
     // AUTO: search trakt for an image
     traktLookup: function (id) {
+
         Misc.isSearchingTrakt = true;
         console.info('Looking on trakt.tv for a fanart...');
+
         return new Promise(function(resolve, reject) {
-            var timeout = 8000;
-            var finished = false;
-
-            setTimeout(function () {
-                if (finished) {
-                    return;
-                }
-                finished = true;
-                resolve(null);
-            }, timeout);
-
-            trakt.search({
+             trakt.search({
                 id_type: 'imdb',
                 id: id
             }).then(function (res) {
-                if (finished) {
-                    return;
-                } else {
-                    finished = true;
-                }
                 console.debug('Trakt response:', res);
                 if (res[0] && res[0].movie) {
                     resolve(res[0].movie.images.fanart.medium);
                 } else if (res[0] && res[0].show) {
                     resolve(res[0].show.images.fanart.medium);
                 } else {
-                    resolve(null);
+                    if (Misc.TmpMetadata) {
+                        trakt.shows.summary({
+                            id: unescape(Misc.TmpMetadata.title).replace(/\W/g, '-'),
+                            extended: 'images'
+                        }).then(function (res) {
+                            console.debug('Trakt response:', res);
+                            resolve(res.images.fanart.medium);
+                        }).catch(function (error) {
+                            console.warn('Unable to get trakt image', error);
+                            resolve(null);
+                        });
+                    } else {
+                        resolve(null);
+                    }
                 }
             }).catch(function (error) {
-                console.warn('Unable to get trakt image', error);
-                resolve(null);
+                if (Misc.TmpMetadata) {
+                    trakt.shows.summary({
+                        id: unescape(Misc.TmpMetadata.title).replace(/\W/g, '-'),
+                        extended: 'images'
+                    }).then(function (res) {
+                        console.debug('Trakt response:', res);
+                        resolve(res.images.fanart.medium);
+                    }).catch(function (error) {
+                        console.warn('Unable to get trakt image', error);
+                        resolve(null);
+                    });
+                } else {
+                    console.warn('Unable to get trakt image', error);
+                    resolve(null);
+                }
             });
         });
     },

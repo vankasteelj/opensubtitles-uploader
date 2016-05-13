@@ -141,7 +141,7 @@ var OsActions = {
 
         // reset img
         $('#main-video-img').css('background-image', 'none').hide().css('opacity', '0');
-        $('.input-file, #main-video .reset').removeClass('white-ph');
+        $('#main-video .input-file, #main-video .reset').removeClass('white-ph');
         $('#main-video-placeholder').css('background', 'transparent');
 
         // sometimes, ID is not an imdb id
@@ -175,6 +175,11 @@ var OsActions = {
                     text += ' S' + Misc.pad(response.data.season) + 'E' + Misc.pad(response.data.episode);
                     text += ' - ' + response.data.title.split('"')[2];
                     text += ' (' + response.data.year + ')';
+                    Misc.TmpMetadata = {
+                        title: response.data.title.split('"')[1],
+                        episode: response.data.episode,
+                        season: response.data.season
+                    };
                 } else {
                     text += response.data.title;
                     text += ' (' + response.data.year + ')';
