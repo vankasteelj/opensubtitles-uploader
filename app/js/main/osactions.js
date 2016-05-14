@@ -222,7 +222,7 @@ var OsActions = {
         Interface.reset('modal');
 
         // checks prerequisites
-        var required = ['#video-file-path', '#subtitle-file-path'];
+        var required = ['#subtitle-file-path'];
         var missing = 0;
         for (var r in required) {
             if ($(required[r]).val() === '') {
