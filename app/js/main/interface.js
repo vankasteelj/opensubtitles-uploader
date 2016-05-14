@@ -159,7 +159,7 @@ var Interface = {
             Interface.reset('video');
 
             // notify the error to user
-            if ((err.body && err.body.match(/503)/)) || (err.toString().match(/503/)) || (err.code === 'ETIMEDOUT')) {
+            if ((err.body && err.body.match(/503/)) || (err.toString().match(/503/)) || (err.code === 'ETIMEDOUT')) {
                 Notify.snack(i18n.__('Video cannot be imported because OpenSubtitles could not be reached. Is it online?'), 4500);
             } else if ((err.body && err.body.match(/506/i)) || (err.toString().match(/506/))) {
                 Notify.snack(i18n.__('OpenSubtitles is under maintenance, please retry in a few hours'), 4500);
