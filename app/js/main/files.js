@@ -127,6 +127,27 @@ var Files = {
         });
     },
 
+    // AUTO: auto-detects if subtitle is foreign parts only
+    detectForeignOnly: function () {
+        var sub = $('#subtitle-file-path').val();
+        console.info('Detecting if subtitle is foreign only...');
+        var filename = path.basename(sub);
+
+        if (filename.match(/\Wforced\W/i) || (filename.match(/\Wparts/i) && filename.match(/non\W|foreign/i))) {
+            // check if filename contains keyword
+            console.info('\'foreign parts only\' keyword(s) detected in subtitle name');
+            $('#foreignpartsonly').prop('checked', true);
+        } else {
+            // check if subtitle size is less than a few kb
+            var minSize = 5000;
+            var size = fs.statSync($('#subtitle-file-path').val()).size;
+            if (size < minSize) {
+                console.info('subtitle file is less than %d bytes, assuming foreign pars only', minSize);
+                $('#foreignpartsonly').prop('checked', true);
+            }
+        }
+    },
+
     // AUTO: spawn mediainfo binaries, grab info about video file and analyze them
     mediainfo: function (file) {
         return new Promise(function (resolve, reject) {

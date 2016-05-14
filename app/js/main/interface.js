@@ -211,6 +211,8 @@ var Interface = {
         Files.detectMachineTranslated();
         // try to detect sound description
         Files.detectSoundDescriptions();
+        // try to detect sound description
+        Files.detectForeignOnly();
 
         // auto-detect matching video if the user didn't drop both video+text files
         if (!multidrop) {
