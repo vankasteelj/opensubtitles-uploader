@@ -31,7 +31,7 @@
     "dependencies": {
         "opensubtitles-api": "2.x.x",
         "detect-lang": "0.x.x",
-        "i18n": "0.6.x",
+        "i18n": "0.x.x",
         "mediainfo-wrapper": "1.x.x",
         "trakt.tv": "1.x.x"
     },
