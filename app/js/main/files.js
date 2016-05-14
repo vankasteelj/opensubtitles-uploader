@@ -111,6 +111,22 @@ var Files = {
         }
     },
 
+    // AUTO: auto-detects if subtitle contains sound description (for hearing impaired)
+    detectSoundDescriptions: function () {
+        var sub = $('#subtitle-file-path').val();
+        console.info('Detecting if subtitle contains sounds description...');
+
+        fs.readFile(sub, function (err, data) {
+            var content = data.toString();
+            var matcher = content.match(/\(.+\)/g);
+            var numParenthesis = 10;
+            if (matcher && matcher.length > numParenthesis) {
+                console.info('More than %d parenthesis detected in subtitle content, assuming hearing impaired', numParenthesis);
+                $('#hearingimpaired').prop('checked', true);
+            }
+        });
+    },
+
     // AUTO: spawn mediainfo binaries, grab info about video file and analyze them
     mediainfo: function (file) {
         return new Promise(function (resolve, reject) {
