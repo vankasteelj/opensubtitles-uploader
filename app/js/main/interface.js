@@ -207,6 +207,8 @@ var Interface = {
         });
         // try to detect lang of the subtitle
         Files.detectSubLang();
+        // try to detect auto-translated
+        Files.detectMachineTranslated();
 
         // auto-detect matching video if the user didn't drop both video+text files
         if (!multidrop) {

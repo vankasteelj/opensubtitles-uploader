@@ -89,6 +89,28 @@ var Files = {
         });
     },
 
+    // AUTO: auto-detects if subtitle was translated by a machine
+    detectMachineTranslated: function () {
+        var sub = $('#subtitle-file-path').val();
+        console.info('Detecting if subtitle was machine translated...');
+        var filename = path.basename(sub);
+
+        if ((filename.match(/auto/i) && filename.match(/translated/i)) || (filename.match(/babel/i) && filename.match(/fish/i)) || (filename.match(/google/i) && filename.match(/translate/i)) || (filename.match(/bing/i) && filename.match(/translation/i))) {
+            // check if filename contains keywords
+            console.info('Machine translation keywords detected in: subtitle name');
+            $('#automatictranslation').prop('checked', true);
+        } else {
+            // check if content contains them
+            fs.readFile(sub, function (err, data) {
+                var content = data.toString();
+                if ((content.match(/auto/i) && content.match(/translated/i)) || (content.match(/babel/i) && content.match(/fish/i)) || (content.match(/google/i) && content.match(/translate/i)) || (content.match(/bing/i) && content.match(/translation/i))) {
+                    console.info('Machine translation keywords detected in: subtitle content');
+                    $('#automatictranslation').prop('checked', true);
+                }
+            });
+        }
+    },
+
     // AUTO: spawn mediainfo binaries, grab info about video file and analyze them
     mediainfo: function (file) {
         return new Promise(function (resolve, reject) {
