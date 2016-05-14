@@ -158,7 +158,7 @@ var Misc = {
                 } else {
                     if (Misc.TmpMetadata) {
                         trakt.shows.summary({
-                            id: unescape(Misc.TmpMetadata.title).replace(/\W/g, '-'),
+                            id: Misc.TmpMetadata.title.replace(/\W/g, '-'),
                             extended: 'images'
                         }).then(function (res) {
                             console.debug('Trakt response:', res);
@@ -174,7 +174,7 @@ var Misc = {
             }).catch(function (error) {
                 if (Misc.TmpMetadata) {
                     trakt.shows.summary({
-                        id: unescape(Misc.TmpMetadata.title).replace(/\W/g, '-'),
+                        id: Misc.TmpMetadata.title.replace(/\W/g, '-'),
                         extended: 'images'
                     }).then(function (res) {
                         console.debug('Trakt response:', res);
