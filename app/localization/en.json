@@ -64,5 +64,9 @@
 	"IMDB id": "IMDB id",
 	"Switch theme": "Switch theme",
 	"The subtitle has invalid format, review it before uploading to OpenSubtitles (try removing URL that might be considered as advertising for a third party website)": "The subtitle has invalid format, review it before uploading to OpenSubtitles (try removing URL that might be considered as advertising for a third party website)",
+	"The subtitle file contains sounds description": "The subtitle file contains sounds description",
+	"The subtitles were translated automatically by a machine": "The subtitles were translated automatically by a machine",
+    "Foreign parts only": "Foreign parts only",
+    "The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings": "The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings",
 	"": ""
 }

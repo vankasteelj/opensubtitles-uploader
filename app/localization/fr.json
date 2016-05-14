@@ -64,5 +64,9 @@
 	"IMDB id": "IMDB",
 	"Switch theme": "Changer de thème",
 	"The subtitle has invalid format, review it before uploading to OpenSubtitles (try removing URL that might be considered as advertising for a third party website)": "Le fichier de sous-titres présente un problème de format. Veuillez le vérifier avant de l'envoyer à OpenSubtitles (essayez en retirant tout hyperlien pouvant être considéré comme de la publicité)",
+	"The subtitle file contains sounds description": "Les sous-titres contiennent une description des sons",
+	"The subtitles were translated automatically by a machine": "Les sous-titres ont été traduits automatiquement par une machine",
+	"Foreign parts only": "Autres langues",
+	"The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings": "Les sous-titres ne traduisent que les langues non-principales du scénario, par exemple l'elfe et l'orc dans le Seigneur des Anneaux",
 	"": ""
 }
