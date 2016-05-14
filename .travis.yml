@@ -3,3 +3,5 @@ node_js:
   - "4"
 before_install:
   - npm install -g gulp-cli
+notifications:
+  email: false
