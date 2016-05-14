@@ -150,6 +150,25 @@
         </div>
 
         <div class="metadata">
+
+            <div class="content col-row">
+                <div class="metaitem">
+                    <span><i18n>Hearing impaired</i18n></span>
+                    <input id="hearingimpaired" type="checkbox">
+                    <i class="icon icon-impaired tooltipped i18n" title="The subtitle file contains sounds description"></i>
+                </div>
+                <div class="metaitem">
+                    <span><i18n>Auto-translated</i18n></span>
+                    <input id="automatictranslation" type="checkbox">
+                    <i class="icon icon-machine tooltipped i18n" title="The subtitles were translated automatically by a machine"></i>
+                </div>
+                <div class="metaitem">
+                    <span><i18n>Foreign parts only</i18n></span>
+                    <input id="foreignpartsonly" type="checkbox">
+                    <i class="icon icon-foreign tooltipped i18n" title="The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings"></i>
+                </div>
+            </div>
+
             <div class="content col-left">
                 <div class="metaitem">
                     <span><i18n>File name</i18n></span>
@@ -161,25 +180,15 @@
                     <span class="required">*</span>
                     <input id="subhash" type="text" readonly>
                 </div>
+            </div>
+
+            <div class="content col-right">
                 <div class="metaitem">
                     <span><i18n>Language</i18n></span>
                     <select id="sublanguageid" name="language" selected=""></select>
                     <span class="detect-lang" onClick="Files.detectSubLang()">
                         <i class="fa fa-flip-horizontal fa-magic tooltipped i18n" title="Auto-detect the language"></i>
                     </span>
-                </div>
-            </div>
-
-            <div class="content col-right">
-                <div class="metaitem">
-                    <span><i18n>Hearing impaired</i18n></span>
-                    <input id="hearingimpaired" type="checkbox">
-                    <i class="icon icon-impaired tooltipped i18n" title="The subtitle file contains sounds description"></i>
-                </div>
-                <div class="metaitem">
-                    <span><i18n>Auto-translated</i18n></span>
-                    <input id="automatictranslation" type="checkbox">
-                    <i class="icon icon-machine tooltipped i18n" title="The subtitles were translated automatically by a machine"></i>
                 </div>
                 <div class="metaitem">
                     <span><i18n>Translator</i18n></span>
@@ -195,6 +204,7 @@
                     <textarea id="subauthorcomment" type="text"></textarea>
                 </div>
             </div>
+
         </div>
     </section>
 

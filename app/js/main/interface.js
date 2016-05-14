@@ -272,6 +272,7 @@ var Interface = {
 
             $('#hearingimpaired').prop('checked', false);
             $('#automatictranslation').prop('checked', false);
+            $('#foreignpartsonly').prop('checked', false);
 
             $('#sublanguageid').val('');
             $('#main-subtitle').css('border-color', '');

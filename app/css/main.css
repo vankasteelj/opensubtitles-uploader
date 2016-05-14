@@ -43,6 +43,12 @@
     margin-top: -3px;
 }
 
+.icon-foreign {
+    position: absolute;
+    background-position: -160px -40px;
+    margin-top: -3px;
+}
+
 .icon-hd {
     position: absolute;
     background-position: 80px 80px;
@@ -269,6 +275,10 @@
     height: 118px;
 }
 
+.metadata .content {
+    width: 360px;
+}
+
 .metadata .content .metaitem {
     margin: 2px 2px 4px 2px;
     height: 20px;
@@ -312,6 +322,20 @@
 
 .col-both {
     clear: both;
+}
+
+.col-row {
+    display: flex;
+    position: absolute;
+    width: 82% !important;
+    margin: 0 auto;
+    margin-top: -34px;
+}
+
+.col-row .metaitem {
+    width: 23%;
+    margin-left: 5% !important;
+    margin-right: 5%!important;
 }
 
 .col-both input {
@@ -416,7 +440,8 @@ input[type=checkbox]:checked:before {
  */
 
 #main-subtitle .metadata {
-    height: 110px;
+    height: 90px;
+    margin: 55px 50px 5px 50px;
 }
 
 #subauthorcomment {

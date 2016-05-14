@@ -270,6 +270,7 @@ var OsActions = {
             '#movieframes',
             '#movietimems',
             '#automatictranslation',
+            '#foreignpartsonly',
             '#subauthorcomment',
             '#subtranslator'
          ];
