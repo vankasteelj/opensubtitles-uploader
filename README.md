@@ -10,7 +10,7 @@ _Built with love and ducktape in HTML5 and Node.js._
 
 **Download the [latest version](https://github.com/vankasteelj/opensubtitles-uploader/releases), for Windows/OSX/Linux !**
 
-![ui](https://cloud.githubusercontent.com/assets/12599850/15262361/25d0ae66-1962-11e6-8431-d2d138722e0d.png)
+![ui](https://cloud.githubusercontent.com/assets/12599850/15271128/aaa81de4-1a3a-11e6-8b05-7aba496c0d2f.png)
 
 Confused? Wondering how to use it? Watch the [tutorial video](http://www.youtube.com/watch?v=jrIgL8kwBdI) on Youtube!
 
