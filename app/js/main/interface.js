@@ -18,11 +18,13 @@ var Interface = {
 
     // USERINTERACTION: adds video file to main interface after analyzis
     add_video: function (file, multidrop) {
-        console.info('Adding new video!');
-        // show spinner
-        $('#main-video-shadow').show().css('opacity', '1');
-
         var info = {};
+
+        // show spinner early if no video is there, we'll check for duplicate later
+        if(!$('#moviehash').val()) {
+            $('#main-video-shadow').show().css('opacity', '1');
+        }
+
         // extract info form video file
         OS.extractInfo(file).then(function (data) {
             // cache results
@@ -32,8 +34,16 @@ var Interface = {
                 moviehash: data.moviehash,
                 quality: Files.extractQuality(path.basename(file))
             };
-            // try to find imdb match in OS api
-            return OS.identify(file);
+            if (info.moviehash === $('#moviehash').val()) {
+                throw 'already_present';
+            } else {
+                console.info('Adding new video!');
+                // show spinner
+                $('#main-video-shadow').show().css('opacity', '1');
+
+                // try to find imdb match in OS api
+                return OS.identify(file);
+            }
         }).then(function (data) {
             // cache results
             if (data.metadata && data.metadata.imdbid) {
@@ -125,7 +135,7 @@ var Interface = {
                         if (f[i].slice(0, f[i].length - path.extname(f[i]).length).match(RegExp.escape(path.basename(file).slice(0, path.basename(file).length - path.extname(file).length))) && Files.detectFileType(f[i]) === 'subtitle') {
                             // if match found, load it :) 
                             console.info('Matching subtitle detected');
-                            Interface.add_subtitle(path.join(path.dirname(file), f[i]));
+                            Interface.add_subtitle(path.join(path.dirname(file), f[i]), true);
                             break;
                         }
                     }
@@ -137,10 +147,17 @@ var Interface = {
                 $('#main-video-shadow').css('opacity', '0').hide();
             }
         }).catch(function (err) {
-            // something terrible happened during the info extraction process
-            Interface.reset('video');
             // hide spinner
             $('#main-video-shadow').css('opacity', '0').hide();
+
+            // is it because file was already analyzed?
+            if (err === 'already_present') {
+                return;
+            }
+
+            // something terrible happened during the info extraction process
+            Interface.reset('video');
+
             // notify the error to user
             if ((err.body && err.body.match(/503)/)) || (err.toString().match(/503/)) || (err.code === 'ETIMEDOUT')) {
                 Notify.snack(i18n.__('Video cannot be imported because OpenSubtitles could not be reached. Is it online?'), 4500);
@@ -190,6 +207,29 @@ var Interface = {
         });
         // try to detect lang of the subtitle
         Files.detectSubLang();
+
+        // auto-detect matching video if the user didn't drop both video+text files
+        if (!multidrop) {
+            // Hack RegExp, required for special chars
+            RegExp.escape = function (s) {
+                return String(s).replace(/[\\\^$*+?.()|\[\]{}]/g, '\\$&');
+            };
+            // read directory video is from, looking for sub
+            fs.readdir(path.dirname(file), function (err, f) {
+                if (err) {
+                    return;
+                }
+
+                for (var i = 0; i < f.length; i++) {
+                    if (f[i].slice(0, f[i].length - path.extname(f[i]).length).match(RegExp.escape(path.basename(file).slice(0, path.basename(file).length - (path.extname(file).length + 8)))) && Files.detectFileType(f[i]) === 'video') {
+                        // if match found, load it :) 
+                        console.info('Matching video detected');
+                        Interface.add_video(path.join(path.dirname(file), f[i]), true);
+                        break;
+                    }
+                }
+            });
+        }
     },
 
     // AUTO or USERINTERACTION: resets the interface, erasing values
