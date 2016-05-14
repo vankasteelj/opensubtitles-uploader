@@ -1,11 +1,14 @@
 {
     "name": "opensubtitles-uploader",
     "releaseName": "OpenSubtitles Uploader",
-    "description": "Upload subtitles to OpenSubtitles",
+    "description": "Easily upload your subtitles to OpenSubtitles.org, as simple as drag&drop",
     "license": "GPL-3.0",
     "version": "1.5.0",
     "homepage": "https://github.com/vankasteelj/opensubtitles-uploader",
     "releases": "https://github.com/vankasteelj/opensubtitles-uploader/releases",
+    "scripts": {
+        "test": "gulp jshint"
+    },
     "author": {
         "name": "vankasteelj",
         "email": "vankasteelj@gmail.com"
@@ -27,10 +30,10 @@
     },
     "dependencies": {
         "opensubtitles-api": "2.x.x",
-        "bluebird": "3.x.x",
         "detect-lang": "0.x.x",
         "i18n": "0.6.x",
-        "mediainfo-wrapper": "1.x.x"
+        "mediainfo-wrapper": "1.x.x",
+        "trakt.tv": "1.x.x"
     },
     "devDependencies": {
         "del": "2.x.x",

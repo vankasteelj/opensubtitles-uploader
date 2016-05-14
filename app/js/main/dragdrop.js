@@ -84,7 +84,7 @@ var DragDrop = {
                 for (var f in e.originalEvent.dataTransfer.files) {
                     DragDrop.files[f] = Files.detectFileType(e.originalEvent.dataTransfer.files[f].name);
                     if (DragDrop.files[f]) {
-                        $('#main-' + DragDrop.files[f]).css('border-color', ($('.light').css('background-color') || 'rgb(222, 83, 98)'));
+                        $('#main-' + DragDrop.files[f]).css('border-color', $('.dominant').css('background-color'));
                     }
                 }
             }.bind(this));

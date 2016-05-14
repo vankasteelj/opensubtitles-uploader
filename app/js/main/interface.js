@@ -18,11 +18,13 @@ var Interface = {
 
     // USERINTERACTION: adds video file to main interface after analyzis
     add_video: function (file, multidrop) {
-        console.info('Adding new video!');
-        // show spinner
-        $('#main-video-shadow').show().css('opacity', '1');
-
         var info = {};
+
+        // show spinner early if no video is there, we'll check for duplicate later
+        if(!$('#moviehash').val()) {
+            $('#main-video-shadow').show().css('opacity', '1');
+        }
+
         // extract info form video file
         OS.extractInfo(file).then(function (data) {
             // cache results
@@ -32,8 +34,16 @@ var Interface = {
                 moviehash: data.moviehash,
                 quality: Files.extractQuality(path.basename(file))
             };
-            // try to find imdb match in OS api
-            return OS.identify(file);
+            if (info.moviehash === $('#moviehash').val()) {
+                throw 'already_present';
+            } else {
+                console.info('Adding new video!');
+                // show spinner
+                $('#main-video-shadow').show().css('opacity', '1');
+
+                // try to find imdb match in OS api
+                return OS.identify(file);
+            }
         }).then(function (data) {
             // cache results
             if (data.metadata && data.metadata.imdbid) {
@@ -63,7 +73,6 @@ var Interface = {
             // extra: HD is hard to autodetect, check again with MediaInfo data
             $('#highdefinition').prop('checked', (metadata.height >= 720 || (metadata.width >= 1280 && metadata.height >= 536))); // cut cinebar can be down to 536px
 
-
             // check IMBB data
             $('.search-imdb i').addClass('fa-circle-o-notch fa-spin').removeClass('fa-search'); // display spinner for little imdb button
             if (info.metadata && info.imdbid) {
@@ -73,6 +82,11 @@ var Interface = {
 
                 if (d.episode_title) {
                     title += d.title + ' S' + Misc.pad(d.season) + 'E' + Misc.pad(d.episode) + ', ' + d.episode_title + ' (' + d.year + ')';
+                    Misc.TmpMetadata = {
+                        episode: d.episode,
+                        season: d.season,
+                        title: d.title
+                    };
                 } else {
                     title += d.title + ' (' + d.year + ')';
                 }
@@ -84,6 +98,7 @@ var Interface = {
                     OsActions.imdbMetadata(info.imdbid);
                 } else {
                     // not found with OS.identify, trying harder
+                    Misc.isSearchingTrakt = true;
                     OS.login().then(function (token) {
                         return OS.api.GuessMovieFromString(token, [info.moviefilename]);
                     }).then(function (res) {
@@ -92,10 +107,14 @@ var Interface = {
                             var d = res.data[info.moviefilename].BestGuess;
                             var id = d.IMDBEpisode || d.IDMovieIMDB;
                             OsActions.imdbMetadata(id);
-                        } else {
+                        } else {                            
                             // nothing was found, remove spin and leave field empty
-                            $('.search-imdb i').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
+                            throw 'nothing was found by GuessMovieFromString';
                         }
+                    }).catch(function (error) {
+                        console.error(error);
+                        $('.search-imdb i').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
+                        $('#main-video-shadow').css('opacity', '0').hide();
                     });
                 }
             }
@@ -116,23 +135,34 @@ var Interface = {
                         if (f[i].slice(0, f[i].length - path.extname(f[i]).length).match(RegExp.escape(path.basename(file).slice(0, path.basename(file).length - path.extname(file).length))) && Files.detectFileType(f[i]) === 'subtitle') {
                             // if match found, load it :) 
                             console.info('Matching subtitle detected');
-                            Interface.add_subtitle(path.join(path.dirname(file), f[i]));
+                            Interface.add_subtitle(path.join(path.dirname(file), f[i]), true);
                             break;
                         }
                     }
                 });
             }
 
-            // we're done here, spinner can go rest
-            $('#main-video-shadow').css('opacity', '0').hide();
+            if (!Misc.isSearchingTrakt) {
+                // we're done here, spinner can go rest
+                $('#main-video-shadow').css('opacity', '0').hide();
+            }
         }).catch(function (err) {
-            // something terrible happened during the info extraction process
-            Interface.reset('video');
             // hide spinner
             $('#main-video-shadow').css('opacity', '0').hide();
+
+            // is it because file was already analyzed?
+            if (err === 'already_present') {
+                return;
+            }
+
+            // something terrible happened during the info extraction process
+            Interface.reset('video');
+
             // notify the error to user
-            if (err.body && err.body.match(/50(3|6)/)) {
+            if ((err.body && err.body.match(/503/)) || (err.toString().match(/503/)) || (err.code === 'ETIMEDOUT')) {
                 Notify.snack(i18n.__('Video cannot be imported because OpenSubtitles could not be reached. Is it online?'), 4500);
+            } else if ((err.body && err.body.match(/506/i)) || (err.toString().match(/506/))) {
+                Notify.snack(i18n.__('OpenSubtitles is under maintenance, please retry in a few hours'), 4500);
             } else {
                 Notify.snack(i18n.__('Unknown OpenSubtitles related error, please retry later or report the issue'), 4500);
             }
@@ -145,7 +175,7 @@ var Interface = {
         console.info('Logged in!');
         $('#not-logged').hide();
         $('#logged').show();
-        $('#logged-as .username').text(localStorage.os_user);
+        $('#logged .username').text(localStorage.os_user);
     },
 
     // USERINTERACTION: log out
@@ -177,6 +207,29 @@ var Interface = {
         });
         // try to detect lang of the subtitle
         Files.detectSubLang();
+
+        // auto-detect matching video if the user didn't drop both video+text files
+        if (!multidrop) {
+            // Hack RegExp, required for special chars
+            RegExp.escape = function (s) {
+                return String(s).replace(/[\\\^$*+?.()|\[\]{}]/g, '\\$&');
+            };
+            // read directory video is from, looking for sub
+            fs.readdir(path.dirname(file), function (err, f) {
+                if (err) {
+                    return;
+                }
+
+                for (var i = 0; i < f.length; i++) {
+                    if (f[i].slice(0, f[i].length - path.extname(f[i]).length).match(RegExp.escape(path.basename(file).slice(0, path.basename(file).length - (path.extname(file).length + 8)))) && Files.detectFileType(f[i]) === 'video') {
+                        // if match found, load it :) 
+                        console.info('Matching video detected');
+                        Interface.add_video(path.join(path.dirname(file), f[i]), true);
+                        break;
+                    }
+                }
+            });
+        }
     },
 
     // AUTO or USERINTERACTION: resets the interface, erasing values
@@ -205,6 +258,9 @@ var Interface = {
             if ($('#upload-popup').css('display') === 'block') {
                 Interface.reset('modal');
             }
+            $('#main-video-img').css('background-image', 'none').hide().css('opacity', '0');
+            $('#main-video .input-file, #main-video .reset').removeClass('white-ph');
+            $('#main-video-placeholder').css('background', 'transparent');
             break;
         case 'subtitle':
             $('#subtitle-file-path').val('');
@@ -344,8 +400,38 @@ var Interface = {
         // hide spinner for little imdb button, shown in add_video() and imdb udpate
         $('.search-imdb i').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
 
+        // display placeholder
+        Misc.traktLookup(id).then(Interface.displayPlaceholder);
+
         // close popup
         Interface.leavePopup({});
+    },
+
+    // AUTO: displays the image grabbed from trakt
+    displayPlaceholder: function (uri) {
+        Misc.isSearchingTrakt = false;
+        Misc.TmpMetadata = false;
+
+        if (!uri) {
+            $('#main-video-shadow').css('opacity', '0').hide();
+            return;
+        }
+
+        console.info('Loading image from trakt.tv', uri);
+
+        // preload
+        var img = new Image();
+        img.src = uri;
+        img.onload = function () {
+            // inject
+            $('#main-video-placeholder').css('background', '#333');
+            $('#main-video-img').css('background-image', 'url('+uri+')').show().css('opacity', '0.7');
+            $('#main-video .input-file, #main-video .reset').addClass('white-ph');
+            // reset cache
+            img = null;
+            // hide spin
+            $('#main-video-shadow').css('opacity', '0').hide();
+        };
     },
 
     // STARTUP: checks imdbid field for manual changes, then verify if new ID is valid

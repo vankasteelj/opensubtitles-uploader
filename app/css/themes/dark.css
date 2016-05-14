@@ -4,6 +4,10 @@ body {
     background: #242a31;
 }
 
+.metadata {
+    background: rgba(36, 42, 49, .8); /* == #242a31 */
+}
+
 .app-author {
     color: #a5a9b0;
 }
@@ -24,12 +28,13 @@ body {
     background: #e60000;
 }
 
-#logged-as {
+#logged .username {
     color: #dcdde0;
 }
 
-#logged-as i:hover {
-    color: #de5362;
+.icon-login:hover,
+.icon-logout:hover {
+    opacity: .9;
 }
 
 .reset {
@@ -50,15 +55,6 @@ body {
 
 .metadata {
     border-color: rgba(255, 255, 255, 0.1);
-}
-
-.metadata .box-title {
-    border-color: rgba(255, 255, 255, 0.1);
-    font-weight: 400;
-}
-
-.metadata span.box-title {
-    color: #b3b6bc;
 }
 
 .metadata .content .metaitem {
@@ -275,6 +271,6 @@ input {
     color: #eee;
 }
 
-.content img {
+.icon {
     -webkit-filter: invert(100%);
 }

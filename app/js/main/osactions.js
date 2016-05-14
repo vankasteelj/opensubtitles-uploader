@@ -48,7 +48,7 @@ var OsActions = {
                 var display_err = err === '401 Unauthorized' ? i18n.__('Wrong username or password') : (err.message || err);
 
                 // overly complicated jquery uglyness to display error, then restore cached html
-                $('#not-logged').html('<div id="logged-as" style="color: #e60000">' + display_err + '</div>' + '<div id="button-login" onClick="OsActions.login()" class="button light buzz">' + i18n.__('Log in') + '</div>').delay(1850).queue(function () {
+                $('#not-logged').html('<div id="logged"><span class="username warning">' + display_err + '</span><i class="icon icon-login i18n tooltipped buzz" id="button-login" onClick="OsActions.login()" title="Log in"></i>').delay(1850).queue(function () {
                     $('#not-logged').html(original);
                     $('#login-username').val(username);
                     $('#not-logged').dequeue();
@@ -139,6 +139,11 @@ var OsActions = {
         // close popup if open
         Interface.leavePopup({});
 
+        // reset img
+        $('#main-video-img').css('background-image', 'none').hide().css('opacity', '0');
+        $('#main-video .input-file, #main-video .reset').removeClass('white-ph');
+        $('#main-video-placeholder').css('background', 'transparent');
+
         // sometimes, ID is not an imdb id
         if (id > 9999999) {
             console.debug('OsActions.imdbMetadata(): %s is not a valid imdb id', id);
@@ -170,6 +175,11 @@ var OsActions = {
                     text += ' S' + Misc.pad(response.data.season) + 'E' + Misc.pad(response.data.episode);
                     text += ' - ' + response.data.title.split('"')[2];
                     text += ' (' + response.data.year + ')';
+                    Misc.TmpMetadata = {
+                        title: response.data.title.split('"')[1],
+                        episode: response.data.episode,
+                        season: response.data.season
+                    };
                 } else {
                     text += response.data.title;
                     text += ' (' + response.data.year + ')';
@@ -334,7 +344,7 @@ var OsActions = {
 
             // try to give user a friendly explaination of what went wrong
             var error;
-            if (err.body && err.body.match(/503/i)) {
+            if ((err.body && err.body.match(/503/i)) || (err.code === 'ETIMEDOUT')) {
                 error = 'OpenSubtitles is temporarily unavailable, please retry in a little while';
             } else if (err.body && err.body.match(/506/i)) {
                 error = 'OpenSubtitles is under maintenance, please retry in a few hours';
