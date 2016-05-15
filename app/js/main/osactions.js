@@ -240,7 +240,7 @@ var OsActions = {
 
         // OSS suggestion, to better the database quality
         if ($('#imdbid').val() === '') {
-            Interface.modal(i18n.__('You haven\'t specified an IMDB id for the video file. It is highly recommended to do so, for correctly categorize the subtitle and make it easy to download.'), 'edit', 'upload');
+            Interface.modal(i18n.__('You haven\'t specified an IMDB id for the video file. It is highly recommended to do so, to correctly categorize the subtitle and make it easy to download.'), 'edit', 'upload');
         } else {
             OsActions.upload();
         }

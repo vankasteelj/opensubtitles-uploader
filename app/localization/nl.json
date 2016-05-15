@@ -43,7 +43,7 @@
 	"Language testing unconclusive, automatic detection failed": "Taal niet eenduidig, automatische detectie mislukt",
 	"Video cannot be imported because OpenSubtitles could not be reached. Is it online?": "Video kan niet geïmporteerd worden, want OpenSubtitles is niet bereikbaar. Is het online?",
 	"Unknown OpenSubtitles related error, please retry later or report the issue": "Onbekende OpenSubtitles-gerelateerde fout, probeer het a.u.b. later nogmaals of meld het probleem",
-	"You haven't specified an IMDB id for the video file. It is highly recommended to do so, for correctly categorize the subtitle and make it easy to download.": "Je hebt geen IMDB ID voor het videobestand opgegeven. De IMDB ID is belangrijk voor het correct plaatsen van de ondertitel en om het downloaden te vereenvoudigen.",
+	"You haven't specified an IMDB id for the video file. It is highly recommended to do so, to correctly categorize the subtitle and make it easy to download.": "Je hebt geen IMDB ID voor het videobestand opgegeven. De IMDB ID is belangrijk voor het correct plaatsen van de ondertitel en om het downloaden te vereenvoudigen.",
 	"Wrong username or password": "Verkeerde gebruikersnaam of wachtwoord",
 	"Not found": "Niet gevonden",
 	"Wrong IMDB id": "Verkeerde IMDB ID",
@@ -64,5 +64,9 @@
 	"IMDB id": "IMDB ID",
 	"Switch theme": "Wijzig thema",
 	"The subtitle has invalid format, review it before uploading to OpenSubtitles (try removing URL that might be considered as advertising for a third party website)": "De ondertitel heeft een ongeldige opmaak, controleer deze voor het uploaden naar OpenSubtitles (verwijder elke URL dat gezien zou kunnen worden als adverteren voor een andere website)",
+	"Foreign parts only": "Foreign parts only",
+	"The subtitle file contains sounds description": "The subtitle file contains sounds description",
+	"The subtitles were translated automatically by a machine": "The subtitles were translated automatically by a machine",
+	"The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings": "The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings",
 	"": ""
 }

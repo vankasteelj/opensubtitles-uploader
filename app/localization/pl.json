@@ -43,7 +43,7 @@
 	"Language testing unconclusive, automatic detection failed": "Testy językowe niejednoznaczne, automatyczne wykrywanie nie powiodło się",
 	"Video cannot be imported because OpenSubtitles could not be reached. Is it online?": "Wideo nie może zostać zaimportowane ponieważ OpenSubtitles jest nieosiągalny. Jesteś online?",
 	"Unknown OpenSubtitles related error, please retry later or report the issue": "Wystąpił nieoczekiwany błąd OpenSubtitles, spróbuj ponownie później lub zgłoś problem",
-	"You haven't specified an IMDB id for the video file. It is highly recommended to do so, for correctly categorize the subtitle and make it easy to download.": "Nie podano IMDB ID dla pliku wideo. Mocno zalecane jest jego podanie do poprawnej klasyfikacji napisów. Sprawi to łatwiejsze ich pobranie.",
+	"You haven't specified an IMDB id for the video file. It is highly recommended to do so, to correctly categorize the subtitle and make it easy to download.": "Nie podano IMDB ID dla pliku wideo. Mocno zalecane jest jego podanie do poprawnej klasyfikacji napisów. Sprawi to łatwiejsze ich pobranie.",
 	"Wrong username or password": "Zła nazwa użytkownika lub hasło",
 	"Not found": "Nie znaleziono",
 	"Wrong IMDB id": "Złe IMDB ID",
@@ -64,5 +64,9 @@
 	"IMDB id": "IMDB ID",
 	"Switch theme": "Przełącz motyw",
 	"The subtitle has invalid format, review it before uploading to OpenSubtitles (try removing URL that might be considered as advertising for a third party website)": "Napisy mają nieprawidłowy format, przejrzyj je przed wysłaniem na OpenSubtitles (spróbuj usunąć URL, który mogł zostać uznany za reklamę stron trzecich)",
+	"Foreign parts only": "Foreign parts only",
+	"The subtitle file contains sounds description": "The subtitle file contains sounds description",
+	"The subtitles were translated automatically by a machine": "The subtitles were translated automatically by a machine",
+	"The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings": "The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings",
 	"": ""
 }
