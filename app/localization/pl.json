@@ -65,7 +65,7 @@
 	"Switch theme": "Przełącz motyw",
 	"The subtitle has invalid format, review it before uploading to OpenSubtitles (try removing URL that might be considered as advertising for a third party website)": "Napisy mają nieprawidłowy format, przejrzyj je przed wysłaniem na OpenSubtitles (spróbuj usunąć URL, który mogł zostać uznany za reklamę stron trzecich)",
 	"Foreign parts only": "Foreign parts only",
-	"The subtitle file contains sounds description": "The subtitle file contains sounds description",
+	"The subtitle file contains descriptions of sounds and/or dialogues, meant for hearing impaired people": "The subtitle file contains descriptions of sounds and/or dialogues, meant for hearing impaired people",
 	"The subtitles were translated automatically by a machine": "The subtitles were translated automatically by a machine",
 	"The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings": "The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings",
 	"": ""
