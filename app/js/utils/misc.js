@@ -191,6 +191,67 @@ var Misc = {
         });
     },
 
-    // AUTO: 
-    isSearchingTrakt: false
+    // AUTO: global value set while waiting for trakt response
+    isSearchingTrakt: false,
+
+    // AUTO: global jquery values to save with Misc.saveState()
+    states: {
+        value: {
+            '#video-file-path': false,
+            '#moviefilename': false,
+            '#moviehash': false,
+            '#moviebytesize': false,
+            '#imdbid': false,
+            '#movieaka': false,
+            '#moviereleasename': false,
+            '#moviefps': false,
+            '#movietimems': false,
+            '#movieframes': false,
+            '#subtitle-file-path': false,
+            '#subfilename': false,
+            '#subhash': false,
+            '#subtranslator': false,
+            '#subauthorcomment': false,
+            '#sublanguageid': false
+        },
+        checked: {
+            '#highdefinition': false,
+            '#hearingimpaired': false,
+            '#automatictranslation': false,
+            '#foreignpartsonly': false
+        },
+        title: {
+            '#imdb-info': false
+        }
+    },
+
+    // AUTO: store data before reloading app
+    saveState: function () {
+        var states = {};
+        // save states
+        for (var prop in Misc.states) {
+            states[prop] = {};
+            for (var id in Misc.states[prop]) {
+                states[prop][id] = $(id).prop(prop);
+            }
+        }
+        localStorage.states = JSON.stringify(states);
+
+        // save img
+        var imgUrl = $('#main-video-img').css('background-image').replace(/url\(|\)/g, '');
+        if (imgUrl && imgUrl !== 'none') {
+            localStorage['main-video-img'] = imgUrl;
+        }
+    },
+
+    // STARTUP: restore state of the app, when reloading
+    restoreState: function () {
+        var states = JSON.parse(localStorage.states);
+        for (var prop in states) {
+            for (var id in states[prop]) {
+                $(id).prop(prop, states[prop][id]);
+            }
+        }
+        Interface.displayPlaceholder(localStorage['main-video-img']);
+    }
 };

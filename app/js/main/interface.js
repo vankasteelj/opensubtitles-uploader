@@ -7,6 +7,7 @@ var Interface = {
         // switch stored setting on click
         localStorage.theme = !localStorage || (localStorage && localStorage.theme === 'dark') ? 'light' : 'dark';
         // reload to let setupTheme do the job
+        Misc.saveState();
         win.reload();
     },
 

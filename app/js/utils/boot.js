@@ -18,6 +18,7 @@ var Boot = {
         Boot.setupTooltips();               // tooltips
         Boot.setupVersion();                // version number
         DragDrop.setup();                   // setup drag&drop
+        Boot.checkReload();                 // are there values to restore?
     },
 
     // STARTUP: checks which theme user prefers, defaults to light, then injects css theme file and changes button color accordingly
@@ -161,6 +162,16 @@ var Boot = {
             } catch (e) {}
             win.close('true');
         });
+    },
+
+    // STARTUP: checks if the app needs to reset cached values
+    checkReload: function () {
+        if (!localStorage.states) {
+            return;
+        }
+        Misc.restoreState();
+        localStorage.removeItem('main-video-img');
+        localStorage.removeItem('states');
     },
 
     // STARTUP: set up tooltips

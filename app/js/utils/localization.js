@@ -80,6 +80,7 @@ var Localization = {
             // store new lang
             localStorage.locale = $(this).find('span.value').html();
             // reload to use new lang
+            Misc.saveState();
             win.reload();
         });
 
