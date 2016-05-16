@@ -216,6 +216,13 @@ var Files = {
                                 }
                             }
                         }
+
+                        // total nb of frames double-check
+                        if (!info.frame_count) {
+                            if (info.frame_rate && info.duration) {
+                                info.frame_count = Math.round((info.duration / 1000) * info.frame_rate);
+                            }
+                        }
                     }
                 }
 
