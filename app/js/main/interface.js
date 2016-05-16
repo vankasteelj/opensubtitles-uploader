@@ -191,7 +191,7 @@ var Interface = {
             $('#logged .icon-user').addClass('icon-' + rank.replace(/\W/g, '-'));
             
             // display tooltip
-            $('#logged .icon-user').prop('title', rank.toUpperCase())
+            $('#logged .icon-user').prop('title', rank.toUpperCase());
             
             // open os profile on click
             $('#logged .userwrap').on('click', function (e) {

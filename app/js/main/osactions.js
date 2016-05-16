@@ -78,7 +78,7 @@ var OsActions = {
                 localStorage.os_refreshed = Date.now();
                 Interface.logged();
             } else {
-                throw 'Opensubtitles responded with non-200 status, relogging might fix'
+                throw 'Opensubtitles responded with non-200 status, relogging might fix';
             }
         }).catch(function (error) {
             console.error('Unable to refresh user information', error);
