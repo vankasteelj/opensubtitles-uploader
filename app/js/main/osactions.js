@@ -30,14 +30,25 @@ var OsActions = {
                 password: password,
             });
 
-            // store token, username & pw for reuse
-            OS.login().then(function (token) {
-                if (token) {
+            // actual login
+            OS.api.LogIn(username, password, 'en', USERAGENT).then(function (response) {
+                var infos = response.data;
+                var token = response.token;
+
+                if (token && infos) {
+                    // store values for reuse
+                    localStorage.os_id = infos.IDUser;
+                    localStorage.os_rank = infos.UserRank;
+                    localStorage.os_refreshed = Date.now();
                     localStorage.os_user = username;
                     localStorage.os_pw = password;
+
+                    console.info('User information:', infos);
+
+                    // logging success
                     Interface.logged();
                 } else {
-                    throw 'Unknown error';
+                    throw '401 Unauthorized';
                 }
             }).catch(function (err) {
                 console.error('OsActions.login()', err);
@@ -57,20 +68,36 @@ var OsActions = {
         }
     },
 
+    // STARTUP: fetches user info every 7 days, triggered by Interface.logged();
+    refreshInfo: function () {
+        OS.api.LogIn(localStorage.os_user, localStorage.os_pw, 'en', USERAGENT).then(function (response) {
+            if (response.status.match(/200/)) {
+                console.info('Refreshed user information:', response.data);
+                localStorage.os_id = response.data.IDUser;
+                localStorage.os_rank = response.data.UserRank;
+                localStorage.os_refreshed = Date.now();
+                Interface.logged();
+            } else {
+                throw 'Opensubtitles responded with non-200 status, relogging might fix'
+            }
+        }).catch(function (error) {
+            console.error('Unable to refresh user information', error);
+            Interface.logout();
+        });
+    },
+
     // STARTUP: check if user was previously logged, fires up OS module accordingly
     verifyLogin: function () {
-        var auth = {
+        OS = new openSubtitles({
             useragent: USERAGENT,
             ssl: true
-        };
+        });
 
         if (localStorage.os_user && localStorage.os_pw) {
-            auth.username = localStorage.os_user;
-            auth.password = localStorage.os_pw;
+            OS.credentials.username = localStorage.os_user;
+            OS.credentials.password = localStorage.os_pw;
             Interface.logged();
         }
-
-        OS = new openSubtitles(auth);
     },
 
     // USERINTERACTION: search imdb id through OS api, display results (search imdb popup)

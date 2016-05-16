@@ -122,6 +122,7 @@
     background-position: -80px -60px;
 }
 
+.icon-login:hover,
 .icon-logout:hover {
     margin-right: 7px;
     margin-left: 9px;
@@ -133,6 +134,7 @@
     margin-top: 2px;
     width: 20px;
     height: 18px;
+    -webkit-filter: none !important;
     background-position: -120px -100px;
 }
 
@@ -140,31 +142,35 @@
     background-position: 0 -80px;
 }
 
-.icon-admin {
+.icon-admininistrator {
     background-position: -20px -80px;
 }
 
-.icon-admin-warning {
+.icon-moderator {
     background-position: -40px -80px;
 }
 
-.icon-trusted-user {
+.icon-read-only {
+    background-position: -60px -80px;
+}
+
+.icon-trusted {
     background-position: -80px -80px;
 }
 
-.icon-bronze {
+.icon-bronze-member {
     background-position: -100px -80px;
 }
 
-.icon-silver {
+.icon-silver-member {
     background-position: -120px -80px;
 }
 
-.icon-gold {
+.icon-gold-member {
     background-position: -140px -80px;
 }
 
-.icon-platinum {
+.icon-platinum-member {
     background-position: -160px -80px;
 }
 
@@ -172,28 +178,32 @@
     background-position: -180px -80px;
 }
 
-.icon-vip {
+.icon-vip-member {
     background-position: 0 -100px;
 }
 
-.icon-vip-plus {
+.icon-vip-plus-member {
     background-position: -20px -100px;
 }
 
-.icon-developer {
+.icon-app-developer {
     background-position: -40px -100px;
 }
 
-.icon-web-translator {
+.icon-translator {
     background-position: -60px -100px;
 }
 
-.icon-translator {
+.icon-subtranslator {
     background-position: -80px -100px;
 }
 
 .icon-downloader {
     background-position: -100px -100px;
+}
+
+.icon-warning {
+    background-position: -80px -120px;
 }
 
 .username {
@@ -202,6 +212,11 @@
     margin-left: 4px;
     position: relative;
     float: left;
+}
+
+.userwrap:hover {
+    cursor: pointer;
+    opacity: .85;
 }
 
 
