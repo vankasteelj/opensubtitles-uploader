@@ -66,7 +66,7 @@
 	"The subtitle has invalid format, review it before uploading to OpenSubtitles (try removing URL that might be considered as advertising for a third party website)": "Napisy mają nieprawidłowy format, przejrzyj je przed wysłaniem na OpenSubtitles (spróbuj usunąć URL, który mogł zostać uznany za reklamę stron trzecich)",
 	"The subtitle file contains descriptions of sounds and/or dialogues, meant for hearing impaired people": "Napisy zawierające opisy dźwięków i/lub dialogów, przeznaczone dla niedosłyszących",
 	"The subtitles were translated automatically by a machine": "Napisy zostały przetłumaczone automatycznie przez maszynę",
-	"Foreign parts only": "Tylko języku obcym",
-	"The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings": "Napisy zawierające tylko tłumaczenia części w językach obcych, np. język elficki lub orków w the Lord of the Rings",
+	"Foreign parts only": "Tylko język obcy",
+	"The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings": "Napisy zawierające tylko tłumaczenia części w językach obcych, np. język elficki lub orków we Władcy Pierścieni",
 	"": ""
 }
