@@ -234,4 +234,12 @@ var Files = {
             });
         });
     },
+
+    // load a file through 'open with'
+    loadFile: function (file) {
+        try {
+            fs.statSync(file);
+            DragDrop.handleDrop(DragDrop.analyzeDrop([{path:file}]));
+        } catch (e) {}
+    }
 };

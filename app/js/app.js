@@ -48,3 +48,20 @@ gui.start = function () {
         }
     });
 };
+
+// if app is already running, inject file if used 'open with'
+gui.App.on('open', function (cmd) {
+    var file;
+    if (process.platform.match('win32')) {
+        file = cmd.split('"');
+        file = file[file.length - 2];
+    } else {
+        file = cmd.split(' /');
+        file = file[file.length - 1];
+        file = '/' + file;
+    }
+
+    if (file) {
+        Files.loadFile(file);
+    }
+});

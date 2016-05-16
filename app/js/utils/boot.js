@@ -19,6 +19,9 @@ var Boot = {
         Boot.setupVersion();                // version number
         DragDrop.setup();                   // setup drag&drop
         Boot.checkReload();                 // are there values to restore?
+
+        // on app open, load file if used 'open with'
+        Files.loadFile(gui.App.argv.pop());
     },
 
     // STARTUP: checks which theme user prefers, defaults to light, then injects css theme file and changes button color accordingly

@@ -29,7 +29,7 @@
         "url": "https://github.com/vankasteelj/opensubtitles-uploader.git"
     },
     "dependencies": {
-        "opensubtitles-api": "2.x.x",
+        "opensubtitles-api": "vankasteelj/opensubtitles-api",
         "detect-lang": "1.x.x",
         "i18n": "0.x.x",
         "mediainfo-wrapper": "1.x.x",

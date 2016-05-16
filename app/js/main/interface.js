@@ -100,8 +100,9 @@ var Interface = {
                 } else {
                     // not found with OS.identify, trying harder
                     Misc.isSearchingTrakt = true;
-                    OS.login().then(function (token) {
-                        return OS.api.GuessMovieFromString(token, [info.moviefilename]);
+                    OS.login().then(function (res) {
+                        Interface.updateUserInfo(res.userinfo);
+                        return OS.api.GuessMovieFromString(res.token, [info.moviefilename]);
                     }).then(function (res) {
                         if (res.data && res.data[info.moviefilename] && res.data[info.moviefilename].BestGuess) {
                             // OS.api.GuessMovieFromString got info!
@@ -512,5 +513,30 @@ var Interface = {
                 console.debug('%s enabled, storing \'%s\'', lockId, localStorage[lockId]);
             }
         }
+    },
+
+    // AUTO: injects userinfo in the UI
+    updateUserInfo: function (userinfo) {
+        if (!userinfo) {
+            console.warn('nope')
+            return;
+        }
+
+        console.debug('Update user info', userinfo);
+
+        localStorage.os_id = userinfo.IDUser;
+        localStorage.os_rank = userinfo.UserRank;
+        localStorage.os_refreshed = Date.now();
+
+        // update user rank
+        $('#logged .icon-user').addClass('icon-' + userinfo.UserRank.replace(/\W/g, '-'));
+
+        // display tooltip
+        $('#logged .icon-user').prop('title', userinfo.UserRank.toUpperCase());
+
+        // open os profile on click
+        $('#logged .userwrap').on('click', function (e) {
+            Misc.openExternal('https://www.opensubtitles.org/profile/iduser-' + userinfo.IDUser);
+        });
     }
 };

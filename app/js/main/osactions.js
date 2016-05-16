@@ -31,25 +31,16 @@ var OsActions = {
             });
 
             // actual login
-            OS.api.LogIn(username, password, 'en', USERAGENT).then(function (response) {
-                var infos = response.data;
-                var token = response.token;
+            OS.login().then(function (res) {
+                // user information
+                Interface.updateUserInfo(res.userinfo);
 
-                if (token && infos) {
-                    // store values for reuse
-                    localStorage.os_id = infos.IDUser;
-                    localStorage.os_rank = infos.UserRank;
-                    localStorage.os_refreshed = Date.now();
-                    localStorage.os_user = username;
-                    localStorage.os_pw = password;
+                // store values for reuse
+                localStorage.os_user = username;
+                localStorage.os_pw = password;
 
-                    console.info('User information:', infos);
-
-                    // logging success
-                    Interface.logged();
-                } else {
-                    throw '401 Unauthorized';
-                }
+                // logging success
+                Interface.logged();
             }).catch(function (err) {
                 console.error('OsActions.login()', err);
 
@@ -70,16 +61,9 @@ var OsActions = {
 
     // STARTUP: fetches user info every 7 days, triggered by Interface.logged();
     refreshInfo: function () {
-        OS.api.LogIn(localStorage.os_user, localStorage.os_pw, 'en', USERAGENT).then(function (response) {
-            if (response.status.match(/200/)) {
-                console.info('Refreshed user information:', response.data);
-                localStorage.os_id = response.data.IDUser;
-                localStorage.os_rank = response.data.UserRank;
-                localStorage.os_refreshed = Date.now();
-                Interface.logged();
-            } else {
-                throw 'Opensubtitles responded with non-200 status, relogging might fix';
-            }
+        OS.login().then(function (res) {
+            Interface.updateUserInfo(res.userinfo);
+            Interface.logged();
         }).catch(function (error) {
             console.error('Unable to refresh user information', error);
             Interface.logout();
@@ -115,8 +99,9 @@ var OsActions = {
         // erase content on new search (does nothing on 1st search)
         $('#search-result').html('');
 
-        OS.login().then(function (token) {
-            return OS.api.SearchMoviesOnIMDB(token, $('#search-text').val());
+        OS.login().then(function (res) {
+            Interface.updateUserInfo(res.userinfo);
+            return OS.api.SearchMoviesOnIMDB(res.token, $('#search-text').val());
         }).then(function (response) {
             console.debug('Search Movies on IMDB response:', response);
 
@@ -180,7 +165,8 @@ var OsActions = {
             return;
         }
 
-        OS.login().then(function (token) {
+        OS.login().then(function (res) {
+            Interface.updateUserInfo(res.userinfo);
             var imdbid = parseInt(id.toString().replace('tt', ''));
 
             // sometimes imdb could not be a number (and the user could write anything in there, we don't wanna spam the api with useless reqs)
@@ -190,7 +176,7 @@ var OsActions = {
                 // show spinner
                 $('.search-imdb i').addClass('fa-circle-o-notch fa-spin').removeClass('fa-search');
                 // search online
-                return OS.api.GetIMDBMovieDetails(token, imdbid);
+                return OS.api.GetIMDBMovieDetails(res.token, imdbid);
             }
         }).then(function (response) {
             // again, sometimes the response comes without data
