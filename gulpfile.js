@@ -269,9 +269,9 @@ gulp.task('deb', () => {
 
             const child = spawn('bash', [
                 'dist/deb-maker.sh',
-                nwVersion,
                 platform,
                 pkJson.name,
+                pkJson.releaseName,
                 pkJson.version,
                 releasesDir
             ]);

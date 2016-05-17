@@ -1,10 +1,10 @@
 #!/bin/bash
-# launch 'deb-maker.sh <nw version> <platform> <app-name> <destination>'
-# 'deb-maker.sh 0.12.1 linux32 MyApplication 0.0.1 build' for example
+# launch 'deb-maker.sh <platform> <deb-name> <app-name> <version> <destination>'
+# 'deb-maker.sh linux32 my-application MyApplication 0.0.1 build' for example
 
-nw=$1
-arch=$2
-projectName=$3
+arch=$1
+projectName=$2
+releaseName=$3
 name=${projectName,,} #tolowercase
 version=$4
 builddir=$5
@@ -43,11 +43,16 @@ cp app/images/os-icon.png $cwd/$package_name/usr/share/icons/opensubtitles-uploa
 #desktop
 echo "[Desktop Entry]
 Comment=Upload your subtitles to OpenSubtitles.org
-Name=$projectName
-Exec=/opt/$projectName/$projectName
+Comment[fr]=Envoyer les sous-titres à OpenSubtitles.org
+Name=$releaseName
+X-GNOME-FullName=$releaseName
+Exec=/opt/$projectName/$projectName %F
 Icon=opensubtitles-uploader
 StartupNotify=false
-Categories=AudioVideo;Video;Network
+Terminal=false
+Keywords=subtitles;captions;sous-titres;opensubtitles;
+Categories=AudioVideo;Video;Network;
+MimeType=text/x-microdvd;text/x-ssa;application/x-subrip;text/x-subviewer;
 Type=Application
 " > $cwd/$package_name/usr/share/applications/$name.desktop
 
@@ -65,7 +70,7 @@ Architecture: $real_arch
 Installed-Size: $size
 Depends:
 Maintainer: vankasteelj <vankasteelj@gmail.com>
-Description: $projectName
+Description: $releaseName
  Upload your subtitles to OpenSubtitles.org
 " > $cwd/$package_name/DEBIAN/control
 
@@ -187,7 +192,7 @@ rm -rf $cwd
 
 if [ -e /usr/bin/fakeroot ] && [ "$6" != "--fakeroot" ]; then
 	echo "'fakeroot' was found on the machine"
-	fakeroot bash $0 $1 $2 $3 $4 $5 --fakeroot
+	fakeroot bash $0 $1 $2 "$3" $4 $5 --fakeroot
 else
 	build_pt
 fi
