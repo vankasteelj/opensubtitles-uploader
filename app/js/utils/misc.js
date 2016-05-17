@@ -145,46 +145,51 @@ var Misc = {
         Misc.isSearchingTrakt = true;
         console.info('Looking on trakt.tv for a fanart...');
 
-        return new Promise(function(resolve, reject) {
-             trakt.search({
+        return new Promise(function (resolve, reject) {
+            trakt.search({
                 id_type: 'imdb',
                 id: id
             }).then(function (res) {
-                console.debug('Trakt response:', res);
-                if (res[0] && res[0].movie) {
-                    resolve(res[0].movie.images.fanart.medium);
-                } else if (res[0] && res[0].show) {
-                    resolve(res[0].show.images.fanart.medium);
-                } else {
-                    if (Misc.TmpMetadata) {
-                        trakt.shows.summary({
-                            id: Misc.TmpMetadata.title.replace(/\W/g, '-'),
-                            extended: 'images'
-                        }).then(function (res) {
-                            console.debug('Trakt response:', res);
-                            resolve(res.images.fanart.medium);
-                        }).catch(function (error) {
-                            console.warn('Unable to get trakt image', error);
-                            resolve(null);
-                        });
-                    } else {
-                        resolve(null);
+                var found = null;
+                for (var i in res) {
+                    if (res[i].type.match(/movie|show/i)) {
+                        console.debug('Trakt response:', res);
+                        found = res[i][res[i].type].images.fanart.medium;
+                        break;
                     }
+                }
+
+                if (found) {
+                    resolve(found);
+                } else {
+                    throw 'trakt sent back no result';
                 }
             }).catch(function (error) {
                 if (Misc.TmpMetadata) {
-                    trakt.shows.summary({
-                        id: Misc.TmpMetadata.title.replace(/\W/g, '-'),
+                    trakt.search({
+                        query: Misc.TmpMetadata.title.replace(/\W/g, '-'),
                         extended: 'images'
                     }).then(function (res) {
-                        console.debug('Trakt response:', res);
-                        resolve(res.images.fanart.medium);
+                        var found = null;
+                        for (var i in res) {
+                            if (res[i].type.match(/movie|show/i)) {
+                                console.debug('Trakt response:', res[i]);
+                                found = res[i][res[i].type].images.fanart.medium;
+                                break;
+                            }
+                        }
+
+                        if (found) {
+                            resolve(found);
+                        } else {
+                            throw 'trakt sent back no result';
+                        }
                     }).catch(function (error) {
-                        console.warn('Unable to get trakt image', error);
+                        console.warn('Unable to get trakt image:', error);
                         resolve(null);
                     });
                 } else {
-                    console.warn('Unable to get trakt image', error);
+                    console.warn('Unable to get trakt image:', error);
                     resolve(null);
                 }
             });
