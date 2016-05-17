@@ -7,16 +7,13 @@ var Keyboard = {
         document.addEventListener('keypress', function (key) {
             if (key.charCode === 13) {
                 Keyboard.keyEnter(key.target.id);
+            } else if (key.keyCode === 27) {
+                $('#search-popup').css('opacity', 0).hide();
+                Interface.reset('search');
             } else if (key.ctrlKey && key.charCode === 4) {
                 gui.Window.get().showDevTools();
             } else if (key.ctrlKey && key.charCode === 18) {
                 Misc.restartApp();
-            }
-        });
-        document.addEventListener('keyup', function (key) {
-            if (key.keyCode === 27) {
-                $('#search-popup').css('opacity', 0).hide();
-                Interface.reset('search');
             }
         });
     },
@@ -35,14 +32,34 @@ var Keyboard = {
         } else if (id === 'search-text') {
             $('#button-search').click();
 
+        // enter on checkboxes toggles the state
+        } else if ($('#'+id).attr('type') === 'checkbox') {
+            $('#'+id).prop('checked', !$('#'+id).prop('checked'));
+
         // enter on other inputs behaves like tab key
         } else {
-            var inputs = $(':input');
-            var nextInput = inputs.get(inputs.index(document.activeElement) + 1);
-
-            if (nextInput) {
-                nextInput.focus();
-            }
+            Keyboard.selectNextInput();
         }
     },
+
+    // select next valid input
+    selectNextInput: function () {
+        var inputs = $(':input');
+        var actualIndex = inputs.index(document.activeElement);
+
+        function next(index) {
+            var nextInput = inputs.get(index + 1);
+
+            if (nextInput) {
+                // if element is invisible or readonly, skip to next
+                if (!$(nextInput).is(':visible') || $(nextInput).attr('readonly')) {
+                    next(index + 1);
+                } else {
+                    nextInput.focus();
+                }
+            }
+        }
+
+        next(actualIndex);
+    }
 };
