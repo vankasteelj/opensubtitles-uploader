@@ -122,7 +122,7 @@ var Interface = {
             }
 
             // auto-detect matching subtitle if the user didn't drop both video+text files
-            if (!multidrop) {
+            if (!multidrop && !$('#subtitle-file-path').val()) {
                 // Hack RegExp, required for special chars
                 RegExp.escape = function (s) {
                     return String(s).replace(/[\\\^$*+?.()|\[\]{}]/g, '\\$&');
@@ -249,7 +249,7 @@ var Interface = {
         Files.detectForeignOnly();
 
         // auto-detect matching video if the user didn't drop both video+text files
-        if (!multidrop) {
+        if (!multidrop && !$('#video-file-path').val()) {
             // Hack RegExp, required for special chars
             RegExp.escape = function (s) {
                 return String(s).replace(/[\\\^$*+?.()|\[\]{}]/g, '\\$&');
