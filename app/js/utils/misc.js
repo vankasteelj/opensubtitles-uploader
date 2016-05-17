@@ -258,5 +258,22 @@ var Misc = {
             }
         }
         Interface.displayPlaceholder(localStorage['main-video-img']);
+    },
+
+    // AUTO: checks if the element is visible (for scrolling)
+    elementInViewport: function (container, element) {
+        if (element.length === 0) {
+            return;
+        }
+        var $container = $(container),
+            $el = $(element);
+
+        var docViewTop = $container.offset().top;
+        var docViewBottom = docViewTop + $container.height();
+
+        var elemTop = $el.offset().top;
+        var elemBottom = elemTop + $el.height();
+
+        return ((elemBottom >= docViewTop) && (elemTop <= docViewBottom) && (elemBottom <= docViewBottom) && (elemTop >= docViewTop));
     }
 };

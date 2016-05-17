@@ -159,7 +159,7 @@ input[type=checkbox] {
     color: #f5f7fa;
 }
 
-.result-item:hover {
+.result-item.selected {
     background: rgba(114, 140, 166, .4);
     border-left: 4px solid #de5362;
 }

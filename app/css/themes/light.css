@@ -156,10 +156,9 @@ input[type=checkbox] {
 
 .result-item {
     border-left: 4px solid transparent;
-    border-radius: 3px;
 }
 
-.result-item:hover {
+.result-item.selected {
     background: rgba(74, 125, 190, .4);
     border-left: 4px solid #8bc97c;
 }

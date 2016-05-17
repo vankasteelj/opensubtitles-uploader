@@ -124,6 +124,14 @@ var OsActions = {
                     $('#search-result').append('<li class="result-item" onClick="OsActions.imdbMetadata(\'' + res[i].id + '\')">' + res[i].title.replace(/\-$/, '') + '</li>');
                 }
 
+                // select one on hover
+                $('.result-item').hover(function () {
+                    $('.result-item').removeClass('selected');
+                    $(this).addClass('selected');
+                }, function () {
+                    $(this).removeClass('selected');
+                });
+
             } else {
                 throw 'Opensubtitles.SearchMoviesOnIMDB() error, no details';
             }

@@ -568,6 +568,7 @@ input[type=checkbox]:checked:before {
     margin-bottom: 4px;
     list-style: none;
     transition: all .3s;
+    border-radius: 3px;
 }
 
 
