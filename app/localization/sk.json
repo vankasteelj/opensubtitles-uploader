@@ -64,9 +64,9 @@
 	"IMDB id": "IMDB ID",
 	"Switch theme": "Zmeniť tému",
 	"The subtitle has invalid format, review it before uploading to OpenSubtitles (try removing URL that might be considered as advertising for a third party website)": "Titulky nemajú správny formát, skontroluj ich (skús odstrániť URL, ktoré môže byť považované za reklamu)",
-	"Foreign parts only": "Foreign parts only",
-	"The subtitle file contains descriptions of sounds and/or dialogues, meant for hearing impaired people": "The subtitle file contains descriptions of sounds and/or dialogues, meant for hearing impaired people",
-	"The subtitles were translated automatically by a machine": "The subtitles were translated automatically by a machine",
-	"The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings": "The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings",
+	"Foreign parts only": "Iba cudzie časti",
+	"The subtitle file contains descriptions of sounds and/or dialogues, meant for hearing impaired people": "Titulky obsahujú popisy zvukov a/alebo dialógov určene pre sluchovo postihnutých",
+	"The subtitles were translated automatically by a machine": "Titulky boli automaticky preložené programom",
+	"The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings": "Titulky obsahujú iba preklad cudzích častí dialógov, napríklad jazyk Elfov a Orkov v Pánoch prsteňov",
 	"": ""
 }
