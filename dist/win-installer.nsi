@@ -153,6 +153,19 @@ Section ; Shortcuts
     WriteRegStr HKCU "${UNINSTALL_KEY}" "InstallString" "$INSTDIR"
     WriteRegStr HKCU "${UNINSTALL_KEY}" "URLInfoAbout" "${APP_URL}"
 
+    ;Open with dialog registration
+    WriteRegStr HKCR "Applications\OpenSubtitles-Uploader.exe" "FriendlyAppName" "${APP_NAME}"
+    WriteRegStr HKCR "Applications\OpenSubtitles-Uploader.exe\shell\open" "FriendlyAppName" "${APP_NAME}"
+    WriteRegStr HKCR "Applications\OpenSubtitles-Uploader.exe\shell\open\command" "" '"$INSTDIR\OpenSubtitles-Uploader.exe" "%1"'
+
+    ;File extension registration
+    WriteRegStr HKCR "Applications\OpenSubtitles-Uploader.exe\SupportedTypes" ".srt" ""
+    WriteRegStr HKCR "Applications\OpenSubtitles-Uploader.exe\SupportedTypes" ".sub" ""
+    WriteRegStr HKCR "Applications\OpenSubtitles-Uploader.exe\SupportedTypes" ".ssa" ""
+    WriteRegStr HKCR "Applications\OpenSubtitles-Uploader.exe\SupportedTypes" ".ass" ""
+    WriteRegStr HKCR "Applications\OpenSubtitles-Uploader.exe\SupportedTypes" ".smi" ""
+    WriteRegStr HKCR "Applications\OpenSubtitles-Uploader.exe\SupportedTypes" ".mpl" ""
+
     System::Call "shell32::SHChangeNotify(i,i,i,i) (0x08000000, 0x1000, 0, 0)"
 
 SectionEnd
@@ -170,6 +183,7 @@ Section "uninstall"
     RMDir /r "$LOCALAPPDATA\${DATA_FOLDER}"
     NoUninstallData:
     DeleteRegKey HKCU "${UNINSTALL_KEY}"
+    DeleteRegKey HKCR "Applications\OpenSubtitles-Uploader.exe"
     DeleteRegKey HKCU "Software\Chromium" ;workaround for NW leftovers
 
 SectionEnd
