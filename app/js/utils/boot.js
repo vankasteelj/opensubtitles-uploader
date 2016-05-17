@@ -21,7 +21,7 @@ var Boot = {
         Boot.checkReload();                 // are there values to restore?
 
         // on app open, load file if used 'open with'
-        Files.loadFile(gui.App.argv.pop());
+        Files.loadFile(gui.App.argv.slice(-1).pop());
     },
 
     // STARTUP: checks which theme user prefers, defaults to light, then injects css theme file and changes button color accordingly
