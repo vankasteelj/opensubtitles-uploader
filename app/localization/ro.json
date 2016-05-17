@@ -64,9 +64,9 @@
 	"IMDB id": "ID IMDB",
 	"Switch theme": "Schimbă tema",
 	"The subtitle has invalid format, review it before uploading to OpenSubtitles (try removing URL that might be considered as advertising for a third party website)": "Subtitrarea are un format invalid, vă rugăm să verificaţi fişierul înainte de a-l încărca la OpenSubtitles (Incearcă să ştergi link-urile ce pot fi considerate reclame pentru un terţ)",
-	"Foreign parts only": "Foreign parts only",
-	"The subtitle file contains descriptions of sounds and/or dialogues, meant for hearing impaired people": "The subtitle file contains descriptions of sounds and/or dialogues, meant for hearing impaired people",
-	"The subtitles were translated automatically by a machine": "The subtitles were translated automatically by a machine",
-	"The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings": "The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings",
+	"Foreign parts only": "Doar Limbi Străine",
+	"The subtitle file contains descriptions of sounds and/or dialogues, meant for hearing impaired people": "Subtitrarea conține descrieri de sunete şi/sau dialog, menit pentru persoane cu deficiențe auditive",
+	"The subtitles were translated automatically by a machine": "Subtitrările au fost traduse automat de un robot",
+	"The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings": "Subtitrările traduc doar părți ale scenariului care nu sunt native, ca exemplu limba elfilor si a orcilor din Lord of the Rings",
 	"": ""
 }
