@@ -518,7 +518,6 @@ var Interface = {
     // AUTO: injects userinfo in the UI
     updateUserInfo: function (userinfo) {
         if (!userinfo) {
-            console.warn('nope')
             return;
         }
 
