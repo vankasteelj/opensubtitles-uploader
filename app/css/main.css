@@ -214,9 +214,14 @@
     float: left;
 }
 
+.username:hover {
+    text-decoration: underline;
+}
+
 .userwrap:hover {
     cursor: pointer;
     opacity: .85;
+    text-decoration: underline;
 }
 
 

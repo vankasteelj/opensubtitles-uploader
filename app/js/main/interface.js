@@ -177,27 +177,20 @@ var Interface = {
     logged: function () {
         // base infos
         var username = localStorage.os_user;
-        var rank = localStorage.os_rank;
-        var id = localStorage.os_id;
         var isFresh = localStorage.os_refreshed ? (parseInt(localStorage.os_refreshed) + 604800000 > Date.now()) : false;
 
         if (username) {
             $('#login-username').val(username);
         }
 
-        if ((rank || rank === '') && id && isFresh) {
+        if (isFresh) {
             // display username
             $('#logged .username').text(username);
 
-            // display user rank
-            $('#logged .icon-user').addClass('icon-' + rank.replace(/\W/g, '-'));
-            
-            // display tooltip
-            $('#logged .icon-user').prop('title', rank.toUpperCase());
-            
-            // open os profile on click
-            $('#logged .userwrap').on('click', function (e) {
-                Misc.openExternal('https://www.opensubtitles.org/profile/iduser-' + id);
+            // update userinfo
+            Interface.updateUserInfo({
+                UserRank: localStorage.os_rank,
+                IDUser: localStorage.os_id
             });
 
             // display logged div
@@ -528,15 +521,19 @@ var Interface = {
         localStorage.os_rank = userinfo.UserRank;
         localStorage.os_refreshed = Date.now();
 
-        // update user rank
-        $('#logged .icon-user').addClass('icon-' + userinfo.UserRank.replace(/\W/g, '-'));
+        if (userinfo.UserRank) {
+            // update user rank
+            $('#logged .icon-user').addClass('icon-' + userinfo.UserRank.replace(/\W/g, '-'));
 
-        // display tooltip
-        $('#logged .icon-user').prop('title', userinfo.UserRank.toUpperCase());
+            // display tooltip
+            $('#logged .icon-user').prop('title', userinfo.UserRank.toUpperCase());
+        }
 
-        // open os profile on click
-        $('#logged .userwrap').on('click', function (e) {
-            Misc.openExternal('https://www.opensubtitles.org/profile/iduser-' + userinfo.IDUser);
-        });
+        if (userinfo.IDUser) {
+            // open os profile on click
+            $('#logged .username').on('click', function (e) {
+                Misc.openExternal('https://www.opensubtitles.org/profile/iduser-' + userinfo.IDUser);
+            });
+        }
     }
 };
