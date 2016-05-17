@@ -224,6 +224,19 @@ var Files = {
                             }
                         }
                     }
+
+                    // do we have a general track?
+                    if (md[0].general) {
+                        var general = md[0].general;
+
+                        if (general.movie_name) {
+                            info.releasename = general.movie_name;
+                        } else if (general.title) {
+                            info.releasename = general.title;
+                        } else if (general.comment) {
+                            info.releasename = general.comment;
+                        }
+                    }
                 }
 
                 resolve(info);
