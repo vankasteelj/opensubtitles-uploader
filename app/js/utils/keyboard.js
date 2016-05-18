@@ -11,6 +11,8 @@ var Keyboard = {
                 $('#button-upload').click();
             } else if (key.ctrlKey && key.charCode === 15) { // ctrl+o
                 document.querySelector('#file-path-hidden').click();
+            } else if (key.ctrlKey && key.charCode === 23) { // ctrl+w
+                Interface.reset();
             } else if (key.ctrlKey && key.charCode === 6) { // ctrl+f
                 $('.search-imdb').click();
             } else if (key.ctrlKey && key.charCode === 4) { // ctrl+d
