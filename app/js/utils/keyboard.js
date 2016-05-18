@@ -5,7 +5,6 @@ var Keyboard = {
     // STARTUP: setup keyboard shortcuts
     setupShortcuts: function () {
         document.addEventListener('keypress', function (key) {
-            console.log(key)
             if (key.charCode === 13) { // enter
                 Keyboard.keyEnter(key.target.id);
             } else if (key.ctrlKey && key.charCode === 10) { // ctrl+enter

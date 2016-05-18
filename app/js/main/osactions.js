@@ -84,8 +84,15 @@ var OsActions = {
         }
     },
 
+    // AUTO: used while searching imdb
+    isSearching: false,
+
     // USERINTERACTION: search imdb id through OS api, display results (search imdb popup)
     searchImdb: function () {
+        // don't search multiple times
+        if (OsActions.isSearching) {
+            return;
+        }
         // don't search without query
         if ($('#search-text').val() === '') {
             Interface.animate('#button-search', 'buzz', 1000);
@@ -99,6 +106,7 @@ var OsActions = {
         // erase content on new search (does nothing on 1st search)
         $('#search-result').html('');
 
+        OsActions.isSearching = true;
         OS.login().then(function (res) {
             Interface.updateUserInfo(res.userinfo);
             return OS.api.SearchMoviesOnIMDB(res.token, $('#search-text').val());
@@ -138,6 +146,7 @@ var OsActions = {
 
             // hide spinner
             $('#button-search').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
+            OsActions.isSearching = false;
         }).catch(function (err) {
             console.error('SearchMoviesOnIMDB', err);
             $('#search').animate({
@@ -151,6 +160,7 @@ var OsActions = {
 
             // hide spinner
             $('#button-search').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
+            OsActions.isSearching = false;
         });
     },
 
