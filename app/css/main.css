@@ -212,6 +212,7 @@
     margin-left: 4px;
     position: relative;
     float: left;
+    cursor: pointer;
 }
 
 .username:hover {

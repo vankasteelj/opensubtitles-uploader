@@ -5,14 +5,19 @@ var Keyboard = {
     // STARTUP: setup keyboard shortcuts
     setupShortcuts: function () {
         document.addEventListener('keypress', function (key) {
-            if (key.charCode === 13) {
+            console.log(key)
+            if (key.charCode === 13) { // enter
                 Keyboard.keyEnter(key.target.id);
-            } else if (key.ctrlKey && key.charCode === 6) {
+            } else if (key.ctrlKey && key.charCode === 10) { // ctrl+enter
+                $('#button-upload').click();
+            } else if (key.ctrlKey && key.charCode === 15) { // ctrl+o
+                document.querySelector('#file-path-hidden').click();
+            } else if (key.ctrlKey && key.charCode === 6) { // ctrl+f
                 $('.search-imdb').click();
-            } else if (key.ctrlKey && key.charCode === 4) {
+            } else if (key.ctrlKey && key.charCode === 4) { // ctrl+d
                 console.info('Opening devtools');
                 gui.Window.get().showDevTools();
-            } else if (key.ctrlKey && key.charCode === 18) {
+            } else if (key.ctrlKey && key.charCode === 18) { // ctrl+r
                 Misc.restartApp();
             }
         });

@@ -103,6 +103,16 @@ var Boot = {
             });
         }, false);
 
+        // any file hidden input
+        document.querySelector('#file-path-hidden').addEventListener('change', function (evt) {
+            window.ondrop({
+                dataTransfer: {
+                    files: $('#file-path-hidden')[0].files
+                },
+                preventDefault: function () {}
+            });
+        }, false);
+
         // supported file types for "browse" window
         $('#video-file-path-hidden').attr('accept', Files.supported.video.join());
         $('#subtitle-file-path-hidden').attr('accept', Files.supported.subtitle.join());
