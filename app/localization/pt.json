@@ -43,7 +43,7 @@
 	"Language testing unconclusive, automatic detection failed": "Teste de idioma inconclusivo, detecção automática falhada",
 	"Video cannot be imported because OpenSubtitles could not be reached. Is it online?": "Video não importado porque não foi possível conectar ao Opensubtitles. Está online?",
 	"Unknown OpenSubtitles related error, please retry later or report the issue": "Erro desconhecido relacionado com o OpenSubtitles, por favor tente mais tarde ou reporte o problema",
-	"You haven't specified an IMDB id for the video file. It is highly recommended to do so, for correctly categorize the subtitle and make it easy to download.": "Não especificou o número do imdb para o ficheiro de video. É altamente recomendado fazê-lo, para que a legenda seja encontrada facilmente.",
+	"You haven't specified an IMDB id for the video file. It is highly recommended to do so, to correctly categorize the subtitle and make it easy to download.": "Não especificou o número do imdb para o ficheiro de video. É altamente recomendado fazê-lo, para que a legenda seja encontrada facilmente.",
 	"Wrong username or password": "Nome de utilizador ou palavra-passe errada",
 	"Not found": "Não encontrado",
 	"Wrong IMDB id": "Número de imdb errado",
