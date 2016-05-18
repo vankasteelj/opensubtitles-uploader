@@ -123,7 +123,7 @@ var Interface = {
             }
 
             // auto-detect matching subtitle if the user didn't drop both video+text files
-            if (!multidrop && !$('#subtitle-file-path').val()) {
+            if (!multidrop) {
                 // Hack RegExp, required for special chars
                 RegExp.escape = function (s) {
                     return String(s).replace(/[\\\^$*+?.()|\[\]{}]/g, '\\$&');
@@ -138,7 +138,24 @@ var Interface = {
                         if (f[i].slice(0, f[i].length - path.extname(f[i]).length).match(RegExp.escape(path.basename(file).slice(0, path.basename(file).length - path.extname(file).length))) && Files.detectFileType(f[i]) === 'subtitle') {
                             // if match found, load it :) 
                             console.info('Matching subtitle detected');
-                            Interface.add_subtitle(path.join(path.dirname(file), f[i]), true);
+
+                            var existing = $('#subtitle-file-path').val();
+
+                            if (existing && (path.basename(existing) !== f[i])) {
+                                // modal to select which subtitle to load
+                                Interface.modal(i18n.__('Replace the currently loaded file with the detected one: %s', '<span class="modal-filename">'+f[i]+'</span>'), 'yes', 'no');
+
+                                // on click 'yes'
+                                $('.modal-yes').on('click', function (e) {
+                                    Interface.add_subtitle(path.join(path.dirname(file), f[i]), true);
+                                });
+                                // on click 'no'
+                                $('.modal-no').on('click', function (e) {
+                                    Interface.reset('modal');
+                                });
+                            } else {
+                                Interface.add_subtitle(path.join(path.dirname(file), f[i]), true);
+                            }
                             break;
                         }
                     }
@@ -243,7 +260,7 @@ var Interface = {
         Files.detectForeignOnly();
 
         // auto-detect matching video if the user didn't drop both video+text files
-        if (!multidrop && !$('#video-file-path').val()) {
+        if (!multidrop) {
             // Hack RegExp, required for special chars
             RegExp.escape = function (s) {
                 return String(s).replace(/[\\\^$*+?.()|\[\]{}]/g, '\\$&');
@@ -258,7 +275,25 @@ var Interface = {
                     if (f[i].slice(0, f[i].length - path.extname(f[i]).length).match(RegExp.escape(path.basename(file).slice(0, path.basename(file).length - (path.extname(file).length + 8)))) && Files.detectFileType(f[i]) === 'video') {
                         // if match found, load it :) 
                         console.info('Matching video detected');
-                        Interface.add_video(path.join(path.dirname(file), f[i]), true);
+
+                        var existing = $('#video-file-path').val();
+
+                        if (existing && (path.basename(existing) !== f[i])) {
+                            // modal to select which subtitle to load
+                            Interface.modal(i18n.__('Replace the currently loaded file with the detected one: %s', '<span class="modal-filename">'+f[i]+'</span>'), 'yes', 'no');
+
+                            // on click 'yes'
+                            $('.modal-yes').on('click', function (e) {
+                                Interface.add_video(path.join(path.dirname(file), f[i]), true);
+                            });
+                            // on click 'no'
+                            $('.modal-no').on('click', function (e) {
+                                Interface.reset('modal');
+                            });
+                        } else {
+                            Interface.add_video(path.join(path.dirname(file), f[i]), true);
+                        }
+
                         break;
                     }
                 }

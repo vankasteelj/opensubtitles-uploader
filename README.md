@@ -20,7 +20,7 @@ Confused? Wondering how to use it? Watch the [tutorial video](http://www.youtube
 Here's a few easy ways of getting involved with the project:
 - [Report](https://github.com/vankasteelj/opensubtitles-uploader/issues/new) any bug/issue
 - Fork, commit, then send a [Pull Request](https://github.com/vankasteelj/opensubtitles-uploader/pulls)
-- [Translate](https://www.transifex.com/vankasteelj/opensubtitles-uploader-nwjs/) the application (or PR a .json)
+- [Translate](https://www.transifex.com/vankasteelj/opensubtitles-uploader-nwjs/translate) the application on Transifex (or send me a .json)
 - Tell your friends
 
 ## Develop

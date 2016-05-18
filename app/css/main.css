@@ -652,6 +652,12 @@ input[type=checkbox]:checked:before {
     list-style-type: square;
 }
 
+#modal-content .modal-filename {
+    display: block;
+    padding: 5px 15px;
+    font-style: italic;
+}
+
 
 /*
  * Notifications
