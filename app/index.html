@@ -45,12 +45,9 @@
             <i18n>Upload</i18n>
         </div>
 
-        <dl id="app-locale" class="dropdown">
-            <dt><a><span></span></a></dt>
-            <dd>
-                <ul></ul>
-            </dd>
-        </dl>
+        <div id="settings">
+            <i class="icon icon-settings tooltipped i18n" onClick="Interface.settingsPopup()" title="Settings"></i>
+        </div>
 
         <div id="authentication">
             <div id="logged" style="display:none">
@@ -231,6 +228,19 @@
             <div id="button-search" onClick="OsActions.searchImdb()" class="button fa fa-search tooltipped i18n" title="Search"></div>
             <div id="search-result"></div>
         </div>
+    </section>
+
+    <!-- app settings -->
+    <section id="settings-popup">
+        <div id="settings-title">
+            <i18n>Settings</i18n>
+        </div>
+        <dl id="app-locale" class="dropdown">
+            <dt><a><span></span></a></dt>
+            <dd>
+                <ul></ul>
+            </dd>
+        </dl>
     </section>
 
     <!-- popup div for upload warnings and results -->

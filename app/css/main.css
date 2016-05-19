@@ -694,15 +694,33 @@ input[type=checkbox]:checked:before {
 
 
 /*
- * LOCALIZATION
+ * SETTINGS
  */
 
-#app-locale {
+#settings-popup {
+    display: none;
+}
+
+.icon-settings {
+    margin-right: 8px;
+    margin-top: 2px;
+    background-position: -40px -120px;
+    cursor: pointer;
     position: relative;
-    margin: 0;
     top: 10px;
     float: right;
 }
+
+.icon-settings:hover {
+    transition: all .3s;
+}
+
+
+/*
+ * LOCALIZATION
+ */
+
+#app-locale {}
 
 .dropdown dd,
 .dropdown dt,

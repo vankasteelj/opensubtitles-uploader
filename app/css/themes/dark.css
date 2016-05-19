@@ -270,6 +270,10 @@ input {
     background: rgba(222, 84, 98, .9);
 }
 
+input.warning::-webkit-input-placeholder {
+    color: #da3e4e;
+}
+
 .ui-tooltip {
     background: rgba(50, 50, 50, .8);
     color: #eee;
@@ -277,4 +281,8 @@ input {
 
 .icon {
     -webkit-filter: invert(100%);
+}
+
+.icon-settings:hover {
+    -webkit-filter: invert(50%);
 }
