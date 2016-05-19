@@ -31,7 +31,7 @@
 	"Hearing impaired": "Slechthorenden",
 	"Auto-translated": "Machinevertaling",
 	"Translator": "Vertaler",
-	"developped by": "ontwikkeld door",
+	"developed by": "ontwikkeld door",
 	"Enter a title": "Voer een titel in",
 	"Search": "Zoeken",
 	"OK": "OK",
@@ -66,5 +66,10 @@
 	"The subtitle file contains descriptions of sounds and/or dialogues, meant for hearing impaired people": "De ondertitels bevatten omschrijvingen van geluiden en/of dialogen, bedoeld voor doven en slechthorenden",
 	"The subtitles were translated automatically by a machine": "De ondertitels zijn automatisch door een machine vertaald",
 	"Foreign parts only": "Anderstalige tekst",
-	"The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings": "In deze ondertitels zijn alleen de anderstalige teksten vertaald, bijvoorbeeld het Elfs en Orks in The Lord of the Rings"
+	"The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings": "In deze ondertitels zijn alleen de anderstalige teksten vertaald, bijvoorbeeld het Elfs en Orks in The Lord of the Rings",
+	"Theme": "Theme",
+	"Check for updates": "Check for updates",
+	"YES": "YES",
+	"NO": "NO",
+	"Settings": "Settings"
 }

@@ -13,7 +13,7 @@ var Keyboard = {
                 document.querySelector('#file-path-hidden').click();
             } else if (key.ctrlKey && key.charCode === 23) { // ctrl+w
                 Interface.reset();
-            } else if (key.ctrlKey && key.charCode === 6) { // ctrl+f
+            } else if (key.ctrlKey && key.charCode === 6 && !$('#settings-popup').is(':visible')) { // ctrl+f
                 $('.search-imdb').click();
             } else if (key.ctrlKey && key.charCode === 4) { // ctrl+d
                 console.info('Opening devtools');
@@ -25,8 +25,7 @@ var Keyboard = {
 
         document.addEventListener('keyup', function (key) {
             if (key.keyCode === 27) {
-                $('#search-popup').css('opacity', 0).hide();
-                Interface.reset('search');
+                Interface.leavePopup({})
             } else if (key.keyCode === 40) {
                 Keyboard.browseResultItem('down');
             } else if (key.keyCode === 38) {

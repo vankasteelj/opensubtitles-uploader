@@ -22,6 +22,8 @@
     <script src="js/utils/localization.js" type="application/javascript"></script>
     <script src="js/utils/misc.js" type="application/javascript"></script>
     <script src="js/utils/notify.js" type="application/javascript"></script>
+    <script src="js/utils/themes.js" type="application/javascript"></script>
+    <script src="js/utils/update.js" type="application/javascript"></script>
 
     <script src="js/main/dragdrop.js" type="application/javascript"></script>
     <script src="js/main/files.js" type="application/javascript"></script>
@@ -213,8 +215,7 @@
     <!-- bottom right credits -->
     <div class="app-author">
         <span class="version"></span>
-        <i18n>developped by</i18n> <a onClick="Misc.openExternal('https://github.com/vankasteelj')">vankasteelj</a>
-        <span class="fa fa-circle i18n tooltipped" id="switch-theme" onClick="Interface.switchTheme()" title="Switch theme"></span>
+        <i18n>developed by</i18n> <a onClick="Misc.openExternal('https://github.com/vankasteelj')">vankasteelj</a>
     </div>
 
     <!-- notification divs (bottom left and slidein) -->
@@ -232,15 +233,22 @@
 
     <!-- app settings -->
     <section id="settings-popup">
-        <div id="settings-title">
-            <i18n>Settings</i18n>
+        <div id="settings-content">
+            <i id="settings-close" class="fa fa-close" onClick="Interface.leavePopup({})"></i>
+
+            <div class="setting">
+                <span><i18n>Language</i18n><a onClick="Misc.openExternal('https://www.transifex.com/vankasteelj/opensubtitles-uploader-nwjs/')">[<i18n>help translating</i18n>]</a></span>
+                <select id="app-language" selected=""></select>
+            </div>
+            <div class="setting">
+                <span><i18n>Theme</i18n></span>
+                <select id="app-theme" selected=""></select>
+            </div>
+            <div class="setting">
+                <span><i18n>Check for updates</i18n></span>
+                <input id="app-update" type="checkbox">
+            </div>
         </div>
-        <dl id="app-locale" class="dropdown">
-            <dt><a><span></span></a></dt>
-            <dd>
-                <ul></ul>
-            </dd>
-        </dl>
     </section>
 
     <!-- popup div for upload warnings and results -->

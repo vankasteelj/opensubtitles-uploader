@@ -91,49 +91,6 @@ var Misc = {
         return selectedText;
     },
 
-    // STARTUP: check updates on app start, based on upstream git package.json
-    checkUpdates: function () {
-        // on start, set update text if not updated
-        if (localStorage.availableUpdate && localStorage.availableUpdate !== '' && localStorage.availableUpdate > PKJSON.version) {
-            $('#notification').html(i18n.__('New version available, download %s now!', '<a onClick="Misc.openExternal(\'' + localStorage.availableUpdateUrl + '\')">v' + localStorage.availableUpdate + '</a>'));
-        }
-
-        // only check every 7 days
-        if (parseInt(localStorage.lastUpdateCheck) + 604800000 > Date.now()) {
-            return;
-        }
-
-        localStorage.lastUpdateCheck = Date.now();
-
-        // fetch remote package.json
-        var url = 'https://raw.githubusercontent.com/vankasteelj/opensubtitles-uploader/master/package.json';
-        https.get(url, function (res) {
-            var body = '';
-
-            res.on('data', function (chunk) {
-                body += chunk.toString();
-            });
-
-            res.on('end', function () {
-                var avail_version = JSON.parse(body).version;
-                var releasesUrl = JSON.parse(body).releases;
-
-                if (avail_version > PKJSON.version) {
-                    localStorage.availableUpdate = avail_version;
-                    localStorage.availableUpdateUrl = releasesUrl;
-                    console.info('Update %s available:', avail_version, releasesUrl);
-                    $('#notification').html(i18n.__('New version available, download %s now!', '<a onClick="Misc.openExternal(\'' + localStorage.availableUpdateUrl + '\')">v' + localStorage.availableUpdate + '</a>'));
-                } else {
-                    localStorage.availableUpdate = '';
-                    localStorage.availableUpdateUrl = '';
-                    console.debug('No update available');
-                }
-            });
-        }).on('error', function (e) {
-            console.error('Unable to look for updates', e);
-        });
-    },
-
     // AUTO: function to always return 2 digits, adding leading 0 if needed
     pad: function (n) {
         return n < 10 ? '0' + n : n;
@@ -247,6 +204,11 @@ var Misc = {
         if (imgUrl && imgUrl !== 'none') {
             localStorage['main-video-img'] = imgUrl;
         }
+
+        // save settings popup state
+        if ($('#settings-popup').is(':visible')) {
+            localStorage['settings-popup'] = true;
+        }
     },
 
     // STARTUP: restore state of the app, when reloading
@@ -257,6 +219,11 @@ var Misc = {
                 $(id).prop(prop, states[prop][id]);
             }
         }
+
+        if (localStorage['settings-popup']) {
+            Interface.settingsPopup();
+        }
+
         Interface.displayPlaceholder(localStorage['main-video-img']);
     },
 

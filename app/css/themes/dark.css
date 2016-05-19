@@ -62,6 +62,7 @@ body {
 }
 
 .metadata .content .metaitem input,
+.setting input,
 .metadata .content .metaitem textarea {
     color: #f5f7fa;
     background: #343c48;
@@ -73,6 +74,8 @@ input#login-username,
 input#login-password,
 textarea#subauthorcomment,
 select#sublanguageid,
+select#app-language,
+select#app-theme,
 input#search-text {
     color: #f5f7fa;
     background: #343c48;
@@ -285,4 +288,30 @@ input.warning::-webkit-input-placeholder {
 
 .icon-settings:hover {
     -webkit-filter: invert(50%);
+}
+
+#settings-popup {
+    background: rgba(25, 30, 50, .2);
+}
+
+#settings-content {
+    background: #242a31;
+    color: #f5f7fa;
+}
+
+#settings-close {
+    color: #ccc;
+}
+
+#settings-close:hover {
+    color: #de5362;
+}
+
+.setting a {
+    opacity: .75;
+}
+
+.setting a:hover {
+    opacity: 1;
+    text-decoration: underline;
 }

@@ -31,7 +31,7 @@
 	"Hearing impaired": "Hearing impaired",
 	"Auto-translated": "Auto-translated",
 	"Translator": "Translator",
-	"developped by": "developped by",
+	"developed by": "developed by",
 	"Enter a title": "Enter a title",
 	"Search": "Search",
 	"OK": "OK",
@@ -69,5 +69,10 @@
 	"The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings": "The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings",
 	"YES": "YES",
 	"NO": "NO",
-	"Replace the currently loaded file with the detected one: %s": "Replace the currently loaded file with the detected one: %s"
+	"Replace the currently loaded file with the detected one: %s": "Replace the currently loaded file with the detected one: %s",
+	"Settings": "Settings",
+	"Theme": "Theme",
+	"Check for updates": "Check for updates",
+	"help with localization": "help with localization",
+	"help translating": "help translating"
 }

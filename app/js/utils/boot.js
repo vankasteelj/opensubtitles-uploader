@@ -4,15 +4,15 @@ var Boot = {
     load: function () {
         Boot.checkPortable();               // is it a portable version?
         Localization.setupLocalization();   // localize
-        Boot.setupTheme();                  // theme
+        Themes.loadTheme();                 // display theme
+        Boot.setupSettings();               // setup settings popup
         OsActions.verifyLogin();            // check OS login
         Boot.checkVisible();                // nwjs window position
         Boot.setupInputs();                 // browse button
         Boot.setupRightClicks();            // right click menus
         Keyboard.setupShortcuts();          // keyboard shortcuts
         Interface.setupImdbFocus();         // imdb field event
-        Localization.setupLocaleFlags();    // language dropdown
-        Misc.checkUpdates();                // update
+        Update.checkUpdates();              // update
         Boot.setupLangDropdown();           // sub language dropdown
         Interface.restoreLocks();           // locked fields
         Boot.setupTooltips();               // tooltips
@@ -22,18 +22,6 @@ var Boot = {
 
         // on app open, load file if used 'open with'
         Files.loadFile(gui.App.argv.slice(-1).pop());
-    },
-
-    // STARTUP: checks which theme user prefers, defaults to light, then injects css theme file and changes button color accordingly
-    setupTheme: function () {
-        // which theme to use?
-        var theme = localStorage && localStorage.theme ? localStorage.theme : 'light';
-        // inject the css file
-        document.getElementById('theme').href = 'css/themes/' + theme.toLowerCase() + '.css';
-        // store setting
-        localStorage.theme = theme;
-        // button color
-        $('#switch-theme').css('color', theme === 'light' ? '#323a45' : '#f5f7fa');
     },
 
     // STARTUP: builds right click menu
@@ -184,6 +172,7 @@ var Boot = {
         }
         Misc.restoreState();
         localStorage.removeItem('main-video-img');
+        localStorage.removeItem('settings-popup');
         localStorage.removeItem('states');
     },
 
@@ -201,5 +190,17 @@ var Boot = {
     // STARTUP: set up version number in bottom-right corner
     setupVersion: function () {
         $('.version').text('v' + PKJSON.version + ' - ');
+    },
+
+    // STARTUP: set up values in settings popup
+    setupSettings: function () {
+        // autoupdate
+        Update.setupCheckbox();
+
+        // theme dropdown
+        Themes.setupDropdown();
+
+        // lang dropdown
+        Localization.setupDropdown();
     }
 };

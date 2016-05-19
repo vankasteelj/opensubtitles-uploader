@@ -64,10 +64,7 @@ var Localization = {
     },
 
     // STARTUP: build dropdown menu for changing app localization
-    setupLocaleFlags: function () {
-        // default lang is the shown flag
-        $('.dropdown dt a span').html('<img class="flag" src="images/flags/' + i18n.getLocale() + '.png"/>');
-
+    setupDropdown: function () {
         // build dropdown
         for (var lang in Localization.availableLocales) {
             // find OSLANGS entry
@@ -80,34 +77,21 @@ var Localization = {
             }
 
             // insert element in dropdown
-            $('#app-locale ul').append('<li><a><img class="flag tooltipped i18n" src="images/flags/' + Localization.availableLocales[lang] + '.png" title="' + (osEntry.native || lang) + '"/><span class="value">' + Localization.availableLocales[lang] + '</span></a></li>');
+            $('#app-language').append('<option value="'+osEntry.iso6391+'">'+osEntry.native+'</option>');
+            
+            // select if active
+            if (osEntry.iso6391 === i18n.getLocale()) {
+                $('#app-language').val(osEntry.iso6391);
+            }
         }
 
-        // open/close dropdown on click
-        $('.dropdown dt a').click(function () {
-            // show/hide dropdown
-            $('.dropdown dd ul').toggle();
-            // change arrow's position
-            $(this).toggleClass('rotatecarret');
-        });
-
-        // on dropdown's flag click, change lang
-        $('.dropdown dd ul li a').click(function () {
+        // on dropdown click, change lang
+        $('#app-language').on('change', function (e) {
             // store new lang
-            localStorage.locale = $(this).find('span.value').html();
+            localStorage.locale = e.target.value;
             // reload to use new lang
             Misc.saveState();
             win.reload();
-        });
-
-        // hide dropdown if click elsewhere
-        $(document).bind('click', function (e) {
-            if (!$(e.target).parents().hasClass('dropdown')) {
-                // hide dropdown
-                $('.dropdown dd ul').hide();
-                // set arrow downside (default)
-                $('.dropdown dt a').removeClass('rotatecarret');
-            }
         });
     },
 };

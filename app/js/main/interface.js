@@ -6,7 +6,7 @@ var Interface = {
     switchTheme: function () {
         // switch stored setting on click
         localStorage.theme = !localStorage || (localStorage && localStorage.theme === 'dark') ? 'light' : 'dark';
-        // reload to let setupTheme do the job
+        // reload to let loadTheme do the job
         Misc.saveState();
         win.reload();
     },
@@ -438,9 +438,18 @@ var Interface = {
         $('#search-text').focus();
     },
 
+    // USERINTERACTION: open settings popup
+    settingsPopup: function () {
+        console.debug('Opening settings');
+        // close popup on click elsewhere
+        $(document).bind('mouseup', Interface.leavePopup);
+
+        $('#settings-popup').show().css('opacity', 1);
+    },
+
     // USERINTERACTION or AUTO: close imdb search popup
     leavePopup: function (e) {
-        if (!$('#search').is(e.target) && $('#search').has(e.target).length === 0) {
+        if ($('#search-popup').is(':visible') && !$('#search').is(e.target) && $('#search').has(e.target).length === 0) {
             console.debug('Closing IMDB search popup');
             // hide popup
             $('#search-popup').css('opacity', 0).hide();
@@ -453,6 +462,10 @@ var Interface = {
             Interface.reset('search');
             // remove the onclick event defined in searchPopup()
             $(document).unbind('mouseup', Interface.leavePopup);
+        } else if ($('#settings-popup').is(':visible') && !$('#settings-content').is(e.target) && $('#settings-content').has(e.target).length === 0) {
+            console.debug('Closing settings');
+            // hide popup
+            $('#settings-popup').css('opacity', 0).hide();
         }
     },
 

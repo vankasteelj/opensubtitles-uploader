@@ -65,6 +65,8 @@ input#login-username,
 input#login-password,
 textarea#subauthorcomment,
 select#sublanguageid,
+select#app-language,
+select#app-theme,
 input#search-text {
     color: #444;
     background: #fafafa;
@@ -102,13 +104,15 @@ input[type=checkbox] {
     border-color: #d0d0d0;
 }
 
-#sublanguageid {
+#sublanguageid,
+.setting select {
     color: #444;
     border-color: #d0d0d0;
     background: #fafafa;
 }
 
-#sublanguageid option {
+#sublanguageid option,
+.setting select option {
     color: #444;
 }
 
@@ -288,4 +292,28 @@ input.warning::-webkit-input-placeholder {
 
 .icon-settings:hover {
     -webkit-filter: invert(50%);
+}
+
+#settings-popup {
+    background: rgba(50, 60, 80, .2);
+}
+
+#settings-content {
+    background: #fafafa;
+    color: #444;
+}
+
+#settings-close {
+    color: #444;
+}
+
+#settings-close:hover {
+    color: #728CA6;
+}
+
+.setting a {
+    color: #728CA6;
+}
+.setting a:hover {
+    text-decoration: underline;
 }
