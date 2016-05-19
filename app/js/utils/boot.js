@@ -72,7 +72,7 @@ var Boot = {
         // build html
         var langs = '';
         for (var key in OSLANGS) {
-            langs += '<option value="' + OSLANGS[key].code + '">' + key + '</option>';
+            langs += '<option value="' + OSLANGS[key].code + '">' + (OSLANGS[key].native || key) + '</option>';
         }
 
         // inject html (new fields) into dropdown

@@ -1,215 +1,351 @@
 {
     "Afrikaans": {
-        "code": "afr"
+        "code": "afr",
+        "native": "Afrikaans",
+        "iso6391": "af"
     },
     "Albanian": {
-        "code": "alb"
+        "code": "alb",
+        "native": "Shqip",
+        "iso6391": "sq"
     },
     "Arabic": {
-        "code": "ara"
+        "code": "ara",
+        "native": "العربية",
+        "iso6391": "ar"
     },
     "Armenian": {
-        "code": "arm"
+        "code": "arm",
+        "native": "Հայերեն",
+        "iso6391": "hy"
     },
     "Basque": {
-        "code": "baq"
+        "code": "baq",
+        "native": "Euskara",
+        "iso6391": "eu"
     },
     "Belarusian": {
-        "code": "bel"
+        "code": "bel",
+        "native": "Беларуская",
+        "iso6391": "be"
     },
     "Bengali": {
-        "code": "ben"
+        "code": "ben",
+        "native": "বাংলা",
+        "iso6391": "bn"
     },
     "Bosnian": {
-        "code": "bos"
+        "code": "bos",
+        "native": "Bosanski jezik",
+        "iso6391": "bs"
     },
     "Breton": {
-        "code": "bre"
+        "code": "bre",
+        "native": "Brezhoneg",
+        "iso6391": "br"
     },
     "Bulgarian": {
-        "code": "bul"
+        "code": "bul",
+        "native": "Български",
+        "iso6391": "bg"
     },
     "Burmese": {
-        "code": "bur"
+        "code": "bur",
+        "native": "ဗမာစာ",
+        "iso6391": "my"
     },
     "Catalan": {
-        "code": "cat"
+        "code": "cat",
+        "native": "Català",
+        "iso6391": "ca"
     },
     "Chinese (simplified)": {
-        "code": "chi"
+        "code": "chi",
+        "native": "简体中文",
+        "iso6391": "zh-cn"
     },
     "Chinese (traditional)": {
-        "code": "zht"
+        "code": "zht",
+        "native": "正體中文",
+        "iso6391": "zh-tw"
     },
     "Chinese (bilingual)": {
-        "code": "zhe"
+        "code": "zhe",
+        "native": "中文",
+        "iso6391": "zh"
     },
     "Czech": {
-        "code": "cze"
+        "code": "cze",
+        "native": "Český",
+        "iso6391": "cs"
     },
     "Danish": {
-        "code": "dan"
+        "code": "dan",
+        "native": "Dansk",
+        "iso6391": "da"
     },
     "Dutch": {
-        "code": "dut"
+        "code": "dut",
+        "native": "Nederlands",
+        "iso6391": "nl"
     },
     "English": {
-        "code": "eng"
+        "code": "eng",
+        "native": "English",
+        "iso6391": "en"
     },
     "Esperanto": {
-        "code": "epo"
+        "code": "epo",
+        "native": "Esperanto",
+        "iso6391": "eo"
     },
     "Estonian": {
-        "code": "est"
+        "code": "est",
+        "native": "Eesti",
+        "iso6391": "et"
     },
     "Finnish": {
-        "code": "fin"
+        "code": "fin",
+        "native": "Suomi",
+        "iso6391": "fi"
     },
     "French": {
-        "code": "fre"
+        "code": "fre",
+        "native": "Français",
+        "iso6391": "fr"
     },
     "Georgian": {
-        "code": "geo"
+        "code": "geo",
+        "native": "ქართული",
+        "iso6391": "ka"
     },
     "German": {
-        "code": "ger"
+        "code": "ger",
+        "native": "Deutsch",
+        "iso6391": "de"
     },
     "Galician": {
-        "code": "glg"
+        "code": "glg",
+        "native": "Galego",
+        "iso6391": "gl"
     },
     "Greek": {
-        "code": "ell"
+        "code": "ell",
+        "native": "Ελληνικά",
+        "iso6391": "el"
     },
     "Hebrew": {
-        "code": "heb"
+        "code": "heb",
+        "native": "עברית",
+        "iso6391": "he"
     },
     "Hindi": {
-        "code": "hin"
+        "code": "hin",
+        "native": "हिन्दी",
+        "iso6391": "hi"
     },
     "Croatian": {
-        "code": "hrv"
+        "code": "hrv",
+        "native": "Hrvatski",
+        "iso6391": "hr"
     },
     "Hungarian": {
-        "code": "hun"
+        "code": "hun",
+        "native": "Magyar",
+        "iso6391": "hu"
     },
     "Icelandic": {
-        "code": "ice"
+        "code": "ice",
+        "native": "Íslenska",
+        "iso6391": "is"
     },
     "Indonesian": {
-        "code": "ind"
+        "code": "ind",
+        "native": "Bahasa Indonesia",
+        "iso6391": "id"
     },
     "Italian": {
-        "code": "ita"
+        "code": "ita",
+        "native": "Italiano",
+        "iso6391": "it"
     },
     "Japanese": {
-        "code": "jpn"
+        "code": "jpn",
+        "native": "日本語",
+        "iso6391": "ja"
     },
     "Kazakh": {
-        "code": "kaz"
+        "code": "kaz",
+        "native": "Қазақ тілі",
+        "iso6391": "kk"
     },
     "Khmer": {
-        "code": "khm"
+        "code": "khm",
+        "native": "ភាសាខ្មែរ",
+        "iso6391": "km"
     },
     "Korean": {
-        "code": "kor"
+        "code": "kor",
+        "native": "한국어",
+        "iso6391": "ko"
     },
     "Latvian": {
-        "code": "lav"
+        "code": "lav",
+        "native": "Latviešu valoda",
+        "iso6391": "lv"
     },
     "Lithuanian": {
-        "code": "lit"
+        "code": "lit",
+        "native": "lietuvių kalba",
+        "iso6391": "lt"
     },
     "Luxembourgish": {
-        "code": "ltz"
+        "code": "ltz",
+        "native": "Lëtzebuergesch",
+        "iso6391": "lb"
     },
     "Macedonian": {
-        "code": "mac"
+        "code": "mac",
+        "native": "македонски јазик",
+        "iso6391": "mk"
     },
     "Malayalam": {
-        "code": "mal"
+        "code": "mal",
+        "native": "മലയാളം",
+        "iso6391": "ml"
     },
     "Malay": {
-        "code": "may"
+        "code": "may",
+        "native": "بهاس ملايو",
+        "iso6391": "ms"
     },
     "Manipuri": {
         "code": "mni"
     },
     "Mongolian": {
-        "code": "mon"
+        "code": "mon",
+        "native": "монгол",
+        "iso6391": "mn"
     },
     "Montenegrin": {
         "code": "mne"
     },
     "Norwegian": {
-        "code": "nor"
+        "code": "nor",
+        "native": "Norsk",
+        "iso6391": "no"
     },
     "Occitan": {
-        "code": "oci"
+        "code": "oci",
+        "native": "Occitan",
+        "iso6391": "oc"
     },
     "Persian": {
-        "code": "per"
+        "code": "per",
+        "native": "فارسی",
+        "iso6391": "fa"
     },
     "Polish": {
-        "code": "pol"
+        "code": "pol",
+        "native": "Polski",
+        "iso6391": "pl"
     },
     "Portuguese": {
-        "code": "por"
+        "code": "por",
+        "native": "Português",
+        "iso6391": "pt"
     },
     "Portuguese (BR)": {
-        "code": "pob"
+        "code": "pob",
+        "native": "Português (Brasil)",
+        "iso6391": "pt-br"
     },
     "Romanian": {
-        "code": "rum"
+        "code": "rum",
+        "native": "Română",
+        "iso6391": "ro"
     },
     "Russian": {
-        "code": "rus"
+        "code": "rus",
+        "native": "русский язык",
+        "iso6391": "ru"
     },
     "Serbian": {
-        "code": "scc"
+        "code": "scc",
+        "native": "српски језик",
+        "iso6391": "sr"
     },
     "Sinhalese": {
-        "code": "sin"
+        "code": "sin",
+        "native": "සිංහල",
+        "iso6391": "si"
     },
     "Slovak": {
-        "code": "slo"
+        "code": "slo",
+        "native": "Slovenčina",
+        "iso6391": "sk"
     },
     "Slovenian": {
-        "code": "slv"
+        "code": "slv",
+        "native": "Slovenščina",
+        "iso6391": "sl"
     },
     "Spanish": {
-        "code": "spa"
+        "code": "spa",
+        "native": "Español",
+        "iso6391": "es"
     },
     "Swahili": {
-        "code": "swa"
+        "code": "swa",
+        "native": "Kiswahili",
+        "iso6391": "sw"
     },
     "Swedish": {
-        "code": "swe"
+        "code": "swe",
+        "native": "Svenska",
+        "iso6391": "sv"
     },
     "Syriac": {
         "code": "syr"
     },
     "Tamil": {
-        "code": "tam"
+        "code": "tam",
+        "native": "தமிழ்",
+        "iso6391": "ta"
     },
     "Telugu": {
-        "code": "tel"
+        "code": "tel",
+        "native": "తెలుగు",
+        "iso6391": "te"
     },
     "Tagalog": {
-        "code": "tgl"
+        "code": "tgl",
+        "native": "Wikang Tagalog",
+        "iso6391": "tl"
     },
     "Thai": {
-        "code": "tha"
+        "code": "tha",
+        "native": "ไทย",
+        "iso6391": "th"
     },
     "Turkish": {
-        "code": "tur"
+        "code": "tur",
+        "native": "Türkçe",
+        "iso6391": "tr"
     },
     "Ukrainian": {
-        "code": "ukr"
+        "code": "ukr",
+        "native": "українська",
+        "iso6391": "uk"
     },
     "Urdu": {
-        "code": "urd"
+        "code": "urd",
+        "native": "اردو",
+        "iso6391": "ur"
     },
     "Vietnamese": {
-        "code": "vie"
+        "code": "vie",
+        "native": "Tiếng Việt",
+        "iso6391": "vi"
     }
 }

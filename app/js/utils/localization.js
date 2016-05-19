@@ -70,8 +70,17 @@ var Localization = {
 
         // build dropdown
         for (var lang in Localization.availableLocales) {
+            // find OSLANGS entry
+            var osEntry;
+            for (var i in OSLANGS) {
+                if (OSLANGS[i].iso6391 === Localization.availableLocales[lang]) {
+                    osEntry = OSLANGS[i];
+                    break;
+                }
+            }
+
             // insert element in dropdown
-            $('#app-locale ul').append('<li><a><img class="flag tooltipped i18n" src="images/flags/' + Localization.availableLocales[lang] + '.png" title="' + require('./localization/' + Localization.availableLocales[lang] + '.json').currentLang + '"/><span class="value">' + Localization.availableLocales[lang] + '</span></a></li>');
+            $('#app-locale ul').append('<li><a><img class="flag tooltipped i18n" src="images/flags/' + Localization.availableLocales[lang] + '.png" title="' + (osEntry.native || lang) + '"/><span class="value">' + Localization.availableLocales[lang] + '</span></a></li>');
         }
 
         // open/close dropdown on click
