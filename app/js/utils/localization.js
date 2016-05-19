@@ -3,7 +3,7 @@
 var Localization = {
 
     // cache
-    availableLocales: ['en', 'fr', 'nl', 'pl', 'pt', 'ro', 'sk'],
+    availableLocales: ['en', 'fr', 'es', 'nl', 'pl', 'pt', 'ro', 'sk'],
     detectedLocale: false,
 
     // STARTUP: load i18n and set locales, then localize app
@@ -15,7 +15,8 @@ var Localization = {
         i18n.configure({
             defaultLocale: Localization.detectedLocale,
             locales: Localization.availableLocales,
-            directory: './app/localization'
+            directory: './app/localization',
+            updateFiles: false
         });
 
         // set lang to stored or detected one

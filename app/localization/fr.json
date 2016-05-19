@@ -39,6 +39,8 @@
 	"UPLOAD": "ENVOYER",
 	"RETRY": "RÉESSAYER",
 	"OPEN IN BROWSER": "OUVRIR DANS UN NAVIGATEUR",
+	"YES": "OUI",
+	"NO": "NON",
 	"Language testing unconclusive, automatic detection failed": "Détection automatique de la langue échouée, les résultats ne sont pas assez concluants",
 	"Video cannot be imported because OpenSubtitles could not be reached. Is it online?": "La vidéo ne peut être importée parce que OpenSubtitles n'a pas pu être contacté.",
 	"Unknown OpenSubtitles related error, please retry later or report the issue": "Erreur inconnue due à OpenSubtitles, veuillez réessayer plus tard ou envoyer un rapport d'erreur",
@@ -66,5 +68,17 @@
 	"The subtitle file contains descriptions of sounds and/or dialogues, meant for hearing impaired people": "Les sous-titres contiennent des descriptions de sons et/ou de dialogues, prévues pour sourds et malentendants",
 	"The subtitles were translated automatically by a machine": "Les sous-titres ont été traduits automatiquement par une machine",
 	"Foreign parts only": "Autres langues",
-	"The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings": "Les sous-titres ne traduisent que les langues non-principales du scénario, par exemple l'elfe et l'orc dans le Seigneur des Anneaux"
+	"The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings": "Les sous-titres ne traduisent que les langues non-principales du scénario, par exemple l'elfe et l'orc dans le Seigneur des Anneaux",
+	"Replace the currently loaded file with the detected one: %s": "Remplacer le fichier existant par celui qui a été détecté automatiquement : %s",
+	"Settings": "Paramètres",
+	"Theme": "Thème",
+	"Check for updates": "Vérifier les mises à jour",
+	"help translating": "aider à traduire",
+	"Import file(s)": "Importer fichier(s)",
+	"Clear file(s)": "Nettoyer fichier(s)",
+	"Close popup(s)": "Fermer fenêtre(s) contextuelle(s)",
+	"Developer tools": "Outils pour développeurs",
+	"Next field": "Entrée suivante",
+	"Previous field": "Entrée précédente",
+	"Report an issue": "Signaler un problème"
 }

@@ -39,6 +39,8 @@
 	"UPLOAD": "UPLOADEN",
 	"RETRY": "OPNIEUW",
 	"OPEN IN BROWSER": "IN BROWSER OPENEN",
+	"YES": "JA",
+	"NO": "NEE",
 	"Language testing unconclusive, automatic detection failed": "Taal niet eenduidig, automatische detectie mislukt",
 	"Video cannot be imported because OpenSubtitles could not be reached. Is it online?": "Video kan niet geïmporteerd worden, want OpenSubtitles is niet bereikbaar. Is het online?",
 	"Unknown OpenSubtitles related error, please retry later or report the issue": "Onbekende OpenSubtitles-gerelateerde fout, probeer het a.u.b. later nogmaals of meld het probleem",
@@ -66,5 +68,17 @@
 	"The subtitle file contains descriptions of sounds and/or dialogues, meant for hearing impaired people": "De ondertitels bevatten omschrijvingen van geluiden en/of dialogen, bedoeld voor doven en slechthorenden",
 	"The subtitles were translated automatically by a machine": "De ondertitels zijn automatisch door een machine vertaald",
 	"Foreign parts only": "Anderstalige tekst",
-	"The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings": "In deze ondertitels zijn alleen de anderstalige teksten vertaald, bijvoorbeeld het Elfs en Orks in The Lord of the Rings"
+	"The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings": "In deze ondertitels zijn alleen de anderstalige teksten vertaald, bijvoorbeeld het Elfs en Orks in The Lord of the Rings",
+	"Replace the currently loaded file with the detected one: %s": "Vervang het geladen bestand door het gedetecteerde bestand: %s",
+	"Settings": "Instellingen",
+	"Theme": "Thema",
+	"Check for updates": "Controleren op updates",
+	"help translating": "help vertalen",
+	"Import file(s)": "Importeer bestand(en)",
+	"Clear file(s)": "Wis bestand(en)",
+	"Close popup(s)": "Sluit popup(s)",
+	"Developer tools": "Ontwikkelaargereedschappen",
+	"Next field": "Volgende veld",
+	"Previous field": "Vorige veld",
+	"Report an issue": "Rapporteer een probleem"
 }
