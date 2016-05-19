@@ -189,7 +189,7 @@ var Boot = {
 
     // STARTUP: set up version number in bottom-right corner
     setupVersion: function () {
-        $('.version').text('v' + PKJSON.version + ' - ');
+        $('.version').text(PKJSON.version);
     },
 
     // STARTUP: set up values in settings popup

@@ -24,11 +24,11 @@ var Keyboard = {
         });
 
         document.addEventListener('keyup', function (key) {
-            if (key.keyCode === 27) {
+            if (key.keyCode === 27) { // escape
                 Interface.leavePopup({})
-            } else if (key.keyCode === 40) {
+            } else if (key.keyCode === 40) { // arrow down
                 Keyboard.browseResultItem('down');
-            } else if (key.keyCode === 38) {
+            } else if (key.keyCode === 38) { // arrow up
                 Keyboard.browseResultItem('up');
             }
         });

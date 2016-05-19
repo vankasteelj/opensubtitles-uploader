@@ -8,7 +8,8 @@ body {
     background: rgba(250, 250, 250, .8); /* == #fafafa */
 }
 
-.app-author {
+.app-author,
+.app-issue {
     color: #555;
 }
 
@@ -16,7 +17,8 @@ body {
     color: #728CA6;
 }
 
-.app-author a:hover {
+.app-author a:hover,
+.app-issue a:hover {
     text-decoration: underline;
 }
 
@@ -304,7 +306,7 @@ input.warning::-webkit-input-placeholder {
 }
 
 #settings-close {
-    color: #444;
+    color: #666;
 }
 
 #settings-close:hover {

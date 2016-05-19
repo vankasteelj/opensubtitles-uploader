@@ -11,7 +11,7 @@ var Update = {
             if (isActive) {
                 $('#notification').hide();
             } else {
-                Misc.checkUpdates();
+                Update.checkUpdates();
             }
         });
     },
@@ -24,8 +24,17 @@ var Update = {
         }
 
         // on start, set update text if not updated
-        if (localStorage.availableUpdate && localStorage.availableUpdate !== '' && localStorage.availableUpdate > PKJSON.version) {
-            $('#notification').html(i18n.__('New version available, download %s now!', '<a onClick="Misc.openExternal(\'' + localStorage.availableUpdateUrl + '\')">v' + localStorage.availableUpdate + '</a>')).show();
+        if (localStorage.availableUpdate && localStorage.availableUpdate > PKJSON.version) {
+            Interface.modal(i18n.__('New version available, download %s now!', '<a onClick="Misc.openExternal(\'' + localStorage.availableUpdateUrl + '\')">v' + localStorage.availableUpdate + '</a>'), 'yes', 'no');
+            // on click 'yes'
+            $('.modal-yes').on('click', function (e) {
+                Misc.openExternal(localStorage.availableUpdateUrl);
+                win.close(true);
+            });
+            // on click 'no'
+            $('.modal-no').on('click', function (e) {
+                Interface.reset('modal');
+            });
         }
 
         // only check every 7 days
@@ -52,10 +61,21 @@ var Update = {
                     localStorage.availableUpdate = avail_version;
                     localStorage.availableUpdateUrl = releasesUrl;
                     console.info('Update %s available:', avail_version, releasesUrl);
-                    $('#notification').html(i18n.__('New version available, download %s now!', '<a onClick="Misc.openExternal(\'' + localStorage.availableUpdateUrl + '\')">v' + localStorage.availableUpdate + '</a>'));
+
+                    Interface.modal(i18n.__('New version available, download %s now!', '<a onClick="Misc.openExternal(\'' + localStorage.availableUpdateUrl + '\')">v' + localStorage.availableUpdate + '</a>'), 'yes', 'no');
+                    // on click 'yes'
+                    $('.modal-yes').on('click', function (e) {
+                        Misc.openExternal(localStorage.availableUpdateUrl);
+                        win.close(true);
+                    });
+                    // on click 'no'
+                    $('.modal-no').on('click', function (e) {
+                        Interface.reset('modal');
+                    });
+
                 } else {
-                    localStorage.availableUpdate = '';
-                    localStorage.availableUpdateUrl = '';
+                    localStorage.removeItem('availableUpdate');
+                    localStorage.removeItem('availableUpdateUrl');
                     console.debug('No update available');
                 }
             });

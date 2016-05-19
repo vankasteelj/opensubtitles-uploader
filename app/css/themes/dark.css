@@ -8,12 +8,18 @@ body {
     background: rgba(36, 42, 49, .8); /* == #242a31 */
 }
 
-.app-author {
+.app-author,
+.app-issue {
     color: #a5a9b0;
 }
 
 .app-author a {
     color: #dcdde0;
+}
+
+.app-author a:hover,
+.app-issue a:hover {
+    text-decoration: underline;
 }
 
 #button-upload.success {

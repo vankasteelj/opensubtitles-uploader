@@ -462,10 +462,12 @@ var Interface = {
             Interface.reset('search');
             // remove the onclick event defined in searchPopup()
             $(document).unbind('mouseup', Interface.leavePopup);
-        } else if ($('#settings-popup').is(':visible') && !$('#settings-content').is(e.target) && $('#settings-content').has(e.target).length === 0) {
+        } else if ($('#settings-popup').is(':visible') && !$('#settings-content').is(e.target) && $('#settings-content').has(e.target).length === 0 && !$('#upload-modal').is(':visible')) {
             console.debug('Closing settings');
             // hide popup
             $('#settings-popup').css('opacity', 0).hide();
+            // remove the onclick event defined in searchPopup()
+            $(document).unbind('mouseup', Interface.leavePopup);
         }
     },
 
