@@ -50,6 +50,8 @@
         "Misc": true,
         "Notify": true,
         "OsActions": true,
+        "Themes": true,
+        "Update": true,
 
         // Global variables
         "OS": true,

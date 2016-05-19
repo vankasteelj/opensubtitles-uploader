@@ -1,4 +1,5 @@
-'use strict'
+'use strict';
+
 var Themes = {
     availableThemes: ['light', 'dark'],
     defaultTheme: 'light',

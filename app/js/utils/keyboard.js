@@ -25,7 +25,7 @@ var Keyboard = {
 
         document.addEventListener('keyup', function (key) {
             if (key.keyCode === 27) { // escape
-                Interface.leavePopup({})
+                Interface.leavePopup({});
             } else if (key.keyCode === 40) { // arrow down
                 Keyboard.browseResultItem('down');
             } else if (key.keyCode === 38) { // arrow up

@@ -1,4 +1,5 @@
-'use strict'
+'use strict';
+
 var Update = {
     // AUTO: setup auto-update checkbox
     setupCheckbox: function () {
