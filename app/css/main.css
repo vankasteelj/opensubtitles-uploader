@@ -818,28 +818,14 @@ input[type=checkbox]:checked:before {
     padding: 3px 0 0;
 }
 
-.shortcut .key.tab {
-    text-align: left;
-    padding: 6px 9px 0 11px;
-    text-transform: capitalize;
-}
-
-.shortcut .key.tab::before {
-    content: "\f0ec";
-    margin-right: 2px;
-    font-family: FontAwesome;
-    margin-left: -5px;
-    font-size: 9px;
-    opacity: .85;
-}
-
 .shortcut .key.esc {
     padding: 6px 2px 0 2px;
     text-transform: capitalize;
 }
 
 .shortcut .key.control,
-.shortcut .key.alt {
+.shortcut .key.alt,
+.shortcut .key.tab {
     width: 38px;
     text-transform: capitalize;
 }
