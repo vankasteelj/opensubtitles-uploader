@@ -70,7 +70,6 @@ var Interface = {
             $('#movietimems').val(metadata.duration ? metadata.duration.toString().split('.')[0] : undefined);
             $('#moviefps').val(metadata.frame_rate);
             $('#movieframes').val(metadata.frame_count);
-            $('#moviereleasename').val(metadata.releasename);
 
             // extra: HD is hard to autodetect, check again with MediaInfo data
             $('#highdefinition').prop('checked', (metadata.height >= 720 || (metadata.width >= 1280 && metadata.height >= 536))); // cut cinebar can be down to 536px
