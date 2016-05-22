@@ -215,7 +215,14 @@ var OsActions = {
                     text += response.data.title;
                     text += ' (' + response.data.year + ')';
                 }
-                Interface.imdbFromSearch(response.data.id, text);
+
+                var show_id;
+                if (response.data.episodeof) {
+                    if (Object.keys(response.data.episodeof).length) {
+                        show_id = Object.keys(response.data.episodeof)[0].replace('_', 'tt');
+                    }
+                }
+                Interface.imdbFromSearch(response.data.id, text, show_id);
             } else {
                 throw 'Unknown OpenSubtitles related error, please retry later or report the issue';
             }

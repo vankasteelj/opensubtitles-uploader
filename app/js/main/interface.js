@@ -471,7 +471,7 @@ var Interface = {
     },
 
     // USERINTERACTION or AUTO: on click a result from imdb search popup, inject imdb id, tooltip text and close popup
-    imdbFromSearch: function (id, title) {
+    imdbFromSearch: function (id, title, show) {
         console.debug('Adding IMDB id to main form');
 
         // add leading 'tt'
@@ -485,7 +485,7 @@ var Interface = {
         $('.search-imdb i').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
 
         // display placeholder
-        Misc.traktLookup(id).then(Interface.displayPlaceholder);
+        Misc.traktLookup(show || id).then(Interface.displayPlaceholder);
 
         // close popup
         Interface.leavePopup({});
