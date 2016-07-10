@@ -26,5 +26,17 @@ var Notify = {
         $('#notification-snack').html(message).show().addClass('slideNotification').delay(duration).queue(function () {
             $('#notification-snack').html('').hide('fast').removeClass('slideNotification').dequeue();
         });
+    }, 
+
+    // request attention when in bg
+    requestAttention: function () {
+        if (document.hasFocus()) {
+            return;
+        }
+
+        win.requestAttention(true);
+        win.once('focus', function () {
+            win.requestAttention(false);
+        });
     }
 };
