@@ -371,6 +371,10 @@ var OsActions = {
                     // icon button update
                     $('#button-upload i').removeClass('fa-cloud-upload').addClass('fa-check');
                 }
+
+                // request attention if in bg
+                Notify.requestAttention();
+
             } else {
                 throw 'Something went wrong';
             }
@@ -403,6 +407,9 @@ var OsActions = {
 
             // icon button update
             $('#button-upload i').removeClass('fa-cloud-upload').addClass('fa-close');
+
+            // request attention if in bg
+            Notify.requestAttention();
         });
     }
 };
