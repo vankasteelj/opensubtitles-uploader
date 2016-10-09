@@ -110,7 +110,7 @@ var Misc = {
                 }
             }).then(function (res) {        
                 var image;
-                var url = 'https://image.tmdb.org/t/p/'
+                var url = 'https://image.tmdb.org/t/p/';
                 var size = 'w1280';
                 if (res.body && res.body.movie_results && res.body.movie_results[0] && res.body.movie_results[0].backdrop_path) {
                     image = res.body.movie_results[0].backdrop_path;
@@ -129,7 +129,7 @@ var Misc = {
                         }
                     }).then(function (res) {
                         var image;
-                        var url = 'https://image.tmdb.org/t/p/'
+                        var url = 'https://image.tmdb.org/t/p/';
                         var size = 'w1280';
                         if (res.body && res.body.results && res.body.results[0] && res.body.results[0].backdrop_path) {
                             image = res.body.results[0].backdrop_path;
