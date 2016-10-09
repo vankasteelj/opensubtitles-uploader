@@ -10,15 +10,12 @@ var fs = require('fs');
 var spawn = require('child_process').spawn;
 var https = require('https');
 var crypt = require('crypto');
+var got = require('got');
 
 var i18n = require('i18n');
 var openSubtitles = require('opensubtitles-api');
 var mi = require('mediainfo-wrapper');
 var detectLang = require('detect-lang');
-var Trakt = require('trakt.tv');
-var trakt = new Trakt({
-    client_id: '1b267c94143610fe422532f9b91c858771f33427b1669610b5f802cee8518ea6'
-});
 
 var OSLANGS = require('./js/utils/os-lang.json');
 var PKJSON = require('../package.json');

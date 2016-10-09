@@ -99,7 +99,7 @@ var Interface = {
                     OsActions.imdbMetadata(info.imdbid);
                 } else {
                     // not found with OS.identify, trying harder
-                    Misc.isSearchingTrakt = true;
+                    Misc.isSearchingImage = true;
                     OS.login().then(function (res) {
                         Interface.updateUserInfo(res.userinfo);
                         return OS.api.GuessMovieFromString(res.token, [info.moviefilename]);
@@ -161,7 +161,7 @@ var Interface = {
                 });
             }
 
-            if (!Misc.isSearchingTrakt) {
+            if (!Misc.isSearchingImage) {
                 // we're done here, spinner can go rest
                 $('#main-video-shadow').css('opacity', '0').hide();
             }
@@ -485,15 +485,15 @@ var Interface = {
         $('.search-imdb i').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
 
         // display placeholder
-        Misc.traktLookup(show || id).then(Interface.displayPlaceholder);
+        Misc.imageLookup(show || id).then(Interface.displayPlaceholder);
 
         // close popup
         Interface.leavePopup({});
     },
 
-    // AUTO: displays the image grabbed from trakt
+    // AUTO: displays the image found online
     displayPlaceholder: function (uri) {
-        Misc.isSearchingTrakt = false;
+        Misc.isSearchingImage = false;
         Misc.TmpMetadata = false;
 
         if (!uri) {
@@ -501,7 +501,7 @@ var Interface = {
             return;
         }
 
-        console.info('Loading image from trakt.tv', uri);
+        console.info('Loading image', uri);
 
         // preload
         var img = new Image();

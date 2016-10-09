@@ -96,65 +96,61 @@ var Misc = {
         return n < 10 ? '0' + n : n;
     },
 
-    // AUTO: search trakt for an image
-    traktLookup: function (id) {
+    // AUTO: search online for an image
+    imageLookup: function (id) {
 
-        Misc.isSearchingTrakt = true;
-        console.info('Looking on trakt.tv for a fanart...');
+        Misc.isSearchingImage = true;
+        console.info('Looking online for a fanart...');
 
         return new Promise(function (resolve, reject) {
-            trakt.search({
-                id_type: 'imdb',
-                id: id
-            }).then(function (res) {
-                var found = null;
-                for (var i in res) {
-                    if (res[i].type.match(/movie|show/i)) {
-                        console.debug('Trakt response:', res);
-                        found = res[i][res[i].type].images.fanart.medium;
-                        break;
-                    }
+            got('https://api.themoviedb.org/3/find/' + id + '?api_key=27075282e39eea76bd9626ee5d3e767b&external_source=imdb_id', {
+                json: true,
+                headers: {
+                    'content-type': 'application/json'
                 }
-
-                if (found) {
-                    resolve(found);
+            }).then(function (res) {        
+                var image;
+                var url = 'https://image.tmdb.org/t/p/'
+                var size = 'w1280';
+                if (res.body && res.body.movie_results && res.body.movie_results[0] && res.body.movie_results[0].backdrop_path) {
+                    image = res.body.movie_results[0].backdrop_path;
+                } else if (res.body && res.body.tv_results && res.body.tv_results[0] && res.body.tv_results[0].backdrop_path) {
+                    image = res.body.tv_results[0].backdrop_path;
                 } else {
-                    throw 'trakt sent back no result';
+                    throw 'Image not found';
                 }
+                resolve(url+size+image);
             }).catch(function (error) {
                 if (Misc.TmpMetadata) {
-                    trakt.search({
-                        query: Misc.TmpMetadata.title.replace(/\W/g, '-'),
-                        extended: 'images'
+                    got('https://api.themoviedb.org/3/search/multi?api_key=27075282e39eea76bd9626ee5d3e767b&query=' + Misc.TmpMetadata.title.replace(/\W/g, ' '), {
+                        json:true, 
+                        headers:{
+                            'content-type': 'application/json'
+                        }
                     }).then(function (res) {
-                        var found = null;
-                        for (var i in res) {
-                            if (res[i].type.match(/movie|show/i)) {
-                                console.debug('Trakt response:', res[i]);
-                                found = res[i][res[i].type].images.fanart.medium;
-                                break;
-                            }
-                        }
-
-                        if (found) {
-                            resolve(found);
+                        var image;
+                        var url = 'https://image.tmdb.org/t/p/'
+                        var size = 'w1280';
+                        if (res.body && res.body.results && res.body.results[0] && res.body.results[0].backdrop_path) {
+                            image = res.body.results[0].backdrop_path;
                         } else {
-                            throw 'trakt sent back no result';
+                            throw 'Image not found';
                         }
-                    }).catch(function (error) {
-                        console.warn('Unable to get trakt image:', error);
+                        resolve(url+size+image);
+                    }).catch(function (err) {
+                        console.warn('Unable to get image:', err);
                         resolve(null);
                     });
                 } else {
-                    console.warn('Unable to get trakt image:', error);
+                    console.warn('Unable to get image:', error);
                     resolve(null);
                 }
             });
         });
     },
 
-    // AUTO: global value set while waiting for trakt response
-    isSearchingTrakt: false,
+    // AUTO: global value set while waiting for a response
+    isSearchingImage: false,
 
     // AUTO: global jquery values to save with Misc.saveState()
     states: {

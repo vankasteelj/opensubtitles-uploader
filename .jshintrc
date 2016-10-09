@@ -62,7 +62,7 @@
         "detectLang": true,
         "i18n": true,
         "mi": true,
-        "trakt": true,
+        "got": true,
         "openSubtitles": true,
         "OSLANGS": true
     }
