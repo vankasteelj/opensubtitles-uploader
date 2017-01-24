@@ -275,7 +275,7 @@ input[type=checkbox]:checked:before {
     width: 942px;
     height: 256px;
     position: absolute;
-    margin-left: 33px;
+    margin-left: 39px;
     border-radius: 5px;
     transition: all .3s;
 }
@@ -292,7 +292,7 @@ input[type=checkbox]:checked:before {
     height: 256px;
     z-index: -1;
     position: absolute;
-    margin-left: 33px;
+    margin-left: 39px;
     border-radius: 5px;
     transition: all .3s;
     background-position-y: 10%;
