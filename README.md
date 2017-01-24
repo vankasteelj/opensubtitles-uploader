@@ -1,8 +1,8 @@
 # OpenSubtitles Uploader 
 
 [![Build Status](https://travis-ci.org/vankasteelj/opensubtitles-uploader.svg?branch=master)](https://travis-ci.org/vankasteelj/opensubtitles-uploader)
-[![Dependency Status](https://david-dm.org/vankasteelj/opensubtitles-uploader.svg)](https://david-dm.org/vankasteelj/opensubtitles-uploader)
-[![devDependency Status](https://david-dm.org/vankasteelj/opensubtitles-uploader/dev-status.svg)](https://david-dm.org/vankasteelj/opensubtitles-uploader#info=devDependencies)
+[![Dependency Status](https://david-dm.org/vankasteelj/opensubtitles-uploader/status.svg)](https://david-dm.org/vankasteelj/opensubtitles-uploader)
+[![devDependency Status](https://david-dm.org/vankasteelj/opensubtitles-uploader/dev-status.svg)](https://david-dm.org/vankasteelj/opensubtitles-uploader?type=dev)
 
 #### Easily upload your subtitles to [OpenSubtitles.org](http://www.opensubtitles.org), as simple as drag&drop
 
