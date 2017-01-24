@@ -1,11 +1,11 @@
 /* Theme file: light */
 
 body {
-    background: #fafafa;
+    background: #fff;
 }
 
 .metadata {
-    background: rgba(250, 250, 250, .8); /* == #fafafa */
+    background: rgba(255, 255, 255, .8); /* == #fafafa */
 }
 
 .app-author,
@@ -58,7 +58,7 @@ body {
 .metadata .content .metaitem input,
 .metadata .content .metaitem textarea {
     color: #444;
-    background: #fafafa;
+    background: #fff;
 }
 
 input#video-file-path,
@@ -71,7 +71,7 @@ select#app-language,
 select#app-theme,
 input#search-text {
     color: #444;
-    background: #fafafa;
+    background: #fff;
 }
 
 .metadata .content .metaitem .required {
@@ -87,7 +87,7 @@ input[type=checkbox] {
 }
 
 #main-video-shadow i {
-    color: #fafafa;
+    color: #fff;
 }
 
 #imdb-info {
@@ -110,7 +110,7 @@ input[type=checkbox] {
 .setting select {
     color: #444;
     border-color: #d0d0d0;
-    background: #fafafa;
+    background: #fff;
 }
 
 #sublanguageid option,
@@ -147,7 +147,7 @@ input[type=checkbox] {
 }
 
 #search {
-    background: #fafafa;
+    background: #fff;
     box-shadow: -1px 1px 5px rgba(0, 0, 0, .4);
 }
 
@@ -174,7 +174,7 @@ input[type=checkbox] {
 }
 
 #upload-modal {
-    background: #fafafa;
+    background: #fff;
     box-shadow: -1px 1px 5px rgba(0, 0, 0, .4);
 }
 
@@ -205,7 +205,7 @@ input[type=checkbox] {
 }
 
 .dropdown dd ul {
-    background: #fafafa none repeat scroll 0 0;
+    background: #fff none repeat scroll 0 0;
     border: 1px solid #777;
     border-top: 1px solid #e0e0e0;
 }
@@ -216,7 +216,7 @@ input[type=checkbox] {
 
 .dominant {
     background: #4a7dbe;
-    color: #fafafa;
+    color: #fff;
 }
 
 .dominant:hover {
@@ -301,7 +301,7 @@ input.warning::-webkit-input-placeholder {
 }
 
 #settings-content {
-    background: #fafafa;
+    background: #fff;
     color: #444;
 }
 
