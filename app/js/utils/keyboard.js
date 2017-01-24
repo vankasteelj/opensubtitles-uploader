@@ -1,10 +1,10 @@
 'use strict';
 
-var Keyboard = {
+const Keyboard = {
 
     // STARTUP: setup keyboard shortcuts
-    setupShortcuts: function () {
-        document.addEventListener('keypress', function (key) {
+    setupShortcuts: () => {
+        document.addEventListener('keypress', (key) => {
             if (key.charCode === 13) { // enter
                 Keyboard.keyEnter(key.target.id);
             } else if (key.ctrlKey && key.charCode === 10) { // ctrl+enter
@@ -23,7 +23,7 @@ var Keyboard = {
             }
         });
 
-        document.addEventListener('keyup', function (key) {
+        document.addEventListener('keyup', (key) => {
             if (key.keyCode === 27) { // escape
                 Interface.leavePopup({});
             } else if (key.keyCode === 40) { // arrow down
@@ -35,7 +35,7 @@ var Keyboard = {
     },
 
     // AUTO: when user presses 'enter', triggered from Keyboard.setupShortcuts()
-    keyEnter: function (id) {
+    keyEnter: (id) => {
         // comment can have multiple lines, so ignore it
         if (id === 'subauthorcomment') {
             return;
@@ -67,12 +67,12 @@ var Keyboard = {
     },
 
     // select next valid input
-    selectNextInput: function () {
-        var inputs = $(':input');
-        var actualIndex = inputs.index(document.activeElement);
+    selectNextInput: () => {
+        const inputs = $(':input');
+        const actualIndex = inputs.index(document.activeElement);
 
-        function next(index) {
-            var nextInput = inputs.get(index + 1);
+        const next = (index) => {
+            const nextInput = inputs.get(index + 1);
 
             if (nextInput) {
                 // if element is invisible or readonly, skip to next
@@ -82,23 +82,23 @@ var Keyboard = {
                     nextInput.focus();
                 }
             }
-        }
+        };
 
         next(actualIndex);
     },
 
     // AUTO: selects a result item from arrow keys in imdb search
-    browseResultItem: function (dir) {
+    browseResultItem: (dir) => {
         // if imdb search isnt opened, don't continue
-        var results = $('.result-item');
-        var total = results.length;
+        const results = $('.result-item');
+        const total = results.length;
         if (total <= 0) {
             return;
         }
 
         console.log('go', dir);
-        var index = $('.result-item.selected').index();
-        var next = dir === 'down' ? index + 1 : index - 1;
+        const index = $('.result-item.selected').index();
+        const next = dir === 'down' ? index + 1 : index - 1;
 
         if (next > total - 1 || next < 0) {
             // don't do anything if the list is at top or bottom

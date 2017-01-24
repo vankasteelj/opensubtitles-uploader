@@ -1,6 +1,6 @@
 'use strict';
 
-var Files = {
+const Files = {
 
     // cache: supported extension for each type of file
     supported: {
@@ -9,8 +9,8 @@ var Files = {
     },
 
     // AUTO: detect file type based on its extension
-    detectFileType: function (file) {
-        var ext = path.extname(file).toLowerCase();
+    detectFileType: (file) => {
+        const ext = path.extname(file).toLowerCase();
         if (Files.supported.video.indexOf(ext) > -1) {
             return 'video';
         } else if (Files.supported.subtitle.indexOf(ext) > -1) {
@@ -21,7 +21,7 @@ var Files = {
     },
 
     // AUTO: try to guess if video is HD or not, based on name. Failsafe for mediainfo
-    extractQuality: function (title) {
+    extractQuality: (title) => {
         console.info('Detecting quality...');
         if (title.match(/720[pix]/i) && !title.match(/dvdrip|dvd\Wrip/i)) {
             return '720p';
@@ -33,8 +33,8 @@ var Files = {
     },
 
     // AUTO: clears filename of common unneeded words or char
-    clearName: function (name) {
-        var title = path.parse(name).name;
+    clearName: (name) => {
+        const title = path.parse(name).name;
         return title
             .replace(/(400|480|720|1080)[pix]/gi, '') // quality clean
             .replace(/[xh]26\d|hevc|xvid|divx/gi, '') // codecs
@@ -54,8 +54,8 @@ var Files = {
     },
 
     // USERINTERACTION or AUTO: auto-detect subtitle lang based on npm detect-lang
-    detectSubLang: function () {
-        var sub = $('#subtitle-file-path').val();
+    detectSubLang: () => {
+        const sub = $('#subtitle-file-path').val();
 
         // don't run without subs, even on click
         if (!sub || sub === '') {
@@ -68,7 +68,7 @@ var Files = {
         // spinner
         $('.detect-lang i').addClass('fa-circle-o-notch fa-spin').removeClass('fa-magic');
 
-        detectLang(sub).then(function (data) {
+        detectLang(sub).then((data) => {
             // app accepts down to 35% of probability for a lang, based on various tests with multiple lang subs
             if (data && data.probability > 35 && (data.iso6392 || data.bibliographic)) {
                 $('#sublanguageid').val((data.iso6392 || data.bibliographic));
@@ -79,21 +79,21 @@ var Files = {
             }
             // hide spinner
             $('.detect-lang i').addClass('fa-magic').removeClass('fa-circle-o-notch fa-spin');
-        }).catch(function (err) {
+        }).catch((err) => {
             // hide spinner
             $('.detect-lang i').addClass('fa-magic').removeClass('fa-circle-o-notch fa-spin');
 
             // notify
-            Notify.snack(i18n.__('Language testing unconclusive, automatic detection failed'), 3800);
             console.error('Files.detectSubLang() error:', err);
+            Notify.snack(i18n.__('Language testing unconclusive, automatic detection failed'), 3800);
         });
     },
 
     // AUTO: auto-detects if subtitle was translated by a machine
-    detectMachineTranslated: function () {
-        var sub = $('#subtitle-file-path').val();
+    detectMachineTranslated: () => {
+        const sub = $('#subtitle-file-path').val();
         console.info('Detecting if subtitle was machine translated...');
-        var filename = path.basename(sub);
+        const filename = path.basename(sub);
 
         if ((filename.match(/auto/i) && filename.match(/translated/i)) || (filename.match(/babel/i) && filename.match(/fish/i)) || (filename.match(/google/i) && filename.match(/translate/i)) || (filename.match(/bing/i) && filename.match(/translation/i))) {
             // check if filename contains keywords
@@ -101,8 +101,8 @@ var Files = {
             $('#automatictranslation').prop('checked', true);
         } else {
             // check if content contains them
-            fs.readFile(sub, function (err, data) {
-                var content = data.toString();
+            fs.readFile(sub, (err, data) => {
+                const content = data.toString();
                 if ((content.match(/auto/i) && content.match(/translated/i)) || (content.match(/babel/i) && content.match(/fish/i)) || (content.match(/google/i) && content.match(/translate/i)) || (content.match(/bing/i) && content.match(/translation/i))) {
                     console.info('Machine translation keywords detected in: subtitle content');
                     $('#automatictranslation').prop('checked', true);
@@ -112,14 +112,14 @@ var Files = {
     },
 
     // AUTO: auto-detects if subtitle contains sound description (for hearing impaired)
-    detectSoundDescriptions: function () {
-        var sub = $('#subtitle-file-path').val();
+    detectSoundDescriptions: () => {
+        const sub = $('#subtitle-file-path').val();
         console.info('Detecting if subtitle contains sounds description...');
 
-        fs.readFile(sub, function (err, data) {
-            var content = data.toString();
-            var matcher = content.match(/\(.+\)/g);
-            var numParenthesis = 10;
+        fs.readFile(sub, (err, data) => {
+            const content = data.toString();
+            const matcher = content.match(/\(.+\)/g);
+            const numParenthesis = 10;
             if (matcher && matcher.length > numParenthesis) {
                 console.info('More than %d parenthesis detected in subtitle content, assuming hearing impaired', numParenthesis);
                 $('#hearingimpaired').prop('checked', true);
@@ -128,10 +128,10 @@ var Files = {
     },
 
     // AUTO: auto-detects if subtitle is foreign parts only
-    detectForeignOnly: function () {
-        var sub = $('#subtitle-file-path').val();
+    detectForeignOnly: () => {
+        const sub = $('#subtitle-file-path').val();
         console.info('Detecting if subtitle is foreign only...');
-        var filename = path.basename(sub);
+        const filename = path.basename(sub);
 
         if (filename.match(/\Wforced\W/i) || (filename.match(/\Wparts/i) && filename.match(/non\W|foreign/i))) {
             // check if filename contains keyword
@@ -139,8 +139,8 @@ var Files = {
             $('#foreignpartsonly').prop('checked', true);
         } else {
             // check if subtitle size is less than a few kb
-            var minSize = 5000;
-            var size = fs.statSync($('#subtitle-file-path').val()).size;
+            const minSize = 5000;
+            const size = fs.statSync($('#subtitle-file-path').val()).size;
             if (size < minSize) {
                 console.info('subtitle file is less than %d bytes, assuming foreign pars only', minSize);
                 $('#foreignpartsonly').prop('checked', true);
@@ -149,17 +149,17 @@ var Files = {
     },
 
     // AUTO: spawn mediainfo binaries, grab info about video file and analyze them
-    mediainfo: function (file) {
-        return new Promise(function (resolve, reject) {
-            var info = {};
-            mi(file).then(function (md) {
+    mediainfo: (file) => {
+        return new Promise((resolve, reject) => {
+            let info = {};
+            mi(file).then((md) => {
                 if (md && md[0]) {
                     console.info('MediaInfo data:', md[0]);
 
                     // do we have video track?
                     if (md[0].video) {
-                        var video = md[0].video[0];
-                        var tmp;
+                        const video = md[0].video[0];
+                        let tmp;
 
                         // duration
                         if (md[0].general.duration) {
@@ -227,7 +227,7 @@ var Files = {
                 }
 
                 resolve(info);
-            }).catch(function (err) {
+            }).catch((err) => {
                 // bypass error on mediainfo, it happens and isnt mandatory
                 console.error('MediaInfo detection failed, continuing...', err);
                 resolve(info);
@@ -236,7 +236,7 @@ var Files = {
     },
 
     // load a file through 'open with'
-    loadFile: function (file) {
+    loadFile: (file) => {
         try {
             fs.statSync(file);
             DragDrop.handleDrop(DragDrop.analyzeDrop([{path:file}]));

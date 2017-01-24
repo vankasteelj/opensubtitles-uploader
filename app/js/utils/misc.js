@@ -1,24 +1,21 @@
 'use strict';
 
-var Misc = {
+const Misc = {
 
     // AUTO or USERINTERACTION: open url in browser
-    openExternal: function (link) {
-        gui.Shell.openExternal(link);
-    },
+    openExternal: (link) => gui.Shell.openExternal(link),
 
     // USERINTERACTION: open imdb link in browser
-    openImdb: function () {
-        var id = $('#imdb-info').attr('imdbid');
+    openImdb: (id = $('#imdb-info').attr('imdbid')) => {
         if (id) {
             Misc.openExternal('http://www.imdb.com/title/' + id);
         }
     },
 
     // USERINTERACTION: restart app (used by Keyboard.setupShortcuts)
-    restartApp: function () {
-        var argv = gui.App.fullArgv;
-        var CWD = process.cwd();
+    restartApp: () => {
+        const argv = gui.App.fullArgv;
+        const CWD = process.cwd();
 
         argv.push(CWD);
         spawn(process.execPath, argv, {
@@ -30,20 +27,18 @@ var Misc = {
     },
 
     // AUTO: build the right click menu(s) on demand
-    contextMenu: function (cutLabel, copyLabel, pasteLabel, field) {
-        var menu = new gui.Menu();
-        var clipboard = gui.Clipboard.get();
+    contextMenu: (cutLabel, copyLabel, pasteLabel, field) => {
+        const menu = new gui.Menu();
+        const clipboard = gui.Clipboard.get();
 
-        var cut = new gui.MenuItem({
+        const cut = new gui.MenuItem({
             label: cutLabel,
-            click: function () {
-                document.execCommand('cut');
-            }
+            click: () => document.execCommand('cut')
         });
 
-        var copy = new gui.MenuItem({
+        const copy = new gui.MenuItem({
             label: copyLabel,
-            click: function () {
+            click: () => {
                 // on readonly fields, execCommand doesn't work
                 if ($('#' + field).attr('readonly') && Misc.getSelection($('#' + field)[0]) === null) {
                     clipboard.set($('#' + field).val());
@@ -53,11 +48,9 @@ var Misc = {
             }
         });
 
-        var paste = new gui.MenuItem({
+        const paste = new gui.MenuItem({
             label: pasteLabel,
-            click: function () {
-                document.execCommand('paste');
-            }
+            click: () => document.execCommand('paste')
         });
 
         if (cutLabel) {
@@ -74,16 +67,16 @@ var Misc = {
     },
 
     // AUTO: get active selection (used by Misc.contextMenu)
-    getSelection: function (textbox) {
-        var selectedText = null;
-        var activeElement = document.activeElement;
+    getSelection: (textbox) => {
+        let selectedText = null;
+        const activeElement = document.activeElement;
 
         if (activeElement && (activeElement.tagName.toLowerCase() === 'textarea' || (activeElement.tagName.toLowerCase() === 'input' && activeElement.type.toLowerCase() === 'text')) && activeElement === textbox) {
-            var startIndex = textbox.selectionStart;
-            var endIndex = textbox.selectionEnd;
+            const startIndex = textbox.selectionStart;
+            const endIndex = textbox.selectionEnd;
 
             if (endIndex - startIndex > 0) {
-                var text = textbox.value;
+                const text = textbox.value;
                 selectedText = text.substring(textbox.selectionStart, textbox.selectionEnd);
             }
         }
@@ -92,26 +85,24 @@ var Misc = {
     },
 
     // AUTO: function to always return 2 digits, adding leading 0 if needed
-    pad: function (n) {
-        return n < 10 ? '0' + n : n;
-    },
+    pad: (n) => n < 10 ? '0' + n : n,
 
     // AUTO: search online for an image
-    imageLookup: function (id) {
+    imageLookup: (id) => {
 
         Misc.isSearchingImage = true;
         console.info('Looking online for a fanart...');
 
-        return new Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
             got('https://api.themoviedb.org/3/find/' + id + '?api_key=27075282e39eea76bd9626ee5d3e767b&external_source=imdb_id', {
                 json: true,
                 headers: {
                     'content-type': 'application/json'
                 }
-            }).then(function (res) {        
-                var image;
-                var url = 'https://image.tmdb.org/t/p/';
-                var size = 'w1280';
+            }).then((res) => {        
+                let image;
+                const url = 'https://image.tmdb.org/t/p/';
+                const size = 'w1280';
                 if (res.body && res.body.movie_results && res.body.movie_results[0] && res.body.movie_results[0].backdrop_path) {
                     image = res.body.movie_results[0].backdrop_path;
                 } else if (res.body && res.body.tv_results && res.body.tv_results[0] && res.body.tv_results[0].backdrop_path) {
@@ -120,24 +111,24 @@ var Misc = {
                     throw 'Image not found';
                 }
                 resolve(url+size+image);
-            }).catch(function (error) {
+            }).catch((error) => {
                 if (Misc.TmpMetadata) {
                     got('https://api.themoviedb.org/3/search/multi?api_key=27075282e39eea76bd9626ee5d3e767b&query=' + Misc.TmpMetadata.title.replace(/\W/g, ' '), {
                         json:true, 
                         headers:{
                             'content-type': 'application/json'
                         }
-                    }).then(function (res) {
-                        var image;
-                        var url = 'https://image.tmdb.org/t/p/';
-                        var size = 'w1280';
+                    }).then((res) => {
+                        let image;
+                        const url = 'https://image.tmdb.org/t/p/';
+                        const size = 'w1280';
                         if (res.body && res.body.results && res.body.results[0] && res.body.results[0].backdrop_path) {
                             image = res.body.results[0].backdrop_path;
                         } else {
                             throw 'Image not found';
                         }
                         resolve(url+size+image);
-                    }).catch(function (err) {
+                    }).catch((err) => {
                         console.warn('Unable to get image:', err);
                         resolve(null);
                     });
@@ -184,19 +175,19 @@ var Misc = {
     },
 
     // AUTO: store data before reloading app
-    saveState: function () {
-        var states = {};
+    saveState: () => {
+        const states = {};
         // save states
-        for (var prop in Misc.states) {
+        for (let prop in Misc.states) {
             states[prop] = {};
-            for (var id in Misc.states[prop]) {
+            for (let id in Misc.states[prop]) {
                 states[prop][id] = $(id).prop(prop);
             }
         }
         localStorage.states = JSON.stringify(states);
 
         // save img
-        var imgUrl = $('#main-video-img').css('background-image').replace(/url\(|\)/g, '');
+        const imgUrl = $('#main-video-img').css('background-image').replace(/url\(|\)/g, '');
         if (imgUrl && imgUrl !== 'none') {
             localStorage['main-video-img'] = imgUrl;
         }
@@ -208,10 +199,10 @@ var Misc = {
     },
 
     // STARTUP: restore state of the app, when reloading
-    restoreState: function () {
-        var states = JSON.parse(localStorage.states);
-        for (var prop in states) {
-            for (var id in states[prop]) {
+    restoreState: () => {
+        const states = JSON.parse(localStorage.states);
+        for (let prop in states) {
+            for (let id in states[prop]) {
                 $(id).prop(prop, states[prop][id]);
             }
         }
@@ -224,18 +215,18 @@ var Misc = {
     },
 
     // AUTO: checks if the element is visible (for scrolling)
-    elementInViewport: function (container, element) {
+    elementInViewport: (container, element) => {
         if (element.length === 0) {
             return;
         }
-        var $container = $(container),
-            $el = $(element);
+        const $container = $(container);
+        const $el = $(element);
 
-        var docViewTop = $container.offset().top;
-        var docViewBottom = docViewTop + $container.height();
+        const docViewTop = $container.offset().top;
+        const docViewBottom = docViewTop + $container.height();
 
-        var elemTop = $el.offset().top;
-        var elemBottom = elemTop + $el.height();
+        const elemTop = $el.offset().top;
+        const elemBottom = elemTop + $el.height();
 
         return ((elemBottom >= docViewTop) && (elemTop <= docViewBottom) && (elemBottom <= docViewBottom) && (elemTop >= docViewTop));
     }

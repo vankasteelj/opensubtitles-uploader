@@ -1,13 +1,13 @@
 'use strict';
 
-var Localization = {
+const Localization = {
 
     // cache
     availableLocales: ['en', 'fr', 'es', 'nl', 'de', 'fi', 'pl', 'pt', 'pt-br', 'ro', 'sk', 'tr'],
     detectedLocale: false,
 
     // STARTUP: load i18n and set locales, then localize app
-    setupLocalization: function () {
+    setupLocalization: () => {
         // find if one of the available locales is the same as user environment
         Localization.detectLocale();
 
@@ -27,11 +27,11 @@ var Localization = {
     },
 
     // AUTO: autodetect lang based on OS information
-    detectLocale: function () {
+    detectLocale: () => {
         // The full OS language (with localization, like 'en-uk')
-        var pureLanguage = navigator.language.toLowerCase();
+        const pureLanguage = navigator.language.toLowerCase();
         // The global language name (without localization, like 'en')
-        var baseLanguage = navigator.language.toLowerCase().slice(0, 2);
+        const baseLanguage = navigator.language.toLowerCase().slice(0, 2);
 
         if ($.inArray(pureLanguage, Localization.availableLocales) !== -1) {
             Localization.detectedLocale = pureLanguage;
@@ -43,18 +43,18 @@ var Localization = {
     },
 
     // AUTO: translate the HTML based on <i18n> tags and .i18n classes
-    localizeApp: function () {
+    localizeApp: () => {
         console.info('Using locale:', i18n.getLocale());
 
-        var t = document.getElementsByTagName('i18n');
-        var c = document.getElementsByClassName('i18n');
+        const t = document.getElementsByTagName('i18n');
+        const c = document.getElementsByClassName('i18n');
 
-        for (var i = 0; i < t.length; i++) {
+        for (let i = 0; i < t.length; i++) {
             if (t[i].innerText) {
                 t[i].innerText = i18n.__(t[i].innerText);
             }
         }
-        for (var j = 0; j < c.length; j++) {
+        for (let j = 0; j < c.length; j++) {
             if (c[j].title) {
                 c[j].title = i18n.__(c[j].title);
             }
@@ -65,12 +65,12 @@ var Localization = {
     },
 
     // STARTUP: build dropdown menu for changing app localization
-    setupDropdown: function () {
+    setupDropdown: () => {
         // build dropdown
-        for (var lang in Localization.availableLocales) {
+        for (let lang in Localization.availableLocales) {
             // find OSLANGS entry
-            var osEntry;
-            for (var i in OSLANGS) {
+            let osEntry;
+            for (let i in OSLANGS) {
                 if (OSLANGS[i].iso6391 === Localization.availableLocales[lang]) {
                     osEntry = OSLANGS[i];
                     break;
@@ -87,7 +87,7 @@ var Localization = {
         }
 
         // on dropdown click, change lang
-        $('#app-language').on('change', function (e) {
+        $('#app-language').on('change', (e) => {
             // store new lang
             localStorage.locale = e.target.value;
             // reload to use new lang

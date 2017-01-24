@@ -1,11 +1,11 @@
 'use strict';
 
-var DragDrop = {
+const DragDrop = {
 
     // AUTO: turns array of files into an object with only 1 video and 1 sub file
-    analyzeDrop: function (files) {
-        var f = {};
-        for (var i = 0; i < files.length; i++) {
+    analyzeDrop: (files) => {
+        let f = {};
+        for (let i = 0; i < files.length; i++) {
             // find first video
             if (!f.video && Files.detectFileType(files[i].path) === 'video') {
                 f.video = files[i];
@@ -25,7 +25,7 @@ var DragDrop = {
     },
 
     // AUTO: on drop, notify of incompatible file or redirect file(s) to correct functions
-    handleDrop: function (files) {
+    handleDrop: (files) => {
         // analyzeDrop sent back empty object
         if (Object.keys(files).length === 0) {
             console.debug('Dropped file is not supported');
@@ -33,7 +33,7 @@ var DragDrop = {
         }
 
         // pass video and/or sub to main function Interface.add_video|add_subtitle
-        for (var type in files) {
+        for (let type in files) {
             // hide drag highlight defined in DragDrop.setup
             $('.section-file').css('border-color', '');
 
@@ -55,48 +55,48 @@ var DragDrop = {
     },
 
     // STARTUP: manage drag & drop
-    setup: function () {
+    setup: () => {
         // disable default drag&drop events
-        window.addEventListener('dragover', function (e) {
+        window.addEventListener('dragover', (e) => {
             e.preventDefault();
             e.stopPropagation();
         }, false);
-        window.addEventListener('dragstart', function (e) {
+        window.addEventListener('dragstart', (e) => {
             e.preventDefault();
             e.stopPropagation();
         }, false);
-        window.addEventListener('drop', function (e) {
+        window.addEventListener('drop', (e) => {
             e.preventDefault();
             e.stopPropagation();
         }, false);
 
         // when dragging over the app, display it in a user-friendly manner
-        window.ondragenter = function (e) {
+        window.ondragenter = (e) => {
             $('#drop-mask').show();
-            var showDrag = true;
-            var timeout = -1;
+            let showDrag = true;
+            let timeout = -1;
 
-            $('#drop-mask').on('dragenter', function (e) {
+            $('#drop-mask').on('dragenter', (e) => {
                 // cache Files for a second
                 DragDrop.files = [];
 
                 // highlight video or sub interface part based on file extension
-                for (var f in e.originalEvent.dataTransfer.files) {
+                for (let f in e.originalEvent.dataTransfer.files) {
                     DragDrop.files[f] = Files.detectFileType(e.originalEvent.dataTransfer.files[f].name);
                     if (DragDrop.files[f]) {
                         $('#main-' + DragDrop.files[f]).css('border-color', $('.dominant').css('background-color'));
                     }
                 }
-            }.bind(this));
-
-            $('#drop-mask').on('dragover', function (e) {
-                var showDrag = true;
             });
 
-            $('#drop-mask').on('dragleave', function (e) {
-                var showDrag = false;
+            $('#drop-mask').on('dragover', (e) => {
+                let showDrag = true;
+            });
+
+            $('#drop-mask').on('dragleave', (e) => {
+                let showDrag = false;
                 clearTimeout(timeout);
-                timeout = setTimeout(function () {
+                timeout = setTimeout(() => {
                     if (!showDrag) {
                         // clean highlights
                         $('.section-file').css('border-color', '');
@@ -106,7 +106,7 @@ var DragDrop = {
         };
 
         // when dropping file(s), loads it/them in
-        window.ondrop = function (e) {
+        window.ondrop = (e) => {
             e.preventDefault();
             $('#drop-mask').hide();
 

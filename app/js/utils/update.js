@@ -1,11 +1,11 @@
 'use strict';
 
-var Update = {
+const Update = {
     // AUTO: setup auto-update checkbox
-    setupCheckbox: function () {
+    setupCheckbox: () => {
         localStorage.autoUpdate = localStorage.autoUpdate === undefined ? true : localStorage.autoUpdate;
-        $('#app-update').prop('checked', JSON.parse(localStorage.autoUpdate)).on('click', function () {
-            var isActive = JSON.parse(localStorage.autoUpdate);
+        $('#app-update').prop('checked', JSON.parse(localStorage.autoUpdate)).on('click', () => {
+            const isActive = JSON.parse(localStorage.autoUpdate);
             localStorage.autoUpdate = !isActive;
             $('#app-update').prop('checked', !isActive);
 
@@ -18,7 +18,7 @@ var Update = {
     },
 
     // STARTUP: check updates on app start, based on upstream git package.json
-    checkUpdates: function () {
+    checkUpdates: () => {
         // user chose not to be notified
         if (!JSON.parse(localStorage.autoUpdate)) {
             return;
@@ -28,12 +28,12 @@ var Update = {
         if (localStorage.availableUpdate && localStorage.availableUpdate > PKJSON.version) {
             Interface.modal(i18n.__('New version available, download %s now!', '<a onClick="Misc.openExternal(\'' + localStorage.availableUpdateUrl + '\')">v' + localStorage.availableUpdate + '</a>'), 'yes', 'no');
             // on click 'yes'
-            $('.modal-yes').on('click', function (e) {
+            $('.modal-yes').on('click', (e) => {
                 Misc.openExternal(localStorage.availableUpdateUrl);
                 win.close(true);
             });
             // on click 'no'
-            $('.modal-no').on('click', function (e) {
+            $('.modal-no').on('click', (e) => {
                 Interface.reset('modal');
             });
         }
@@ -46,17 +46,17 @@ var Update = {
         localStorage.lastUpdateCheck = Date.now();
 
         // fetch remote package.json
-        var url = 'https://raw.githubusercontent.com/vankasteelj/opensubtitles-uploader/master/package.json';
-        https.get(url, function (res) {
-            var body = '';
+        const url = 'https://raw.githubusercontent.com/vankasteelj/opensubtitles-uploader/master/package.json';
+        https.get(url, (res) => {
+            const body = '';
 
-            res.on('data', function (chunk) {
+            res.on('data', (chunk) => {
                 body += chunk.toString();
             });
 
-            res.on('end', function () {
-                var avail_version = JSON.parse(body).version;
-                var releasesUrl = JSON.parse(body).releases;
+            res.on('end', () => {
+                const avail_version = JSON.parse(body).version;
+                const releasesUrl = JSON.parse(body).releases;
 
                 if (avail_version > PKJSON.version) {
                     localStorage.availableUpdate = avail_version;
@@ -65,12 +65,12 @@ var Update = {
 
                     Interface.modal(i18n.__('New version available, download %s now!', '<a onClick="Misc.openExternal(\'' + localStorage.availableUpdateUrl + '\')">v' + localStorage.availableUpdate + '</a>'), 'yes', 'no');
                     // on click 'yes'
-                    $('.modal-yes').on('click', function (e) {
+                    $('.modal-yes').on('click', (e) => {
                         Misc.openExternal(localStorage.availableUpdateUrl);
                         win.close(true);
                     });
                     // on click 'no'
-                    $('.modal-no').on('click', function (e) {
+                    $('.modal-no').on('click', (e) => {
                         Interface.reset('modal');
                     });
 
@@ -80,7 +80,7 @@ var Update = {
                     console.debug('No update available');
                 }
             });
-        }).on('error', function (e) {
+        }).on('error', (e) => {
             console.error('Unable to look for updates', e);
         });
     },

@@ -1,7 +1,7 @@
-var Boot = {
+const Boot = {
 
     // STARTUP: load app: ui,settings,features
-    load: function () {
+    load: () => {
         Boot.checkPortable();               // is it a portable version?
         Localization.setupLocalization();   // localize
         Themes.loadTheme();                 // display theme
@@ -25,14 +25,14 @@ var Boot = {
     },
 
     // STARTUP: builds right click menu
-    setupRightClicks: function () {
-        var inputs = $('input[type=text], textarea');
-        inputs.each(function (i) {
+    setupRightClicks: () => {
+        const inputs = $('input[type=text], textarea');
+        inputs.each((i) => {
             // right click event
-            inputs[i].addEventListener('contextmenu', function (ev) {
+            inputs[i].addEventListener('contextmenu', (ev) => {
                 // force stop default rightclick event
                 ev.preventDefault();
-                var menu;
+                let menu;
 
                 if ($(inputs[i]).attr('readonly')) {
                     // copy only on readonly fields
@@ -53,13 +53,13 @@ var Boot = {
     },
 
     // STARTUP: lang dropdown in subtitles section
-    setupLangDropdown: function () {
+    setupLangDropdown: () => {
         // 'none' is default
         $('#sublanguageid').append('<option value="">' + i18n.__('None') + '</option>');
 
         // build html
-        var langs = '';
-        for (var key in OSLANGS) {
+        let langs = '';
+        for (let key in OSLANGS) {
             langs += '<option value="' + OSLANGS[key].code + '">' + (OSLANGS[key].native || key) + '</option>';
         }
 
@@ -68,36 +68,36 @@ var Boot = {
     },
 
     // STARTUP: browse button on click events and drag&drop
-    setupInputs: function () {
+    setupInputs: () => {
         // video hidden input
-        document.querySelector('#video-file-path-hidden').addEventListener('change', function (evt) {
-            var file = $('#video-file-path-hidden')[0].files[0];
+        document.querySelector('#video-file-path-hidden').addEventListener('change', (evt) => {
+            const file = $('#video-file-path-hidden')[0].files[0];
             window.ondrop({
                 dataTransfer: {
                     files: [file]
                 },
-                preventDefault: function () {}
+                preventDefault: () => {}
             });
         }, false);
 
         // subtitle hidden input
-        document.querySelector('#subtitle-file-path-hidden').addEventListener('change', function (evt) {
-            var file = $('#subtitle-file-path-hidden')[0].files[0];
+        document.querySelector('#subtitle-file-path-hidden').addEventListener('change', (evt) => {
+            const file = $('#subtitle-file-path-hidden')[0].files[0];
             window.ondrop({
                 dataTransfer: {
                     files: [file]
                 },
-                preventDefault: function () {}
+                preventDefault: () => {}
             });
         }, false);
 
         // any file hidden input
-        document.querySelector('#file-path-hidden').addEventListener('change', function (evt) {
+        document.querySelector('#file-path-hidden').addEventListener('change', (evt) => {
             window.ondrop({
                 dataTransfer: {
                     files: $('#file-path-hidden')[0].files
                 },
-                preventDefault: function () {}
+                preventDefault: () => {}
             });
         }, false);
 
@@ -107,16 +107,16 @@ var Boot = {
     },
 
     // STARTUP: nwjs sometimes can be out of the screen
-    checkVisible: function (options) {
-        var screen = window.screen;
-        var defaultWidth = PKJSON.window.width;
-        var defaultHeight = PKJSON.window.height;
+    checkVisible: (options) => {
+        const screen = window.screen;
+        const defaultWidth = PKJSON.window.width;
+        const defaultHeight = PKJSON.window.height;
 
         // check stored settings or use package.json values
-        var width = parseInt(localStorage.width ? localStorage.width : defaultWidth);
-        var height = parseInt(localStorage.height ? localStorage.height : defaultHeight);
-        var x = parseInt(localStorage.posX ? localStorage.posX : -1);
-        var y = parseInt(localStorage.posY ? localStorage.posY : -1);
+        const width = parseInt(localStorage.width ? localStorage.width : defaultWidth);
+        const height = parseInt(localStorage.height ? localStorage.height : defaultHeight);
+        const x = parseInt(localStorage.posX ? localStorage.posX : -1);
+        const y = parseInt(localStorage.posY ? localStorage.posY : -1);
 
         // reset x
         if (x < 0 || (x + width) > screen.width) {
@@ -132,7 +132,7 @@ var Boot = {
         win.moveTo(x, y);
 
         // remember positionning
-        win.on('move', function (x, y) {
+        win.on('move', (x, y) => {
             if (localStorage && x && y) {
                 localStorage.posX = Math.round(x);
                 localStorage.posY = Math.round(y);
@@ -141,23 +141,23 @@ var Boot = {
     },
 
     // STARTUP: if app is portable, load settings from osu.json and write back on exit
-    checkPortable: function () {
+    checkPortable: () => {
         // check if app is portable
         if (!fs.existsSync('./osu.json')) {
             return;
         }
 
         // load settings
-        var settings = require('../osu.json');
+        const settings = require('../osu.json');
         console.info('Portable application, loading settings from `osu.json`', settings);
 
         // import settings
-        for (var s in settings) {
+        for (let s in settings) {
             localStorage.setItem(s, settings[s]);
         }
 
         // on close, write settings back to file
-        win.on('close', function () {
+        win.on('close', () => {
             try { // failsafe
                 fs.writeFileSync('./osu.json', JSON.stringify(localStorage));
             } catch (e) {}
@@ -166,7 +166,7 @@ var Boot = {
     },
 
     // STARTUP: checks if the app needs to reset cached values
-    checkReload: function () {
+    checkReload: () => {
         if (!localStorage.states) {
             return;
         }
@@ -177,7 +177,7 @@ var Boot = {
     },
 
     // STARTUP: set up tooltips
-    setupTooltips: function () {
+    setupTooltips: () => {
         $('.tooltipped').tooltip({
             'show': {
                 duration: 500,
@@ -188,12 +188,10 @@ var Boot = {
     },
 
     // STARTUP: set up version number in bottom-right corner
-    setupVersion: function () {
-        $('.version').text(PKJSON.version);
-    },
+    setupVersion: () => $('.version').text(PKJSON.version),
 
     // STARTUP: set up values in settings popup
-    setupSettings: function () {
+    setupSettings: () => {
         // autoupdate
         Update.setupCheckbox();
 

@@ -1,9 +1,9 @@
 'use strict';
 
-var Interface = {
+const Interface = {
 
     // USERINTERACTION: switch between light/dark themes
-    switchTheme: function () {
+    switchTheme: () => {
         // switch stored setting on click
         localStorage.theme = !localStorage || (localStorage && localStorage.theme === 'dark') ? 'light' : 'dark';
         // reload to let loadTheme do the job
@@ -12,14 +12,14 @@ var Interface = {
     },
 
     // USERINTERACTION: on "browse" button click, invoke hidden input action
-    browse: function (type) {
+    browse: (type) => {
         console.info('Opening File Browser');
         document.querySelector('#' + type + '-file-path-hidden').click();
     },
 
     // USERINTERACTION: adds video file to main interface after analyzis
-    add_video: function (file, multidrop) {
-        var info = {};
+    add_video: (file, multidrop) => {
+        let info = {};
 
         // show spinner early if no video is there, we'll check for duplicate later
         if(!$('#moviehash').val()) {
@@ -27,7 +27,7 @@ var Interface = {
         }
 
         // extract info form video file
-        OS.extractInfo(file).then(function (data) {
+        OS.extractInfo(file).then((data) => {
             // cache results
             info = {
                 moviefilename: path.basename(file),
@@ -45,7 +45,7 @@ var Interface = {
                 // try to find imdb match in OS api
                 return OS.identify(file);
             }
-        }).then(function (data) {
+        }).then((data) => {
             // cache results
             if (data.metadata && data.metadata.imdbid) {
                 info.metadata = data.metadata;
@@ -53,7 +53,7 @@ var Interface = {
             }
             // get mediainfo data on the file
             return Files.mediainfo(file);
-        }).then(function (metadata) {
+        }).then((metadata) => {
             // fill visible Interface with cached data
             Interface.reset('video');
 
@@ -78,8 +78,8 @@ var Interface = {
             $('.search-imdb i').addClass('fa-circle-o-notch fa-spin').removeClass('fa-search'); // display spinner for little imdb button
             if (info.metadata && info.imdbid) {
                 // OS.identify gave title & imdb id
-                var title = '';
-                var d = info.metadata;
+                let title = '';
+                const d = info.metadata;
 
                 if (d.episode_title) {
                     title += d.title + ' S' + Misc.pad(d.season) + 'E' + Misc.pad(d.episode) + ', ' + d.episode_title + ' (' + d.year + ')';
@@ -100,20 +100,20 @@ var Interface = {
                 } else {
                     // not found with OS.identify, trying harder
                     Misc.isSearchingImage = true;
-                    OS.login().then(function (res) {
+                    OS.login().then((res) => {
                         Interface.updateUserInfo(res.userinfo);
                         return OS.api.GuessMovieFromString(res.token, [info.moviefilename]);
-                    }).then(function (res) {
+                    }).then((res) => {
                         if (res.data && res.data[info.moviefilename] && res.data[info.moviefilename].BestGuess) {
                             // OS.api.GuessMovieFromString got info!
-                            var d = res.data[info.moviefilename].BestGuess;
-                            var id = d.IMDBEpisode || d.IDMovieIMDB;
+                            const d = res.data[info.moviefilename].BestGuess;
+                            const id = d.IMDBEpisode || d.IDMovieIMDB;
                             OsActions.imdbMetadata(id);
                         } else {                            
                             // nothing was found, remove spin and leave field empty
                             throw 'nothing was found by GuessMovieFromString';
                         }
-                    }).catch(function (error) {
+                    }).catch((error) => {
                         console.error(error);
                         $('.search-imdb i').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
                         $('#main-video-shadow').css('opacity', '0').hide();
@@ -124,34 +124,28 @@ var Interface = {
             // auto-detect matching subtitle if the user didn't drop both video+text files
             if (!multidrop) {
                 // Hack RegExp, required for special chars
-                RegExp.escape = function (s) {
-                    return String(s).replace(/[\\\^$*+?.()|\[\]{}]/g, '\\$&');
-                };
+                RegExp.escape = (s) => String(s).replace(/[\\\^$*+?.()|\[\]{}]/g, '\\$&');
                 // read directory video is from, looking for sub
-                fs.readdir(path.dirname(file), function (err, f) {
+                fs.readdir(path.dirname(file), (err, f) => {
                     if (err) {
                         return;
                     }
 
-                    for (var i = 0; i < f.length; i++) {
+                    for (let i = 0; i < f.length; i++) {
                         if (f[i].slice(0, f[i].length - path.extname(f[i]).length).match(RegExp.escape(path.basename(file).slice(0, path.basename(file).length - path.extname(file).length))) && Files.detectFileType(f[i]) === 'subtitle') {
                             // if match found, load it :) 
                             console.info('Matching subtitle detected');
 
-                            var existing = $('#subtitle-file-path').val();
+                            const existing = $('#subtitle-file-path').val();
 
                             if (existing && (path.basename(existing) !== f[i])) {
                                 // modal to select which subtitle to load
                                 Interface.modal(i18n.__('Replace the currently loaded file with the detected one: %s', '<span class="modal-filename">'+f[i]+'</span>'), 'yes', 'no');
 
                                 // on click 'yes'
-                                $('.modal-yes').on('click', function (e) {
-                                    Interface.add_subtitle(path.join(path.dirname(file), f[i]), true);
-                                });
+                                $('.modal-yes').on('click', (e) => Interface.add_subtitle(path.join(path.dirname(file), f[i]), true));
                                 // on click 'no'
-                                $('.modal-no').on('click', function (e) {
-                                    Interface.reset('modal');
-                                });
+                                $('.modal-no').on('click', (e) => Interface.reset('modal'));
                             } else {
                                 Interface.add_subtitle(path.join(path.dirname(file), f[i]), true);
                             }
@@ -165,7 +159,7 @@ var Interface = {
                 // we're done here, spinner can go rest
                 $('#main-video-shadow').css('opacity', '0').hide();
             }
-        }).catch(function (err) {
+        }).catch((err) => {
             // hide spinner
             $('#main-video-shadow').css('opacity', '0').hide();
 
@@ -190,10 +184,10 @@ var Interface = {
     },
 
     // AUTO: displays logged-in user
-    logged: function () {
+    logged: () => {
         // base infos
-        var username = localStorage.os_user;
-        var isFresh = localStorage.os_refreshed ? (parseInt(localStorage.os_refreshed) + 604800000 > Date.now()) : false;
+        const username = localStorage.os_user;
+        const isFresh = localStorage.os_refreshed ? (parseInt(localStorage.os_refreshed) + 604800000 > Date.now()) : false;
 
         if (username) {
             $('#login-username').val(username);
@@ -220,7 +214,7 @@ var Interface = {
     },
 
     // USERINTERACTION: log out
-    logout: function () {
+    logout: () => {
         console.info('Logged out!');
         $('#login-username').val(localStorage.os_user);
         $('#login-password').val('');
@@ -233,22 +227,18 @@ var Interface = {
         $('#not-logged').show();
     },
 
-    animate: function (el, cl, duration) {
-        $(el).addClass(cl).delay(duration).queue(function () {
-            $(el).removeClass(cl).dequeue();
-        });
+    animate: (el, cl, duration) => {
+        $(el).addClass(cl).delay(duration).queue(() => $(el).removeClass(cl).dequeue());
     },
 
     // USERINTERACTION: adds subtitle file to main interface after analyzis
-    add_subtitle: function (file, multidrop) {
+    add_subtitle: (file, multidrop) => {
         console.info('Adding new subtitle!');
         Interface.reset('subtitle');
         $('#subtitle-file-path').val(file);
         $('#subfilename').val(path.basename(file));
         // grab md5 hash
-        OS.computeMD5(file).then(function (data) {
-            $('#subhash').val(data);
-        });
+        OS.computeMD5(file).then((data) => $('#subhash').val(data));
         // try to detect lang of the subtitle
         Files.detectSubLang();
         // try to detect auto-translated
@@ -261,34 +251,28 @@ var Interface = {
         // auto-detect matching video if the user didn't drop both video+text files
         if (!multidrop) {
             // Hack RegExp, required for special chars
-            RegExp.escape = function (s) {
-                return String(s).replace(/[\\\^$*+?.()|\[\]{}]/g, '\\$&');
-            };
+            RegExp.escape = (s) => String(s).replace(/[\\\^$*+?.()|\[\]{}]/g, '\\$&');
             // read directory video is from, looking for sub
-            fs.readdir(path.dirname(file), function (err, f) {
+            fs.readdir(path.dirname(file), (err, f) => {
                 if (err) {
                     return;
                 }
 
-                for (var i = 0; i < f.length; i++) {
+                for (let i = 0; i < f.length; i++) {
                     if (f[i].slice(0, f[i].length - path.extname(f[i]).length).match(RegExp.escape(path.basename(file).slice(0, path.basename(file).length - (path.extname(file).length + 8)))) && Files.detectFileType(f[i]) === 'video') {
                         // if match found, load it :) 
                         console.info('Matching video detected');
 
-                        var existing = $('#video-file-path').val();
+                        const existing = $('#video-file-path').val();
 
                         if (existing && (path.basename(existing) !== f[i])) {
                             // modal to select which subtitle to load
                             Interface.modal(i18n.__('Replace the currently loaded file with the detected one: %s', '<span class="modal-filename">'+f[i]+'</span>'), 'yes', 'no');
 
                             // on click 'yes'
-                            $('.modal-yes').on('click', function (e) {
-                                Interface.add_video(path.join(path.dirname(file), f[i]), true);
-                            });
+                            $('.modal-yes').on('click', (e) => Interface.add_video(path.join(path.dirname(file), f[i]), true));
                             // on click 'no'
-                            $('.modal-no').on('click', function (e) {
-                                Interface.reset('modal');
-                            });
+                            $('.modal-no').on('click', (e) => Interface.reset('modal'));
                         } else {
                             Interface.add_video(path.join(path.dirname(file), f[i]), true);
                         }
@@ -301,7 +285,7 @@ var Interface = {
     },
 
     // AUTO or USERINTERACTION: resets the interface, erasing values
-    reset: function (type) {
+    reset: (type) => {
         if (type) {
             console.debug('Clear form:', type);
         }
@@ -370,9 +354,9 @@ var Interface = {
     },
 
     // STARTUP or AUTO: restore the 'locks' settings
-    restoreLocks: function () {
-        var subauthorcomment = localStorage['lock-subauthorcomment'];
-        var subtranslator = localStorage['lock-subtranslator'];
+    restoreLocks: () => {
+        const subauthorcomment = localStorage['lock-subauthorcomment'];
+        const subtranslator = localStorage['lock-subtranslator'];
 
         if (subauthorcomment) {
             $('#subauthorcomment').val(subauthorcomment).prop('readonly', true);
@@ -385,7 +369,7 @@ var Interface = {
     },
 
     // NOTIFY: displays popup to user, with action buttons
-    modal: function (text, btright, btleft) {
+    modal: (text, btright, btleft) => {
         // load the notification text
         $('#modal-content').html(text);
         // add buttons
@@ -396,7 +380,7 @@ var Interface = {
     },
 
     // NOTIFY: show/hide "uploading" spinner
-    spinner: function (show) {
+    spinner: (show) => {
         if (show) {
             $('#upload-modal').hide();
             $('#upload-popup').show().css('opacity', 1);
@@ -409,24 +393,24 @@ var Interface = {
     },
 
     // USERINTERACTION: open imdb search popup (actually using OS api)
-    searchPopup: function () {
+    searchPopup: () => {
         console.debug('Opening IMDB search popup');
         // close popup on click elsewhere
         $(document).bind('mouseup', Interface.leavePopup);
 
-        var begin_title = [];
-        var clean_title = [];
-        var count = 0;
-        var toPush = 0;
-        var title = Files.clearName($('#moviefilename').val()).split(' ');
+        const begin_title = [];
+        const clean_title = [];
+        let count = 0;
+        let toPush = 0;
+        const title = Files.clearName($('#moviefilename').val()).split(' ');
 
-        for (var t in title) {
+        for (let t in title) {
             if (!title[t].match(/^(the|an|19\d{2}|20\d{2}|a|of|in)$/i)) {
                 clean_title.push(title[t]);
                 toPush++;
             }
         }
-        for (var u in clean_title) {
+        for (let u in clean_title) {
             if (count < (toPush > 5 ? 4 : toPush - 1)) {
                 begin_title.push(clean_title[u]);
                 count++;
@@ -438,7 +422,7 @@ var Interface = {
     },
 
     // USERINTERACTION: open settings popup
-    settingsPopup: function () {
+    settingsPopup: () => {
         console.debug('Opening settings');
         // close popup on click elsewhere
         $(document).bind('mouseup', Interface.leavePopup);
@@ -447,7 +431,7 @@ var Interface = {
     },
 
     // USERINTERACTION or AUTO: close imdb search popup
-    leavePopup: function (e) {
+    leavePopup: (e) => {
         if ($('#search-popup').is(':visible') && !$('#search').is(e.target) && $('#search').has(e.target).length === 0) {
             console.debug('Closing IMDB search popup');
             // hide popup
@@ -471,7 +455,7 @@ var Interface = {
     },
 
     // USERINTERACTION or AUTO: on click a result from imdb search popup, inject imdb id, tooltip text and close popup
-    imdbFromSearch: function (id, title, show) {
+    imdbFromSearch: (id, title, show) => {
         console.debug('Adding IMDB id to main form');
 
         // add leading 'tt'
@@ -492,7 +476,7 @@ var Interface = {
     },
 
     // AUTO: displays the image found online
-    displayPlaceholder: function (uri) {
+    displayPlaceholder: (uri) => {
         Misc.isSearchingImage = false;
         Misc.TmpMetadata = false;
 
@@ -504,9 +488,9 @@ var Interface = {
         console.info('Loading image', uri);
 
         // preload
-        var img = new Image();
+        let img = new Image();
         img.src = uri;
-        img.onload = function () {
+        img.onload = () => {
             // inject
             $('#main-video-placeholder').css('background', '#333');
             $('#main-video-img').css('background-image', 'url('+uri+')').show().css('opacity', '0.7');
@@ -519,12 +503,11 @@ var Interface = {
     },
 
     // STARTUP: checks imdbid field for manual changes, then verify if new ID is valid
-    setupImdbFocus: function () {
-        var imdbFocusVal = false;
-        $('#imdbid').focus(function (e) {
-            // on focus, cache previous value
-            imdbFocusVal = e.target.value;
-        }).focusout(function (e) {
+    setupImdbFocus: () => {
+        let imdbFocusVal = false;
+        $('#imdbid')
+            .focus((e) => imdbFocusVal = e.target.value) //on focus, cache previous value
+            .focusout((e) => {
             // if new value is different, then a manual change was made
             if (e.target.value !== imdbFocusVal) {
                 // invalidate cache
@@ -536,9 +519,9 @@ var Interface = {
     },
 
     // USERINTERACTION: on 'lock icon' click, stores or cleans field value
-    toggleSave: function (el) {
-        var lockId = $(el).attr('id');
-        var fieldId = lockId.substr(5);
+    toggleSave: (el) => {
+        const lockId = $(el).attr('id');
+        const fieldId = lockId.substr(5);
 
         if (localStorage[lockId] !== undefined) {
             // if a value was stored
@@ -548,7 +531,7 @@ var Interface = {
             console.debug('%s disabled', lockId);
         } else {
             // nothing was stored yet
-            var val = $('#' + fieldId).val();
+            const val = $('#' + fieldId).val();
             if (val) { // sometimes val can be '' empty string
                 $(el).addClass('fa-lock').removeClass('fa-unlock');
                 document.getElementById(fieldId).setAttribute('readonly', true);
@@ -559,7 +542,7 @@ var Interface = {
     },
 
     // AUTO: injects userinfo in the UI
-    updateUserInfo: function (userinfo) {
+    updateUserInfo: (userinfo) => {
         if (!userinfo) {
             return;
         }
@@ -581,9 +564,7 @@ var Interface = {
         if (userinfo.IDUser) {
             // open os profile on click
             $('#logged .username').off('click');
-            $('#logged .username').on('click', function (e) {
-                Misc.openExternal('https://www.opensubtitles.org/profile/iduser-' + userinfo.IDUser);
-            });
+            $('#logged .username').on('click', (e) => Misc.openExternal('https://www.opensubtitles.org/profile/iduser-' + userinfo.IDUser));
         }
     }
 };

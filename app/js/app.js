@@ -3,28 +3,29 @@
 console.info('Opening app...');
 
 // important variables used in the app
-var gui = require('nw.gui');
-var win = gui.Window.get();
-var path = require('path');
-var fs = require('fs');
-var spawn = require('child_process').spawn;
-var https = require('https');
-var crypt = require('crypto');
-var got = require('got');
+const gui = require('nw.gui');
+const win = gui.Window.get();
+const path = require('path');
+const fs = require('fs');
+const spawn = require('child_process').spawn;
+const https = require('https');
+const crypt = require('crypto');
+const got = require('got');
 
-var i18n = require('i18n');
-var openSubtitles = require('opensubtitles-api');
-var mi = require('mediainfo-wrapper');
-var detectLang = require('detect-lang');
+const i18n = require('i18n');
+const openSubtitles = require('opensubtitles-api');
+const mi = require('mediainfo-wrapper');
+const detectLang = require('detect-lang');
 
-var OSLANGS = require('./js/utils/os-lang.json');
-var PKJSON = require('../package.json');
-var USERAGENT = 'OpenSubtitles-Uploader v' + PKJSON.version;
-var OS;
+const OSLANGS = require('./js/utils/os-lang.json');
+const PKJSON = require('../package.json');
+const USERAGENT = 'OpenSubtitles-Uploader v' + PKJSON.version;
+
+let OS;
 
 // setup window's content and start the app
-gui.start = function () {
-    return new Promise(function (resolve, reject) {
+gui.start = () => {
+    return new Promise((resolve, reject) => {
         try {
             // Set up everything
             Boot.load();
@@ -47,8 +48,8 @@ gui.start = function () {
 };
 
 // if app is already running, inject file if used 'open with'
-gui.App.on('open', function (cmd) {
-    var file;
+gui.App.on('open', (cmd) => {
+    let file;
     if (process.platform.match('win32')) {
         file = cmd.split('"');
         file = file[file.length - 2];

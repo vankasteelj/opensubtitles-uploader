@@ -1,15 +1,15 @@
 'use strict';
 
-var Themes = {
+const Themes = {
     availableThemes: ['light', 'dark'],
     defaultTheme: 'light',
 
     // STARTUP: build dropdown menu for changing app theme
-    setupDropdown: function () {
+    setupDropdown: () => {
         // build dropdown
-        for (var name in Themes.availableThemes) {
+        for (let name in Themes.availableThemes) {
             // insert element in dropdown
-            var theme = Themes.availableThemes[name];
+            const theme = Themes.availableThemes[name];
             $('#app-theme').append('<option value="'+theme+'">'+theme+'</option>');
             
             // select if active
@@ -19,7 +19,7 @@ var Themes = {
         }
 
         // on dropdown click, change lang
-        $('#app-theme').on('change', function (e) {
+        $('#app-theme').on('change', (e) => {
             // store new lang
             localStorage.theme = e.target.value;
             // reload to use new lang
@@ -29,9 +29,9 @@ var Themes = {
     },
 
     // STARTUP: checks which theme user prefers then injects css theme file
-    loadTheme: function () {
+    loadTheme: () => {
         // which theme to use?
-        var theme = localStorage && localStorage.theme ? localStorage.theme : Themes.defaultTheme;
+        const theme = localStorage && localStorage.theme ? localStorage.theme : Themes.defaultTheme;
         // inject the css file
         document.getElementById('theme').href = 'css/themes/' + theme.toLowerCase() + '.css';
         // store setting

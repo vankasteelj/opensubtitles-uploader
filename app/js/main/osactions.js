@@ -1,12 +1,12 @@
 'use strict';
 
-var OsActions = {
+const OsActions = {
 
     // USERINTERACTION: log to OS and store creds
-    login: function () {
+    login: () => {
         // use MD5 password to somewhat protect it, waiting for OS to have oauth
-        var password = crypt.createHash('MD5').update($('#login-password').val()).digest('hex');
-        var username = $('#login-username').val();
+        const password = crypt.createHash('MD5').update($('#login-password').val()).digest('hex');
+        const username = $('#login-username').val();
 
         // d41d8.. is '' empty string
         if (!username || password === 'd41d8cd98f00b204e9800998ecf8427e') {
@@ -31,7 +31,7 @@ var OsActions = {
             });
 
             // actual login
-            OS.login().then(function (res) {
+            OS.login().then((res) => {
                 // user information
                 Interface.updateUserInfo(res.userinfo);
 
@@ -41,37 +41,40 @@ var OsActions = {
 
                 // logging success
                 Interface.logged();
-            }).catch(function (err) {
+            }).catch((err) => {
                 console.error('OsActions.login()', err);
 
                 // cache current html
-                var original = $('#not-logged').html();
+                const original = $('#not-logged').html();
                 // user-friendly error if possible
-                var display_err = err === '401 Unauthorized' ? i18n.__('Wrong username or password') : (err.message || err);
+                const display_err = err === '401 Unauthorized' ? i18n.__('Wrong username or password') : (err.message || err);
 
                 // overly complicated jquery uglyness to display error, then restore cached html
-                $('#not-logged').html('<div id="logged"><span class="username warning">' + display_err + '</span><i class="icon icon-login i18n tooltipped buzz" id="button-login" onClick="OsActions.login()" title="Log in"></i>').delay(1850).queue(function () {
-                    $('#not-logged').html(original);
-                    $('#login-username').val(username);
-                    $('#not-logged').dequeue();
-                });
+                $('#not-logged')
+                    .html('<div id="logged"><span class="username warning">' + display_err + '</span><i class="icon icon-login i18n tooltipped buzz" id="button-login" onClick="OsActions.login()" title="Log in"></i>')
+                    .delay(1850)
+                    .queue(() => {
+                        $('#not-logged').html(original);
+                        $('#login-username').val(username);
+                        $('#not-logged').dequeue();
+                    });
             });
         }
     },
 
     // STARTUP: fetches user info every 7 days, triggered by Interface.logged();
-    refreshInfo: function () {
-        OS.login().then(function (res) {
+    refreshInfo: () => {
+        OS.login().then((res) => {
             Interface.updateUserInfo(res.userinfo);
             Interface.logged();
-        }).catch(function (error) {
+        }).catch((error) => {
             console.error('Unable to refresh user information', error);
             Interface.logout();
         });
     },
 
     // STARTUP: check if user was previously logged, fires up OS module accordingly
-    verifyLogin: function () {
+    verifyLogin: () => {
         OS = new openSubtitles({
             useragent: USERAGENT,
             ssl: true
@@ -88,7 +91,7 @@ var OsActions = {
     isSearching: false,
 
     // USERINTERACTION: search imdb id through OS api, display results (search imdb popup)
-    searchImdb: function () {
+    searchImdb: () => {
         // don't search multiple times
         if (OsActions.isSearching) {
             return;
@@ -107,10 +110,10 @@ var OsActions = {
         $('#search-result').html('');
 
         OsActions.isSearching = true;
-        OS.login().then(function (res) {
+        OS.login().then((res) => {
             Interface.updateUserInfo(res.userinfo);
             return OS.api.SearchMoviesOnIMDB(res.token, $('#search-text').val());
-        }).then(function (response) {
+        }).then((response) => {
             console.debug('Search Movies on IMDB response:', response);
 
             // sometimes response comes but without data
@@ -122,8 +125,8 @@ var OsActions = {
                 $('#search-result').show();
 
                 // add each possible movie/show/episode to answers
-                var res = response.data;
-                for (var i = 0; i < res.length; i++) {
+                const res = response.data;
+                for (let i = 0; i < res.length; i++) {
                     if (!res[i].id) {
                         return;
                     }
@@ -133,12 +136,10 @@ var OsActions = {
                 }
 
                 // select one on hover
-                $('.result-item').hover(function () {
+                $('.result-item').hover((e) => {
                     $('.result-item').removeClass('selected');
-                    $(this).addClass('selected');
-                }, function () {
-                    $(this).removeClass('selected');
-                });
+                    $(e.currentTarget).addClass('selected');
+                }, (e) => $(e.currentTarget).removeClass('selected'));
 
             } else {
                 throw 'Opensubtitles.SearchMoviesOnIMDB() error, no details';
@@ -147,7 +148,7 @@ var OsActions = {
             // hide spinner
             $('#button-search').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
             OsActions.isSearching = false;
-        }).catch(function (err) {
+        }).catch((err) => {
             console.error('SearchMoviesOnIMDB', err);
             $('#search').animate({
                 height: '80px',
@@ -165,7 +166,7 @@ var OsActions = {
     },
 
     // AUTO: grab metadata from OS based on imdb id
-    imdbMetadata: function (id) {
+    imdbMetadata: (id) => {
         // close popup if open
         Interface.leavePopup({});
 
@@ -183,9 +184,9 @@ var OsActions = {
             return;
         }
 
-        OS.login().then(function (res) {
+        OS.login().then((res) => {
             Interface.updateUserInfo(res.userinfo);
-            var imdbid = parseInt(id.toString().replace('tt', ''));
+            const imdbid = parseInt(id.toString().replace('tt', ''));
 
             // sometimes imdb could not be a number (and the user could write anything in there, we don't wanna spam the api with useless reqs)
             if (isNaN(imdbid)) {
@@ -196,11 +197,11 @@ var OsActions = {
                 // search online
                 return OS.api.GetIMDBMovieDetails(res.token, imdbid);
             }
-        }).then(function (response) {
+        }).then((response) => {
             // again, sometimes the response comes without data
             if (response && response.status.match(/200/) && typeof response.data === 'object') {
                 console.info('Imdb Metadata:', response.data);
-                var text = '';
+                let text = '';
                 if (response.data.kind === 'episode') {
                     text += response.data.title.split('"')[1];
                     text += ' S' + Misc.pad(response.data.season) + 'E' + Misc.pad(response.data.episode);
@@ -216,7 +217,7 @@ var OsActions = {
                     text += ' (' + response.data.year + ')';
                 }
 
-                var show_id;
+                let show_id;
                 if (response.data.episodeof) {
                     if (Object.keys(response.data.episodeof).length) {
                         show_id = Object.keys(response.data.episodeof)[0].replace('_', 'tt');
@@ -226,7 +227,7 @@ var OsActions = {
             } else {
                 throw 'Unknown OpenSubtitles related error, please retry later or report the issue';
             }
-        }).catch(function (e) {
+        }).catch((e) => {
             console.error(e);
 
             // hide spinner
@@ -237,7 +238,7 @@ var OsActions = {
             $('#imdb-info').hide();
 
             // notify
-            var error = e.message || e;
+            const error = e.message || e;
             if (error.match('Unknown XML-RPC tag')) {
                 error = 'OpenSubtitles is temporarily unavailable, please retry in a little while';
             } else if (error.match(/imdb id/i)) {
@@ -253,7 +254,7 @@ var OsActions = {
     isUploading: false,
 
     // USERINTERACTION: checks prerequisites before uploading
-    verify: function () {
+    verify: () => {
         // that's right, you can't upload the same sub twice by clicking twice, learnt that the hard way
         if (OsActions.isUploading) {
             return;
@@ -262,9 +263,9 @@ var OsActions = {
         Interface.reset('modal');
 
         // checks prerequisites
-        var required = ['#subtitle-file-path'];
-        var missing = 0;
-        for (var r in required) {
+        const required = ['#subtitle-file-path'];
+        let missing = 0;
+        for (let r in required) {
             if ($(required[r]).val() === '') {
                 missing++;
                 Interface.animate($(required[r]), 'warning', 1750);
@@ -285,7 +286,7 @@ var OsActions = {
     },
 
     // AUTO or USERINTERACTION: upload subs
-    upload: function () {
+    upload: () => {
         // that's right, you can't upload the same sub twice by clicking twice, learnt that the hard way
         if (OsActions.isUploading) {
             return;
@@ -293,13 +294,13 @@ var OsActions = {
 
         Interface.reset('modal');
 
-        var obj_data = {
+        const obj_data = {
             path: $('#video-file-path').val(),
             subpath: $('#subtitle-file-path').val()
         };
 
         // load optionnal options in the request
-        var optionnal = [
+        const optionnal = [
             '#sublanguageid',
             '#imdbid',
             '#highdefinition',
@@ -314,7 +315,7 @@ var OsActions = {
             '#subauthorcomment',
             '#subtranslator'
          ];
-        for (var o in optionnal) {
+        for (let o in optionnal) {
             if ($(optionnal[o]).val() !== '' && $(optionnal[o]).val() !== 'on') {
                 obj_data[optionnal[o].replace('#', '')] = $(optionnal[o]).val();
             } else if ($(optionnal[o]).prop('checked')) {
@@ -330,7 +331,7 @@ var OsActions = {
         Interface.spinner(true);
 
         // upload flow
-        OS.upload(obj_data).then(function (response) {
+        OS.upload(obj_data).then((response) => {
             // upload done, remove spinner & pulse icon
             OsActions.isUploading = false;
             Interface.spinner(false);
@@ -342,7 +343,7 @@ var OsActions = {
                     // req success, but sub was already in DB
                     console.info('Subtitle already in opensubtitle\'s db');
 
-                    var d = response.data;
+                    const d = response.data;
 
                     // build modal according to response details. somewhat fragile code.
                     Interface.modal(i18n.__('Subtitle was already present in the database') + '.<br><li>' + (d.HashWasAlreadyInDb === 0 ? i18n.__('The hash has been added!') : i18n.__('The hash too...')) + '</li><li>' + (d.MoviefilenameWasAlreadyInDb === 0 ? i18n.__('The file name has been added!') : i18n.__('The file name too...')) + '</li>', 'ok');
@@ -379,7 +380,7 @@ var OsActions = {
                 throw 'Something went wrong';
             }
 
-        }).catch(function (err) {
+        }).catch((err) => {
             // def not uploading anymore...
             OsActions.isUploading = false;
             Interface.spinner(false);
@@ -388,7 +389,7 @@ var OsActions = {
             console.error(err);
 
             // try to give user a friendly explaination of what went wrong
-            var error;
+            let error;
             if ((err.body && err.body.match(/503/i)) || (err.code === 'ETIMEDOUT')) {
                 error = 'OpenSubtitles is temporarily unavailable, please retry in a little while';
             } else if (err.body && err.body.match(/506/i)) {
