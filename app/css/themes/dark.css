@@ -146,7 +146,7 @@ input[type=checkbox] {
 }
 
 #search-popup {
-    background: rgba(25, 30, 50, .2);
+    background: rgba(25, 30, 50, .6);
 }
 
 #search {
@@ -174,7 +174,7 @@ input[type=checkbox] {
 }
 
 #upload-popup {
-    background: rgba(25, 30, 50, .2);
+    background: rgba(25, 30, 50, .6);
 }
 
 #upload-modal {
@@ -297,7 +297,7 @@ input.warning::-webkit-input-placeholder {
 }
 
 #settings-popup {
-    background: rgba(25, 30, 50, .2);
+    background: rgba(25, 30, 50, .6);
 }
 
 #settings-content {
