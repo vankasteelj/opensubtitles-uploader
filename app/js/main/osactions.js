@@ -1,6 +1,16 @@
 'use strict';
 
 const OsActions = {
+    // AUTOMATIC: set OS client to use SSL
+    setupSSL: () => {
+        localStorage.ssl = localStorage.ssl === undefined ? true : localStorage.ssl;
+        $('#app-https').prop('checked', JSON.parse(localStorage.ssl)).on('click', (e) => {
+            const isActive = JSON.parse(localStorage.ssl);
+            localStorage.ssl = !isActive;
+            $('#app-https').prop('checked', !isActive);
+            OsActions.verifyLogin();
+        });
+    },
 
     // USERINTERACTION: log to OS and store creds
     login: () => {
@@ -25,7 +35,7 @@ const OsActions = {
             // spawn OS object
             OS = new openSubtitles({
                 useragent: USERAGENT,
-                ssl: true,
+                ssl: JSON.parse(localStorage.ssl),
                 username: username,
                 password: password,
             });
@@ -77,7 +87,7 @@ const OsActions = {
     verifyLogin: () => {
         OS = new openSubtitles({
             useragent: USERAGENT,
-            ssl: true
+            ssl: JSON.parse(localStorage.ssl)
         });
 
         if (localStorage.os_user && localStorage.os_pw) {

@@ -192,6 +192,9 @@ const Boot = {
 
     // STARTUP: set up values in settings popup
     setupSettings: () => {
+        // SSL usage state
+        OsActions.setupSSL();
+
         // autoupdate
         Update.setupCheckbox();
 
