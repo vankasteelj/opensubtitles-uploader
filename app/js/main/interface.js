@@ -580,6 +580,7 @@ var Interface = {
 
         if (userinfo.IDUser) {
             // open os profile on click
+            $('#logged .username').off('click');
             $('#logged .username').on('click', function (e) {
                 Misc.openExternal('https://www.opensubtitles.org/profile/iduser-' + userinfo.IDUser);
             });
