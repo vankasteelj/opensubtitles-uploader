@@ -238,7 +238,7 @@ const OsActions = {
             $('#imdb-info').hide();
 
             // notify
-            const error = e.message || e;
+            let error = e.message || e;
             if (error.match('Unknown XML-RPC tag')) {
                 error = 'OpenSubtitles is temporarily unavailable, please retry in a little while';
             } else if (error.match(/imdb id/i)) {

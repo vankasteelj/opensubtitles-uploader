@@ -115,8 +115,8 @@ const Boot = {
         // check stored settings or use package.json values
         const width = parseInt(localStorage.width ? localStorage.width : defaultWidth);
         const height = parseInt(localStorage.height ? localStorage.height : defaultHeight);
-        const x = parseInt(localStorage.posX ? localStorage.posX : -1);
-        const y = parseInt(localStorage.posY ? localStorage.posY : -1);
+        let x = parseInt(localStorage.posX ? localStorage.posX : -1);
+        let y = parseInt(localStorage.posY ? localStorage.posY : -1);
 
         // reset x
         if (x < 0 || (x + width) > screen.width) {

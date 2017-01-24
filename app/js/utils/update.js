@@ -48,7 +48,7 @@ const Update = {
         // fetch remote package.json
         const url = 'https://raw.githubusercontent.com/vankasteelj/opensubtitles-uploader/master/package.json';
         https.get(url, (res) => {
-            const body = '';
+            let body = '';
 
             res.on('data', (chunk) => {
                 body += chunk.toString();

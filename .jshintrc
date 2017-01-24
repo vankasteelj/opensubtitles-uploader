@@ -28,6 +28,7 @@
     "indent": 4,
     "newcap": false,
     "esversion": 6,
+    "-W138": true,
 
     // Globals
     "globals": {
