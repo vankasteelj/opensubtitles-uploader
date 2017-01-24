@@ -3,7 +3,8 @@
 /******** 
  * setup *
  ********/
-const nwVersion = '0.12.3',
+const nwVersion = '0.19.5',
+    flavor = 'sdk',
     availablePlatforms = ['linux32', 'linux64', 'win32', 'osx64'],
     releasesDir = 'build';
 
@@ -95,6 +96,7 @@ const nw = new nwBuilder({
     macIcns: './dist/os-icon.icns',
     winIco: './dist/os-icon.ico',
     version: nwVersion,
+    flavor: 'sdk',
     platforms: parsePlatforms()
 }).on('log', console.log);
 
@@ -106,7 +108,7 @@ const nw = new nwBuilder({
 gulp.task('run', () => {
     return new Promise((resolve, reject) => {
         let platform = parsePlatforms()[0],
-            bin = path.join('cache', nwVersion, platform);
+            bin = path.join('cache', nwVersion + '-' + flavor, platform);
 
         // path to nw binary
         switch (platform.slice(0, 3)) {
