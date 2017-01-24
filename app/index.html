@@ -7,7 +7,7 @@
     <title>OpenSubtitles Uploader</title>
 
     <link rel="icon" type="image/png" href="images/os-icon.png" />
-    <link rel="stylesheet" type="text/css" href="css/fonts/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="css/fonts/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="css/fonts/fira.css" />
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <link rel="stylesheet" type="text/css" href="css/themes/light.css" id="theme" />
@@ -48,19 +48,18 @@
         </div>
 
         <div id="settings">
-            <i class="icon icon-settings tooltipped i18n" onClick="Interface.settingsPopup()" title="Settings"></i>
+            <i class="icon fa fa-cog icon-settings tooltipped i18n" onClick="Interface.settingsPopup()" title="Settings"></i>
         </div>
 
         <div id="authentication">
             <div id="logged" style="display:none">
-                <i class="icon tooltipped icon-user"></i>
                 <span class="username"></span>
-                <i class="icon icon-logout tooltipped i18n" onClick="Interface.logout()" title="Log out"></i>
+                <i class="icon fa fa-sign-out icon-logout tooltipped i18n" onClick="Interface.logout()" title="Log out"></i>
             </div>
             <div id="not-logged" style="display:block">
                 <input id="login-username" class="i18n" type="text" placeholder="Username">
                 <input id="login-password" class="i18n" type="password" placeholder="Password">
-                <i class="icon icon-login i18n tooltipped" id="button-login" onClick="OsActions.login()" title="Log in"></i>
+                <i class="icon fa fa-sign-in icon-login i18n tooltipped" id="button-login" onClick="OsActions.login()" title="Log in"></i>
             </div>
         </div>
 
@@ -110,7 +109,6 @@
                 <div class="metaitem">
                     <span><i18n>High definition</i18n></span>
                     <input id="highdefinition" type="checkbox">
-                    <i class="icon icon-hd"></i>
                 </div>
             </div>
 
@@ -159,17 +157,17 @@
                 <div class="metaitem">
                     <span><i18n>Hearing impaired</i18n></span>
                     <input id="hearingimpaired" type="checkbox">
-                    <i class="icon icon-impaired tooltipped i18n" title="The subtitle file contains descriptions of sounds and/or dialogues, meant for hearing impaired people"></i>
+                    <i class="icon fa fa-deaf icon-impaired tooltipped i18n" title="The subtitle file contains descriptions of sounds and/or dialogues, meant for hearing impaired people"></i>
                 </div>
                 <div class="metaitem">
                     <span><i18n>Auto-translated</i18n></span>
                     <input id="automatictranslation" type="checkbox">
-                    <i class="icon icon-machine tooltipped i18n" title="The subtitles were translated automatically by a machine"></i>
+                    <i class="icon fa fa-sitemap icon-machine tooltipped i18n" title="The subtitles were translated automatically by a machine"></i>
                 </div>
                 <div class="metaitem">
                     <span><i18n>Foreign parts only</i18n></span>
                     <input id="foreignpartsonly" type="checkbox">
-                    <i class="icon icon-foreign tooltipped i18n" title="The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings"></i>
+                    <i class="icon fa fa-flag icon-foreign tooltipped i18n" title="The subtitles only translate non-native parts of the script, for example elvish and orkish in the Lord of the Rings"></i>
                 </div>
             </div>
 
