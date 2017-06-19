@@ -4,7 +4,7 @@
  * setup *
  ********/
 const nwVersion = '0.23.3',
-    flavor = 'sdk',
+    flavor = 'normal',
     availablePlatforms = ['linux32', 'linux64', 'win32', 'osx64'],
     releasesDir = 'build';
 
@@ -96,7 +96,7 @@ const nw = new nwBuilder({
     macIcns: './dist/os-icon.icns',
     winIco: './dist/os-icon.ico',
     version: nwVersion,
-    flavor: 'sdk',
+    flavor: flavor,
     platforms: parsePlatforms()
 }).on('log', console.log);
 
@@ -163,7 +163,11 @@ gulp.task('clean:nwjs', () => {
             dirname + '/pdf*',
             dirname + '/d3d*',
             dirname + '/libEGL*',
-            dirname + '/libGLE*'
+            dirname + '/libGLE*',
+            dirname + '/chrome*',
+            dirname + '/nacl*',
+            dirname + '/payload*',
+            dirname + '/nwjc*'
         ]);
     }));
 });
