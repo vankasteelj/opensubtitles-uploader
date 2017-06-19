@@ -27,7 +27,7 @@ const Interface = {
         }
 
         // extract info form video file
-        OS.extractInfo(file).then((data) => {
+        OS.hash(file).then((data) => {
             // cache results
             info = {
                 moviefilename: path.basename(file),
@@ -238,7 +238,7 @@ const Interface = {
         $('#subtitle-file-path').val(file);
         $('#subfilename').val(path.basename(file));
         // grab md5 hash
-        OS.computeMD5(file).then((data) => $('#subhash').val(data));
+        OS.md5(file).then((data) => $('#subhash').val(data));
         // try to detect lang of the subtitle
         Files.detectSubLang();
         // try to detect auto-translated

@@ -10,6 +10,7 @@ const Files = {
 
     // AUTO: detect file type based on its extension
     detectFileType: (file) => {
+        if (!file) return null;
         const ext = path.extname(file).toLowerCase();
         if (Files.supported.video.indexOf(ext) > -1) {
             return 'video';
