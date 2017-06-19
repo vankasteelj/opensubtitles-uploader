@@ -313,6 +313,7 @@ const Interface = {
             $('#main-video-img').css('background-image', 'none').hide().css('opacity', '0');
             $('#main-video .input-file, #main-video .reset').removeClass('white-ph');
             $('#main-video-placeholder').css('background', 'transparent');
+            $('#main-video-shadow').hide().css('opacity', '0')
             break;
         case 'subtitle':
             $('#subtitle-file-path').val('');
