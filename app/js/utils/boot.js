@@ -161,7 +161,7 @@ const Boot = {
             try { // failsafe
                 fs.writeFileSync('./osu.json', JSON.stringify(localStorage));
             } catch (e) {}
-            win.close('true');
+            win.close(true);
         });
     },
 
