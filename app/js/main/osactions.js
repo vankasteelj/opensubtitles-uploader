@@ -411,7 +411,7 @@ const OsActions = {
             }
 
             // build error modal
-            Interface.modal(i18n.__(error), 'ok', 'retry');
+            Interface.modal(i18n.__(error), 'oknoreset', 'retry');
 
             // red for failure. and blood. mostly blood.
             $('#modal-line').css('background', '#e60000');
