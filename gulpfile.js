@@ -160,7 +160,6 @@ gulp.task('clean:nwjs', () => {
     return Promise.all(parsePlatforms().map((platform) => {
         let dirname = path.join(releasesDir, pkJson.name, platform);
         return del([
-            dirname + '/*ffmpeg*',
             dirname + '/pdf*',
             dirname + '/d3d*',
             dirname + '/libEGL*',
