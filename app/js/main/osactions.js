@@ -205,6 +205,7 @@ const OsActions = {
                 // show spinner
                 $('.search-imdb i').addClass('fa-circle-o-notch fa-spin').removeClass('fa-search');
                 // search online
+                $('#imdbid').val(imdbid);
                 return OS.api.GetIMDBMovieDetails(res.token, imdbid);
             }
         }).then((response) => {
@@ -249,7 +250,7 @@ const OsActions = {
 
             // notify
             let error = e.message || e;
-            if (error.match('Unknown XML-RPC tag')) {
+            if (error.match('Unknown XML-RPC tag') || error.match('API seems offline')) {
                 error = 'OpenSubtitles is temporarily unavailable, please retry in a little while';
             } else if (error.match(/imdb id/i)) {
                 error = 'Wrong IMDB id';
