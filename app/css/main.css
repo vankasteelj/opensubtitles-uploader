@@ -330,6 +330,9 @@ input[type=checkbox]:checked:before {
     line-height: 20px;
     margin-top: 1px;
 }
+#imdb-info.warning {
+    color: orange;
+}
 
 .search-imdb {
     font-size: 13px !important;

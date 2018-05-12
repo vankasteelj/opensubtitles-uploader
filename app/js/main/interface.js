@@ -464,6 +464,7 @@ const Interface = {
 
         // display the value
         $('#imdbid').val(id);
+        $('#imdb-info').removeClass('warning fa-warning').addClass('fa-info-circle');
         $('#imdb-info').attr('title', 'IMDB: ' + title).attr('imdbid', id).show();
 
         // hide spinner for little imdb button, shown in add_video() and imdb udpate

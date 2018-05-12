@@ -245,8 +245,7 @@ const OsActions = {
             $('.search-imdb i').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
 
             // reset imdb field
-            $('#imdbid').val('');
-            $('#imdb-info').hide();
+            $('#imdb-info').removeClass('fa-info-circle').addClass('warning fa-warning').attr('title', i18n.__('This IMDB id could not be checked, be careful with your upload')).show();
 
             // notify
             let error = e.message || e;
