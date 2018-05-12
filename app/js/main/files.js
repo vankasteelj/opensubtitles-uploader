@@ -90,7 +90,7 @@ const Files = {
             try {
                 let detectedlang = path.parse(sub).name.match(/(\w{2}\-\w{2})|(\w{2})/g).pop().toLowerCase();
                 for (let i in OSLANGS) {
-                    if (OSLANGS[i].iso6391 == detectedlang) {
+                    if (OSLANGS[i].iso6391 === detectedlang) {
                         $('#sublanguageid').val(OSLANGS[i].code);
                         console.info('Detected:', OSLANGS[i].code);
                         found = true;
