@@ -84,12 +84,31 @@ const Files = {
             // hide spinner
             $('.detect-lang i').addClass('fa-magic').removeClass('fa-circle-o-notch fa-spin');
         }).catch((err) => {
+            // try the "filename approach" => 'my awesome movie.en.srt'
+            let found = false;
+            console.info('Detecting subtitle language... Trying the "filename approach"');
+            try {
+                let detectedlang = path.parse(sub).name.match(/(\w{2}\-\w{2})|(\w{2})/g).pop().toLowerCase();
+                for (let i in OSLANGS) {
+                    if (OSLANGS[i].iso6391 == detectedlang) {
+                        $('#sublanguageid').val(OSLANGS[i].code);
+                        console.info('Detected:', OSLANGS[i].code);
+                        found = true;
+                        break;
+                    }
+                }
+            } catch (e) {
+                console.error('Files.detectSubLang() "filename approach" error:', e);
+            }
+            
             // hide spinner
             $('.detect-lang i').addClass('fa-magic').removeClass('fa-circle-o-notch fa-spin');
 
             // notify
-            console.error('Files.detectSubLang() error:', err);
-            Notify.snack(i18n.__('Language testing unconclusive, automatic detection failed'), 3800);
+            if (!found) {
+                console.error('Files.detectSubLang() error:', err);
+                Notify.snack(i18n.__('Language testing unconclusive, automatic detection failed'), 3800);
+            }
         });
     },
 
