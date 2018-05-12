@@ -81,5 +81,6 @@
 	"Next field": "Entrée suivante",
 	"Previous field": "Entrée précédente",
 	"Report an issue": "Signaler un problème",
-    "Use HTTPS": "Utiliser HTTPS"
+    "Use HTTPS": "Utiliser HTTPS",
+    "This IMDB id could not be checked, be careful with your upload": "Cet identifiant IMDB n'a pas pu être vérifié, soyez prudent pour la mise en ligne"
 }
