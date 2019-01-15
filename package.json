@@ -4,6 +4,7 @@
     "description": "Easily upload your subtitles to OpenSubtitles.org, as simple as drag&drop",
     "license": "GPL-3.0",
     "version": "2.3.0",
+    "icon": "app/images/os-icon.ico",
     "homepage": "https://github.com/vankasteelj/opensubtitles-uploader",
     "releases": "https://github.com/vankasteelj/opensubtitles-uploader/releases",
     "scripts": {
@@ -30,10 +31,10 @@
     },
     "dependencies": {
         "detect-lang": "1.x.x",
-        "got": "8.x.x",
+        "got": "9.x.x",
         "i18n": "0.x.x",
         "mediainfo-wrapper": "1.x.x",
-        "opensubtitles-api": "^4.1.0"
+        "opensubtitles-api": "5.x.x"
     },
     "devDependencies": {
         "del": "3.x.x",
@@ -45,8 +46,9 @@
         "gulp-zip": "^4.1.0",
         "jshint": "^2.9.5",
         "jshint-stylish": "2.x.x",
+        "modclean": "^3.0.0-beta.1",
         "nw-builder": "^3.5.1",
         "run-sequence": "2.x.x",
-        "yargs": "11.x.x"
+        "yargs": "12.x.x"
     }
 }

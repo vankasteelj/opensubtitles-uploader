@@ -3,8 +3,8 @@
 /******** 
  * setup *
  ********/
-const nwVersion = '0.30.1',
-    flavor = 'normal',
+const nwVersion = '0.35.5',
+    flavor = 'sdk',
     availablePlatforms = ['linux32', 'linux64', 'win32', 'osx64'],
     releasesDir = 'build';
 
@@ -23,7 +23,8 @@ const gulp = require('gulp'),
     path = require('path'),
     exec = require('child_process').exec,
     spawn = require('child_process').spawn,
-    pkJson = require('./package.json');
+    pkJson = require('./package.json'),
+    modClean = require('modclean').ModClean;
 
 
 /***********
@@ -56,50 +57,10 @@ const parsePlatforms = () => {
     return requestedPlatforms[0] === 'all' ? availablePlatforms : validPlatforms;
 };
 
-// returns an array of paths with the node_modules to include in builds
-const parseReqDeps = () => {
-    return new Promise((resolve, reject) => {
-        exec('npm ls --production=true --parseable=true', (error, stdout, stderr) => {
-            if (error || stderr) {
-                reject(error || stderr);
-            } else {
-                // build array
-                let npmList = stdout.split('\n');
-
-                // remove empty or soon-to-be empty
-                npmList = npmList.filter((line) => {
-                    return line.replace(process.cwd().toString(), '');
-                });
-
-                // format for nw-builder
-                npmList = npmList.map((line) => {
-                    return line.replace(process.cwd(), '.') + '/**';
-                });
-
-                // return
-                resolve(npmList);
-            }
-        });
-    });
-};
-
 // console.log for thenable promises
 const log = () => {
     console.log.apply(console, arguments);
 };
-
-// nw-builder configuration
-const nw = new nwBuilder({
-    files: [],
-    buildDir: releasesDir,
-    zip: false,
-    macIcns: './dist/os-icon.icns',
-    winIco: './dist/os-icon.ico',
-    version: nwVersion,
-    flavor: flavor,
-    platforms: parsePlatforms()
-}).on('log', console.log);
-
 
 /************* 
  * gulp tasks *
@@ -152,7 +113,7 @@ gulp.task('run', () => {
 
 // build app from sources
 gulp.task('build', (callback) => {
-    runSequence('nwjs', 'clean:mediainfo', 'clean:nwjs', callback);
+    runSequence('npm:modclean', 'nwjs', 'clean:mediainfo', 'clean:nwjs', 'build:prune', callback);
 });
 
 // remove unused libraries
@@ -161,13 +122,16 @@ gulp.task('clean:nwjs', () => {
         let dirname = path.join(releasesDir, pkJson.name, platform);
         return del([
             dirname + '/pdf*',
-            dirname + '/d3d*',
-            dirname + '/libEGL*',
-            dirname + '/libGLE*',
             dirname + '/chrome*',
             dirname + '/nacl*',
+            dirname + '/pnacl',
             dirname + '/payload*',
-            dirname + '/nwjc*'
+            dirname + '/nwjc*',
+            dirname + '/credit*',
+            dirname + '/debug*',
+            dirname + '/swift*',
+            dirname + '/notification_helper*',
+            dirname + '/d3dcompiler*'
         ]);
     }));
 });
@@ -194,21 +158,40 @@ gulp.task('default', () => {
 
 // download and compile nwjs
 gulp.task('nwjs', () => {
-    return parseReqDeps().then((requiredDeps) => {
-        // required files
-        nw.options.files = ['./app/**', './package.json', './README.md', './LICENSE'];
-        // add node_modules
-        nw.options.files = nw.options.files.concat(requiredDeps);
-        // remove junk files
-        nw.options.files = nw.options.files.concat(['!./node_modules/**/*.bin', '!./node_modules/**/*.c', '!./node_modules/**/*.h', '!./node_modules/**/Makefile', '!./node_modules/**/*.h', '!./**/test*/**', '!./**/doc*/**', '!./**/example*/**', '!./**/demo*/**', '!./**/bin/**', '!./**/build/**', '!./**/.*/**']);
+    const nwOptions = {
+        files: ['./app/**', './package.json', './README.md', './node_modules/**'],
+        buildDir: releasesDir,
+        appName: pkJson.name,
+        appVersion: pkJson.version,
+        zip: false,
+        version: nwVersion,
+        flavor: flavor,
+        platforms: parsePlatforms()
+    };
 
-        return nw.build();
-    });
+    // windows-only (or wine): replace icon & VersionInfo1.res
+    if (currentPlatform().indexOf('win') !== -1) {
+        nwOptions.winIco = pkJson.icon;
+        nwOptions.winVersionString = {
+            Comments: pkJson.description,
+            CompanyName: pkJson.homepage,
+            FileDescription: pkJson.releaseName,
+            FileVersion: pkJson.version,
+            InternalName: pkJson.name,
+            OriginalFilename: pkJson.name + '.exe',
+            ProductName: pkJson.releaseName,
+            ProductVersion: pkJson.version
+        };
+    }
+
+    const nw = new nwBuilder(nwOptions).on('log', console.log);
+
+    return nw.build();
 });
 
 // compile nsis installer
 gulp.task('nsis', () => {
-    return Promise.all(nw.options.platforms.map((platform) => {
+    return Promise.all(parsePlatforms().map((platform) => {
 
         // nsis is for win only
         if (platform.match(/osx|linux/) !== null) {
@@ -257,7 +240,7 @@ gulp.task('nsis', () => {
 
 // compile debian packages
 gulp.task('deb', () => {
-    return Promise.all(nw.options.platforms.map((platform) => {
+    return Promise.all(parsePlatforms().map((platform) => {
 
         // deb is for linux only
         if (platform.match(/osx|win/) !== null) {
@@ -313,7 +296,7 @@ gulp.task('deb', () => {
 
 // package in tgz (win) or in xz (unix)
 gulp.task('compress', () => {
-    return Promise.all(nw.options.platforms.map((platform) => {
+    return Promise.all(parsePlatforms().map((platform) => {
 
         // don't package win, use nsis
         if (platform.indexOf('win') !== -1) {
@@ -368,7 +351,7 @@ gulp.task('compress', () => {
 
 // create portable app
 gulp.task('portable', () => {
-    return Promise.all(nw.options.platforms.map((platform) => {
+    return Promise.all(parsePlatforms().map((platform) => {
 
         // portable is for win only (linux is tgz)
         if (platform.match(/osx|linux/) !== null) {
@@ -392,7 +375,7 @@ gulp.task('portable', () => {
 
 // clean mediainfo-wrapper
 gulp.task('clean:mediainfo', () => {
-    return Promise.all(nw.options.platforms.map((platform) => {
+    return Promise.all(parsePlatforms().map((platform) => {
         console.log('clean:mediainfo', platform);
         const sources = path.join(releasesDir, pkJson.name, platform);
         return del([
@@ -401,6 +384,34 @@ gulp.task('clean:mediainfo', () => {
             '!' + path.join(sources, 'node_modules/mediainfo-wrapper/lib/' + platform),
             '!' + path.join(sources, pkJson.name + '.app/Contents/Resources/app.nw/node_modules/mediainfo-wrapper/lib/' + platform)
         ]);
+    }));
+});
+
+// remove unused node_modules
+gulp.task('npm:modclean', () => {
+    const mc = new modClean();
+    return mc.clean().then(r => {
+        console.log('ModClean: %s files/folders removed', r.deleted.length);
+    }).catch(console.log);
+});
+
+// npm prune the build/<platform>/ folder (to remove devDeps)
+gulp.task('build:prune', () => {
+    return Promise.all(parsePlatforms().map((platform) => {
+        const dirname = path.join(releasesDir, pkJson.name, platform);
+        return new Promise((resolve, reject) => {
+            exec('cd "' + dirname + '" && npm prune', (error, stdout, stderr) => {
+                if (error || stderr) {
+                    console.log('`npm prune` failed for %s\n', platform);
+                    console.log(stderr || error);
+                    console.log('\n\ncontinuing anyway...\n');
+                    resolve();
+                } else {
+                    console.log(stdout);
+                    resolve();
+                }
+            });
+        });
     }));
 });
 
