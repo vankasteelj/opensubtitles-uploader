@@ -16,6 +16,16 @@ Confused? Wondering how to use it? Watch the [tutorial video](http://www.youtube
 
 ***
 
+## Common issues
+- Q: I only see a blank page when I open the application
+  - A: Try activating compatibility mode on Windows, by right-clicking the executable, and activate compatbility mode for another version of Windows (XP, 7 or 10).
+
+- Q: It says "error" when I try to upload a subtitle or log-in
+  - A: Opensubtitles' servers are probably down or temporarily unavailable. It happens. Try again in a few hours or a few days, and if the problem still persists, open a ticket here.
+
+- Q: The app says the subtitle is already in Opensubtitles, but it isn't
+  - A: The application only communicates with Opensubtitles' servers. If they say it's already online, check with Opensubtitles directly, as this software does not provide support for Opensubtitles services themselves.
+
 ## Get involved
 Here's a few easy ways of getting involved with the project:
 - [Report](https://github.com/vankasteelj/opensubtitles-uploader/issues/new) any bug/issue
