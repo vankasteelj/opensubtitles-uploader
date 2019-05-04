@@ -141,6 +141,11 @@ gulp.task('dist', (callback) => {
     runSequence('build', 'compress', 'deb', 'nsis', 'portable', callback);
 });
 
+// test for travis
+gulp.task('test', (callback) => {
+    runSequence('jshint', 'build', callback);
+});
+
 // default is help, because we can!
 gulp.task('default', () => {
     console.log([

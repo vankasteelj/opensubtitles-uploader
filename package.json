@@ -8,7 +8,7 @@
     "homepage": "https://github.com/vankasteelj/opensubtitles-uploader",
     "releases": "https://github.com/vankasteelj/opensubtitles-uploader/releases",
     "scripts": {
-        "test": "gulp jshint"
+        "test": "npm install && gulp test"
     },
     "author": {
         "name": "vankasteelj",
