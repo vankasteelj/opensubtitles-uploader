@@ -207,7 +207,7 @@ const Interface = {
             $('#not-logged').hide();
             $('#logged').show();
 
-            console.info('Logged in!');
+            console.info('Logged in! (as %s - ID:%s)', username, localStorage.os_id);
         } else {
             OsActions.refreshInfo();
         }
@@ -252,6 +252,23 @@ const Interface = {
         if (!multidrop) {
             // Hack RegExp, required for special chars
             RegExp.escape = (s) => String(s).replace(/[\\\^$*+?.()|\[\]{}]/g, '\\$&');
+            // SxE matching
+            let m1 = (a) => {
+                let s = a.match(/S(\d{1,2})/i);
+                let e = a.match(/E(\d{2})/ig);
+                return (s && e) ? {
+                    s: parseInt(s[0].replace('S','')), 
+                    e: parseInt(e[0].replace('E',''))
+                } : null;
+            };
+            let m2 = (a) => {
+                let x = a.match(/(\d\d?)x(\d\d?)/i);
+                return x ? {
+                    s: parseInt(x[0].match(/(\d\d?)x/i)[0].replace('x','')), 
+                    e: parseInt(x[0].match(/(x(\d\d?))/i)[0].replace('x', ''))
+                } : null;
+            };
+
             // read directory video is from, looking for sub
             fs.readdir(path.dirname(file), (err, f) => {
                 if (err) {
@@ -259,26 +276,68 @@ const Interface = {
                 }
 
                 for (let i = 0; i < f.length; i++) {
-                    if (f[i].slice(0, f[i].length - path.extname(f[i]).length).match(RegExp.escape(path.basename(file).slice(0, path.basename(file).length - (path.extname(file).length + 8)))) && Files.detectFileType(f[i]) === 'video') {
-                        // if match found, load it :) 
-                        console.info('Matching video detected');
+                    let _found = f[i];
+                    if (Files.detectFileType(_found) !== 'video') continue;
+                    console.debug('Auto-detect 1/3: "%s" is a video file', _found);
 
-                        const existing = $('#video-file-path').val();
+                    let _fext = path.extname(_found);
+                    let _fn = _found.slice(0, _found.length - _fext.length);
+                    
+                    let _dropped = path.basename(file);
+                    let _dext = path.extname(_dropped);
+                    let _dn = _dropped.slice(0, _dropped.length - (_dext.length + 10));
 
-                        if (existing && (path.basename(existing) !== f[i])) {
-                            // modal to select which subtitle to load
-                            Interface.modal(i18n.__('Replace the currently loaded file with the detected one: %s', '<span class="modal-filename">'+f[i]+'</span>'), 'yes', 'no');
+                    if(!RegExp.escape(_fn).match(RegExp.escape(_dn))) continue;
+                    console.debug('Auto-detect 2/3: matching file names: "%s", "%s"', _fn, _dn);
 
-                            // on click 'yes'
-                            $('.modal-yes').on('click', (e) => Interface.add_video(path.join(path.dirname(file), f[i]), true));
-                            // on click 'no'
-                            $('.modal-no').on('click', (e) => Interface.reset('modal'));
+                    let _fm1 = m1(_found);
+                    let _fm2 = m2(_found);
+                    let _dm1 = m1(_dropped);
+                    let _dm2 = m2(_dropped);
+                    
+                    let notashow = false;
+                    let sxe = (() => {
+                        if ((_fm1 || _fm2) && (_dm1 || _dm2)) {
+                           if (
+                               (((_fm1 && _fm1.s) || (_fm2 && _fm2.s)) == ((_dm1 && _dm1.s) || (_dm2 && _dm2.s))) && 
+                               (((_fm1 && _fm1.e) || (_fm2 && _fm2.e)) == ((_dm1 && _dm1.e) || (_dm2 && _dm2.e)))
+                           ) {
+                               console.debug('Auto-detect 3/3: matching SxE tag:', _fm1, _fm2, _dm1, _dm2);
+                               return true;
+                           } else {
+                               return false;
+                           }
                         } else {
-                            Interface.add_video(path.join(path.dirname(file), f[i]), true);
+                            notashow = true;
+                            console.debug('Auto-detect 3/3: no SxE tag found, video file probably is not a show');
+                            return true;
                         }
+                    })();
+                    
+                    if (!sxe) continue;
 
-                        break;
+                    // if match found, load it :) 
+                    console.info('Matching video detected, 3/3 steps completed!', {
+                        step1: `'${_found}' is a video file (extension: ${_fext})`,
+                        step2: `'${_fn}' filename matches at least '${_dn}'`,
+                        step3: `'${_found}' ${notashow ? 'is not a show (no SxE tag)' : 'has the same SxE tag as the subtitle'}`,
+                    });
+
+                    const existing = $('#video-file-path').val();
+
+                    if (existing && (path.basename(existing) !== f[i])) {
+                        // modal to select which subtitle to load
+                        Interface.modal(i18n.__('Replace the currently loaded file with the detected one: %s', '<span class="modal-filename">'+f[i]+'</span>'), 'yes', 'no');
+
+                        // on click 'yes'
+                        $('.modal-yes').on('click', (e) => Interface.add_video(path.join(path.dirname(file), f[i]), true));
+                        // on click 'no'
+                        $('.modal-no').on('click', (e) => Interface.reset('modal'));
+                    } else {
+                        Interface.add_video(path.join(path.dirname(file), f[i]), true);
                     }
+
+                    break;
                 }
             });
         }

@@ -1,5 +1,6 @@
 'use strict';
 
+console.time('Application ready');
 console.info('Opening app...');
 
 // important variables used in the app
@@ -36,7 +37,7 @@ gui.start = () => {
                 win.showDevTools();
             }
 
-            console.info('Application ready');
+            console.timeEnd('Application ready');
             setTimeout(resolve, 200);
         } catch (err) {
             // if things go south on startup, just display devtools and log error
