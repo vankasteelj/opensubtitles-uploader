@@ -417,6 +417,7 @@ const Interface = {
     restoreLocks: () => {
         const subauthorcomment = localStorage['lock-subauthorcomment'];
         const subtranslator = localStorage['lock-subtranslator'];
+        const sublanguageid = localStorage['lock-sublanguageid'];
 
         if (subauthorcomment) {
             $('#subauthorcomment').val(subauthorcomment).prop('readonly', true);
@@ -425,6 +426,10 @@ const Interface = {
         if (subtranslator) {
             $('#subtranslator').val(subtranslator).prop('readonly', true);
             $('#lock-subtranslator').addClass('fa-lock').removeClass('fa-unlock');
+        }
+        if (sublanguageid) {
+            $('#sublanguageid').val(sublanguageid).prop('disabled', true);
+            $('#lock-sublanguageid').addClass('fa-lock').removeClass('fa-unlock');
         }
     },
 
@@ -588,6 +593,7 @@ const Interface = {
             // if a value was stored
             $(el).addClass('fa-unlock').removeClass('fa-lock');
             document.getElementById(fieldId).removeAttribute('readonly');
+            document.getElementById(fieldId).removeAttribute('disabled');
             localStorage.removeItem(lockId);
             console.debug('%s disabled', lockId);
         } else {
@@ -596,6 +602,7 @@ const Interface = {
             if (val) { // sometimes val can be '' empty string
                 $(el).addClass('fa-lock').removeClass('fa-unlock');
                 document.getElementById(fieldId).setAttribute('readonly', true);
+                document.getElementById(fieldId).setAttribute('disabled', true);
                 localStorage[lockId] = val;
                 console.debug('%s enabled, storing \'%s\'', lockId, localStorage[lockId]);
             }

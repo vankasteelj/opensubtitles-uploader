@@ -61,6 +61,9 @@ const Files = {
     detectSubLang: () => {
         const sub = $('#subtitle-file-path').val();
 
+        // don't run if 'locked'
+        if (document.getElementById('sublanguageid').hasAttribute('disabled')) return;
+        
         // don't run without subs, even on click
         if (!sub || sub === '') {
             Interface.animate($('#subtitle-file-path'), 'warning', 1750);
