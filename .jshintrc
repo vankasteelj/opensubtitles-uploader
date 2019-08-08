@@ -29,6 +29,8 @@
     "newcap": false,
     "esversion": 6,
     "-W138": true,
+    "-W116": true,
+    "asi": true,
 
     // Globals
     "globals": {
