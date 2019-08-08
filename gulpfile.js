@@ -57,10 +57,6 @@ const parsePlatforms = () => {
     return requestedPlatforms[0] === 'all' ? availablePlatforms : validPlatforms;
 };
 
-// console.log for thenable promises
-const log = () => {
-    console.log.apply(console, arguments);
-};
 
 /************* 
  * gulp tasks *
@@ -111,11 +107,6 @@ gulp.task('run', () => {
     });
 });
 
-// build app from sources
-gulp.task('build', (callback) => {
-    runSequence('npm:modclean', 'nwjs', 'clean:mediainfo', 'clean:nwjs', 'build:prune', callback);
-});
-
 // remove unused libraries
 gulp.task('clean:nwjs', () => {
     return Promise.all(parsePlatforms().map((platform) => {
@@ -134,16 +125,6 @@ gulp.task('clean:nwjs', () => {
             dirname + '/d3dcompiler*'
         ]);
     }));
-});
-
-// create redistribuable packages
-gulp.task('dist', (callback) => {
-    runSequence('build', 'compress', 'deb', 'nsis', 'portable', callback);
-});
-
-// test for travis
-gulp.task('test', (callback) => {
-    runSequence('jshint', 'build', callback);
 });
 
 // default is help, because we can!
@@ -240,7 +221,7 @@ gulp.task('nsis', () => {
                 resolve();
             });
         });
-    })).catch(log);
+    })).catch(console.log);
 });
 
 // compile debian packages
@@ -296,7 +277,7 @@ gulp.task('deb', () => {
                 resolve();
             });
         });
-    })).catch(log);
+    })).catch(console.log);
 });
 
 // package in tgz (win) or in xz (unix)
@@ -351,7 +332,7 @@ gulp.task('compress', () => {
                 });
             }
         });
-    })).catch(log);
+    })).catch(console.log);
 });
 
 // create portable app
@@ -427,3 +408,13 @@ gulp.task('jshint', () => {
         .pipe(glp.jshint.reporter('jshint-stylish'))
         .pipe(glp.jshint.reporter('fail'));
 });
+
+// build app from sources
+gulp.task('build', gulp.series('npm:modclean', 'nwjs', 'clean:mediainfo', 'clean:nwjs', 'build:prune'));
+
+
+// create redistribuable packages
+gulp.task('dist', gulp.series('build', 'compress', 'deb', 'nsis', 'portable'));
+
+// test for travis
+gulp.task('test', gulp.series('jshint', 'build'));
