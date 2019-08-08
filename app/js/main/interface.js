@@ -353,6 +353,7 @@ const Interface = {
         case 'video':
             $('#video-file-path').val('');
             $('#video-file-path-hidden').val('');
+            $('#detected-title').text('');
             $('#moviefilename').val('');
             $('#moviehash').val('');
             $('#moviebytesize').val('');
@@ -370,7 +371,7 @@ const Interface = {
                 Interface.reset('modal');
             }
             $('#main-video-img').css('background-image', 'none').hide().css('opacity', '0');
-            $('#main-video .input-file, #main-video .reset').removeClass('white-ph');
+            $('#main-video .input-file, #main-video .reset, #detected-title').removeClass('white-ph');
             $('#main-video-placeholder').css('background', 'transparent');
             $('#main-video-shadow').hide().css('opacity', '0');
             break;
@@ -530,6 +531,7 @@ const Interface = {
         $('#imdbid').val(id);
         $('#imdb-info').removeClass('warning fa-warning').addClass('fa-info-circle');
         $('#imdb-info').attr('title', 'IMDB: ' + title).attr('imdbid', id).show();
+        $('#detected-title').text(title);
 
         // hide spinner for little imdb button, shown in add_video() and imdb udpate
         $('.search-imdb i').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
@@ -560,7 +562,7 @@ const Interface = {
             // inject
             $('#main-video-placeholder').css('background', '#333');
             $('#main-video-img').css('background-image', 'url('+uri+')').show().css('opacity', '0.7');
-            $('#main-video .input-file, #main-video .reset').addClass('white-ph');
+            $('#main-video .input-file, #main-video .reset, #detected-title').addClass('white-ph');
             // reset cache
             img = null;
             // hide spin
