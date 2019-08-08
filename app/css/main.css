@@ -925,7 +925,8 @@ textarea {
 /* Fixing checkbox */
 
 .text-small {
-    font-size: 12px
+    font-size: 12px;
+    padding-left: 13px;
 }
 
 .d-flex {
@@ -940,6 +941,11 @@ textarea {
 .flex-fill {
     -ms-flex: 1 1 auto!important;
     flex: 1 1 auto!important;
+}
+
+.flex-fill i {
+    margin-left: -12px;
+    position: absolute;
 }
 
 .checkbox-lg {
