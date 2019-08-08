@@ -37,18 +37,18 @@
         "opensubtitles-api": "^5.0.1"
     },
     "devDependencies": {
-        "del": "3.x.x",
-        "gulp": "3.x.x",
+        "del": "5.x.x",
+        "gulp": "4.x.x",
         "gulp-gzip": "^1.4.2",
         "gulp-jshint": "^2.1.0",
-        "gulp-load-plugins": "1.x.x",
+        "gulp-load-plugins": "2.x.x",
         "gulp-tar": "^2.1.0",
-        "gulp-zip": "^4.1.0",
+        "gulp-zip": "^5.0.0",
         "jshint": "^2.9.5",
         "jshint-stylish": "2.x.x",
         "modclean": "^3.0.0-beta.1",
         "nw-builder": "^3.5.1",
         "run-sequence": "2.x.x",
-        "yargs": "12.x.x"
+        "yargs": "14.x.x"
     }
 }
