@@ -193,7 +193,6 @@
     font-size: 12px;
     margin-top: 2px;
     position: absolute;
-    z-index: 1;
 }
 
 .metadata .content .metaitem input {
@@ -207,8 +206,6 @@
 
 .metadata .content .metaitem input[type="checkbox"] {
     cursor: pointer;
-    position: relative;
-    z-index: 2;
 }
 
 .metadata .content .metaitem .required {
