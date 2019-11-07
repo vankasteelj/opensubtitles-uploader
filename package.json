@@ -30,25 +30,25 @@
         "url": "https://github.com/vankasteelj/opensubtitles-uploader.git"
     },
     "dependencies": {
-        "detect-lang": "1.x.x",
-        "got": "9.x.x",
-        "i18n": "0.x.x",
-        "mediainfo-wrapper": "1.x.x",
+        "detect-lang": "^1.2.0",
+        "got": "^9.6.0",
+        "i18n": "^0.8.4",
+        "mediainfo-wrapper": "^1.2.0",
         "opensubtitles-api": "^5.0.1"
     },
     "devDependencies": {
-        "del": "5.x.x",
-        "gulp": "4.x.x",
+        "del": "^5.1.0",
+        "gulp": "^4.0.2",
         "gulp-gzip": "^1.4.2",
         "gulp-jshint": "^2.1.0",
-        "gulp-load-plugins": "2.x.x",
-        "gulp-tar": "^2.1.0",
-        "gulp-zip": "^5.0.0",
-        "jshint": "^2.9.5",
-        "jshint-stylish": "2.x.x",
+        "gulp-load-plugins": "^2.0.1",
+        "gulp-tar": "^3.0.1",
+        "gulp-zip": "^5.0.1",
+        "jshint": "^2.10.3",
+        "jshint-stylish": "^2.2.1",
         "modclean": "^3.0.0-beta.1",
-        "nw-builder": "^3.5.1",
-        "run-sequence": "2.x.x",
-        "yargs": "14.x.x"
+        "nw-builder": "^3.5.7",
+        "run-sequence": "^2.2.1",
+        "yargs": "^14.2.1"
     }
 }
