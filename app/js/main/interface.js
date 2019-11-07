@@ -374,6 +374,7 @@ const Interface = {
             $('#main-video .input-file, #main-video .reset, #detected-title').removeClass('white-ph');
             $('#main-video-placeholder').css('background', 'transparent');
             $('#main-video-shadow').hide().css('opacity', '0');
+            OsActions.imdbMetadataPasted = false;
             break;
         case 'subtitle':
             $('#subtitle-file-path').val('');
@@ -579,7 +580,7 @@ const Interface = {
             // if new value is different, then a manual change was made
             if (e.target.value !== imdbFocusVal) {
                 // invalidate cache
-                imdbFocusVal = false;
+                imdbFocusVal = false;                
                 // check new value
                 OsActions.imdbMetadata(e.target.value);
             }

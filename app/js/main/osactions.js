@@ -175,6 +175,9 @@ const OsActions = {
         });
     },
 
+    // AUTO: imdbMetadata is ongoing a search
+    imdbMetadataPasted: false,
+
     // AUTO: grab metadata from OS based on imdb id
     imdbMetadata: (id) => {
         // close popup if open
@@ -194,6 +197,8 @@ const OsActions = {
             return;
         }
 
+        const wasFromPaste = OsActions.imdbMetadataPasted;
+
         OS.login().then((res) => {
             Interface.updateUserInfo(res.userinfo);
             const imdbid = parseInt(id.toString().replace('tt', ''));
@@ -209,6 +214,13 @@ const OsActions = {
                 return OS.api.GetIMDBMovieDetails(res.token, imdbid);
             }
         }).then((response) => {
+            // ignore if we pasted something between request and response
+            if (!wasFromPaste && OsActions.imdbMetadataPasted) {
+                $('.search-imdb i').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
+                OsActions.imdbMetadataPasted = false;
+                return null;
+            }
+
             // again, sometimes the response comes without data
             if (response && response.status.match(/200/) && typeof response.data === 'object') {
                 console.info('Imdb Metadata:', response.data);
@@ -240,6 +252,7 @@ const OsActions = {
             }
         }).catch((e) => {
             console.error(e);
+            OsActions.imdbMetadataPasted = false;
 
             // hide spinner
             $('.search-imdb i').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');

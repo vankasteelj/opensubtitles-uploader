@@ -100,6 +100,11 @@ const Boot = {
                 preventDefault: () => {}
             });
         }, false);
+        
+        // paste imdb id input
+        document.querySelector('#imdbid').addEventListener('paste', (evt) => {
+            OsActions.imdbMetadataPasted = true;
+        }, false);
 
         // supported file types for "browse" window
         $('#video-file-path-hidden').attr('accept', Files.supported.video.join());
