@@ -342,7 +342,6 @@ const OsActions = {
 
         // upload flow
         OS.upload(obj_data).then((response) => {
-            console.log(response)
             // upload done, remove spinner & pulse icon
             OsActions.isUploading = false;
             Interface.spinner(false);
