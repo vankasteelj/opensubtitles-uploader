@@ -511,6 +511,11 @@ input[type=checkbox]:checked:before {
     overflow-y: hidden;
 }
 
+#modal-content a:hover {
+    cursor: pointer;
+    opacity: .7;
+}
+
 #modal-buttons {
     height: 35px;
     top: 10px;
