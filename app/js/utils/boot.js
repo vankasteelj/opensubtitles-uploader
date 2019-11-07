@@ -60,7 +60,7 @@ const Boot = {
         // build html
         let langs = '';
         for (let key in OSLANGS) {
-            langs += '<option value="' + OSLANGS[key].code + '">' + (OSLANGS[key].native || key) + '</option>';
+            langs += '<option value="' + OSLANGS[key].code + '">' + key + (OSLANGS[key].native ? ` (${(OSLANGS[key].native)})` : '') + '</option>';
         }
 
         // inject html (new fields) into dropdown
