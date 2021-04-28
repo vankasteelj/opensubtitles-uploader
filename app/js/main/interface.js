@@ -420,6 +420,8 @@ const Interface = {
         const subauthorcomment = localStorage['lock-subauthorcomment'];
         const subtranslator = localStorage['lock-subtranslator'];
         const sublanguageid = localStorage['lock-sublanguageid'];
+		const movieaka = localStorage['lock-movieaka'];
+		const imdbid = localStorage['lock-imdbid'];
 
         if (subauthorcomment) {
             $('#subauthorcomment').val(subauthorcomment).prop('readonly', true);
@@ -432,6 +434,14 @@ const Interface = {
         if (sublanguageid) {
             $('#sublanguageid').val(sublanguageid).prop('disabled', true);
             $('#lock-sublanguageid').addClass('fa-lock').removeClass('fa-unlock');
+        }
+		if (movieaka) {
+            $('#movieaka').val(movieaka).prop('readonly', true);
+            $('#lock-movieaka').addClass('fa-lock').removeClass('fa-unlock');
+        }
+		if (imdbid) {
+            $('#imdbid').val(imdbid).prop('readonly', true);
+            $(imdbid).addClass('fa-lock').removeClass('fa-unlock');
         }
     },
 
