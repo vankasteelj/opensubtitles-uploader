@@ -31,24 +31,24 @@
     },
     "dependencies": {
         "detect-lang": "^1.2.0",
-        "got": "^9.6.0",
-        "i18n": "^0.8.4",
+        "got": "^11.8.2",
+        "i18n": "^0.13.2",
         "mediainfo-wrapper": "^1.2.0",
-        "opensubtitles-api": "^5.0.1"
+        "opensubtitles-api": "^5.1.2"
     },
     "devDependencies": {
-        "del": "^5.1.0",
+        "del": "^6.0.0",
         "gulp": "^4.0.2",
         "gulp-gzip": "^1.4.2",
         "gulp-jshint": "^2.1.0",
-        "gulp-load-plugins": "^2.0.1",
-        "gulp-tar": "^3.0.1",
-        "gulp-zip": "^5.0.1",
-        "jshint": "^2.10.3",
+        "gulp-load-plugins": "^2.0.6",
+        "gulp-tar": "^3.1.0",
+        "gulp-zip": "^5.1.0",
+        "jshint": "^2.12.0",
         "jshint-stylish": "^2.2.1",
         "modclean": "^3.0.0-beta.1",
         "nw-builder": "^3.5.7",
         "run-sequence": "^2.2.1",
-        "yargs": "^14.2.1"
+        "yargs": "^16.2.0"
     }
 }
