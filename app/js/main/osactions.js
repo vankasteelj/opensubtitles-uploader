@@ -189,7 +189,7 @@ const OsActions = {
         $('#main-video-placeholder').css('background', 'transparent');
 
         // sometimes, ID is not an imdb id
-        if (id > 9999999) {
+        if (id > 99999999) {
             console.debug('OsActions.imdbMetadata(): %s is not a valid imdb id', id);
             // add os id
             $('#imdbid').val(id);
