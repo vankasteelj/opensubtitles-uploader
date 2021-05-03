@@ -105,6 +105,7 @@
                 <div class="metaitem">
                     <span><i18n>IMDB id</i18n></span>
                     <i id="imdb-info" class="fa fa-info-circle tooltipped" onClick="Misc.openImdb()" imdbid="" title=""></i>
+					<i id="lock-imdbid" onClick="Interface.toggleSave(this)" class="locker fa fa-unlock tooltipped i18n" title="Save between sessions"></i>
                     <input id="imdbid" type="text">
                     <span class="search-imdb" onClick="Interface.searchPopup()"><i class="fa fa-search tooltipped i18n" title="Search on IMDB directly"></i></span>
                 </div>
@@ -117,6 +118,7 @@
             <div class="content col-right">
                 <div class="metaitem">
                     <span><i18n>Movie AKA</i18n></span>
+					<i id="lock-movieaka" onClick="Interface.toggleSave(this)" class="locker fa fa-unlock tooltipped i18n" title="Save between sessions"></i>
                     <input id="movieaka" type="text">
                 </div>
                 <div class="metaitem">
