@@ -536,7 +536,7 @@ const Interface = {
         console.debug('Adding IMDB id to main form');
 
         // add leading 'tt'
-        id = id > 9999999 ? id : 'tt' + id.toString().replace('tt', ''); // id over 9999999 is not imdb, but custom OS id
+        id = id > 99999999 ? id : 'tt' + id.toString().replace('tt', ''); // id over 99999999 is not imdb, but custom OS id
 
         // display the value
         $('#imdbid').val(id);
