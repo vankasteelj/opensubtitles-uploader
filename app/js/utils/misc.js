@@ -94,12 +94,8 @@ const Misc = {
         console.info('Looking online for a fanart...');
 
         return new Promise((resolve, reject) => {
-            got('https://api.themoviedb.org/3/find/' + id + '?api_key=27075282e39eea76bd9626ee5d3e767b&external_source=imdb_id', {
-                json: true,
-                headers: {
-                    'content-type': 'application/json'
-                }
-            }).then((res) => {        
+            got('https://api.themoviedb.org/3/find/' + id + '?api_key=27075282e39eea76bd9626ee5d3e767b&external_source=imdb_id').then((r) => {
+                let res = {body: JSON.parse(r.body)};
                 let image;
                 const url = 'https://image.tmdb.org/t/p/';
                 const size = 'w1280';
@@ -113,12 +109,8 @@ const Misc = {
                 resolve(url+size+image);
             }).catch((error) => {
                 if (Misc.TmpMetadata) {
-                    got('https://api.themoviedb.org/3/search/multi?api_key=27075282e39eea76bd9626ee5d3e767b&query=' + Misc.TmpMetadata.title.replace(/\W/g, ' '), {
-                        json:true, 
-                        headers:{
-                            'content-type': 'application/json'
-                        }
-                    }).then((res) => {
+                    got('https://api.themoviedb.org/3/search/multi?api_key=27075282e39eea76bd9626ee5d3e767b&query=' + Misc.TmpMetadata.title.replace(/\W/g, ' ')).then((r) => {
+                        let res = {body: JSON.parse(r.body)};    
                         let image;
                         const url = 'https://image.tmdb.org/t/p/';
                         const size = 'w1280';
