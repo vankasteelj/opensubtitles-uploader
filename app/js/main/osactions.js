@@ -15,16 +15,16 @@ const OsActions = {
     // USERINTERACTION: log to OS and store creds
     login: () => {
         // use MD5 password to somewhat protect it, waiting for OS to have oauth
-        const password = crypt.createHash('MD5').update($('#login-password').val()).digest('hex');
+        const password = $('#login-password').val();
         const username = $('#login-username').val();
 
         // d41d8.. is '' empty string
-        if (!username || password === 'd41d8cd98f00b204e9800998ecf8427e') {
+        if (!username || password === '') {
             console.warn('OsActions.login() -> no password/username');
             if (!username) {
                 Interface.animate($('#login-username'), 'warning', 1750);
             }
-            if (password === 'd41d8cd98f00b204e9800998ecf8427e') {
+            if (password === '') {
                 Interface.animate($('#login-password'), 'warning', 1750);
             }
             Interface.animate($('#button-login'), 'buzz', 1000);
