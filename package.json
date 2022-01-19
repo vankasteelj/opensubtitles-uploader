@@ -3,7 +3,7 @@
     "releaseName": "OpenSubtitles Uploader",
     "description": "Easily upload your subtitles to OpenSubtitles.org, as simple as drag&drop",
     "license": "GPL-3.0",
-    "version": "2.5.0",
+    "version": "2.6.0",
     "icon": "app/images/os-icon.ico",
     "homepage": "https://github.com/vankasteelj/opensubtitles-uploader",
     "releases": "https://github.com/vankasteelj/opensubtitles-uploader/releases",
