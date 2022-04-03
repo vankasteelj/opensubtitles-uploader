@@ -369,7 +369,7 @@ const OsActions = {
                     const d = response.data;
 
                     // build modal according to response details. somewhat fragile code.
-                    Interface.modal(i18n.__('Subtitle was already present in the database') + `. <a onClick="Misc.openExternal('https://www.opensubtitles.org/fr/subtitles/${d.IDSubtitle}')" class="fa fa-external-link"></a>` + '<br><li>' + (d.HashWasAlreadyInDb === 0 ? i18n.__('The hash has been added!') : i18n.__('The hash too...')) + '</li><li>' + (d.MoviefilenameWasAlreadyInDb === 0 ? i18n.__('The file name has been added!') : i18n.__('The file name too...')) + '</li>', 'ok');
+                    Interface.modal(i18n.__('Subtitle was already present in the database') + `. <a onClick="Misc.openExternal('https://www.opensubtitles.org/subtitles/${d.IDSubtitle}')" class="fa fa-external-link"></a>` + '<br><li>' + (d.HashWasAlreadyInDb === 0 ? i18n.__('The hash has been added!') : i18n.__('The hash too...')) + '</li><li>' + (d.MoviefilenameWasAlreadyInDb === 0 ? i18n.__('The file name has been added!') : i18n.__('The file name too...')) + '</li>', 'ok');
 
                     // orange for success but not uploaded
                     $('#modal-line').css('background', '#e69500');
