@@ -365,11 +365,14 @@ gulp.task('clean:mediainfo', () => {
         console.log('clean:mediainfo', platform);
         const sources = path.join(releasesDir, pkJson.name, platform);
         return del([
-            path.join(sources, 'node_modules/mediainfo-wrapper/lib/*'),
-            path.join(sources, pkJson.name + '.app/Contents/Resources/app.nw/node_modules/mediainfo-wrapper/lib/*'),
-            '!' + path.join(sources, 'node_modules/mediainfo-wrapper/lib/' + platform),
-            '!' + path.join(sources, pkJson.name + '.app/Contents/Resources/app.nw/node_modules/mediainfo-wrapper/lib/' + platform)
-        ]);
+            platform !== 'win32' ? path.join(sources, 'node_modules/mediainfo-wrapper/lib/win32') : '',
+            platform !== 'osx64' ? path.join(sources, 'node_modules/mediainfo-wrapper/lib/osx64') : '',
+            platform !== 'linux32' ? path.join(sources, 'node_modules/mediainfo-wrapper/lib/linux32') : '',
+            platform !== 'linux64' ? path.join(sources, 'node_modules/mediainfo-wrapper/lib/linux64') : '',
+            path.join(sources, pkJson.name + '.app/Contents/Resources/app.nw/node_modules/mediainfo-wrapper/lib/win32'),  
+            path.join(sources, pkJson.name + '.app/Contents/Resources/app.nw/node_modules/mediainfo-wrapper/lib/linux32'),  
+            path.join(sources, pkJson.name + '.app/Contents/Resources/app.nw/node_modules/mediainfo-wrapper/lib/linux64'),  
+        ].filter(n => n));
     }));
 });
 

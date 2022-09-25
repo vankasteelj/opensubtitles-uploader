@@ -3,3 +3,4 @@ test*
 build
 cache
 Thumbs*
+package-lock.json
