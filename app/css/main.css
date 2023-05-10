@@ -248,12 +248,12 @@
 }
 
 input[type=checkbox] {
-    border-width: 1px;
-    border-style: solid;
-    -webkit-appearance: none;
-    height: 14px;
-    width: 14px;
-    margin-top: 1px;
+    border-width: 1px !important;
+    border-style: solid !important;
+    -webkit-appearance: none !important;
+    height: 14px !important;
+    width: 14px !important;
+    margin-top: 1px !important;
 }
 
 input[type=checkbox]:checked:before {
@@ -264,6 +264,9 @@ input[type=checkbox]:checked:before {
     font-size: 10px;
 }
 
+input[type="text" i] {
+    color: red;
+}
 
 /*
  * SECTION: VIDEO
@@ -275,7 +278,7 @@ input[type=checkbox]:checked:before {
     width: 942px;
     height: 256px;
     position: absolute;
-    margin-left: 39px;
+    margin-left: 33px;
     border-radius: 5px;
     transition: all .3s;
 }
@@ -292,7 +295,7 @@ input[type=checkbox]:checked:before {
     height: 256px;
     z-index: -1;
     position: absolute;
-    margin-left: 39px;
+    margin-left: 33px;
     border-radius: 5px;
     transition: all .3s;
     background-position-y: 10%;
@@ -621,8 +624,8 @@ input[type=checkbox]:checked:before {
 
 #settings-content {
     width: 50%;
-    height: 72%;
-    margin: 6% 25.4%;
+    height: 75%;
+    margin: 5% 25%;
     padding: 1%;
     position: relative;
 }
@@ -666,6 +669,10 @@ input[type=checkbox]:checked:before {
 
 #settings-content select option {
     -webkit-appearance: none;
+}
+
+select, option {
+    text-align: center;
 }
 
 #settings-content input[type=checkbox] {
@@ -866,11 +873,6 @@ input {
 
 textarea {
     font-family: 'Fira Sans', sans-serif;
-}
-
-.metadata .content .metaitem input:read-only,
-.metadata .content .metaitem textarea:read-only {
-    font-style: italic;
 }
 
 ::-webkit-input-placeholder {

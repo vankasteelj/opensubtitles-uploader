@@ -63,13 +63,16 @@ body {
     border-color: rgba(255, 255, 255, 0.1);
 }
 
-.metadata .content .metaitem {
+.metadata .content .metaitem,
+.metadata label,
+#search-result {
     color: #e4e9f2;
 }
 
 .metadata .content .metaitem input,
 .setting input,
-.metadata .content .metaitem textarea {
+.metadata .content .metaitem textarea,
+.metadata label input {
     color: #f5f7fa;
     background: #343c48;
 }
@@ -133,7 +136,8 @@ input[type=checkbox] {
     color: #656d78;
 }
 
-.locker.fa-unlock {
+.locker.fa-unlock,
+.metadata label i {
     color: #656d78;
 }
 
@@ -248,7 +252,7 @@ input {
 
 .metadata .content .metaitem input:read-only,
 .metadata .content .metaitem textarea:read-only {
-    color: rgba(245, 247, 250, .85) !important;
+    color: rgba(245, 247, 250, .55) !important;
 }
 
 ::-webkit-input-placeholder {

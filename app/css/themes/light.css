@@ -51,12 +51,15 @@ body {
     border-color: #ddd;
 }
 
-.metadata .content .metaitem {
+.metadata .content .metaitem,
+.metadata label {
     color: #333;
 }
 
 .metadata .content .metaitem input,
-.metadata .content .metaitem textarea {
+.setting input,
+.metadata .content .metaitem textarea,
+.metadata label input {
     color: #444;
     background: #fff;
 }
@@ -250,7 +253,8 @@ input {
 }
 
 .metadata .content .metaitem input:read-only,
-.metadata .content .metaitem textarea:read-only {
+.metadata .content .metaitem textarea:read-only,
+.metadata label input:read-only {
     color: #4f4f4f;
 }
 

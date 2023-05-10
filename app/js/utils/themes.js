@@ -2,7 +2,7 @@
 
 const Themes = {
     availableThemes: ['light', 'dark'],
-    defaultTheme: 'light',
+    defaultTheme: 'dark',
 
     // STARTUP: build dropdown menu for changing app theme
     setupDropdown: () => {
