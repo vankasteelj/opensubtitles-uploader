@@ -38,13 +38,13 @@ const Boot = {
                 if ($(inputs[i]).attr('readonly')) {
                     // copy only on readonly fields
                     if (ev.target.value !== '') {
-                        menu = new Misc.contextMenu(null, i18n.__('Copy'), null, ev.target.id);
+                        menu = Misc.contextMenu(null, i18n.__('Copy'), null, ev.target.id);
                     } else {
                         return;
                     }
                 } else {
                     // cut-copy-paste on other
-                    menu = new Misc.contextMenu(i18n.__('Cut'), i18n.__('Copy'), i18n.__('Paste'), ev.target.id);
+                    menu = Misc.contextMenu(i18n.__('Cut'), i18n.__('Copy'), i18n.__('Paste'), ev.target.id);
                 }
                 // show our custom menu
                 menu.popup(ev.x, ev.y);
