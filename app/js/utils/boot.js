@@ -27,6 +27,11 @@ const Boot = {
 
     // STARTUP: builds right click menu
     setupRightClicks: () => {
+        document.addEventListener('contextmenu', (ev) => {
+            // force stop default rightclick event
+            ev.preventDefault();
+        });
+
         const inputs = $('input[type=text], textarea');
         inputs.each((i) => {
             // right click event
