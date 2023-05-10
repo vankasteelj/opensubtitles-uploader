@@ -87,13 +87,13 @@ const Files = {
             // hide spinner
             $('.detect-lang i').addClass('fa-magic').removeClass('fa-circle-o-notch fa-spin');
         }).catch((err) => {
-            // try the "filename approach" => 'my awesome movie.en.srt'
+            // try the "filename approach" => 'my awesome movie.eng.srt'
             let found = false;
             console.info('Detecting subtitle language... Trying the "filename approach"');
             try {
-                let detectedlang = path.parse(sub).name.match(/(\w{2}\-\w{2})|(\w{2})/g).pop().toLowerCase();
+                let detectedlang = path.parse(sub).name.match(/\.\w{3}/g).pop().toLowerCase();
                 for (let i in OSLANGS) {
-                    if (OSLANGS[i].iso6391 === detectedlang) {
+                    if ('.'+OSLANGS[i].code === detectedlang) {
                         $('#sublanguageid').val(OSLANGS[i].code);
                         console.info('Detected:', OSLANGS[i].code);
                         found = true;
