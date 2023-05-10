@@ -113,13 +113,16 @@ const OsActions = {
             return;
         }
 
-        console.debug('Searching IMDB through opensubtitles API...');
         // display spinner
         $('#button-search').addClass('fa-circle-o-notch fa-spin').removeClass('fa-search');
         // erase content on new search (does nothing on 1st search)
         $('#search-result').html('');
 
         OsActions.isSearching = true;
+
+        // as of may 2023, SearchMoviesOnIMDB doesn't work anymore, this is legacy code
+        /*
+        console.debug('Searching IMDB through opensubtitles API...');
         OS.login().then((res) => {
             Interface.updateUserInfo(res.userinfo);
             return OS.api.SearchMoviesOnIMDB(res.token, $('#search-text').val());
@@ -160,6 +163,75 @@ const OsActions = {
             OsActions.isSearching = false;
         }).catch((err) => {
             console.error('SearchMoviesOnIMDB', err);
+            $('#search').animate({
+                height: '80px',
+                top: '200px'
+            }, 300);
+
+            // display not found message on error
+            $('#search-result').append('<li style="text-align:center;padding-right:20px;list-style:none;">' + i18n.__('Not found') + '</li>');
+            $('#search-result').show();
+
+            // hide spinner
+            $('#button-search').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
+            OsActions.isSearching = false;
+        });*/
+
+        console.debug('Searching IMDB through trakt API...');
+        TRAKT.search.text({
+            type: 'movie,show,episode',
+            query: $('#search-text').val(),
+            limit: 25
+        }).then((response) => {
+            console.debug('Search on TRAKT response:', response);
+
+            // sometimes response comes but without data
+            if (response.length) {
+                $('#search').animate({
+                    height: '250px',
+                    top: '140px'
+                }, 300);
+                $('#search-result').show();
+
+                // add each possible movie/show/episode to answers
+                for (let i = 0; i < response.length; i++) {
+                    const type = response[i].type;
+                    const id = response[i][type].ids.imdb;
+                    let title, year;
+                    switch (type) {
+                        case 'movie': 
+                        case 'show': 
+                            year = response[i][type].year;
+                            title = response[i][type].title + (year ? ' (' + year + ')' : '');
+                            break;
+                        case 'episode': 
+                            year = response[i].show.year;
+                            title = response[i].show.title + ' (' + year + ')' + ' - ' + response[i][type].season + 'x' + response[i][type].number + ' - ' + response[i][type].title;
+                            break;
+                    }
+
+                    if (id && year && title) {
+                        console.log('id', id)
+                        // add element to list
+                        $('#search-result').append('<li class="result-item" onClick="OsActions.imdbMetadata(\'' + id + '\')">' + title + '</li>');
+                    }
+                }
+
+                // select one on hover
+                $('.result-item').hover((e) => {
+                    $('.result-item').removeClass('selected');
+                    $(e.currentTarget).addClass('selected');
+                }, (e) => $(e.currentTarget).removeClass('selected'));
+
+            } else {
+                throw 'trakt.search.text() error, no results';
+            }
+
+            // hide spinner
+            $('#button-search').addClass('fa-search').removeClass('fa-circle-o-notch fa-spin');
+            OsActions.isSearching = false;
+        }).catch((err) => {
+            console.error('trakt.search.text()', err);
             $('#search').animate({
                 height: '80px',
                 top: '200px'
