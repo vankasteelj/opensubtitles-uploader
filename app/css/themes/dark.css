@@ -325,3 +325,7 @@ input.warning::-webkit-input-placeholder {
     opacity: 1;
     text-decoration: underline;
 }
+
+#detected-title {
+    color: #fafafa;
+}
