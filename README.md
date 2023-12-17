@@ -22,8 +22,11 @@ Confused? Wondering how to use it? Watch the [tutorial video](http://www.youtube
 - Q: I have an error "The profile couln't be loaded" related to NW.js
   - A: Try deleting `%localappdata%\nwjs` and `%localappdata%\opensubtitles-uploader`.
 
-- Q: I'm using Linux or Mac OS, where can I use the app?
-  - A: I'm no longer actively maintaining linux/osx builds due to limited time available. You can try to build the application yourself (see below how) and report on improvements/enhancements needed in order to ship those binaries as well in the future.
+- Q: I'm using Linux, where can I use the app?
+  - A: I'm no longer actively maintaining linux builds due to limited time available. You can try to build the application yourself (see below how) and report on improvements/enhancements needed in order to ship those binaries as well in the future.
+
+- Q: I'm using OSX, can I use the app?
+  - A: Due to Apple Silicon being based on ARM, there currently is no offcial support in NWjs for OSX. Older X86-based apple computers might be able to build the application, but that will require tinkering.
 
 ## Get involved
 Here's a few easy ways of getting involved with the project:
@@ -33,7 +36,7 @@ Here's a few easy ways of getting involved with the project:
 - Tell your friends
 
 ## Develop
-- Install dependencies, download binaries:
+- On Windows - install dependencies, download binaries:
 
         npm install -g gulp-cli
         npm install
