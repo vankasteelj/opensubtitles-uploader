@@ -9,7 +9,7 @@ assignees: ''
 
 /!\ WARNING: The Opensubtitles-Uploader app is not responsible for the Opensubtitles servers or services. If an error message says the servers are down, the API is offline or something is wrong with Opensubtitles, IT IS NOT an error with the application. You should contact Opensubtitles directly.
 
-[ ] I have read the warning above and the error seems to be with the app, not the Opensubtitles servers.
+- [ ] I have read the warning above and the error seems to be with the app, not the Opensubtitles servers.
 
 **Describe the bug**
 A clear description of what the bug is. Also add any other context about the problem here.
