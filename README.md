@@ -14,7 +14,7 @@ Confused? Wondering how to use it? Watch the [tutorial video](http://www.youtube
 
 ## Common issues
 - Q: It says "error" when I try to upload a subtitle or log-in
-  - A: Opensubtitles' servers are probably down or temporarily unavailable. It happens. Try again in a few hours or a few days, and if the problem still persists, open a ticket here.
+  - A: Opensubtitles' servers are probably down or temporarily unavailable. It happens. Try again in a few hours or a few days. Or contact OpenSubtitles directly, I'm not them.
 
 - Q: The app says the subtitle is already in Opensubtitles, but it isn't
   - A: The application only communicates with Opensubtitles' servers. If they say it's already online, check with Opensubtitles directly, as this software does not provide support for Opensubtitles services themselves.
