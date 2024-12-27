@@ -8,7 +8,6 @@ const nwVersion = '0.76.0',
     availablePlatforms = ['linux32', 'linux64', 'win32', 'osx64'],
     releasesDir = 'build';
 
-
 /*************** 
  * dependencies *
  ***************/
@@ -17,7 +16,6 @@ const gulp = require('gulp'),
     runSequence = require('run-sequence'),
     nwBuilder = require('nw-builder'),
     del = require('del'),
-    currentPlatform = require('nw-builder/lib/detectCurrentPlatform.js'),
     yargs = require('yargs'),
     fs = require('fs'),
     path = require('path'),
@@ -26,6 +24,8 @@ const gulp = require('gulp'),
     pkJson = require('./package.json'),
     modClean = require('modclean').ModClean;
 
+const { detectCurrentPlatform } = require("nw-builder/dist/index.cjs");
+const currentPlatform = () => { return detectCurrentPlatform(process) };
 
 /***********
  *  custom  *
