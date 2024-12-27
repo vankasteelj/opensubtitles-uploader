@@ -8,6 +8,7 @@ const nwVersion = '0.76.0',
     availablePlatforms = ['linux32', 'linux64', 'win32', 'osx64'],
     releasesDir = 'build';
 
+
 /*************** 
  * dependencies *
  ***************/
