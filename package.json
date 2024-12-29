@@ -52,7 +52,7 @@
         "jshint": "^2.12.0",
         "jshint-stylish": "^2.2.1",
         "modclean": "^3.0.0-beta.1",
-        "nw-builder": "3.5.7",
+        "nw-builder": "3.8.5",
         "run-sequence": "^2.2.1",
         "yargs": "^16.2.0"
     }
