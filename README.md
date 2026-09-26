@@ -26,7 +26,7 @@ Confused? Wondering how to use it? Watch the [tutorial video](http://www.youtube
   - A: I'm no longer actively maintaining linux builds due to limited time available. You can try to build the application yourself (see below how) and report on improvements/enhancements needed in order to ship those binaries as well in the future.
 
 - Q: I'm using OSX, can I use the app?
-  - A: You could try to build the OSX x64 (for Intel) and emulate it on Apple Silicon or try to build manually the app with the compatible nwjs binaries alongside node_modules and this repo files. 
+  - A: You could try to build the OSX x64 (for Intel) and emulate it on Apple Silicon or try to build manually the app with the compatible nwjs binaries alongside node_modules and this repo files. There is also an independent native macOS app (Swift/SwiftUI, Apple Silicon and Intel) based on this project: [OpenSubtitles Uploader for Mac](https://github.com/drzaphod85/opensubtitles-uploader). It is maintained separately, so please report issues with it there.
 
 ## Get involved
 Here's a few easy ways of getting involved with the project:
