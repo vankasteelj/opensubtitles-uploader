@@ -4,3 +4,4 @@ build
 cache
 Thumbs*
 package-lock.json
+dist
