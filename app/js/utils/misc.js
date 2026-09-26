@@ -1,5 +1,8 @@
 'use strict';
 
+// SECURITY: TMDB API key must be supplied via environment variable, never hardcoded in source
+const TMDB_API_KEY = process.env.TMDB_API_KEY || '';
+
 const Misc = {
 
     // AUTO or USERINTERACTION: open url in browser
@@ -94,7 +97,7 @@ const Misc = {
         console.info('Looking online for a fanart...');
 
         return new Promise((resolve, reject) => {
-            got('https://api.themoviedb.org/3/find/' + id + '?api_key=27075282e39eea76bd9626ee5d3e767b&external_source=imdb_id').then((r) => {
+            got('https://api.themoviedb.org/3/find/' + id + '?api_key=' + TMDB_API_KEY + '&external_source=imdb_id').then((r) => {
                 let res = {body: JSON.parse(r.body)};
                 let image;
                 const url = 'https://image.tmdb.org/t/p/';
@@ -109,7 +112,7 @@ const Misc = {
                 resolve(url+size+image);
             }).catch((error) => {
                 if (Misc.TmpMetadata) {
-                    got('https://api.themoviedb.org/3/search/multi?api_key=27075282e39eea76bd9626ee5d3e767b&query=' + Misc.TmpMetadata.title.replace(/\W/g, ' ')).then((r) => {
+                    got('https://api.themoviedb.org/3/search/multi?api_key=' + TMDB_API_KEY + '&query=' + Misc.TmpMetadata.title.replace(/\W/g, ' ')).then((r) => {
                         let res = {body: JSON.parse(r.body)};    
                         let image;
                         const url = 'https://image.tmdb.org/t/p/';
