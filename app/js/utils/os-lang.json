@@ -1,4 +1,9 @@
 {
+    "Abkhazian": {
+        "code": "abk",
+        "native": "Аҧсуа",
+        "iso6391": "ab"
+    },
     "Afrikaans": {
         "code": "afr",
         "native": "Afrikaans",
@@ -9,15 +14,39 @@
         "native": "Shqip",
         "iso6391": "sq"
     },
+    "Amharic": {
+        "code": "amh",
+        "native": "አማርኛ",
+        "iso6391": "am"
+    },
     "Arabic": {
         "code": "ara",
         "native": "العربية",
         "iso6391": "ar"
     },
+    "Aragonese": {
+        "code": "arg",
+        "native": "Aragonés",
+        "iso6391": "an"
+    },
     "Armenian": {
         "code": "arm",
         "native": "Հայերեն",
         "iso6391": "hy"
+    },
+    "Assamese": {
+        "code": "asm",
+        "native": "অসমীয়া",
+        "iso6391": "as"
+    },
+    "Asturian": {
+        "code": "ast",
+        "native": "Asturianu"
+    },
+    "Azerbaijani": {
+        "code": "aze",
+        "native": "Azərbaycan dili",
+        "iso6391": "az"
     },
     "Basque": {
         "code": "baq",
@@ -59,6 +88,15 @@
         "native": "Català",
         "iso6391": "ca"
     },
+    "Chinese (bilingual)": {
+        "code": "zhe",
+        "native": "中文",
+        "iso6391": "zh"
+    },
+    "Chinese (Cantonese)": {
+        "code": "zhc",
+        "native": "粵語"
+    },
     "Chinese (simplified)": {
         "code": "chi",
         "native": "简体中文",
@@ -69,10 +107,15 @@
         "native": "正體中文",
         "iso6391": "zh-tw"
     },
-    "Chinese (bilingual)": {
-        "code": "zhe",
-        "native": "中文",
-        "iso6391": "zh"
+    "Chuvash": {
+        "code": "chv",
+        "native": "Чӑвашла",
+        "iso6391": "cv"
+    },
+    "Croatian": {
+        "code": "hrv",
+        "native": "Hrvatski",
+        "iso6391": "hr"
     },
     "Czech": {
         "code": "cze",
@@ -83,6 +126,10 @@
         "code": "dan",
         "native": "Dansk",
         "iso6391": "da"
+    },
+    "Dari": {
+        "code": "prs",
+        "native": "دری"
     },
     "Dutch": {
         "code": "dut",
@@ -104,6 +151,10 @@
         "native": "Eesti",
         "iso6391": "et"
     },
+    "Extremaduran": {
+        "code": "ext",
+        "native": "Estremeñu"
+    },
     "Finnish": {
         "code": "fin",
         "native": "Suomi",
@@ -114,6 +165,16 @@
         "native": "Français",
         "iso6391": "fr"
     },
+    "Gaelic": {
+        "code": "gla",
+        "native": "Gàidhlig",
+        "iso6391": "gd"
+    },
+    "Galician": {
+        "code": "glg",
+        "native": "Galego",
+        "iso6391": "gl"
+    },
     "Georgian": {
         "code": "geo",
         "native": "ქართული",
@@ -123,11 +184,6 @@
         "code": "ger",
         "native": "Deutsch",
         "iso6391": "de"
-    },
-    "Galician": {
-        "code": "glg",
-        "native": "Galego",
-        "iso6391": "gl"
     },
     "Greek": {
         "code": "ell",
@@ -144,11 +200,6 @@
         "native": "हिन्दी",
         "iso6391": "hi"
     },
-    "Croatian": {
-        "code": "hrv",
-        "native": "Hrvatski",
-        "iso6391": "hr"
-    },
     "Hungarian": {
         "code": "hun",
         "native": "Magyar",
@@ -159,10 +210,25 @@
         "native": "Íslenska",
         "iso6391": "is"
     },
+    "Igbo": {
+        "code": "ibo",
+        "native": "Igbo",
+        "iso6391": "ig"
+    },
     "Indonesian": {
         "code": "ind",
         "native": "Bahasa Indonesia",
         "iso6391": "id"
+    },
+    "Interlingua": {
+        "code": "ina",
+        "native": "Interlingua",
+        "iso6391": "ia"
+    },
+    "Irish": {
+        "code": "gle",
+        "native": "Gaeilge",
+        "iso6391": "ga"
     },
     "Italian": {
         "code": "ita",
@@ -173,6 +239,15 @@
         "code": "jpn",
         "native": "日本語",
         "iso6391": "ja"
+    },
+    "Japanese bilingual": {
+        "code": "jpe",
+        "native": "日本語 (bilingual)"
+    },
+    "Kannada": {
+        "code": "kan",
+        "native": "ಕನ್ನಡ",
+        "iso6391": "kn"
     },
     "Kazakh": {
         "code": "kaz",
@@ -188,6 +263,21 @@
         "code": "kor",
         "native": "한국어",
         "iso6391": "ko"
+    },
+    "Kurdish": {
+        "code": "kur",
+        "native": "Kurdî",
+        "iso6391": "ku"
+    },
+    "Kyrgyz": {
+        "code": "kir",
+        "native": "Кыргызча",
+        "iso6391": "ky"
+    },
+    "Lao": {
+        "code": "lao",
+        "native": "ລາວ",
+        "iso6391": "lo"
     },
     "Latvian": {
         "code": "lav",
@@ -209,18 +299,23 @@
         "native": "македонски јазик",
         "iso6391": "mk"
     },
-    "Malayalam": {
-        "code": "mal",
-        "native": "മലയാളം",
-        "iso6391": "ml"
-    },
     "Malay": {
         "code": "may",
         "native": "بهاس ملايو",
         "iso6391": "ms"
     },
+    "Malayalam": {
+        "code": "mal",
+        "native": "മലയാളം",
+        "iso6391": "ml"
+    },
     "Manipuri": {
         "code": "mni"
+    },
+    "Marathi": {
+        "code": "mar",
+        "native": "मराठी",
+        "iso6391": "mr"
     },
     "Mongolian": {
         "code": "mon",
@@ -229,6 +324,21 @@
     },
     "Montenegrin": {
         "code": "mne"
+    },
+    "Navajo": {
+        "code": "nav",
+        "native": "Diné bizaad",
+        "iso6391": "nv"
+    },
+    "Nepali": {
+        "code": "nep",
+        "native": "नेपाली",
+        "iso6391": "ne"
+    },
+    "Northern Sami": {
+        "code": "sme",
+        "native": "Davvisámegiella",
+        "iso6391": "se"
     },
     "Norwegian": {
         "code": "nor",
@@ -239,6 +349,11 @@
         "code": "oci",
         "native": "Occitan",
         "iso6391": "oc"
+    },
+    "Odia": {
+        "code": "ori",
+        "native": "ଓଡ଼ିଆ",
+        "iso6391": "or"
     },
     "Persian": {
         "code": "per",
@@ -260,6 +375,19 @@
         "native": "Português (Brasil)",
         "iso6391": "pt-br"
     },
+    "Portuguese (MZ)": {
+        "code": "pom",
+        "native": "Português (Moçambique)"
+    },
+    "Pushto": {
+        "code": "pus",
+        "native": "پښتو",
+        "iso6391": "ps"
+    },
+    "Rakhine": {
+        "code": "rki",
+        "native": "ရခိုင်"
+    },
     "Romanian": {
         "code": "rum",
         "native": "Română",
@@ -270,10 +398,19 @@
         "native": "русский язык",
         "iso6391": "ru"
     },
+    "Santali": {
+        "code": "sat",
+        "native": "ᱥᱟᱱᱛᱟᱲᱤ"
+    },
     "Serbian": {
         "code": "scc",
         "native": "српски језик",
         "iso6391": "sr"
+    },
+    "Sindhi": {
+        "code": "snd",
+        "native": "سنڌي",
+        "iso6391": "sd"
     },
     "Sinhalese": {
         "code": "sin",
@@ -290,10 +427,35 @@
         "native": "Slovenščina",
         "iso6391": "sl"
     },
+    "Somali": {
+        "code": "som",
+        "native": "Soomaali",
+        "iso6391": "so"
+    },
+    "Sorbian languages": {
+        "code": "wen",
+        "native": "Serbsce"
+    },
+    "South Azerbaijani": {
+        "code": "azb",
+        "native": "تۆرکجه"
+    },
     "Spanish": {
         "code": "spa",
         "native": "Español",
         "iso6391": "es"
+    },
+    "Spanish (EU)": {
+        "code": "spn",
+        "native": "Español (España)"
+    },
+    "Spanish (LA)": {
+        "code": "spl",
+        "native": "Español (Latinoamérica)"
+    },
+    "Standard Moroccan Amazigh": {
+        "code": "zgh",
+        "native": "ⵜⴰⵎⴰⵣⵉⵖⵜ"
     },
     "Swahili": {
         "code": "swa",
@@ -308,30 +470,48 @@
     "Syriac": {
         "code": "syr"
     },
+    "Tagalog": {
+        "code": "tgl",
+        "native": "Wikang Tagalog",
+        "iso6391": "tl"
+    },
     "Tamil": {
         "code": "tam",
         "native": "தமிழ்",
         "iso6391": "ta"
+    },
+    "Tatar": {
+        "code": "tat",
+        "native": "Татарча",
+        "iso6391": "tt"
     },
     "Telugu": {
         "code": "tel",
         "native": "తెలుగు",
         "iso6391": "te"
     },
-    "Tagalog": {
-        "code": "tgl",
-        "native": "Wikang Tagalog",
-        "iso6391": "tl"
+    "Tetum": {
+        "code": "tet",
+        "native": "Tetun"
     },
     "Thai": {
         "code": "tha",
         "native": "ไทย",
         "iso6391": "th"
     },
+    "Toki Pona": {
+        "code": "tok",
+        "native": "toki pona"
+    },
     "Turkish": {
         "code": "tur",
         "native": "Türkçe",
         "iso6391": "tr"
+    },
+    "Turkmen": {
+        "code": "tuk",
+        "native": "Türkmençe",
+        "iso6391": "tk"
     },
     "Ukrainian": {
         "code": "ukr",
@@ -343,9 +523,24 @@
         "native": "اردو",
         "iso6391": "ur"
     },
+    "Uzbek": {
+        "code": "uzb",
+        "native": "Oʻzbek",
+        "iso6391": "uz"
+    },
     "Vietnamese": {
         "code": "vie",
         "native": "Tiếng Việt",
         "iso6391": "vi"
+    },
+    "Welsh": {
+        "code": "wel",
+        "native": "Cymraeg",
+        "iso6391": "cy"
+    },
+    "Zulu": {
+        "code": "zul",
+        "native": "isiZulu",
+        "iso6391": "zu"
     }
 }

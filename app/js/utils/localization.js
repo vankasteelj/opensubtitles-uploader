@@ -3,7 +3,7 @@
 const Localization = {
 
     // cache
-    availableLocales: ['en', 'fr', 'ar', 'el', 'es', 'eu', 'hi', 'it', 'nl', 'de', 'fa', 'fi', 'pl', 'pt', 'pt-br', 'ro', 'sk', 'tr', 'uk', 'zh'],
+    availableLocales: ['en', 'fr', 'ar', 'el', 'es', 'eu', 'hi', 'it', 'nl', 'de', 'fa', 'fi', 'pl', 'pt', 'pt-br', 'ro', 'sk', 'tr', 'uk', 'zh', 'sv', 'da', 'no', 'is'],
     detectedLocale: false,
 
     // STARTUP: load i18n and set locales, then localize app
