@@ -15,7 +15,6 @@ const nwVersion = '0.76.0',
 const gulp = require('gulp'),
     glp = require('gulp-load-plugins')(),
     runSequence = require('run-sequence'),
-    nwBuilder = require('nw-builder'),
     del = require('del'),
     yargs = require('yargs'),
     fs = require('fs'),
@@ -25,8 +24,20 @@ const gulp = require('gulp'),
     pkJson = require('./package.json'),
     modClean = require('modclean').ModClean;
 
-const { detectCurrentPlatform } = require("nw-builder/dist/index.cjs");
-const currentPlatform = () => { return detectCurrentPlatform(process) };
+// const nwbuild = require("nw-builder");
+// const { detectCurrentPlatform } = require("nw-builder/dist/index.cjs");
+// const currentPlatform = () => { return detectCurrentPlatform(process) };
+
+const { getPlatform } = require("./app/js/vendor/platform.js");
+const currentPlatform = () => { return getPlatform(process.platform) };
+// console.log(process.platform);
+// console.log(currentPlatform());
+
+// const { nwbuild } = require("nw-builder");
+// https://github.com/nwutils/nw-builder/pull/910/files#diff-ded7d82adc6eea35c2e80c2cf91ea002bd00db3073decc2812add012d5872efcR33
+//import { arch as ARCH, platform as PLATFORM } from "node:process";
+//import { EXE_NAME, ARCH_KV, PLATFORM_KV } from "nw-builder/util.js";
+
 
 /***********
  *  custom  *
@@ -144,36 +155,46 @@ gulp.task('default', () => {
 });
 
 // download and compile nwjs
-gulp.task('nwjs', () => {
+gulp.task('nwjs', async () => {
     const nwOptions = {
-        files: ['./app/**', './package.json', './README.md', './node_modules/**'],
-        buildDir: releasesDir,
-        appName: pkJson.name,
-        appVersion: pkJson.version,
-        zip: false,
+        srcDir: ['./app/**', './package.json', './README.md', './node_modules/**'],
+        outDir: releasesDir,
+        app: pkJson.name,
         version: nwVersion,
+        zip: false,
         flavor: flavor,
-        platforms: parsePlatforms()
+        mode: "build",
+        //platforms: parsePlatforms()
+        platform: currentPlatform(),
+        arch: "x64",
     };
 
     // windows-only (or wine): replace icon & VersionInfo1.res
     if (currentPlatform().indexOf('win') !== -1) {
-        nwOptions.winIco = pkJson.icon;
-        nwOptions.winVersionString = {
-            Comments: pkJson.description,
-            CompanyName: pkJson.homepage,
-            FileDescription: pkJson.releaseName,
-            FileVersion: pkJson.version,
-            InternalName: pkJson.name,
-            OriginalFilename: pkJson.name + '.exe',
-            ProductName: pkJson.releaseName,
-            ProductVersion: pkJson.version
+        // nwOptions.winIco = pkJson.icon;
+        nwOptions.app = {
+            icon: pkJson.icon,
+            comments: pkJson.description,
+            company: pkJson.homepage,
+            fileDescription: pkJson.releaseName,
+            fileVersion: pkJson.version,
+            internalName: pkJson.name,
+            originalFilename: pkJson.name + '.exe',
+            productName: pkJson.releaseName,
+            productVersion: pkJson.version
         };
     }
 
-    const nw = new nwBuilder(nwOptions).on('log', console.log);
+    let nwbuild;
+    import("nw-builder")
+    .then((obj) => {
+        nwbuild = obj;
+    })
+    .catch((error) => {
+        console.error(error);
+    });
 
-    return nw.build();
+    return () => nwbuild(nwOptions).on('log', console.log);
 });
 
 // compile nsis installer
